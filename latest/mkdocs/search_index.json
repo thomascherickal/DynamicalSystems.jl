@@ -1,0 +1,44 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "DynamicalSystems.jl\n is a Julia package for the exploration of continuous and discrete dynamical systems. it aims to be a useful and powerful companion for students and scientists treading on the field of Chaos, nonlinear dynamics and dynamical systems in general. The package treats discrete and continuous systems of the forms:\n\n\n\n\n\n\\frac{d\\vec{u}}{dt} = \\vec{f}(\\vec{u}) \\quad \\text{or}\\quad \\vec{x}_{n+1} = \\vec{f}(\\vec{x}_n)\n\n\n\n\n\nas well as numerical data. More information is contained in the \nSystems Definition\n page.\n\n\nThis is the (non-final) list of what this package aims to offer:\n\n\n\n\nIntuitive, consistent APIs for the definition of dynamical systems.\n\n\nAutomatic \"completion\" of the dynamics of the system with numerically computed\n\n\n\n\nJacobians, in case they are not provided by the user.\n\n\n\n\nLyapunov exponent estimation.\n\n\nEntropy estimation.\n\n\nAttractor dimension estimation.\n\n\nEntropy/Attractor dimension/Lyapunov exponents for \nnumerical data\n.\n\n\nChaos control.\n\n\nOther stuff I have not yet decided upon, since this is like a pre-alpha version.\n\n\nSuggest or Contribute more stuff! (see contributors guide).", 
+            "title": "Introduction"
+        }, 
+        {
+            "location": "/system_definition/", 
+            "text": "For \nDynamicalSystems.jl\n a system is simple a structure that contains the system's state, the equations of motion and the Jacobian. The last two are \nfunctions\n that take as an input a state.\n\n\nBy taking advantage of the package \nForwardDiff.jl\n an automated Jacobian function can always be supplemented by the package. More details are enclosed in the indivivdual sections, however the documentation strings of all the constructors are also self-contained.\n\n\n\n\nNon-autonomous systems\n\n\nThis package does \nnot\n accept non-autonomous systems. To use such systems with this package increase the dimensionality of your system by 1, by introducing an additional variable $\\tau$ such that $d\\tau/dt = 1$ (or $\\tau_{n+1} = \\tau_n + 1$). This additional variable will serve as the \"time\" in your equations of motion.\n\n\n\n\n\n\nDiscrete Systems\n\n\nDiscrete systems are of the form: $\\vec{x}_{n+1} = \\vec{f}(\\vec{x}_n)$. The Type representing such a system is called \nDiscreteDS\n and it is immutable. The reason for the choice of immutable type is simply speed: it is faster than the mutable when evolving it.\n\n\nThe constructor is:\n\n\nDiscreteDS\n(\nstate\n,\n \neom\n \n[,\n \njacob\n])\n\n\n\n\n\n\nHere \nstate\n is simply the state the system starts (a.k.a. initial conditions) and \neom\n is a \nfunction\n that takes a state $\\vec{x}\n{n}$ as an input and returns the next state $\\vec{x}\n$ as an output.\n\n\nThe \njacob\n is also a \nfunction\n that takes a state as an input and returns the Jacobian matrix of the system. This however is optional and if not provided by the user, will be calculated automatically using the package \nForwardDiff.jl\n.\n\n\n\n\nReturn form of the \neom\n function\n\n\nIt is \nheavilty\n advised that the equations of motion \neom\n function returns an \nSVector\n from the julia package \nStaticArrays.jl\n and similarly the \njacob\n function returns an \nSMatrix\n. \nNumerous benchmarks\n have been made in order to deduce the most efficient possible way to define a system, and this way was proved to be the best.\n\n\n\n\n\n\n1-dimensional Discrete Systems\n\n\nasdf\n\n\n\n\nContinuous Systems\n\n\nasf\n\n\n\n\nPre-Defined Systems\n\n\nasf\n\n\n\n\nNumerical Data\n\n\nasf\n\n\n\n\nConvenience Functions\n\n\nasf", 
+            "title": "System Definition"
+        }, 
+        {
+            "location": "/system_definition/#discrete-systems", 
+            "text": "Discrete systems are of the form: $\\vec{x}_{n+1} = \\vec{f}(\\vec{x}_n)$. The Type representing such a system is called  DiscreteDS  and it is immutable. The reason for the choice of immutable type is simply speed: it is faster than the mutable when evolving it.  The constructor is:  DiscreteDS ( state ,   eom   [,   jacob ])   Here  state  is simply the state the system starts (a.k.a. initial conditions) and  eom  is a  function  that takes a state $\\vec{x} {n}$ as an input and returns the next state $\\vec{x} $ as an output.  The  jacob  is also a  function  that takes a state as an input and returns the Jacobian matrix of the system. This however is optional and if not provided by the user, will be calculated automatically using the package  ForwardDiff.jl .   Return form of the  eom  function  It is  heavilty  advised that the equations of motion  eom  function returns an  SVector  from the julia package  StaticArrays.jl  and similarly the  jacob  function returns an  SMatrix .  Numerous benchmarks  have been made in order to deduce the most efficient possible way to define a system, and this way was proved to be the best.", 
+            "title": "Discrete Systems"
+        }, 
+        {
+            "location": "/system_definition/#1-dimensional-discrete-systems", 
+            "text": "asdf", 
+            "title": "1-dimensional Discrete Systems"
+        }, 
+        {
+            "location": "/system_definition/#continuous-systems", 
+            "text": "asf", 
+            "title": "Continuous Systems"
+        }, 
+        {
+            "location": "/system_definition/#pre-defined-systems", 
+            "text": "asf", 
+            "title": "Pre-Defined Systems"
+        }, 
+        {
+            "location": "/system_definition/#numerical-data", 
+            "text": "asf", 
+            "title": "Numerical Data"
+        }, 
+        {
+            "location": "/system_definition/#convenience-functions", 
+            "text": "asf", 
+            "title": "Convenience Functions"
+        }
+    ]
+}
