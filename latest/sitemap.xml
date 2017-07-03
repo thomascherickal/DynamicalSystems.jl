@@ -4,7 +4,7 @@
     
     <url>
      <loc>/</loc>
-     <lastmod>2017-07-02</lastmod>
+     <lastmod>2017-07-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -12,7 +12,15 @@
     
     <url>
      <loc>/system_definition/</loc>
-     <lastmod>2017-07-02</lastmod>
+     <lastmod>2017-07-03</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/lyapunovs/</loc>
+     <lastmod>2017-07-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
     

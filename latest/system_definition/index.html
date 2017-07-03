@@ -237,6 +237,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#large-discrete-systems" title="Large Discrete Systems" class="md-nav__link">
+    Large Discrete Systems
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#1-dimensional-discrete-systems" title="1-dimensional Discrete Systems" class="md-nav__link">
     1-dimensional Discrete Systems
   </a>
@@ -256,8 +263,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pre-defined-systems" title="Pre-Defined Systems" class="md-nav__link">
-    Pre-Defined Systems
+  <a href="#predefined-systems" title="Predefined Systems" class="md-nav__link">
+    Predefined Systems
   </a>
   
 </li>
@@ -282,6 +289,18 @@
   
 </nav>
     
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../lyapunovs/" title="Lyapunov Exponents" class="md-nav__link">
+      Lyapunov Exponents
+    </a>
   </li>
 
     
@@ -314,6 +333,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#large-discrete-systems" title="Large Discrete Systems" class="md-nav__link">
+    Large Discrete Systems
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#1-dimensional-discrete-systems" title="1-dimensional Discrete Systems" class="md-nav__link">
     1-dimensional Discrete Systems
   </a>
@@ -333,8 +359,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pre-defined-systems" title="Pre-Defined Systems" class="md-nav__link">
-    Pre-Defined Systems
+  <a href="#predefined-systems" title="Predefined Systems" class="md-nav__link">
+    Predefined Systems
   </a>
   
 </li>
@@ -372,7 +398,7 @@
                 
                 <p><a id='System-Definition-1'></a></p>
 <h1 id="system-definition">System Definition</h1>
-<p>For <code>DynamicalSystems.jl</code> a system is simple a structure that contains the system's state, the equations of motion and the Jacobian. The last two are <em>functions</em> that take as an input a state.</p>
+<p>For <code>DynamicalSystems.jl</code> a system is simple a structure that contains the system's state, the equations of motion and the Jacobian. The last two are <em>functions</em> that take as an input a state. This page treats systems where one already <strong>knows the equations of motion</strong>.</p>
 <p>By taking advantage of the package <a href="https://github.com/JuliaDiff/ForwardDiff.jl"><code>ForwardDiff.jl</code></a> an automated Jacobian function can always be supplemented by the package. More details are enclosed in the indivivdual sections, however the documentation strings of all the constructors are also self-contained.</p>
 <div class="admonition warning">
 <p class="admonition-title">Non-autonomous systems</p>
@@ -380,33 +406,69 @@
 </div>
 <p><a id='Discrete-Systems-1'></a></p>
 <h2 id="discrete-systems">Discrete Systems</h2>
-<p>Discrete systems are of the form: $\vec{x}_{n+1} = \vec{f}(\vec{x}_n)$. The Type representing such a system is called <code>DiscreteDS</code> and it is immutable. The reason for the choice of immutable type is simply speed: it is faster than the mutable when evolving it.</p>
+<p>Discrete systems are of the form:</p>
+<p>
+<script type="math/tex; mode=display">
+\vec{x}_{n+1} = \vec{f}(\vec{x}_n).
+</script>
+</p>
+<p>The Type representing such systems for dimensionality <code>D ≤ 10</code> is called <code>DiscreteDS</code>.</p>
 <p>The constructor is:</p>
 <div class="codehilite"><pre><span></span><span class="n">DiscreteDS</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">eom</span> <span class="p">[,</span> <span class="n">jacob</span><span class="p">])</span>
 </pre></div>
 
 
-<p>Here <code>state</code> is simply the state the system starts (a.k.a. initial conditions) and <code>eom</code> is a <em>function</em> that takes a state $\vec{x}<em n_1="n+1">{n}$ as an input and returns the next state $\vec{x}</em>$ as an output.</p>
-<p>The <code>jacob</code> is also a <em>function</em> that takes a state as an input and returns the Jacobian matrix of the system. This however is optional and if not provided by the user, will be calculated automatically using the package <code>ForwardDiff.jl</code>.</p>
+<p>Here <code>state</code> is simply the state the system starts (a.k.a. initial conditions) and <code>eom</code> is a <em>function</em> that takes a <code>state</code> as an input and returns the next state as an output.</p>
+<p>The <code>jacob</code> is also a <em>function</em> that takes a <code>state</code> as an input and returns the Jacobian matrix of the system (at this state). This however is optional and if not provided by the user, will be calculated automatically using the package <code>ForwardDiff.jl</code>.</p>
 <div class="admonition tip">
-<p class="admonition-title">Return form of the <code>eom</code> function</p>
-<p>It is <strong>heavilty</strong> advised that the equations of motion <code>eom</code> function returns an <code>SVector</code> from the julia package <a href="https://www.google.de/search?q=julia+staticarrays&amp;ie=utf-8&amp;oe=utf-8&amp;client=firefox-b-ab&amp;gfe_rd=cr&amp;ei=J0dSWdXTObLPXqvhj9AE"><code>StaticArrays.jl</code></a> and similarly the <code>jacob</code> function returns an <code>SMatrix</code>. <a href="https://github.com/Datseris/DynamicalSystems.jl/tree/master/test/benchmarks">Numerous benchmarks</a> have been made in order to deduce the most efficient possible way to define a system, and this way was proved to be the best.</p>
+<p class="admonition-title">Return form of the <code>eom</code> function for small <code>D</code></p>
+<p>It is <strong>heavily</strong> advised that the equations of motion <code>eom</code> function returns an <code>SVector</code> from the julia package <a href="https://www.google.de/search?q=julia+staticarrays&amp;ie=utf-8&amp;oe=utf-8&amp;client=firefox-b-ab&amp;gfe_rd=cr&amp;ei=J0dSWdXTObLPXqvhj9AE"><code>StaticArrays.jl</code></a> and similarly the <code>jacob</code> function returns an <code>SMatrix</code>. <a href="https://github.com/Datseris/DynamicalSystems.jl/tree/master/test/benchmarks">Numerous benchmarks</a> have been made in order to deduce the most efficient possible way to define a system, and this way was proved to be the best.</p>
 </div>
+<p>For example, let's create one of the <a href="#Predefined-systems">Predefined Systems</a> offered by this package, the Hénon map:</p>
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
+<span class="k">using</span> <span class="n">StaticArrays</span> <span class="c">#only necessary when defining a system</span>
+
+<span class="n">eom_henon</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="n">SVector</span><span class="p">{</span><span class="mi">2</span><span class="p">}(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">b</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">jacob_henon</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="nd">@SMatrix</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="mf">1.0</span><span class="p">;</span> <span class="n">b</span> <span class="mf">0.0</span><span class="p">]</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">DiscreteDS</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">eom_henon</span><span class="p">,</span> <span class="n">jacob_henon</span><span class="p">)</span>
+</pre></div>
+
+
+<p>If we did not want to write a Jacobian (due to e.g. unending laziness), we could</p>
+<div class="codehilite"><pre><span></span><span class="n">ds_nojac</span> <span class="o">=</span> <span class="n">DiscreteDS</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">eom_henon</span><span class="p">)</span>
+</pre></div>
+
+
+<p>and the Jacobian function would be created automatically.</p>
+<p><a id='Large-Discrete-Systems-1'></a></p>
+<h3 id="large-discrete-systems">Large Discrete Systems</h3>
+<p>TBA</p>
 <p><a id='dimensional-Discrete-Systems-1'></a></p>
 <h3 id="1-dimensional-discrete-systems">1-dimensional Discrete Systems</h3>
-<p>asdf</p>
+<p>In the case of maps, there a special structure for one-dimensional systems, since they are commonly used in scientific research. The syntax is <code>DiscreteDS1D(state, eom [, deriv])</code>. In this one-dimensional case, you don't need to worry about <code>StaticArrays.jl</code> because everything is in plain numbers. For example:</p>
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
+
+<span class="nd">@inline</span> <span class="n">eom_logistic</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">r</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">)</span>  <span class="c"># this is a closure</span>
+<span class="nd">@inline</span> <span class="n">deriv_logistic</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">r</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">2</span><span class="n">x</span><span class="p">)</span> <span class="c"># this is a closure</span>
+<span class="n">r</span> <span class="o">=</span> <span class="mf">3.7</span>
+<span class="n">logistic</span> <span class="o">=</span> <span class="n">DiscreteDS1D</span><span class="p">(</span><span class="n">rand</span><span class="p">(),</span> <span class="n">eom_logistic</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="n">deriv_logistic</span><span class="p">(</span><span class="n">r</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Once again, if you skip the derivative functions it will be calculated automatically using <code>ForwardDiff.jl</code>.</p>
 <p><a id='Continuous-Systems-1'></a></p>
 <h2 id="continuous-systems">Continuous Systems</h2>
-<p>asf</p>
-<p><a id='Pre-Defined-Systems-1'></a></p>
-<h2 id="pre-defined-systems">Pre-Defined Systems</h2>
-<p>asf</p>
+<p>TBA</p>
+<p><a id='Predefined-Systems-1'></a></p>
+<h2 id="predefined-systems">Predefined Systems</h2>
+<p>TBA</p>
 <p><a id='Numerical-Data-1'></a></p>
 <h2 id="numerical-data">Numerical Data</h2>
-<p>asf</p>
+<p>TBA</p>
 <p><a id='Convenience-Functions-1'></a></p>
 <h2 id="convenience-functions">Convenience Functions</h2>
-<p>asf</p>
+<p>TBA</p>
                 
                   
                 
@@ -439,6 +501,20 @@
             </div>
           </a>
         
+        
+          <a href="../lyapunovs/" title="Lyapunov Exponents" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Lyapunov Exponents
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
         
       </nav>
     </div>
