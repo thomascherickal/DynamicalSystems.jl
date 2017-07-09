@@ -371,16 +371,16 @@
 </pre></div>
 
 
-<p>Calculate the spectrum of lyapunov exponents [1] of the system <code>ds</code> by applying the QR-decomposition method [2] <code>N</code> times. Returns a vector with the <em>final</em> values of the lyapunov exponents, ordered from bigger to smaller.</p>
+<p>Calculate the spectrum of lyapunov exponents [1] of <code>ds</code> by applying the QR-decomposition method <code>N</code> times (see method "H2" of [2]). Returns a vector with the <em>final</em> values of the lyapunov exponents in descending order.</p>
 <p><strong>Keyword Arguments:</strong></p>
 <ul>
 <li><code>Ttr</code> : Extra "transient" time to evolve the system before application of the algorithm. Should be <code>Int</code> for discrete systems. Defaults are system type dependent.</li>
 <li><code>dt = 1.0</code> : (only for continuous) Time of individual evolutions between sucessive orthonormalization steps.</li>
 <li><code>diff_eq_kwargs = Dict()</code> : (only for continuous) Keyword arguments passed into the solvers of the <code>DifferentialEquations</code> package (see <code>evolve</code> or <code>timeseries</code> for more info).</li>
 </ul>
-<p>[1] : A.M. Lyapunov, <em>The General Problem of the Stability of Motion</em>, Taylor &amp; Francis (1992)</p>
+<p>[1] : A. M. Lyapunov, <em>The General Problem of the Stability of Motion</em>, Taylor &amp; Francis (1992)</p>
 <p>[2] : K. Geist <em>et al</em>, Progr. Theor. Phys. <strong>83</strong>, pp 875 (1990)</p>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/56201e07aa0b6e80dba87caa49ef9ce98fbd0131/src/lyapunovs.jl#L5-L26' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/ac7037696c92918d3dbd714c80ec6112650cf40d/src/lyapunovs.jl#L5-L27' class='documenter-source'>source</a><br></p>
 <p>As you can see, the documentation string is detailed and self-contained. For example, the lyapunov spectrum of the <a href="http://www.scholarpedia.org/article/Hyperchaos">folded towel map</a> is calculated as:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
 
@@ -422,9 +422,9 @@
 <li><code>diff_eq_kwargs = Dict()</code> : (only for continuous) Keyword arguments passed into the solvers of the <code>DifferentialEquations</code> package (see <code>evolve</code> or <code>timeseries</code> for more info).</li>
 <li><code>dt = 0.1</code> : (only for continuous) Time of evolution between each check of distance e0xceeding the <code>threshold</code>.</li>
 </ul>
-<p><em>Warning</em>: Default values have been choosen to give accurate &amp; fast results for maximum lyapunov exponent expected between 0.1 to 1.0. Be sure to adjust them properly for your system.</p>
-<p>[1] : Benettin <em>et al.</em>, Phys. Rev. A <strong>14</strong>, pp 2338 (1976)</p>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/56201e07aa0b6e80dba87caa49ef9ce98fbd0131/src/lyapunovs.jl#L55-L80' class='documenter-source'>source</a><br></p>
+<p><em>Warning</em>: Default values have been choosen to give accurate &amp; fast results for maximum lyapunov exponent expected between 0.1 to 1.0. Be sure to adjust them properly for your system. Specifically for the continuous systems, be sure that <code>exp(λ*dt) &lt; d0 - threshold</code>.</p>
+<p>[1] : G. Benettin <em>et al.</em>, Phys. Rev. A <strong>14</strong>, pp 2338 (1976)</p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/ac7037696c92918d3dbd714c80ec6112650cf40d/src/lyapunovs.jl#L56-L82' class='documenter-source'>source</a><br></p>
 <p>For example:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
 
