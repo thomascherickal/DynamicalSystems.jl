@@ -25,4 +25,20 @@
     </url>
     
 
+    
+    <url>
+     <loc>/entropies/</loc>
+     <lastmod>2017-07-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>/contributors_guide/</loc>
+     <lastmod>2017-07-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
 </urlset>
