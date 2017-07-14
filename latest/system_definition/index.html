@@ -509,7 +509,7 @@
 <li><code>eom::F</code> (function) : The function that represents the system's equations of motion (also called vector field). The function is of the format: <code>eom(u) -&gt; SVector</code> which means that given a state-vector <code>u</code> it returns an <code>SVector</code> containing the derivatives <code>du</code> at the current state.</li>
 <li><code>jacob::J</code> (function) : A function that calculates the system's jacobian matrix, based on the format: <code>jacob(u) -&gt; SMatrix</code> which means that given a state-vector <code>u</code> it returns an <code>SMatrix</code> containing the Jacobian at that state. If the <code>jacob</code> is not provided by the user, it is created with <em>tremendous</em> efficiency using the module <code>ForwardDiff</code>. Most of the time, for low dimensional systems, this Jacobian is within a few % of speed of a user-defined one.</li>
 </ul>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/111744e62b1a5801d46dddc4b8b60ca8923b2ec5/src/continuous.jl#L9-L25' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/e4501c7fc266360bae11fae92b977145dd91aae1/src/continuous.jl#L9-L25' class='documenter-source'>source</a><br></p>
 <p>Once again, using <code>StaticArrays</code> is preferred.</p>
 <p>For example, the continuous Rössler system can be defined as:</p>
 <div class="codehilite"><pre><span></span><span class="n">eom_roessler</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">=</span>
@@ -541,7 +541,7 @@
 <p>Evolve a <code>state</code> (or the system's state) under the dynamics of <code>ds</code> for total "time" <code>T</code>. For discrete systems <code>T</code> corresponds to steps and thus it must be integer. Returns the final state after evolution.</p>
 <p>The <strong>keyword</strong> argument <code>diff_eq_kwargs</code> (applicable only in <code>ContinuousDS</code>) is a dictionary <code>Dict{Symbol, ANY}</code> of keyword arguments passed into the <code>solve</code> of the <code>DifferentialEquations.jl</code> package, for example <code>Dict(:abstol =&gt; 1e-9)</code>. If you want to specify a solver, do so by using the symbol <code>:solver</code>, e.g.: <code>Dict(:solver =&gt; DP5(), :maxiters =&gt; 1e9)</code>. This requires you to have been first <code>using OrdinaryDiffEq</code> or <code>using DifferentialEquations</code> to access the solvers.</p>
 <p>This function <em>does not store</em> any information about intermediate steps. Use <code>timeseries</code> if you want to produce timeseries of the system.</p>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/111744e62b1a5801d46dddc4b8b60ca8923b2ec5/src/discrete.jl#L93-L113' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/e4501c7fc266360bae11fae92b977145dd91aae1/src/discrete.jl#L93-L113' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.timeseries' href='#DynamicalSystems.timeseries'>#</a>
 <strong><code>DynamicalSystems.timeseries</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="n">timeseries</span><span class="p">(</span><span class="n">ds</span><span class="o">::</span><span class="n">DynamicalSystem</span><span class="p">,</span> <span class="n">T</span><span class="p">;</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
@@ -556,7 +556,7 @@
 <li><code>dt = 0.05</code> : (only for continuous) Time step of value output during the solving of the continuous system.</li>
 <li><code>diff_eq_kwargs = Dict()</code> : (only for continuous) A dictionary <code>Dict{Symbol, ANY}</code> of keyword arguments passed into the <code>solve</code> of the <code>DifferentialEquations.jl</code> package, for example <code>Dict(:abstol =&gt; 1e-9)</code>. If you want to specify a solver, do so by using the symbol <code>:solver</code>, e.g.: <code>Dict(:solver =&gt; DP5(), :maxiters =&gt; 1e9)</code>. This requires you to have been first <code>using OrdinaryDiffEq</code> to access the solvers.</li>
 </ul>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/111744e62b1a5801d46dddc4b8b60ca8923b2ec5/src/discrete.jl#L140-L163' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/e4501c7fc266360bae11fae92b977145dd91aae1/src/discrete.jl#L140-L163' class='documenter-source'>source</a><br></p>
 <p><a id='DiffEqBase.ODEProblem' href='#DiffEqBase.ODEProblem'>#</a>
 <strong><code>DiffEqBase.ODEProblem</code></strong> &mdash; <em>Type</em>.</p>
 <div class="codehilite"><pre><span></span><span class="n">ODEProblem</span><span class="p">(</span><span class="n">ds</span><span class="o">::</span><span class="n">ContinuousDS</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
@@ -564,7 +564,7 @@
 
 
 <p>Return a type <code>ODEProblem</code> with the given system information (t0 is zero). This can be passed directly into <code>solve</code> from <code>DifferentialEquations</code>.</p>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/111744e62b1a5801d46dddc4b8b60ca8923b2ec5/src/continuous.jl#L46-L53' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/e4501c7fc266360bae11fae92b977145dd91aae1/src/continuous.jl#L46-L53' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.evolve!' href='#DynamicalSystems.evolve!'>#</a>
 <strong><code>DynamicalSystems.evolve!</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="n">evolve!</span><span class="p">(</span><span class="n">ds</span><span class="o">::</span><span class="n">DynamicalSystem</span><span class="p">,</span> <span class="n">T</span><span class="p">;</span> <span class="n">diff_eq_kwargs</span> <span class="o">=</span> <span class="kt">Dict</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="n">ds</span>
@@ -572,14 +572,14 @@
 
 
 <p>Evolve (in-place) a dynamical system for total "time" <code>T</code>, setting the final state as the system's state.</p>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/111744e62b1a5801d46dddc4b8b60ca8923b2ec5/src/discrete.jl#L126-L132' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/e4501c7fc266360bae11fae92b977145dd91aae1/src/discrete.jl#L126-L132' class='documenter-source'>source</a><br></p>
 <div class="codehilite"><pre><span></span><span class="n">evolve!</span><span class="p">(</span><span class="n">prob</span><span class="o">::</span><span class="n">ODEProblem</span> <span class="p">[,</span> <span class="n">t</span><span class="o">::</span><span class="kt">Real</span><span class="p">,</span> <span class="n">diff_eq_kwargs</span><span class="o">::</span><span class="kt">Dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">final_state</span>
 </pre></div>
 
 
 <p>Evolve the problem using the solvers of <code>DifferentialEquations</code>, update the problem's state as the final state of the solution and return that state.</p>
 <p>If <code>t</code> is given, the problem is evolved for that much time (else the existing <code>tspan</code> is used). Notice that in this function, <code>diff_eq_kwargs</code> is <em>not</em> a keyword argument.</p>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/111744e62b1a5801d46dddc4b8b60ca8923b2ec5/src/continuous.jl#L88-L98' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/e4501c7fc266360bae11fae92b977145dd91aae1/src/continuous.jl#L88-L98' class='documenter-source'>source</a><br></p>
 <p><a id='Numerical-Data-1'></a></p>
 <h2 id="numerical-data">Numerical Data</h2>
 <p>In the most general case, the numerical data representing the evolution of a system are in the form of time-series. <code>DynamicalSystems.jl</code> accepts two forms of numerical data in the most common function calls:</p>
@@ -616,7 +616,7 @@
 <p>According to the author, it is a system displaying all the properties of the Lorentz system (1963) while being as simple as possible.</p>
 <p>Default values are the ones used in the original paper.</p>
 <p>[1] : M. Hénon, Commun.Math. Phys. <strong>50</strong>, pp 69 (1976)</p>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/111744e62b1a5801d46dddc4b8b60ca8923b2ec5/src/famous_systems.jl#L132-L144' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/e4501c7fc266360bae11fae92b977145dd91aae1/src/famous_systems.jl#L132-L144' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.Systems.logistic' href='#DynamicalSystems.Systems.logistic'>#</a>
 <strong><code>DynamicalSystems.Systems.logistic</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>logistic(x0 = rand(); r = 4.0)
@@ -627,7 +627,7 @@
 <p>Originally intentend to be a discretized model of polulation dynamics, it is now famous for its bifurcation diagram, an immensly complex graph that that was shown be universal by Feigenbaum [2].</p>
 <p>[1] : R. M. May, Nature <strong>261</strong>, pp 459 (1976)</p>
 <p>[2] : M. J. Feigenbaum, J. Stat. Phys. <strong>19</strong>, pp 25 (1978)</p>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/111744e62b1a5801d46dddc4b8b60ca8923b2ec5/src/famous_systems.jl#L152-L165' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/e4501c7fc266360bae11fae92b977145dd91aae1/src/famous_systems.jl#L152-L165' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.Systems.lorenz' href='#DynamicalSystems.Systems.lorenz'>#</a>
 <strong><code>DynamicalSystems.Systems.lorenz</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>lorenz(u0=[0.0, 10.0, 0.0]; σ = 10.0, ρ = 28.0, β = 8/3)
@@ -638,7 +638,7 @@
 <p>Currently, it is most famous for its strange attractor (occuring at the default parameters), which resembles a butterfly. For the same reason it is also associated with the term "butterfly effect" (a term which Lorenz himself disliked) even though the effect applies generally to dynamical systems.</p>
 <p>Default values are the ones used in the original paper.</p>
 <p>[1] E. N. Lorenz, J. atmos. Sci. <strong>20</strong>, pp 130 (1963)</p>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/111744e62b1a5801d46dddc4b8b60ca8923b2ec5/src/famous_systems.jl#L11-L25' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/e4501c7fc266360bae11fae92b977145dd91aae1/src/famous_systems.jl#L11-L25' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.Systems.roessler' href='#DynamicalSystems.Systems.roessler'>#</a>
 <strong><code>DynamicalSystems.Systems.roessler</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="n">roessler</span><span class="p">(</span><span class="n">u0</span><span class="o">=</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mf">5.7</span><span class="p">)</span>
@@ -648,7 +648,7 @@
 <p>This three-dimensional continuous system is due to Rössler [1]. It is a system that by-design behaves similarly to the <code>lorenz</code> system and displays a (fractal) strange attractor. However, it is easier to analyze qualitatively, as for example the attractor is composed of a single manifold.</p>
 <p>Default values are the same as the original paper.</p>
 <p>[1] O. E. Rössler, Phys. Lett. <strong>57A</strong>, pp 397 (1976)</p>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/111744e62b1a5801d46dddc4b8b60ca8923b2ec5/src/famous_systems.jl#L40-L53' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/e4501c7fc266360bae11fae92b977145dd91aae1/src/famous_systems.jl#L40-L53' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.Systems.standardmap' href='#DynamicalSystems.Systems.standardmap'>#</a>
 <strong><code>DynamicalSystems.Systems.standardmap</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>standardmap(u0=0.001rand(2); k = 0.971635)
@@ -660,7 +660,7 @@
 <p>The default parameter <code>k</code> is the critical parameter where the golden-ratio torous is destroyed, as was calculated by Greene [2]. The e.o.m. considers the angle variable <code>θ</code> to be the first, and the angular momentum <code>p</code> to be the second variable, while both variables are always taken modulo 2π (the mapping is on the [0,2π)² torus).</p>
 <p>[1] : B. V. Chirikov, Preprint N. <strong>267</strong>, Institute of Nuclear Physics, Novosibirsk (1969)</p>
 <p>[2] : J. M. Greene, J. Math. Phys. <strong>20</strong>, pp 1183 (1979)</p>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/111744e62b1a5801d46dddc4b8b60ca8923b2ec5/src/famous_systems.jl#L101-L122' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/e4501c7fc266360bae11fae92b977145dd91aae1/src/famous_systems.jl#L101-L122' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.Systems.towel' href='#DynamicalSystems.Systems.towel'>#</a>
 <strong><code>DynamicalSystems.Systems.towel</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>towel(u0 = [0.085, -0.121, 0.075])
@@ -671,7 +671,7 @@
 <p>The name comes from the fact that when plotted looks like a folded towel, in every projection.</p>
 <p>Default values are the ones used in the original paper.</p>
 <p>[1] : O. E. Rössler, Phys. Lett. <strong>71A</strong>, pp 155 (1979)</p>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/111744e62b1a5801d46dddc4b8b60ca8923b2ec5/src/famous_systems.jl#L71-L84' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/e4501c7fc266360bae11fae92b977145dd91aae1/src/famous_systems.jl#L71-L84' class='documenter-source'>source</a><br></p>
                 
                   
                 
