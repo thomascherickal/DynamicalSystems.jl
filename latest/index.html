@@ -320,21 +320,13 @@
                 
                   <h1>Introduction</h1>
                 
-                <p><code>DynamicalSystems.jl</code> is a Julia package for the exploration of continuous and discrete dynamical systems. it aims to be a useful and powerful companion for students and scientists treading on the field of Chaos, nonlinear dynamics and dynamical systems in general. The package treats discrete and continuous systems of the forms:</p>
-<p>
-<script type="math/tex; mode=display">
-\frac{d\vec{u}}{dt} = \vec{f}(\vec{u}) \quad \text{or}\quad \vec{x}_{n+1} = \vec{f}(\vec{x}_n)
-</script>
-</p>
-<p>as well as numerical data.</p>
-<p>One of a major goals of this package is to be completely transparent as to what is going on "under the hood". In scientific research, you never want to use <em>black boxes</em>, e.g. functions that give a result without telling you how it was calculated. To this end, <strong>almost every documentation string</strong> gives direct references to the original papers where the algorithm is taken from, in case you don't understand (or simply don't want to read) the source code. For example, the documentation string of <a href="https://datseris.github.io/DynamicalSystems.jl/latest/lyapunovs/#DynamicalSystems.lyapunovs"><code>?lyapunovs</code></a> will cite:</p>
-<div class="codehilite"><pre><span></span>[1] : A.M. Lyapunov, The General Problem of the Stability of Motion, Taylor &amp; Francis (1992)
-
-[2] : K. Geist et al, Progr. Theor. Phys. 83, pp 875 (1990)
-</pre></div>
-
-
-<p>where the first reference introduces the concept of Lyapunov exponents and the second contains a plethora of methods for their computation (including the method used in the aforementioned function).</p>
+                <p><code>DynamicalSystems.jl</code> is a Julia package for the exploration of continuous and discrete dynamical systems. It aims to be a useful and powerful companion for students and scientists treading on the field of Chaos, nonlinear dynamics and dynamical systems in general. The package treats the following types of dynamical systems:</p>
+<ul>
+<li><a href="./system_definition/#discrete-systems">Discrete Maps</a></li>
+<li><a href="./system_definition/#continuous-systems">Continuous Flows</a></li>
+<li><a href="./system_definition/#numerical-data">Numerical Data</a></li>
+</ul>
+<p>One of a major goals of this package is to be completely transparent as to what is going on "under the hood". In scientific research, you never want to use <em>black boxes</em>, e.g. functions that give a result without telling you how it was calculated. <code>DynamicalSystems.jl</code> battles this in 2 ways: Firstly, it is written entirely in Julia, making the source code clear and easy to understand for even novice users. Secondly, almost every documentation string gives <strong>direct references to the original papers</strong> where the algorithm is taken from, in case some users don't understand (or simply don't want to read) the source code. For example, the documentation string of <a href="https://datseris.github.io/DynamicalSystems.jl/latest/lyapunovs/#DynamicalSystems.lyapunovs"><code>?lyapunovs</code></a> will cite relevant publications for the definition and computation of the lyapunov spectrum.</p>
 <p><a id='Contents-1'></a></p>
 <h2 id="contents">Contents</h2>
 <p>This is the (non-final) list of what this package aims to offer:</p>
