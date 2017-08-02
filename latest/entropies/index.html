@@ -442,7 +442,7 @@
 <p>The Rényi entropy <code>R_α(p) = (1/1-α)*sum(pi^α for pi ∈ p)</code> generalizes other known entropies, like e.g. the information entropy (α = 1, see <em>the</em> Shannon paper [2]), the maximum entropy (α = 0, also known as Hartley entropy), or the correlation entropy (α = 2, also known as collision entropy).</p>
 <p>[1] : A. Rényi, <em>Proceedings of the fourth Berkeley Symposium on Mathematics, Statistics and Probability</em>, pp 547 (1960)</p>
 <p>[2] : C. E. Shannon, Bell Systems Technical Journal <strong>27</strong>, pp 379 (1948)</p>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/46665562a56c28ae775664d3ee6547dfbbdc0de6/src/dimensions/entropies.jl#L75-L98' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/88ca767fc707be516a34e12ed23f4f2df369df38/src/dimensions/entropies.jl#L75-L98' class='documenter-source'>source</a><br></p>
 <p>Basically, given a dataset you can calculate an entropy by first partitioning it into boxes.</p>
 <div class="admonition tip">
 <p class="admonition-title">Worried about memory overflow? Don't be!</p>
@@ -457,7 +457,7 @@
 
 <p>Partition a data-set into tabulated intervals (boxes) of size <code>ε</code> and return the <em>sum-normalized</em> histogram in an <strong>unordered 1D form</strong>, <strong>discarding all zero</strong> elements. This method is extremely effecient in both memory and speed, because it uses a dictionary to collect the information of bins with elements, while it completely disregards empty bins.</p>
 <p>Use the <code>fit(Histogram, ...)</code> from <code>StatsBase</code> if you wish to keep information about the edges of the binning as well as the zero elements.</p>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/46665562a56c28ae775664d3ee6547dfbbdc0de6/src/dimensions/entropies.jl#L42-L55' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/88ca767fc707be516a34e12ed23f4f2df369df38/src/dimensions/entropies.jl#L42-L55' class='documenter-source'>source</a><br></p>
 <p>It typically outperforms traditional histograms by <strong>several orders of magnitude</strong> in both memory and speed. You can compare <code>DynamicalSystems.perform_non0hist</code> with <code>DynamicalSystems.perform_non0hist_statsbase</code> for specific numbers on your machine.</p>
 <p>In the same family of entropies, other aliases are given for convenience:</p>
 <ul>
@@ -490,18 +490,12 @@
 
 
 <p>Return the generalized dimension that corresponds to the given dataset. This quantities corresponds to the power law exponent of the scaling of the <code>genentropy</code> versus the box size <code>ε</code>.</p>
-<p><strong>WARNING</strong> : This call performs a lot of automated steps:</p>
+<p><strong>WARNING</strong> - This call performs a lot of automated steps:</p>
 <ol>
 <li>A vector of box sizes is decided by calling <code>es = estimate_e(dataset)</code>.</li>
-<li>For each <code>ε ∈ es</code> the appropriate entropy is</li>
-</ol>
-<p>calculated, through <code>d[i] = genentropy(α, es[i], dataset)</code>. Let <code>x = -log.(es)</code>.</p>
-<ol>
+<li>For each <code>ε ∈ es</code> the appropriate entropy is calculated, through <code>d[i] = genentropy(α, es[i], dataset)</code>. Let <code>x = -log.(es)</code>.</li>
 <li>The curve d(x) is decomposed into linear regions, using <code>linear_regions(x, d)</code>.</li>
-<li>The biggest linear region is chosen, and a fit for the slope of that</li>
-</ol>
-<p>region is performed using the package <code>LsqFit</code> (see <code>linear_region</code>).</p>
-<ol>
+<li>The biggest linear region is chosen, and a fit for the slope of that region is performed using the package <code>LsqFit</code> (see <code>linear_region</code>).</li>
 <li>This fitted slope is returned.</li>
 </ol>
 <p>By doing these steps one by one yourself, you can adjust the keyword arguments given to each of these function calls, refining the accuracy of the result.</p>
@@ -511,7 +505,7 @@
 <li>α = 1 : information_dim</li>
 <li>α = 2 : correlation_dim, collision_dim</li>
 </ul>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/46665562a56c28ae775664d3ee6547dfbbdc0de6/src/dimensions/dims.jl#L34-L56' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/88ca767fc707be516a34e12ed23f4f2df369df38/src/dimensions/dims.jl#L34-L58' class='documenter-source'>source</a><br></p>
 <p>As stated clearly, this call performs a lot of automated steps. One is always better better of performing the steps one by one to attain maximum control. Nevertheless the automated steps are not "bad" and will give sensible results.</p>
 <p>For example, we will calculate the dimensions of the strange attractors of the <a href="../system_definition/#DynamicalSystems.Systems.henon">Hénon map</a> and the <a href="../system_definition/#DynamicalSystems.Systems.lorenz">Lorenz system</a>:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
