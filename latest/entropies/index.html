@@ -422,14 +422,14 @@
 <h1 id="entropies-and-dimensions">Entropies and Dimensions</h1>
 <p><a id='Entropies-1'></a></p>
 <h2 id="entropies">Entropies</h2>
-<p>In the study of dynamical systems there are many quantities that identify as "entropy". Notice that these quantities are not the more commonly known <a href="https://en.wikipedia.org/wiki/Entropy">thermodynamic ones</a>, used in Statistical Physics. Rather, they are more like the to the entropies of [information theory](https://en.wikipedia.org/wiki/Entropy_(information_theory), which represent information contained within a dataset, or information about the dimensional scaling of a dataset.</p>
+<p>In the study of dynamical systems there are many quantities that identify as "entropy". Notice that these quantities are not the more commonly known <a href="https://en.wikipedia.org/wiki/Entropy">thermodynamic ones</a>, used in Statistical Physics. Rather, they are more like the to the entropies of <a href="https://en.wikipedia.org/wiki/Entropy_(information_theory)">information theory</a>, which represents information contained within a dataset, or information about the dimensional scaling of a dataset.</p>
 <p><code>DynamicalSystems.jl</code> defines a lot entropies, summarized in the following sections.</p>
 <p><a id='Generalized-Entropy-and-Co.-1'></a></p>
 <h3 id="generalized-entropy-co">Generalized Entropy &amp; Co.</h3>
 <p>The generalized entropy is a concept mainly attributed to Rényi (see below).</p>
 <p><a id='DynamicalSystems.genentropy' href='#DynamicalSystems.genentropy'>#</a>
 <strong><code>DynamicalSystems.genentropy</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="n">genentropy</span><span class="p">(</span><span class="n">α</span><span class="o">::</span><span class="kt">Real</span><span class="p">,</span> <span class="n">ε</span><span class="o">::</span><span class="n">Positive</span><span class="p">,</span> <span class="n">dataset</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="n">genentropy</span><span class="p">(</span><span class="n">α</span><span class="p">,</span> <span class="n">ε</span><span class="p">,</span> <span class="n">dataset</span><span class="p">)</span>
 </pre></div>
 
 
@@ -440,9 +440,15 @@
 
 <p>Compute the entropy of an Array <code>p</code> directly, assuming that <code>p</code> is sum-normalized. log base-e is used, i.e. units of "nat".</p>
 <p>The Rényi entropy <code>R_α(p) = (1/1-α)*sum(pi^α for pi ∈ p)</code> generalizes other known entropies, like e.g. the information entropy (α = 1, see <em>the</em> Shannon paper [2]), the maximum entropy (α = 0, also known as Hartley entropy), or the correlation entropy (α = 2, also known as collision entropy).</p>
+<p>The following aliases are provided:</p>
+<ul>
+<li><code>renyi = genentropy</code></li>
+<li><code>shannon(args...) = genentropy(1, args...)</code></li>
+<li><code>hartley(args...) = genentropy(0, args...)</code></li>
+</ul>
 <p>[1] : A. Rényi, <em>Proceedings of the fourth Berkeley Symposium on Mathematics, Statistics and Probability</em>, pp 547 (1960)</p>
 <p>[2] : C. E. Shannon, Bell Systems Technical Journal <strong>27</strong>, pp 379 (1948)</p>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/88ca767fc707be516a34e12ed23f4f2df369df38/src/dimensions/entropies.jl#L75-L98' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/3cbd0e197b328dd4b0078a1ab5663e65b35f548f/src/dimensions/entropies.jl#L75-L104' class='documenter-source'>source</a><br></p>
 <p>Basically, given a dataset you can calculate an entropy by first partitioning it into boxes.</p>
 <div class="admonition tip">
 <p class="admonition-title">Worried about memory overflow? Don't be!</p>
@@ -457,18 +463,12 @@
 
 <p>Partition a data-set into tabulated intervals (boxes) of size <code>ε</code> and return the <em>sum-normalized</em> histogram in an <strong>unordered 1D form</strong>, <strong>discarding all zero</strong> elements. This method is extremely effecient in both memory and speed, because it uses a dictionary to collect the information of bins with elements, while it completely disregards empty bins.</p>
 <p>Use the <code>fit(Histogram, ...)</code> from <code>StatsBase</code> if you wish to keep information about the edges of the binning as well as the zero elements.</p>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/88ca767fc707be516a34e12ed23f4f2df369df38/src/dimensions/entropies.jl#L42-L55' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/3cbd0e197b328dd4b0078a1ab5663e65b35f548f/src/dimensions/entropies.jl#L42-L55' class='documenter-source'>source</a><br></p>
 <p>It typically outperforms traditional histograms by <strong>several orders of magnitude</strong> in both memory and speed. You can compare <code>DynamicalSystems.perform_non0hist</code> with <code>DynamicalSystems.perform_non0hist_statsbase</code> for specific numbers on your machine.</p>
-<p>In the same family of entropies, other aliases are given for convenience:</p>
-<ul>
-<li><code>renyi = genentropy</code></li>
-<li><code>shannon(args...) = genentropy(1, args...)</code></li>
-<li><code>hartley(args...) = genentropy(0, args...)</code></li>
-</ul>
 <p>For example, the Shannon entropy of a coin-flip process should be one bit, <a href="https://en.wikipedia.org/wiki/Shannon_(unit)">by definition</a>. Let's see...</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
 <span class="n">y</span> <span class="o">=</span> <span class="kt">Int</span><span class="o">.</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="kt">Bool</span><span class="p">,</span> <span class="mi">10000</span><span class="p">))</span> <span class="c"># just some coin tosses</span>
-<span class="n">sh</span> <span class="o">=</span> <span class="n">shannon</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>   <span class="c"># ≡ genentropy(1, 0.01, y)</span>
+<span class="n">sh</span> <span class="o">=</span> <span class="n">shannon</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>       <span class="c"># ≡ genentropy(1, 0.01, y)</span>
 <span class="n">isapprox</span><span class="p">(</span><span class="n">sh</span><span class="p">,</span> <span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>  <span class="n">rtol</span> <span class="o">=</span> <span class="mf">1e-3</span><span class="p">)</span> <span class="c"># true!</span>
 </pre></div>
 
@@ -489,10 +489,10 @@
 </pre></div>
 
 
-<p>Return the generalized dimension that corresponds to the given dataset. This quantities corresponds to the power law exponent of the scaling of the <code>genentropy</code> versus the box size <code>ε</code>.</p>
+<p>Return the <code>α</code> order generalized dimension that corresponds to the given dataset. This quantity corresponds to the power law exponent of the scaling of the <code>genentropy</code> versus the box size <code>ε</code>.</p>
 <p><strong>WARNING</strong> - This call performs a lot of automated steps:</p>
 <ol>
-<li>A vector of box sizes is decided by calling <code>es = estimate_e(dataset)</code>.</li>
+<li>A vector of box sizes is decided by calling <code>es = estimate_ε(dataset)</code>.</li>
 <li>For each <code>ε ∈ es</code> the appropriate entropy is calculated, through <code>d[i] = genentropy(α, es[i], dataset)</code>. Let <code>x = -log.(es)</code>.</li>
 <li>The curve d(x) is decomposed into linear regions, using <code>linear_regions(x, d)</code>.</li>
 <li>The biggest linear region is chosen, and a fit for the slope of that region is performed using the package <code>LsqFit</code> (see <code>linear_region</code>).</li>
@@ -501,11 +501,11 @@
 <p>By doing these steps one by one yourself, you can adjust the keyword arguments given to each of these function calls, refining the accuracy of the result.</p>
 <p>The following aliases are provided:</p>
 <ul>
-<li>α = 0 : boxcounting_dim, capacity_dim</li>
-<li>α = 1 : information_dim</li>
-<li>α = 2 : correlation_dim, collision_dim</li>
+<li>α = 0 : <code>boxcounting_dim</code>, <code>capacity_dim</code></li>
+<li>α = 1 : <code>information_dim</code></li>
+<li>α = 2 : <code>correlation_dim</code>, <code>collision_dim</code></li>
 </ul>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/88ca767fc707be516a34e12ed23f4f2df369df38/src/dimensions/dims.jl#L34-L58' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/3cbd0e197b328dd4b0078a1ab5663e65b35f548f/src/dimensions/dims.jl#L34-L58' class='documenter-source'>source</a><br></p>
 <p>As stated clearly, this call performs a lot of automated steps. One is always better better of performing the steps one by one to attain maximum control. Nevertheless the automated steps are not "bad" and will give sensible results.</p>
 <p>For example, we will calculate the dimensions of the strange attractors of the <a href="../system_definition/#DynamicalSystems.Systems.henon">Hénon map</a> and the <a href="../system_definition/#DynamicalSystems.Systems.lorenz">Lorenz system</a>:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
