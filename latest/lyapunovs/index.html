@@ -397,14 +397,14 @@
 <p>Calculate the spectrum of lyapunov [1] exponents of <code>ds</code> by applying the QR-decomposition method <code>N</code> times (see method "H2" of [2], or directly the original paper(s) [3]). Returns a vector with the <em>final</em> values of the lyapunov exponents in descending order.</p>
 <p><strong>Keyword Arguments:</strong></p>
 <ul>
-<li><code>Ttr</code> : Extra "transient" time to evolve the system before application of the algorithm. Should be <code>Int</code> for discrete systems. Defaults are system type dependent.</li>
+<li><code>Ttr = 0</code> : Extra "transient" time to evolve the system before application of the algorithm. Should be <code>Int</code> for discrete systems.</li>
 <li><code>dt = 1.0</code> : (only for continuous) Time of individual evolutions between sucessive orthonormalization steps.</li>
-<li><code>diff_eq_kwargs = Dict()</code> : (only for continuous) Keyword arguments passed into the solvers of the <code>DifferentialEquations</code> package (see <code>evolve</code> or <code>timeseries</code> for more info).</li>
+<li><code>diff_eq_kwargs = Dict()</code> : (only for continuous) Keyword arguments passed into the solvers of the <code>DifferentialEquations</code> package (see <code>timeseries</code> for more info).</li>
 </ul>
 <p>[1] : A. M. Lyapunov, <em>The General Problem of the Stability of Motion</em>, Taylor &amp; Francis (1992)</p>
 <p>[2] : K. Geist <em>et al.</em>, Progr. Theor. Phys. <strong>83</strong>, pp 875 (1990)</p>
 <p>[3] : G. Benettin <em>et al.</em>, Meccanica <strong>15</strong>, pp 9-20 &amp; 21-30 (1980)</p>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/8c1f9c553ec16b018aae7a4fbaac9d9ae1f61aac/src/lyapunovs.jl#L5-L30' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/74503611db1181e06c68c0842f8724997e068081/src/lyapunovs.jl#L5-L29' class='documenter-source'>source</a><br></p>
 <p>As you can see, the documentation string is detailed and self-contained. For example, the lyapunov spectrum of the <a href="http://www.scholarpedia.org/article/Hyperchaos">folded towel map</a> is calculated as:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
 
@@ -440,15 +440,15 @@
 <p>Calculate the maximum lyapunov exponent <code>λ</code> using a method due to Benettin [1], which simply evolves two neighboring trajectories while constantly rescaling one of the two. <code>T</code>  denotes the total time of evolution (should be <code>Int</code> for discrete systems).</p>
 <p><strong>Keyword Arguments:</strong></p>
 <ul>
-<li><code>Ttr</code> : Extra "transient" time to evolve the system before application of the algorithm. Should be <code>Int</code> for discrete systems. Defaults are system type dependent.</li>
+<li><code>Ttr = 0</code> : Extra "transient" time to evolve the system before application of the algorithm. Should be <code>Int</code> for discrete systems.</li>
 <li><code>d0 = 1e-9</code> : Initial &amp; rescaling distance between two neighboring trajectories.</li>
-<li><code>threshold = 10^3*d0</code> : Threshold to rescale the test trajectory.</li>
+<li><code>threshold = 10^4*d0</code> : Threshold to rescale the test trajectory.</li>
 <li><code>diff_eq_kwargs = Dict()</code> : (only for continuous) Keyword arguments passed into the solvers of the <code>DifferentialEquations</code> package (see <code>evolve</code> or <code>timeseries</code> for more info).</li>
 <li><code>dt = 0.1</code> : (only for continuous) Time of evolution between each check of distance exceeding the <code>threshold</code>.</li>
 </ul>
 <p><em>Warning</em>: Default values have been choosen to give accurate &amp; fast results for maximum lyapunov exponent expected between 0.1 to 1.0. Be sure to adjust them properly for your system. Specifically for the continuous systems, be sure that <code>exp(λ*dt) &lt; threshold/d0</code>.</p>
 <p>[1] : G. Benettin <em>et al.</em>, Phys. Rev. A <strong>14</strong>, pp 2338 (1976)</p>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/8c1f9c553ec16b018aae7a4fbaac9d9ae1f61aac/src/lyapunovs.jl#L59-L86' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/74503611db1181e06c68c0842f8724997e068081/src/lyapunovs.jl#L58-L84' class='documenter-source'>source</a><br></p>
 <p>For example:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
 
