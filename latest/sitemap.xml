@@ -35,6 +35,14 @@
 
     
     <url>
+     <loc>/nlts/</loc>
+     <lastmod>2017-08-25</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
      <loc>/contributors_guide/</loc>
      <lastmod>2017-08-25</lastmod>
      <changefreq>daily</changefreq>

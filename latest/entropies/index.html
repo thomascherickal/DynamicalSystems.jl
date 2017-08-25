@@ -321,6 +321,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../nlts/" title="Nonlinear Timeseries Analysis" class="md-nav__link">
+      Nonlinear Timeseries Analysis
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../contributors_guide/" title="Contributor Guide" class="md-nav__link">
       Contributor Guide
     </a>
@@ -449,7 +461,7 @@
 </ul>
 <p>[1] : A. Rényi, <em>Proceedings of the fourth Berkeley Symposium on Mathematics, Statistics and Probability</em>, pp 547 (1960)</p>
 <p>[2] : C. E. Shannon, Bell Systems Technical Journal <strong>27</strong>, pp 379 (1948)</p>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/74503611db1181e06c68c0842f8724997e068081/src/dimensions/entropies.jl#L74-L104' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/752ebdea7d048f6df6572cb19555a0dbc6b5f1d7/src/dimensions/entropies.jl#L74-L104' class='documenter-source'>source</a><br></p>
 <p>Basically, given a dataset you can calculate an entropy by first partitioning it into boxes.</p>
 <div class="admonition tip">
 <p class="admonition-title">Worried about memory overflow? Don't be!</p>
@@ -464,7 +476,7 @@
 
 <p>Partition a data-set into tabulated intervals (boxes) of size <code>ε</code> and return the <em>sum-normalized</em> histogram in an <strong>unordered 1D form</strong>, <strong>discarding all zero</strong> elements. This method is extremely effecient in both memory and speed, because it uses a dictionary to collect the information of bins with elements, while it completely disregards empty bins.</p>
 <p>Use e.g. <code>fit(Histogram, ...)</code> from <code>StatsBase</code> if you wish to keep information about the edges of the binning as well as the zero elements.</p>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/74503611db1181e06c68c0842f8724997e068081/src/dimensions/entropies.jl#L41-L54' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/752ebdea7d048f6df6572cb19555a0dbc6b5f1d7/src/dimensions/entropies.jl#L41-L54' class='documenter-source'>source</a><br></p>
 <p>It typically outperforms traditional histograms by <strong>several orders of magnitude</strong> in both memory and speed. You can compare <code>DynamicalSystems.perform_non0hist</code> with <code>DynamicalSystems.perform_non0hist_statsbase</code> for specific numbers on your machine.</p>
 <p>For example, the Shannon entropy of a coin-flip process should be one bit, <a href="https://en.wikipedia.org/wiki/Shannon_(unit)">by definition</a>. Let's see...</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -506,7 +518,7 @@
 <li>α = 1 : <code>information_dim</code></li>
 <li>α = 2 : <code>correlation_dim</code>, <code>collision_dim</code></li>
 </ul>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/74503611db1181e06c68c0842f8724997e068081/src/dimensions/dims.jl#L163-L187' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/752ebdea7d048f6df6572cb19555a0dbc6b5f1d7/src/dimensions/dims.jl#L163-L187' class='documenter-source'>source</a><br></p>
 <p>As stated clearly, this call performs a lot of automated steps. One is always better better of performing the steps one by one to attain maximum control. Nevertheless the automated steps are not "bad" and will give sensible results.</p>
 <p>For example, we will calculate the dimensions of the strange attractors of the <a href="../system_definition/#DynamicalSystems.Systems.henon">Hénon map</a> and the <a href="../system_definition/#DynamicalSystems.Systems.lorenz">Lorenz system</a>:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -529,9 +541,9 @@
 </pre></div>
 
 
-<p>Calculate the Kaplan-Yorke dimension [1]. This simply is the point where <code>cumsum(lyapunovs)</code> becomes zero (interpolated). Returns the dimension of the system if the sum of the exponents never becomes negative.</p>
+<p>Calculate the Kaplan-Yorke dimension <a href="../aka Lyapunov dimension">1</a>. This simply is the point where <code>cumsum(lyapunovs)</code> becomes zero (interpolated). Returns the dimension of the system if the sum of the exponents never becomes negative.</p>
 <p>[1] :  J. Kaplan &amp; J. Yorke, <em>Chaotic behavior of multidimensional difference equations</em>, Lecture Notes in Mathematics vol. <strong>730</strong>, Springer (1979)</p>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/74503611db1181e06c68c0842f8724997e068081/src/dimensions/dims.jl#L210-L221' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/752ebdea7d048f6df6572cb19555a0dbc6b5f1d7/src/dimensions/dims.jl#L210-L222' class='documenter-source'>source</a><br></p>
 <p>Notice that calling this function requires you to pass the lyapunov exponents in an ordered vector form (largest to smallest). Example:</p>
 <div class="codehilite"><pre><span></span><span class="n">hen</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">()</span>
 <span class="n">D_kp</span> <span class="o">=</span> <span class="n">kaplanyorke_dim</span><span class="p">(</span><span class="n">lyapunovs</span><span class="p">(</span><span class="n">hen</span><span class="p">,</span> <span class="mi">200000</span><span class="p">))</span>
@@ -569,13 +581,13 @@
           </a>
         
         
-          <a href="../contributors_guide/" title="Contributor Guide" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../nlts/" title="Nonlinear Timeseries Analysis" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Contributor Guide
+                Nonlinear Timeseries Analysis
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
