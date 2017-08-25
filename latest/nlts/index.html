@@ -350,14 +350,14 @@
 
 <p>Create and return an efficient <code>Reconstruction</code> data structure that serves as the delay-coordinates reconstruction of the signal <code>s</code>. The reconstuction has dimension <code>d</code> and delay <code>τ</code> (measured in indeces). This object can have same invariant quantities (like e.g. lyapunov exponents) with the original system that the timeseries were recorded from [1, 2].</p>
 <p>The returned <code>R</code> is a <code>VectorOfArrays</code> from <code>RecursiveArrayTools.jl</code> and stores all the information about the embedding without allocating new arrays. It can however be used as a normal matrix:</p>
-<div class="codehilite"><pre><span></span><span class="n">R</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="c"># get the first column the reconstructed matrix</span>
+<div class="codehilite"><pre><span></span><span class="n">R</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="c"># get the second column the reconstructed matrix</span>
 <span class="n">R</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="c"># get the 5th element of the first column of the matrix</span>
 </pre></div>
 
 
 <p>[1] : F. Takens, <em>Detecting Strange Attractors in Turbulence— Dynamical Systems and Turbulence</em>, Lecture Notes in Mathematics <strong>366</strong> (1981)</p>
 <p>[2] : T. Sauer <em>et al.</em>, J. Stat. Phys. <strong>65</strong>, pp 579 (1991)</p>
-<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/e4b84ef3b73682e8355ff50fe285b2832e9ae47c/src/nlts/delay_coords.jl#L40-L60' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/Datseris/DynamicalSystems.jl/tree/d2ae3730bce3cbc3ec31c0e15fe618c885c86520/src/nlts/delay_coords.jl#L40-L60' class='documenter-source'>source</a><br></p>
 <p>The returned object can be immediately passed into e.g. a method that calculates the attractor dimension, or simply be used as any matrix. For example:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
 <span class="n">he</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">()</span>
