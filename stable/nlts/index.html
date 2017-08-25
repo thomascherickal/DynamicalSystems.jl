@@ -20,7 +20,7 @@
     
     
       
-        <title>Contributor Guide - DynamicalSystems.jl</title>
+        <title>Nonlinear Timeseries Analysis - DynamicalSystems.jl</title>
       
     
     
@@ -83,7 +83,7 @@
             
               
             
-            Contributor Guide
+            Nonlinear Timeseries Analysis
           
         </span>
       </div>
@@ -236,18 +236,6 @@
       
       
 
-
-  <li class="md-nav__item">
-    <a href="../nlts/" title="Nonlinear Timeseries Analysis" class="md-nav__link">
-      Nonlinear Timeseries Analysis
-    </a>
-  </li>
-
-    
-      
-      
-      
-
   
 
 
@@ -259,11 +247,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="toc">
-        Contributor Guide
+        Nonlinear Timeseries Analysis
       </label>
     
-    <a href="./" title="Contributor Guide" class="md-nav__link md-nav__link--active">
-      Contributor Guide
+    <a href="./" title="Nonlinear Timeseries Analysis" class="md-nav__link md-nav__link--active">
+      Nonlinear Timeseries Analysis
     </a>
     
       
@@ -277,15 +265,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-you-can-contribute" title="What you can contribute" class="md-nav__link">
-    What you can contribute
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-you-should-contribute" title="How you should contribute" class="md-nav__link">
-    How you should contribute
+  <a href="#attractor-reconstruction" title="Attractor Reconstruction" class="md-nav__link">
+    Attractor Reconstruction
   </a>
   
 </li>
@@ -296,6 +277,18 @@
   
 </nav>
     
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../contributors_guide/" title="Contributor Guide" class="md-nav__link">
+      Contributor Guide
+    </a>
   </li>
 
     
@@ -320,15 +313,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-you-can-contribute" title="What you can contribute" class="md-nav__link">
-    What you can contribute
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-you-should-contribute" title="How you should contribute" class="md-nav__link">
-    How you should contribute
+  <a href="#attractor-reconstruction" title="Attractor Reconstruction" class="md-nav__link">
+    Attractor Reconstruction
   </a>
   
 </li>
@@ -347,35 +333,35 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/Datseris/DynamicalSystems.jl/edit/master/docs/contributors_guide.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
+                  <a href="https://github.com/Datseris/DynamicalSystems.jl/edit/master/docs/nlts.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
                 
                 
-                <p><a id='Contributor-Guide-1'></a></p>
-<h1 id="contributor-guide">Contributor Guide</h1>
-<p><a id='What-you-can-contribute-1'></a></p>
-<h2 id="what-you-can-contribute">What you can contribute</h2>
-<ul>
-<li>Any method that calculates a quantity that has been used in at least one published (and peer-reviewed) journal.</li>
-<li>Any kind of new <strong>Type</strong> of Dynamical system, provided it is also used in research. If you do want to make something like this, please make it a subtype of <code>DynamicalSystem</code>. I have created the discrete and continuous general types, but more specialized types would allow for specialized methods.</li>
-<li>If you are adding a new system type accompanied by new methods and quantities, please introduce a new file in the <code>/src</code> folder, or even better create your own subfolder, instead of adding code to the existing files.</li>
-<li>Any kind of existing discrete or continuous system that have been used in published literature at least once and you find it useful. Put this in the <code>famous_systems.jl</code> file.</li>
-</ul>
-<p>Also, you can contribute in the enhancement of the existing package by:</p>
-<ul>
-<li>Solving the <a href="https://github.com/Datseris/DynamicalSystems.jl/issues">github issues</a></li>
-<li>Improving the speed of the existing methods. I am not good at writing extremely fast code by inspecting assembly and all that.</li>
-</ul>
-<p><a id='How-you-should-contribute-1'></a></p>
-<h2 id="how-you-should-contribute">How you should contribute</h2>
-<p>This section will be updated as the package matures.</p>
-<ul>
-<li>For new methods and systems please always have very clear and self-contained documentation strings.</li>
-<li>Always have a reference to the original work that first introduces the method or the system that you are using. See the existing documentation strings and do it in an identical manner.</li>
-</ul>
-<p>When enhancing already existing code, make sure to:</p>
-<ul>
-<li>Have enough comments at parts that are not easily understood, so that somebody else may continue your work in the future.</li>
-</ul>
+                <p><a id='Nonlinear-Timeseries-Analysis-1'></a></p>
+<h1 id="nonlinear-timeseries-analysis">Nonlinear Timeseries Analysis</h1>
+<p><a id='Attractor-Reconstruction-1'></a></p>
+<h2 id="attractor-reconstruction">Attractor Reconstruction</h2>
+<p>A timeseries can be used to gain information about the dynamics of the entire phase-space, by reconstructing a phase-spaced from the timeseries. One method that can do this is what is known as <a href="https://en.wikipedia.org/wiki/Takens%27_theorem">delay coordinates embedding</a>.</p>
+<p>In <code>DynamicalSystems.jl</code> this is done through the <code>reconstruct</code> interface:</p>
+<div class="codehilite"><pre><span></span>reconstruct
+</pre></div>
+
+
+<p>The returned object can be immediately passed into e.g. a method that calculates the attractor dimension, or simply be used as any matrix. For example:</p>
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
+<span class="n">he</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">()</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">timeseries</span><span class="p">(</span><span class="n">he</span><span class="p">,</span> <span class="mi">20000</span><span class="p">)</span>
+<span class="n">D1</span> <span class="o">=</span> <span class="n">information_dim</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span> <span class="c"># around 1.20</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">view</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="o">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c"># some &quot;recorded&quot; timeseries</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">reconstruct</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">D2</span> <span class="o">=</span> <span class="n">information_dim</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="c">#around 1.17</span>
+</pre></div>
+
+
+<p>The 2 numbers are very close, which is not too bad given that there wasn't any care for the value of <code>τ</code> that was chosen! More importantly:</p>
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">BenchmarkTools</span>
+<span class="nd">@btime</span> <span class="n">recostruct</span><span class="p">(</span><span class="o">$</span><span class="n">x</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="c"># @btime result:  94.675 ns (6 allocations: 304 bytes)</span>
+</pre></div>
                 
                   
                 
@@ -394,7 +380,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../nlts/" title="Nonlinear Timeseries Analysis" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../entropies/" title="Entropies and Dimensions" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -403,11 +389,25 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Nonlinear Timeseries Analysis
+                Entropies and Dimensions
               </span>
             </div>
           </a>
         
+        
+          <a href="../contributors_guide/" title="Contributor Guide" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Contributor Guide
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
         
       </nav>
     </div>
