@@ -438,7 +438,7 @@
 <span>\[
 (s(n), s(n+\tau), s(n+2\tau), \dots, s(n+(D-1)\tau))
 \]</span><p>See <code>reconstruct</code> for usage.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/0926a6ad5f884e0393b8c7832ef0c97a7697eb2e/src/delay_coords.jl#L12-L23' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/c2c4248d896a3d8cddc6f4b8a1a940e4a897009b/src/delay_coords.jl#L12-L23' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.reconstruct' href='#DynamicalSystems.reconstruct'>#</a>
 <strong><code>DynamicalSystems.reconstruct</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>reconstruct(s::AbstractVector, D::Int, τ::Int) -&gt; R::Reconstruction
@@ -458,7 +458,7 @@
 <p>The functions <code>dimension(R)</code> and <code>delay(R)</code> return <code>D</code> and <code>τ</code> respectively. Notice that <code>length(R) = length(s) - (D-1)*τ</code> (i.e. the amount of D-dimensional points "contained" in <code>R</code>) but <code>size(R) = (length(R), D)</code>.</p>
 <p>[1] : F. Takens, <em>Detecting Strange Attractors in Turbulence — Dynamical Systems and Turbulence</em>, Lecture Notes in Mathematics <strong>366</strong>, Springer (1981)</p>
 <p>[2] : T. Sauer <em>et al.</em>, J. Stat. Phys. <strong>65</strong>, pp 579 (1991)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/0926a6ad5f884e0393b8c7832ef0c97a7697eb2e/src/delay_coords.jl#L82-L114' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/c2c4248d896a3d8cddc6f4b8a1a940e4a897009b/src/delay_coords.jl#L82-L114' class='documenter-source'>source</a><br></p>
 <hr />
 <p>As an example, let's pass a <code>Reconstruction</code> into e.g. a method that calculates the attractor dimension:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -501,7 +501,7 @@ E(k) \approx \lambda\Delta t k + E(0)
 <p>This function assumes that the Thieler window [1] is the same as the delay time: <span>\(w  \equiv \tau\)</span>.</p>
 <p>[1] : Skokos, C. H. <em>et al.</em>, <em>Chaos Detection and Predictability</em> - Chapter 1 (section 1.3.2), Lecture Notes in Physics <strong>915</strong>, Springer (2016)</p>
 <p>[2] : Kantz, H., Phys. Lett. A <strong>185</strong>, pp 77–87 (1994)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/0926a6ad5f884e0393b8c7832ef0c97a7697eb2e/src/delay_coords.jl#L284-L354' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/c2c4248d896a3d8cddc6f4b8a1a940e4a897009b/src/delay_coords.jl#L284-L354' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Algorithm-Tuning-1'></a></p>
 <h3 id="algorithm-tuning">Algorithm Tuning</h3>
@@ -509,14 +509,14 @@ E(k) \approx \lambda\Delta t k + E(0)
 <p><a id='DynamicalSystems.AbstractNeighborhood' href='#DynamicalSystems.AbstractNeighborhood'>#</a>
 <strong><code>DynamicalSystems.AbstractNeighborhood</code></strong> &mdash; <em>Type</em>.</p>
 <p>Supertype of methods for deciding the neighborhood of points for a given point.</p>
-<p>Concrete types:</p>
+<p>Concrete subtypes:</p>
 <ul>
 <li><code>FixedMassNeighborhood(K::Int)</code> : The neighborhood of a point consists of the <code>K</code> nearest neighbors of the point.</li>
 <li><code>FixedSizeNeighborhood(ϵ::Real)</code> : The neighborhood of a point consists of all neighbors of that have distance &lt; <code>ϵ</code> from the point.</li>
 </ul>
 <p>Notice that these distances are always computed using the <code>Euclidean()</code> distance in <code>D</code>-dimensional space, irrespectively of the <code>distance</code> used in the computation of the lyapunov exponent.</p>
 <p>To apply these types use <code>neighborhood</code> or <code>numericallyapunov</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/0926a6ad5f884e0393b8c7832ef0c97a7697eb2e/src/delay_coords.jl#L227-L241' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/c2c4248d896a3d8cddc6f4b8a1a940e4a897009b/src/delay_coords.jl#L227-L241' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Example-of-Numerical-Lyapunov-computation-1'></a></p>
 <h3 id="example-of-numerical-lyapunov-computation">Example of Numerical Lyapunov computation</h3>
