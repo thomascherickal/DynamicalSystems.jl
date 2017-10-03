@@ -369,20 +369,26 @@
 <ol>
 <li>
 <p><a href="./system_definition">System Definition</a></p>
-<ul>
-<li>Intuitive, consistent APIs for the definition of general dynamical systems</li>
+</li>
+<li>
+<p>Intuitive, consistent APIs for the definition of general dynamical systems</p>
+</li>
 <li>Automatic "completion" of the dynamics of the system with numerically computed Jacobians, in case they are not provided by the user.</li>
 <li>Interface for <a href="http://docs.juliadiffeq.org/latest/index.html"><code>DifferentialEquations.jl</code></a> for flexible integration of continuous system.</li>
 <li>Well-defined functions for evolving dynamical systems.</li>
 <li>Dedicated interface (<code>Dataset</code>) for handling sets of data (numbers), in a way that feels familiar to scientists.</li>
-<li>Library of predefined well-known dynamical systems that have been used extensively in scientific research.</li>
+<li>
+<p>Library of predefined well-known dynamical systems that have been used extensively in scientific research.</p>
+</li>
 <li>
 <p><a href="./lyapunovs">Lyapunov Exponents</a></p>
 </li>
 <li>
 <p>Maximum Lyapunov exponent for both discrete and continuous systems.</p>
 </li>
-<li>Lyapunov <em>spectrum</em> for both discrete and continuous systems.</li>
+<li>
+<p>Lyapunov <em>spectrum</em> for both discrete and continuous systems.</p>
+</li>
 <li>
 <p><a href="./entropies">Entropies and Dimensions</a></p>
 </li>
@@ -394,7 +400,9 @@
 <li>Kaplan-Yorke dimension.</li>
 <li>Partitioning of a function <span>\(y(x)\)</span> vs. <span>\(x\)</span> into regions where it is approximated by a straight line, using a flexible function with a lot of control over the outcome.</li>
 <li>Detection of largest linear region of a function <span>\(y(x)\)</span> vs. <span>\(x\)</span> and extraction of the slope of this region (used e.g. in estimating dimensions of chaotic tractors).</li>
-<li>Methods for detecting best algorithmic parameters for calculating attractor dimensions, including a fast implementation of minimum pairwise distance of a <code>Dataset</code>.</li>
+<li>
+<p>Methods for detecting best algorithmic parameters for calculating attractor dimensions, including a fast implementation of minimum pairwise distance of a <code>Dataset</code>.</p>
+</li>
 <li>
 <p><a href="./nlts">Nonlinear Timeseries Analysis</a></p>
 </li>
@@ -403,7 +411,9 @@
 </li>
 <li>Methods for estimating good <code>Reconstruction</code> parameters (delay and dimension).</li>
 <li><em>Four</em> different algorithms for numerically determining the maximum Lyapunov exponent of a (e.g. experimentally) measured timeseries.</li>
-<li>Fast computation of the above algorithms made possible by the interaction of <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a>, multiple dispatch and smart indexing (through the <code>Reconstruction</code> abstraction).</li>
+<li>
+<p>Fast computation of the above algorithms made possible by the interaction of <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a>, multiple dispatch and smart indexing (through the <code>Reconstruction</code> abstraction).</p>
+</li>
 <li>
 <p><a href="./periodicity">Periodicity</a></p>
 </li>
@@ -411,8 +421,6 @@
 <p>Numerical method to find unstable and stable fixed points of <em>any order</em> of a discrete map (of any dimensionality). Fixed points of order <span>\(n&gt;1\)</span> are simply periodic orbits of order <span>\(n.\)</span></p>
 </li>
 <li>Convenience functions for defining and realizing all possible combinations of<span>\(\mathbf{\Lambda}_k\)</span> matrices required in the above method.</li>
-</ul>
-</li>
 </ol>
 <p>The <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/issues?utf8=%E2%9C%93&amp;q=is%3Aissue%20is%3Aopen%20label%3Awanted_feature">wanted features GitHub page</a> lists features that are wanted by the <code>DynamicalSystems</code>, and are open to contributors.</p>
                 
