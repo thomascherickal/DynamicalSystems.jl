@@ -7,7 +7,7 @@
       <meta name="viewport" content="width=device-width,initial-scale=1">
       <meta http-equiv="x-ua-compatible" content="ie=edge">
       
-        <meta name="description" content="A Julia package for the exploration of continuous and discrete dynamical systems.">
+        <meta name="description" content="A Julia package for the exploration of chaos in continuous and discrete dynamical systems.">
       
       
       
@@ -330,6 +330,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../periodicity/" title="Periodicity" class="md-nav__link">
+      Periodicity
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../contributors_guide/" title="Contributor Guide" class="md-nav__link">
       Contributor Guide
     </a>
@@ -438,7 +450,7 @@
 <span>\[
 (s(n), s(n+\tau), s(n+2\tau), \dots, s(n+(D-1)\tau))
 \]</span><p>See <code>reconstruct</code> for usage.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/dfec3ed62585f888327f49f7465ddbf8cf7495c9/src/delay_coords.jl#L12-L23' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/9fff3ccc3d4220f4eef9c07bb7b92da0df7acb80/src/delay_coords.jl#L12-L23' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.reconstruct' href='#DynamicalSystems.reconstruct'>#</a>
 <strong><code>DynamicalSystems.reconstruct</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>reconstruct(s::AbstractVector, D::Int, τ::Int) -&gt; R::Reconstruction
@@ -458,7 +470,7 @@
 <p>The functions <code>dimension(R)</code> and <code>delay(R)</code> return <code>D</code> and <code>τ</code> respectively. Notice that <code>length(R) = length(s) - (D-1)*τ</code> (i.e. the amount of D-dimensional points "contained" in <code>R</code>) but <code>size(R) = (length(R), D)</code>.</p>
 <p>[1] : F. Takens, <em>Detecting Strange Attractors in Turbulence — Dynamical Systems and Turbulence</em>, Lecture Notes in Mathematics <strong>366</strong>, Springer (1981)</p>
 <p>[2] : T. Sauer <em>et al.</em>, J. Stat. Phys. <strong>65</strong>, pp 579 (1991)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/dfec3ed62585f888327f49f7465ddbf8cf7495c9/src/delay_coords.jl#L82-L114' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/9fff3ccc3d4220f4eef9c07bb7b92da0df7acb80/src/delay_coords.jl#L82-L114' class='documenter-source'>source</a><br></p>
 <hr />
 <p>As an example, let's pass a <code>Reconstruction</code> into e.g. a method that calculates the attractor dimension:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -501,7 +513,7 @@ E(k) \approx \lambda\Delta t k + E(0)
 <p>This function assumes that the Theiler window [1] is the same as the delay time: <span>\(w  \equiv \tau\)</span>.</p>
 <p>[1] : Skokos, C. H. <em>et al.</em>, <em>Chaos Detection and Predictability</em> - Chapter 1 (section 1.3.2), Lecture Notes in Physics <strong>915</strong>, Springer (2016)</p>
 <p>[2] : Kantz, H., Phys. Lett. A <strong>185</strong>, pp 77–87 (1994)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/dfec3ed62585f888327f49f7465ddbf8cf7495c9/src/delay_coords.jl#L284-L353' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/9fff3ccc3d4220f4eef9c07bb7b92da0df7acb80/src/delay_coords.jl#L284-L353' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Algorithm-Tuning-1'></a></p>
 <h3 id="algorithm-tuning">Algorithm Tuning</h3>
@@ -516,7 +528,7 @@ E(k) \approx \lambda\Delta t k + E(0)
 </ul>
 <p>Notice that these distances are always computed using the <code>Euclidean()</code> distance in <code>D</code>-dimensional space, irrespectively of the <code>distance</code> used in the computation of the lyapunov exponent.</p>
 <p>To apply these types use <code>neighborhood</code> or <code>numericallyapunov</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/dfec3ed62585f888327f49f7465ddbf8cf7495c9/src/delay_coords.jl#L227-L241' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/9fff3ccc3d4220f4eef9c07bb7b92da0df7acb80/src/delay_coords.jl#L227-L241' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Example-of-Numerical-Lyapunov-computation-1'></a></p>
 <h3 id="example-of-numerical-lyapunov-computation">Example of Numerical Lyapunov computation</h3>
@@ -617,13 +629,13 @@ E(k) \approx \lambda\Delta t k + E(0)
           </a>
         
         
-          <a href="../contributors_guide/" title="Contributor Guide" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../periodicity/" title="Periodicity" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Contributor Guide
+                Periodicity
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

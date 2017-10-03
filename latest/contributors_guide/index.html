@@ -7,7 +7,7 @@
       <meta name="viewport" content="width=device-width,initial-scale=1">
       <meta http-equiv="x-ua-compatible" content="ie=edge">
       
-        <meta name="description" content="A Julia package for the exploration of continuous and discrete dynamical systems.">
+        <meta name="description" content="A Julia package for the exploration of chaos in continuous and discrete dynamical systems.">
       
       
       
@@ -251,6 +251,18 @@
       
       
 
+
+  <li class="md-nav__item">
+    <a href="../periodicity/" title="Periodicity" class="md-nav__link">
+      Periodicity
+    </a>
+  </li>
+
+    
+      
+      
+      
+
   
 
 
@@ -280,15 +292,15 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-you-can-contribute" title="What you can contribute" class="md-nav__link">
-    What you can contribute
+  <a href="#examples-of-new-things-you-could-contribute" title="Examples of new things you could contribute" class="md-nav__link">
+    Examples of new things you could contribute
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-you-should-contribute" title="How you should contribute" class="md-nav__link">
-    How you should contribute
+  <a href="#how-you-should-contribute-code" title="How you should contribute code" class="md-nav__link">
+    How you should contribute code
   </a>
   
 </li>
@@ -323,15 +335,15 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-you-can-contribute" title="What you can contribute" class="md-nav__link">
-    What you can contribute
+  <a href="#examples-of-new-things-you-could-contribute" title="Examples of new things you could contribute" class="md-nav__link">
+    Examples of new things you could contribute
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-you-should-contribute" title="How you should contribute" class="md-nav__link">
-    How you should contribute
+  <a href="#how-you-should-contribute-code" title="How you should contribute code" class="md-nav__link">
+    How you should contribute code
   </a>
   
 </li>
@@ -355,25 +367,35 @@
                 
                 <p><a id='Contributor-Guide-1'></a></p>
 <h1 id="contributor-guide">Contributor Guide</h1>
-<p><a id='What-you-can-contribute-1'></a></p>
-<h2 id="what-you-can-contribute">What you can contribute</h2>
+<p><strong>You can contribute to this package even if you are not familiar with Julia or coding.</strong></p>
+<p>The ultimate goal for <code>DynamicalSystems.jl</code> is to be a useful tool for scientists working on nonlinear dynamics and in general dynamical systems.</p>
+<p>For such a feat to be accomplished, many different methods across this interdisciplinary fiend have to be not only implemented but suggested in the first place!</p>
+<p>For a something to be implemented in this package, the following steps have to happen:</p>
+<ol>
+<li><em>A suggestion that a method should be included</em> has to be brought upon notice of the developers. Since the current amount of developers actively maintaining the package is small, so is the amount of knowledge of important methods.</li>
+<li>An algorithm that describes how the method will be implemented has to be formulated. This algorithm most probably already exist in the papers that first introduce the method, however it may not be trivial to transform this algorithm from a mathematical abstraction to something realistic and applicable in a computational manner.</li>
+<li>The source code for the above has to be implemented in Julia. In general, the speed of the implementation is important, but not as important as the <strong>reliability of the implementation</strong>.</li>
+</ol>
+<p>It is clear that one can contribute to <code>DynamicalSystems.jl</code> by contributing in steps (1) and (2). Neither of those require any knowledge of coding with Julia.</p>
+<p>For step (1), you can open a new issue at the <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/issues">DynamicalSystems.jl Issues</a> page. All issues that refer methods that we would want to have in our package are labeled as "wanted_feature". You can view the current wanted features <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/issues?utf8=%E2%9C%93&amp;q=is%3Aissue%20is%3Aopen%20label%3Awanted_feature">here</a> and see for yourself if you can contribute to some of them!</p>
+<p>Of course, you can always contribute in the enhancement of the existing package by solving the <a href="https://github.com/Datseris/DynamicalSystems.jl/issues">GitHub issues</a>.</p>
+<p>If you have any idea about how to improve this package please do not hesitate to <a href="https://gitter.im/JuliaDynamics/Lobby">join our chatroom</a> and share your ideas!</p>
+<p>Lastly, you can always help this package simply by <em>using it</em> and report any unexpected behavior!</p>
+<p><a id='Examples-of-new-things-you-could-contribute-1'></a></p>
+<h2 id="examples-of-new-things-you-could-contribute">Examples of new things you could contribute</h2>
 <ul>
 <li>Any method that calculates a quantity that has been used in at least one published (and peer-reviewed) journal.</li>
 <li>Any kind of new <strong>Type</strong> of Dynamical system, provided it is also used in research. If you do want to make something like this, please make it a subtype of <code>DynamicalSystem</code>. I have created the discrete and continuous general types, but more specialized types would allow for specialized methods.</li>
-<li>If you are adding a new system type accompanied by new methods and quantities, please introduce a new file in the <code>/src</code> folder, or even better create your own subfolder, instead of adding code to the existing files.</li>
-<li>Any kind of existing discrete or continuous system that have been used in published literature at least once and you find it useful. Put this in the <code>famous_systems.jl</code> file.</li>
+<li>Any kind of existing discrete or continuous system that have been used in published literature at least once and you find it useful (put this in the <code>famous_systems.jl</code> file).</li>
 </ul>
-<p>Also, you can contribute in the enhancement of the existing package by:</p>
-<ul>
-<li>Solving the <a href="https://github.com/Datseris/DynamicalSystems.jl/issues">github issues</a></li>
-<li>Improving the speed of the existing methods. I am not good at writing extremely fast code by inspecting assembly and all that.</li>
-</ul>
-<p><a id='How-you-should-contribute-1'></a></p>
-<h2 id="how-you-should-contribute">How you should contribute</h2>
-<p>This section will be updated as the package matures.</p>
+<p>Notice that the above are not conclusive, but only examples!</p>
+<p><a id='How-you-should-contribute-**code**-1'></a></p>
+<h2 id="how-you-should-contribute-code">How you should contribute <strong>code</strong></h2>
 <ul>
 <li>For new methods and systems please always have very clear and self-contained documentation strings.</li>
-<li>Always have a reference to the original work that first introduces the method or the system that you are using. See the existing documentation strings and do it in an identical manner.</li>
+<li>Have enough comments in your code so that somebody that knows the method, can also understand the code.</li>
+<li>Always have a reference to the original work that first introduces the method or the system that you are using. You should put this reference to the main function's documentation string. See the existing documentation strings and do it in an identical manner.</li>
+<li>If you are adding a new system type accompanied by new methods and quantities, please introduce a new file in the <code>/src</code> folder, or even better create your own subfolder, instead of adding code to the existing files.</li>
 </ul>
 <p>When enhancing already existing code, make sure to:</p>
 <ul>
@@ -397,7 +419,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../nlts/" title="Nonlinear Timeseries Analysis" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../periodicity/" title="Periodicity" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -406,7 +428,7 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Nonlinear Timeseries Analysis
+                Periodicity
               </span>
             </div>
           </a>
