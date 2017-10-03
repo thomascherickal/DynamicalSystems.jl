@@ -375,7 +375,7 @@
                 
                 <p><a id='Detecting-Stable-and-Unstable-Periodic-Orbits-of-Maps-1'></a></p>
 <h2 id="detecting-stable-and-unstable-periodic-orbits-of-maps">Detecting Stable and Unstable Periodic Orbits of Maps</h2>
-<p>Chaotic behavior of low dimensional dynamical systems is affected by the position and the stability properties of the unstable periodic orbits existing in the chaotic sea.</p>
+<p>Chaotic behavior of low dimensional dynamical systems is affected by the position and the stability properties of the <a href="http://www.scholarpedia.org/article/Unstable_periodic_orbits">unstable periodic orbits</a> existing in the chaotic sea.</p>
 <p>Finding unstable (or stable) periodic orbits in the sea of a discrete mapping analytically rapidly becomes <em>impossible</em> for higher orders of Fixed Points. Fortunately there is a numeric algorithm due to Schmelcher &amp; Diakonos which allows such a computation. Notice that even though the algorithm can find stable fixed points, it is mainly aimed at <em>unstable</em> ones and may not work for all stable ones.</p>
 <p>The functions <code>periodicorbits</code> and <code>lambdamatrix</code> implement the algorithm:</p>
 <p><a id='DynamicalSystems.periodicorbits' href='#DynamicalSystems.periodicorbits'>#</a>
@@ -397,11 +397,11 @@
 <li><code>maxiters::Int = 100000</code> : Maximum amount of iterations an i.c. will be iterated  before claiming it has not converged.</li>
 <li><code>disttol = 1e-10</code> : Distance tolerance. If the 2-norm of a previous state with  the next one is <code>≤ disttol</code> then it has converged to a fixed point.</li>
 <li><code>inftol = 10.0</code> : If a state reaches <code>norm(state) ≥ inftol</code> it is assumed that  it has escaped to infinity (and is thus abandoned).</li>
-<li><code>roundtol::Int = 4</code> : The found fixed points are rounded  to <code>roundtol</code> digits before pushed into the list of returned fixed points <code>FP</code>,  <em>if</em> they are not already contained in <code>FP</code>.  This is done so that <code>FP</code> doesn't contain duplicate fixed points (notice  that this has nothing to do with <code>disttol</code>). Turn this to <code>16</code> to get the full  precision of the algorithm</li>
+<li><code>roundtol::Int = 4</code> : The found fixed points are rounded  to <code>roundtol</code> digits before pushed into the list of returned fixed points <code>FP</code>,  <em>if</em> they are not already contained in <code>FP</code>.  This is done so that <code>FP</code> doesn't contain duplicate fixed points (notice  that this has nothing to do with <code>disttol</code>). Turn this to <code>16</code> to get the full  precision of the algorithm.</li>
 </ul>
 <p>[1] : P. Schmelcher &amp; F. K. Diakonos, Phys. Rev. Lett. <strong>78</strong>, pp 4733 (1997)</p>
 <p>[2] : F. K. Diakonos <em>et al.</em>, Phys. Rev. Lett. <strong>81</strong>, pp 4349 (1998)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/60f856843cd2530586b53cfdab595f0877bc3f8b/src/periodic.jl#L76-L122' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/e24485a25b717ef75b1d149ff05fbe128cf93784/src/periodic.jl#L76-L122' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.lambdamatrix' href='#DynamicalSystems.lambdamatrix'>#</a>
 <strong><code>DynamicalSystems.lambdamatrix</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>lambdamatrix(λ, inds::Vector{Int}, sings) -&gt; Λk
@@ -426,7 +426,7 @@
 
 
 <p>[3] : D. Pingel <em>et al.</em>, Phys. Rev. E <strong>62</strong>, pp 2119 (2000)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/60f856843cd2530586b53cfdab595f0877bc3f8b/src/periodic.jl#L9-L38' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/e24485a25b717ef75b1d149ff05fbe128cf93784/src/periodic.jl#L9-L38' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.lambdaperms' href='#DynamicalSystems.lambdaperms'>#</a>
 <strong><code>DynamicalSystems.lambdaperms</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>lambdaperms(D) -&gt; indperms, singperms
@@ -434,7 +434,7 @@
 
 
 <p>Return two collections that each contain all possible combinations of indices (total of <span>\(D!\)</span>) and sings (total of <span>\(2^D\)</span>) for dimension <code>D</code> (see <code>lambdamatrix</code>).</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/60f856843cd2530586b53cfdab595f0877bc3f8b/src/periodic.jl#L60-L64' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/e24485a25b717ef75b1d149ff05fbe128cf93784/src/periodic.jl#L60-L64' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Standard-Map-example-1'></a></p>
 <h3 id="standard-map-example">Standard Map example</h3>
