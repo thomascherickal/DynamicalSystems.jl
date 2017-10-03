@@ -244,35 +244,22 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#dynamical-systems" title="Dynamical Systems" class="md-nav__link">
-    Dynamical Systems
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#lyapunov-spectrum" title="Lyapunov Spectrum" class="md-nav__link">
     Lyapunov Spectrum
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#maximum-lyapunov-exponent" title="Maximum Lyapunov Exponent" class="md-nav__link">
     Maximum Lyapunov Exponent
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
       
         <li class="md-nav__item">
-  <a href="#numerical-data" title="Numerical Data" class="md-nav__link">
-    Numerical Data
+  <a href="#convergence-timeseries" title="Convergence Timeseries" class="md-nav__link">
+    Convergence Timeseries
   </a>
   
 </li>
@@ -355,35 +342,22 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#dynamical-systems" title="Dynamical Systems" class="md-nav__link">
-    Dynamical Systems
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#lyapunov-spectrum" title="Lyapunov Spectrum" class="md-nav__link">
     Lyapunov Spectrum
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#maximum-lyapunov-exponent" title="Maximum Lyapunov Exponent" class="md-nav__link">
     Maximum Lyapunov Exponent
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
       
         <li class="md-nav__item">
-  <a href="#numerical-data" title="Numerical Data" class="md-nav__link">
-    Numerical Data
+  <a href="#convergence-timeseries" title="Convergence Timeseries" class="md-nav__link">
+    Convergence Timeseries
   </a>
   
 </li>
@@ -409,12 +383,10 @@
 <h1 id="lyapunov-exponents">Lyapunov Exponents</h1>
 <p>Lyapunov exponents measure rates of separation of nearby trajectories in the flow of a dynamical system. The <a href="https://en.wikipedia.org/wiki/Lyapunov_exponent">Wikipedia</a> and the <a href="http://www.scholarpedia.org/article/Lyapunov_exponent">Scholarpedia</a> entries have a lot of valuable information about the history and usage of these quantities.</p>
 <p>The naming comes after Aleksandr M. Lyapunov, a Russian mathematician/physicist that had major impact on the analysis of the stability of systems.</p>
-<p><a id='Dynamical-Systems-1'></a></p>
-<h2 id="dynamical-systems">Dynamical Systems</h2>
-<p>For systems where the equations of motion are known, there two functions related with the computation of lyapunov exponents: <code>lyapunovs</code> and <code>lyapunov</code>.</p>
+<p>This page treats systems where the equations of motion are known. If instead you have numerical data, see the nonlinear <a href="../nlts">timeseries analysis page</a>.</p>
 <p><a id='Lyapunov-Spectrum-1'></a></p>
-<h3 id="lyapunov-spectrum">Lyapunov Spectrum</h3>
-<p>The function <code>lyapunovs</code> calculates the entire spectrum of the exponents of a system:</p>
+<h2 id="lyapunov-spectrum">Lyapunov Spectrum</h2>
+<p>The function <code>lyapunovs</code> calculates the entire spectrum of the Lyapunov exponents of a system:</p>
 <p><a id='DynamicalSystems.lyapunovs' href='#DynamicalSystems.lyapunovs'>#</a>
 <strong><code>DynamicalSystems.lyapunovs</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="n">lyapunovs</span><span class="p">(</span><span class="n">ds</span><span class="o">::</span><span class="n">DynamicalSystem</span><span class="p">,</span> <span class="n">N</span><span class="p">;</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">λ1</span><span class="p">,</span> <span class="n">λ2</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="n">λD</span><span class="p">]</span>
@@ -431,7 +403,7 @@
 <p>[1] : A. M. Lyapunov, <em>The General Problem of the Stability of Motion</em>, Taylor &amp; Francis (1992)</p>
 <p>[2] : K. Geist <em>et al.</em>, Progr. Theor. Phys. <strong>83</strong>, pp 875 (1990)</p>
 <p>[3] : G. Benettin <em>et al.</em>, Meccanica <strong>15</strong>, pp 9-20 &amp; 21-30 (1980)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/94c5861101f0068527e96dff4721ebe0a9bebfde/src/lyapunovs.jl#L5-L29' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/33f06466fbe7b7e4ac3610ab21d616c8b086c426/src/lyapunovs.jl#L5-L29' class='documenter-source'>source</a><br></p>
 <hr />
 <p>As you can see, the documentation string is detailed and self-contained. For example, the lyapunov spectrum of the <a href="http://www.scholarpedia.org/article/Hyperchaos">folded towel map</a> is calculated as:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -457,7 +429,7 @@
 
 
 <p><a id='Maximum-Lyapunov-Exponent-1'></a></p>
-<h3 id="maximum-lyapunov-exponent">Maximum Lyapunov Exponent</h3>
+<h2 id="maximum-lyapunov-exponent">Maximum Lyapunov Exponent</h2>
 <p>The function <code>lyapunov</code> calculates the maximum lyapunov exponent of a system, much more efficiently than getting the first result of <code>lyapunovs</code>:</p>
 <p><a id='DynamicalSystems.lyapunov' href='#DynamicalSystems.lyapunov'>#</a>
 <strong><code>DynamicalSystems.lyapunov</code></strong> &mdash; <em>Function</em>.</p>
@@ -476,7 +448,7 @@
 </ul>
 <p>This function returns only the final value of the computation of the maximum lyapunov exponent. Use the function <code>lyapunov_full</code> to get a vector of the convergence of the computation versus time.</p>
 <p>[1] : G. Benettin <em>et al.</em>, Phys. Rev. A <strong>14</strong>, pp 2338 (1976)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/94c5861101f0068527e96dff4721ebe0a9bebfde/src/lyapunovs.jl#L58-L83' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/33f06466fbe7b7e4ac3610ab21d616c8b086c426/src/lyapunovs.jl#L58-L83' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -498,9 +470,10 @@
 </pre></div>
 
 
-<p><a id='Numerical-Data-1'></a></p>
-<h2 id="numerical-data">Numerical Data</h2>
-<p>TBA</p>
+<p><a id='Convergence-Timeseries-1'></a></p>
+<h2 id="convergence-timeseries">Convergence Timeseries</h2>
+<p>The above functions converge to values with increasing time. One may want to see the convergence timeseries of the Lyapunov exponents for better fine-tuning of parameters of the algorithms.</p>
+<p><em>This feature is coming soon! See <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/issues/18">this GitHub issue</a> if you want to contribute.</em></p>
                 
                   
                 
