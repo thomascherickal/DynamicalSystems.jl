@@ -403,7 +403,7 @@
 <p>[1] : A. M. Lyapunov, <em>The General Problem of the Stability of Motion</em>, Taylor &amp; Francis (1992)</p>
 <p>[2] : K. Geist <em>et al.</em>, Progr. Theor. Phys. <strong>83</strong>, pp 875 (1990)</p>
 <p>[3] : G. Benettin <em>et al.</em>, Meccanica <strong>15</strong>, pp 9-20 &amp; 21-30 (1980)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/faf7c232e9a6b21d99c4a516150fa0ebc4ea1054/src/lyapunovs.jl#L5-L29' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/46f6129404208e61f9ed3dea0b26c279ad47ae35/src/lyapunovs.jl#L5-L29' class='documenter-source'>source</a><br></p>
 <hr />
 <p>As you can see, the documentation string is detailed and self-contained. For example, the lyapunov spectrum of the <a href="http://www.scholarpedia.org/article/Hyperchaos">folded towel map</a> is calculated as:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -433,22 +433,27 @@
 <p>The function <code>lyapunov</code> calculates the maximum lyapunov exponent of a system, much more efficiently than getting the first result of <code>lyapunovs</code>:</p>
 <p><a id='DynamicalSystems.lyapunov' href='#DynamicalSystems.lyapunov'>#</a>
 <strong><code>DynamicalSystems.lyapunov</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="n">lyapunov</span><span class="p">(</span><span class="n">ds</span><span class="o">::</span><span class="n">DynamicalSystem</span><span class="p">,</span> <span class="n">Τ</span><span class="p">;</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">λ</span>
+<div class="codehilite"><pre><span></span><span class="n">lyapunov</span><span class="p">(</span><span class="n">ds</span><span class="o">::</span><span class="n">DynamicalSystem</span><span class="p">,</span> <span class="n">Τ</span><span class="p">,</span> <span class="n">ret_conv</span> <span class="o">=</span> <span class="kt">Val</span><span class="p">{</span><span class="kc">false</span><span class="p">};</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
 </pre></div>
 
 
-<p>Calculate the maximum lyapunov exponent <code>λ</code> using a method due to Benettin [1], which simply evolves two neighboring trajectories while constantly rescaling one of the two. <code>T</code>  denotes the total time of evolution (should be <code>Int</code> for discrete systems).</p>
+<p>Calculate the maximum lyapunov exponent <code>λ</code> using a method due to Benettin [1], which simply evolves two neighboring trajectories (one called "given" and one called "test") while constantly rescaling the test one. <code>T</code>  denotes the total time of evolution (should be <code>Int</code> for discrete systems).</p>
+<p>If <code>ret_conv</code> is <code>Val{true}</code> return the convergence timeseries of the lyapunov exponent <code>λts</code> as well as the corresponding time vector <code>ts</code>. If <code>ret_conv</code> is <code>Val{false}</code> (default) return the converged lyapunov value <code>λts[end]</code> instead.</p>
 <p><strong>Keyword Arguments:</strong></p>
 <ul>
 <li><code>Ttr = 0</code> : Extra "transient" time to evolve the system before application of the algorithm. Should be <code>Int</code> for discrete systems.</li>
 <li><code>d0 = 1e-9</code> : Initial &amp; rescaling distance between two neighboring trajectories.</li>
 <li><code>threshold = 10^3*d0</code> : Threshold to rescale the test trajectory.</li>
-<li><code>diff_eq_kwargs = Dict()</code> : (only for continuous) Keyword arguments passed into the solvers of the <code>DifferentialEquations</code> package (<code>timeseries</code> for more info).</li>
+<li><code>diff_eq_kwargs = Dict()</code> : (only for continuous) Keyword arguments passed into the solvers of the <code>DifferentialEquations</code> package (see <code>timeseries</code> for more info).</li>
 <li><code>dt = 0.1</code> : (only for continuous) Time of evolution between each check of distance exceeding the <code>threshold</code>.</li>
+<li><code>inittest = (st1, d0) -&gt; st1 .+ d0/sqrt(D)</code> A function that given <code>(st1, d0)</code> initializes the test state with distance (approximatelly) <code>d0</code> from the given state (<code>st1</code>). (<code>D</code> is the dimension of the system, used in the default expression)</li>
+<li>
+<p><code>rescale = (st2, st1, a) -&gt; @. st1 + (st2 - st1)/a</code></p>
+<p>The function used to rescale the test state <code>st2</code> close to the given state <code>st1</code>, given the ratio of distances <code>a</code> between the two states at the start the rescaling process and after exceeding the threshold, i.e. <span>\(a = d(t_i)/d(t_{i-1})\)</span>. This function can be used when you want to avoid the test state appearing in a region of the phase-space where it would have different energy or escape to infinity.</p>
+</li>
 </ul>
-<p>This function returns only the final value of the computation of the maximum lyapunov exponent. Use the function <code>lyapunov_full</code> to get a vector of the convergence of the computation versus time.</p>
 <p>[1] : G. Benettin <em>et al.</em>, Phys. Rev. A <strong>14</strong>, pp 2338 (1976)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/faf7c232e9a6b21d99c4a516150fa0ebc4ea1054/src/lyapunovs.jl#L58-L83' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/46f6129404208e61f9ed3dea0b26c279ad47ae35/src/lyapunovs.jl#L61-L106' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
