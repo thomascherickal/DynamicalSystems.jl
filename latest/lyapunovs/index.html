@@ -403,7 +403,7 @@
 <p>[1] : A. M. Lyapunov, <em>The General Problem of the Stability of Motion</em>, Taylor &amp; Francis (1992)</p>
 <p>[2] : K. Geist <em>et al.</em>, Progr. Theor. Phys. <strong>83</strong>, pp 875 (1990)</p>
 <p>[3] : G. Benettin <em>et al.</em>, Meccanica <strong>15</strong>, pp 9-20 &amp; 21-30 (1980)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/46f6129404208e61f9ed3dea0b26c279ad47ae35/src/lyapunovs.jl#L5-L29' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/bf9c34fe3b27673f2be3bc0f4542ade8d1946657/src/lyapunovs.jl#L5-L29' class='documenter-source'>source</a><br></p>
 <hr />
 <p>As you can see, the documentation string is detailed and self-contained. For example, the lyapunov spectrum of the <a href="http://www.scholarpedia.org/article/Hyperchaos">folded towel map</a> is calculated as:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -453,7 +453,7 @@
 </li>
 </ul>
 <p>[1] : G. Benettin <em>et al.</em>, Phys. Rev. A <strong>14</strong>, pp 2338 (1976)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/46f6129404208e61f9ed3dea0b26c279ad47ae35/src/lyapunovs.jl#L61-L106' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/bf9c34fe3b27673f2be3bc0f4542ade8d1946657/src/lyapunovs.jl#L61-L106' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -477,8 +477,26 @@
 
 <p><a id='Convergence-Timeseries-1'></a></p>
 <h2 id="convergence-timeseries">Convergence Timeseries</h2>
-<p>The above functions converge to values with increasing time. One may want to see the convergence timeseries of the Lyapunov exponents for better fine-tuning of parameters of the algorithms.</p>
-<p><em>This feature is coming soon! See <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/issues/18">this GitHub issue</a> if you want to contribute.</em></p>
+<p>As was explained in the documentation of the functions, one can choose to get the convergence timeseries of the lyapunov exponents, instead of simply the converged values. This can be very helpful if one will e.g. prepare to run a lot of simulations and would like to have some optimal keyword parameters for optimal convergence.</p>
+<p>For example</p>
+<div class="codehilite"><pre><span></span><span class="n">lor</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">lorenz</span><span class="p">()</span> <span class="c">#works for continuous</span>
+<span class="n">hen</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">()</span>  <span class="c">#works for discrete as well</span>
+
+<span class="c"># use `Val{true}` as the third argument to get convergence info</span>
+<span class="n">ls</span><span class="p">,</span> <span class="n">ts</span> <span class="o">=</span> <span class="n">lyapunov</span><span class="p">(</span><span class="n">hen</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">,</span> <span class="kt">Val</span><span class="p">{</span><span class="kc">true</span><span class="p">},</span> <span class="n">d0</span> <span class="o">=</span> <span class="mf">1e-12</span><span class="p">)</span>
+<span class="n">ls2</span><span class="p">,</span> <span class="n">ts2</span> <span class="o">=</span> <span class="n">lyapunov</span><span class="p">(</span><span class="n">hen</span><span class="p">,</span> <span class="mi">100000</span><span class="p">,</span> <span class="kt">Val</span><span class="p">{</span><span class="kc">true</span><span class="p">},</span> <span class="n">d0</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="n">threshold</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">)</span>
+
+<span class="k">using</span> <span class="n">PyPlot</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">ls</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s">&quot;1: λ = </span><span class="si">$</span><span class="p">(</span><span class="n">ls</span><span class="p">[</span><span class="k">end</span><span class="p">])</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s">&quot;dashed&quot;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">ts2</span><span class="p">,</span> <span class="n">ls2</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s">&quot;2: λ = </span><span class="si">$</span><span class="p">(</span><span class="n">ls2</span><span class="p">[</span><span class="k">end</span><span class="p">])</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="n">legend</span><span class="p">()</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s">&quot;n&quot;</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s">&quot;λ&quot;</span><span class="p">)</span>
+<span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+
+
+<p>which plots: <img alt="Convergence timeseries for lyapunov" src="https://i.imgur.com/MEaXnyB.png" /></p>
                 
                   
                 
