@@ -16,7 +16,7 @@
       
         <link rel="shortcut icon" href="../assets/images/favicon.png">
       
-      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.10.1">
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.10.3">
     
     
       
@@ -27,7 +27,7 @@
       <script src="../assets/javascripts/modernizr-e826f8942a.js"></script>
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application-a20f419c8e.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application-9011e2d3f8.css">
       
         <link rel="stylesheet" href="../assets/stylesheets/application-23f75ab9c7.palette.css">
       
@@ -144,6 +144,7 @@
 </header>
     
     <div class="md-container">
+      
       
       
       <main class="md-main">
@@ -298,8 +299,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#kaplan-yorke-dimension-aka-lyapunov-dimension" title="Kaplan-Yorke Dimension (aka Lyapunov Dimension)" class="md-nav__link">
-    Kaplan-Yorke Dimension (aka Lyapunov Dimension)
+  <a href="#kaplan-yorke-dimension" title="Kaplan-Yorke Dimension" class="md-nav__link">
+    Kaplan-Yorke Dimension
   </a>
   
 </li>
@@ -417,8 +418,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#kaplan-yorke-dimension-aka-lyapunov-dimension" title="Kaplan-Yorke Dimension (aka Lyapunov Dimension)" class="md-nav__link">
-    Kaplan-Yorke Dimension (aka Lyapunov Dimension)
+  <a href="#kaplan-yorke-dimension" title="Kaplan-Yorke Dimension" class="md-nav__link">
+    Kaplan-Yorke Dimension
   </a>
   
 </li>
@@ -460,13 +461,12 @@
 </pre></div>
 
 
-<p>Compute the <code>α</code> order generalized (Rényi) entropy [1] of a dataset, by first partitioning it into boxes of length <code>ε</code>.</p>
+<p>Compute the <code>α</code> order generalized (Rényi) entropy [1] of a dataset, by first partitioning it into boxes of length <code>ε</code> using <a href="./#DynamicalSystems.non0hist"><code>non0hist</code></a>.</p>
 <div class="codehilite"><pre><span></span><span class="n">genentropy</span><span class="p">(</span><span class="n">α</span><span class="p">,</span> <span class="n">p</span><span class="o">::</span><span class="kt">AbstractArray</span><span class="p">)</span>
 </pre></div>
 
 
-<p>Compute the entropy of an Array <code>p</code> directly, assuming that <code>p</code> is sum-normalized.</p>
-<p>log base-e is used in both cases, i.e. units of "nat".</p>
+<p>Compute the entropy of an Array <code>p</code> directly, assuming that <code>p</code> is sum-normalized. <em>log base-e is used in both cases, i.e. units of "nat".</em></p>
 <p>The Rényi entropy</p>
 <span>\[
 R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p_i^\alpha
@@ -479,7 +479,7 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p_i^\alpha
 </ul>
 <p>[1] : A. Rényi, <em>Proceedings of the fourth Berkeley Symposium on Mathematics, Statistics and Probability</em>, pp 547 (1960)</p>
 <p>[2] : C. E. Shannon, Bell Systems Technical Journal <strong>27</strong>, pp 379 (1948)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/2a8556ac9c0823ae354e8018f00744f661d8d028/src/dimensions/entropies.jl#L48-L82' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/2233e3a22cc1c88ebc20bca6e5fb66d72b4f3f9d/src/dimensions/entropies.jl#L54-L86' class='documenter-source'>source</a><br></p>
 <hr />
 <p>Basically, given a <a href="../system_definition/#numerical-data">dataset</a> you can partition it into boxes to calculate an entropy.</p>
 <div class="admonition tip">
@@ -495,7 +495,7 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p_i^\alpha
 
 <p>Partition a dataset into tabulated intervals (boxes) of size <code>ε</code> and return the <em>sum-normalized</em> histogram in an <strong>unordered 1D form</strong>, <strong>discarding all zero</strong> elements. This method is extremely effecient in both memory and speed, because it uses a dictionary to collect the information of bins with elements, while it completely disregards empty bins.</p>
 <p>Use e.g. <code>fit(Histogram, ...)</code> from <code>StatsBase</code> if you wish to keep information about the edges of the binning as well as the zero elements.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/2a8556ac9c0823ae354e8018f00744f661d8d028/src/dimensions/entropies.jl#L22-L35' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/2233e3a22cc1c88ebc20bca6e5fb66d72b4f3f9d/src/dimensions/entropies.jl#L27-L40' class='documenter-source'>source</a><br></p>
 <hr />
 <p>It typically outperforms traditional histograms by <strong>several orders of magnitude</strong> in both memory and speed. You can compare <code>DynamicalSystems.perform_non0hist</code> with <code>fit(Histogram, ...)</code> of <a href="http://juliastats.github.io/StatsBase.jl/stable/"><code>StatsBase</code></a> for specific numbers on your machine.</p>
 <p>For example, the Shannon entropy of a coin-flip process should be one bit, <a href="https://en.wikipedia.org/wiki/Shannon_(unit)">by definition</a>. Let's see...</p>
@@ -522,13 +522,13 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p_i^\alpha
 </pre></div>
 
 
-<p>Return the <code>α</code> order generalized dimension that corresponds to the given dataset. This quantity corresponds to the power law exponent of the scaling of the <code>genentropy</code> versus the box size <code>ε</code>.</p>
+<p>Return the <span>\(\alpha\)</span> order generalized dimension that corresponds to the given dataset. The dimension is approximated by the power law exponent of the scaling of the <a href="./#DynamicalSystems.genentropy"><code>genentropy</code></a> versus the box size <code>ε</code>.</p>
 <p><strong>WARNING</strong> - This call performs a lot of automated steps:</p>
 <ol>
 <li>A vector of box sizes is decided by calling <code>es = estimate_boxsizes(dataset)</code>.</li>
 <li>For each element of <code>es</code> the appropriate entropy is calculated, through <code>d[i] = genentropy(α, es[i], dataset)</code>. Let <code>x = -log.(es)</code>.</li>
 <li>The curve d(x) is decomposed into linear regions, using <code>linear_regions(x, d)</code>.</li>
-<li>The biggest linear region is chosen, and a fit for the slope of that region is performed using the package <code>LsqFit</code> (see <code>linear_region</code>).</li>
+<li>The biggest linear region is chosen, and a fit for the slope of that region is performed using the function <a href="../@ref"><code>linear_region</code></a>.</li>
 <li>This fitted slope is returned.</li>
 </ol>
 <p>By doing these steps one by one yourself, you can adjust the keyword arguments given to each of these function calls, refining the accuracy of the result.</p>
@@ -538,7 +538,7 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p_i^\alpha
 <li>α = 1 : <code>information_dim</code></li>
 <li>α = 2 : <code>correlation_dim</code>, <code>collision_dim</code></li>
 </ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/2a8556ac9c0823ae354e8018f00744f661d8d028/src/dimensions/dims.jl#L171-L195' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/2233e3a22cc1c88ebc20bca6e5fb66d72b4f3f9d/src/dimensions/dims.jl#L171-L195' class='documenter-source'>source</a><br></p>
 <hr />
 <p>As stated clearly, this call performs a lot of automated steps. One is always better better of performing the steps one by one to attain maximum control.</p>
 <p>For example, we will calculate the dimensions of the strange attractors of the <a href="../system_definition/#DynamicalSystems.Systems.henon">Hénon map</a> and the <a href="../system_definition/#DynamicalSystems.Systems.lorenz">Lorenz system</a>:</p>
@@ -554,8 +554,9 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p_i^\alpha
 
 
 <p>You will find that <code>D_hen</code> is around <code>1.2</code> and <code>D_lor</code> is around <code>1.95</code>, both of which <a href="http://www.dt.fee.unicamp.br/~tiago/courses/dinamica_caotica/Lyapunov.pdf">are correct values</a>. As a side note, be sure that you have enough data points, otherwise the values you will get will never be correct, as is demonstrated by J.-P. Eckmann and D. Ruelle (see Physica D <strong>56</strong>, pp 185-187 (1992)).</p>
-<p><a id='Kaplan-Yorke-Dimension-(aka-Lyapunov-Dimension)-1'></a></p>
-<h3 id="kaplan-yorke-dimension-aka-lyapunov-dimension">Kaplan-Yorke Dimension (aka Lyapunov Dimension)</h3>
+<p><a id='Kaplan-Yorke-Dimension-1'></a></p>
+<h3 id="kaplan-yorke-dimension">Kaplan-Yorke Dimension</h3>
+<p>Also known as Lyapunov Dimension:</p>
 <p><a id='DynamicalSystems.kaplanyorke_dim' href='#DynamicalSystems.kaplanyorke_dim'>#</a>
 <strong><code>DynamicalSystems.kaplanyorke_dim</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>kaplanyorke_dim(lyapunovs::AbstractVector)
@@ -563,8 +564,9 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p_i^\alpha
 
 
 <p>Calculate the Kaplan-Yorke dimension <a href="../aka Lyapunov dimension">1</a>. This simply is the point where <code>cumsum(lyapunovs)</code> becomes zero (interpolated). Returns the length of the vector if the sum of the exponents never becomes negative.</p>
+<p>Useful in combination with <a href="../lyapunovs/#DynamicalSystems.lyapunovs"><code>lyapunovs</code></a>.</p>
 <p>[1] :  J. Kaplan &amp; J. Yorke, <em>Chaotic behavior of multidimensional difference equations</em>, Lecture Notes in Mathematics vol. <strong>730</strong>, Springer (1979)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/tree/2a8556ac9c0823ae354e8018f00744f661d8d028/src/dimensions/dims.jl#L219-L229' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/2233e3a22cc1c88ebc20bca6e5fb66d72b4f3f9d/src/dimensions/dims.jl#L221-L233' class='documenter-source'>source</a><br></p>
 <hr />
 <p>Notice that calling this function requires you to pass the lyapunov exponents in an ordered vector form (largest to smallest). Example:</p>
 <div class="codehilite"><pre><span></span><span class="n">hen</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">()</span>
