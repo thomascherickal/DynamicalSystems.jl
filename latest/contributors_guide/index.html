@@ -14,9 +14,24 @@
         <meta name="author" content="George Datseris">
       
       
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.languages" content="">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      
         <link rel="shortcut icon" href="../assets/images/favicon.png">
       
-      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.10.3">
+      <meta name="generator" content="mkdocs-0.17.0, mkdocs-material-1.11.0">
     
     
       
@@ -27,7 +42,7 @@
       <script src="../assets/javascripts/modernizr-e826f8942a.js"></script>
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application-9011e2d3f8.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application-0741cbeb94.css">
       
         <link rel="stylesheet" href="../assets/stylesheets/application-23f75ab9c7.palette.css">
       
@@ -51,7 +66,7 @@
   
   
   
-    <body data-md-color-primary="teal" data-md-color-accent="deep-orange">
+    <body data-md-color-primary="deep-purple" data-md-color-accent="teal">
   
     <svg class="md-svg">
       <defs>
@@ -102,8 +117,8 @@
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="result" data-md-lang-search="" data-md-lang-tokenizer="[\s\-]+">
-          <div class="md-search-result__meta" data-md-lang-result-none="No matching documents" data-md-lang-result-one="1 matching document" data-md-lang-result-other="# matching documents">
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
             Type to start searching
           </div>
           <ol class="md-search-result__list"></ol>
@@ -363,7 +378,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/edit/master/docs/contributors_guide.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/edit/master/docs/contributors_guide.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
                 <p><a id='Contributor-Guide-1'></a></p>
@@ -379,13 +394,13 @@
 </ol>
 <p>It is clear that one can contribute to <code>DynamicalSystems.jl</code> by contributing in steps (1) and (2). Neither of those require any knowledge of coding with Julia.</p>
 <p>For step (1), you can open a new issue at the <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/issues">DynamicalSystems.jl Issues</a> page. All issues that refer methods that we would want to have in our package are labeled as "wanted_feature". You can view the current wanted features <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/issues?utf8=%E2%9C%93&amp;q=is%3Aissue%20is%3Aopen%20label%3Awanted_feature">here</a> and see for yourself if you can contribute to some of them!</p>
-<p>Of course, you can always contribute in the enhancement of the existing package by solving the <a href="https://github.com/Datseris/DynamicalSystems.jl/issues">GitHub issues</a>.</p>
+<p>Of course, you can always contribute in the enhancement of the existing package by solving the some of the existing issues.</p>
 <p>If you have any idea about how to improve this package please do not hesitate to <a href="https://gitter.im/JuliaDynamics/Lobby">join our chatroom</a> and share your ideas!</p>
-<p>Don't forget; you always help this package simply by <em>using it</em> and reporting any unexpected behavior! So far we had very few testers and tested on a small subset of dynamical systems thus any extra testing is welcomed!</p>
+<p>Don't forget; you always help this package simply by <em>using it</em> and reporting any unexpected behavior! So far we had very few testers and tested on a small subset of dynamical systems! Thus any extra testing is welcomed!</p>
 <p><a id='Examples-of-new-things-you-could-contribute-1'></a></p>
 <h2 id="examples-of-new-things-you-could-contribute">Examples of new things you could contribute</h2>
 <ul>
-<li>Any method that calculates a quantity that has been used in at least one published (and peer-reviewed) journal.</li>
+<li>Any method that calculates a quantity that has been used in at least one scientific (and peer-reviewed) journal.</li>
 <li>Any kind of new <strong>Type</strong> of Dynamical system, provided it is also used in research. If you do want to make something like this, please make it a subtype of <code>DynamicalSystem</code>. I have created the discrete and continuous general types, but more specialized types would allow for specialized methods.</li>
 <li>Any kind of existing discrete or continuous system that have been used in published literature at least once and you find it useful (put this in the <code>famous_systems.jl</code> file).</li>
 </ul>
@@ -394,7 +409,7 @@
 <h2 id="how-you-should-contribute-code">How you should contribute <strong>code</strong></h2>
 <ul>
 <li>For new methods and systems please always have very clear and self-contained documentation strings.</li>
-<li>Have enough comments in your code so that somebody that knows the method, can also understand the code.</li>
+<li>Have enough comments in your code so that somebody that knows the method, can also understand the code immediately.</li>
 <li>Always have a reference to the original work that first introduces the method or the system that you are using. You should put this reference to the main function's documentation string. See the existing documentation strings and do it in an identical manner.</li>
 <li>If you are adding a new system type accompanied by new methods and quantities, please introduce a new file in the <code>/src</code> folder, or even better create your own subfolder, instead of adding code to the existing files.</li>
 </ul>
@@ -465,12 +480,16 @@
       
     </div>
     
-      <script src="../assets/javascripts/application-f3ab9e5ff8.js"></script>
+      <script src="../assets/javascripts/application-268d62d82d.js"></script>
       
       
       <script>app.initialize({url:{base:".."}})</script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+        <script src="../search/require.js"></script>
+      
+        <script src="../search/search.js"></script>
       
     
     

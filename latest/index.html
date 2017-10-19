@@ -14,9 +14,24 @@
         <meta name="author" content="George Datseris">
       
       
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.languages" content="">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      
         <link rel="shortcut icon" href="./assets/images/favicon.png">
       
-      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.10.3">
+      <meta name="generator" content="mkdocs-0.17.0, mkdocs-material-1.11.0">
     
     
       
@@ -27,7 +42,7 @@
       <script src="./assets/javascripts/modernizr-e826f8942a.js"></script>
     
     
-      <link rel="stylesheet" href="./assets/stylesheets/application-9011e2d3f8.css">
+      <link rel="stylesheet" href="./assets/stylesheets/application-0741cbeb94.css">
       
         <link rel="stylesheet" href="./assets/stylesheets/application-23f75ab9c7.palette.css">
       
@@ -51,7 +66,7 @@
   
   
   
-    <body data-md-color-primary="teal" data-md-color-accent="deep-orange">
+    <body data-md-color-primary="deep-purple" data-md-color-accent="teal">
   
     <svg class="md-svg">
       <defs>
@@ -102,8 +117,8 @@
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="result" data-md-lang-search="" data-md-lang-tokenizer="[\s\-]+">
-          <div class="md-search-result__meta" data-md-lang-result-none="No matching documents" data-md-lang-result-one="1 matching document" data-md-lang-result-other="# matching documents">
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
             Type to start searching
           </div>
           <ol class="md-search-result__list"></ol>
@@ -445,66 +460,91 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/edit/master/docs/index.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/edit/master/docs/index.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
                 <p><img alt="DynamicalSystems.jl logo: The Double Pendulum" src="https://i.imgur.com/nFQFdB0.gif" /></p>
 <p><a id='Introduction-1'></a></p>
 <h1 id="introduction">Introduction</h1>
 <p><code>DynamicalSystems.jl</code> is a Julia package for the exploration of continuous and discrete dynamical systems. It aims to be a useful and powerful companion for students and scientists treading on the fields of Chaos, nonlinear dynamics and dynamical systems in general.</p>
-<p>One of a major goals of this package is to be completely transparent as to what is going on "under the hood". In scientific research, you never want to use <em>black boxes</em>, e.g. functions that give a result without telling you how it was calculated. <code>DynamicalSystems.jl</code> battles this in 2 ways: Firstly, it is written entirely in Julia, making the source code clear and easy to understand for even novice users. Secondly, almost every documentation string gives <strong>direct references to the original papers</strong> where the algorithm is taken from, in case some users don't understand (or simply don't want to read) the source code. For example, the documentation string of <a href="https://datseris.github.io/DynamicalSystems.jl/latest/lyapunovs/#DynamicalSystems.lyapunovs"><code>?lyapunovs</code></a> will cite relevant publications for the definition and computation of the lyapunov spectrum.</p>
+<p>One of a major goals of this package is to be completely transparent as to what is going on "under the hood". In scientific research, you never want to use <em>black boxes</em>, e.g. functions that give a result without telling you how it was calculated. <code>DynamicalSystems.jl</code> battles this in 2 ways: Firstly, it is written entirely in Julia, making the source code clear and easy to understand for even novice users. Secondly, almost every documentation string gives <strong>direct references to the original papers</strong> where the algorithm is taken from, in case some users don't understand (or simply don't want to read) the source code. For example, the documentation string of <a href="lyapunovs/#DynamicalSystems.lyapunovs"><code>lyapunovs</code></a> will cite relevant publications for the definition and computation of the lyapunov spectrum.</p>
 <p><em>You can <a href="https://gitter.im/JuliaDynamics/Lobby">join our chatroom</a> for discussions related to dynamical systems and Julia as well as for asking questions about the packages of the JuliaDynamics organization!</em></p>
 <p>Be sure to visit the <a href="./contributors_guide">Contributor Guide</a> page, because you can help make this package better without having to write a single line of code! Also, if you find this package helpful please consider staring it on <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl">GitHub</a>! This gives us an accurate lower bound of users that this package has already helped!</p>
 <p><a id='Contents-1'></a></p>
 <h2 id="contents">Contents</h2>
-<p>Currently the package allows for the following types of dynamical systems:</p>
+<p><a id='<a href="system_definition">System-Definition</a>-1'></a></p>
+<h3 id="system-definition"><a href="./system_definition">System Definition</a></h3>
+<ol>
+<li>
+<p>Intuitive, consistent APIs for the definition of general dynamical systems. The currently supported system types are:</p>
 <ul>
 <li><a href="./system_definition/#discrete-systems">Discrete Maps</a></li>
 <li><a href="./system_definition/#continuous-systems">Continuous Flows</a></li>
 <li><a href="./system_definition/#numerical-data">Numerical Data</a></li>
-</ul>
-<p>This is the list of methods and algorithms this package currently offers (updated very frequently):</p>
-<p><a id='<a href="system_definition">System-Definition</a>-1'></a></p>
-<h3 id="system-definition"><a href="./system_definition">System Definition</a></h3>
-<ul>
-<li>Intuitive, consistent APIs for the definition of general dynamical systems</li>
 <li>Automatic "completion" of the dynamics of the system with numerically computed Jacobians, in case they are not provided by the user.</li>
 <li>Interface for <a href="http://docs.juliadiffeq.org/latest/index.html"><code>DifferentialEquations.jl</code></a> for flexible integration of continuous system.</li>
-<li>Well-defined functions for evolving dynamical systems.</li>
-<li>Dedicated interface (<code>Dataset</code>) for handling sets of data (numbers), in a way that feels familiar to scientists.</li>
+<li>Well-defined functions for (numerically) evolving dynamical systems.</li>
+<li>Dedicated interface (<a href="system_definition/#DynamicalSystems.Dataset"><code>Dataset</code></a>) for handling sets of data, in a way that feels familiar to scientists but is also fast.</li>
 <li>Library of predefined well-known dynamical systems that have been used extensively in scientific research.</li>
 </ul>
+</li>
+</ol>
 <p><a id='<a href="lyapunovs">Lyapunov-Exponents</a>-1'></a></p>
 <h3 id="lyapunov-exponents"><a href="./lyapunovs">Lyapunov Exponents</a></h3>
+<p>The following treat systems where the equations of motion are known:</p>
+<ol>
+<li>Maximum Lyapunov exponent for both discrete and continuous systems: <a href="lyapunovs/#DynamicalSystems.lyapunov"><code>lyapunov</code></a>.</li>
+<li>
+<p>Lyapunov <em>spectrum</em> for both discrete and continuous systems: <a href="lyapunovs/#DynamicalSystems.lyapunovs"><code>lyapunovs</code></a>.</p>
 <ul>
-<li>Maximum Lyapunov exponent for both discrete and continuous systems.</li>
-<li>Lyapunov <em>spectrum</em> for both discrete and continuous systems.</li>
+<li>It is also possible to obtain the convergence timeseries of the above algorithms, in order to e.g. estimate better parameters for faster convergence.</li>
 </ul>
+</li>
+</ol>
 <p><a id='<a href="entropies">Entropies-and-Dimensions</a>-1'></a></p>
 <h3 id="entropies-and-dimensions"><a href="./entropies">Entropies and Dimensions</a></h3>
+<ol>
+<li>
+<p>Generalized (Renyi) entropy and all related entropies: <a href="entropies/#DynamicalSystems.genentropy"><code>genentropy</code></a>.</p>
 <ul>
-<li>Generalized (Renyi) entropy and all related entropies.</li>
-<li>Ultra-fast and cheap method for computing entropies of large datasets without ever having to worry about memory overflow. It uses typically 3-6 orders of magnitude less time and memory than traditional histogram-based methods.</li>
-<li>Generalized Dimensions (e.g. capacity dimension, information dimension, etc.).</li>
-<li>Kaplan-Yorke dimension.</li>
-<li>Partitioning of a function <span>\(y(x)\)</span> vs. <span>\(x\)</span> into regions where it is approximated by a straight line, using a flexible function with a lot of control over the outcome.</li>
-<li>Detection of largest linear region of a function <span>\(y(x)\)</span> vs. <span>\(x\)</span> and extraction of the slope of this region (used e.g. in estimating dimensions of chaotic attractors).</li>
+<li>Ultra-fast and cheap method for computing entropies of large datasets without ever having to worry about memory overflow.</li>
+<li>Generalized dimensions (e.g. capacity dimension, information dimension, etc.): <a href="entropies/#DynamicalSystems.generalized_dim"><code>generalized_dim</code></a>.</li>
+<li>Kaplan-Yorke dimension: <a href="entropies/#DynamicalSystems.kaplanyorke_dim"><code>kaplanyorke_dim</code></a>.</li>
 <li>Automated detection of best algorithmic parameters for calculating attractor dimensions.</li>
+</ul>
+</li>
+</ol>
+<p>And, in order to automatically deduce dimensions, we also offer methods for:</p>
+<ul>
+<li>
+<p>Partitioning a function <span>\(y(x)\)</span> vs. <span>\(x\)</span> into regions where it is approximated by a straight line, using a flexible algorithm with a lot of control over the outcome. See <a href="entropies/#DynamicalSystems.linear_regions"><code>linear_regions</code></a>.</p>
+<ul>
+<li>Detection of largest linear region of a function <span>\(y(x)\)</span> vs. <span>\(x\)</span> and extraction of the slope of this region.</li>
+</ul>
+</li>
 </ul>
 <p><a id='<a href="nlts">Nonlinear-Timeseries-Analysis</a>-1'></a></p>
 <h3 id="nonlinear-timeseries-analysis"><a href="./nlts">Nonlinear Timeseries Analysis</a></h3>
-<ul>
-<li>Flexible and abstracted <code>Reconstruction</code> interface, that creates the delay-coordinates reconstruction of a 1D timeseries efficiently.</li>
+<ol>
+<li>Flexible and abstracted <a href="nlts/#DynamicalSystems.Reconstruction"><code>Reconstruction</code></a> interface, that creates the delay-coordinates reconstruction of a 1D timeseries efficiently.</li>
 <li>Methods for estimating good <code>Reconstruction</code> parameters (delay and dimension).</li>
-<li><em>Four</em> different algorithms for numerically determining the maximum Lyapunov exponent of a (e.g. experimentally) measured timeseries.</li>
+<li>
+<p><em>Four</em> different algorithms for numerically determining the maximum Lyapunov exponent of a (e.g. experimentally) measured 1-dimensional timeseries: <a href="nlts/#DynamicalSystems.numericallyapunov"><code>numericallyapunov</code></a>.</p>
+<ul>
 <li>Fast computation of the above algorithms made possible by the interaction of <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a>, multiple dispatch and smart indexing (through the <code>Reconstruction</code> abstraction).</li>
 </ul>
+</li>
+</ol>
 <p><a id='<a href="periodicity">Periodicity</a>-1'></a></p>
 <h3 id="periodicity"><a href="./periodicity">Periodicity</a></h3>
+<ol>
+<li>
+<p>Numerical method to find unstable and stable fixed points of <em>any order</em> <span>\(n\)</span> of a discrete map (of any dimensionality): <a href="periodicity/#DynamicalSystems.periodicorbits"><code>periodicorbits</code></a>.</p>
 <ul>
-<li>Numerical method to find unstable and stable fixed points of <em>any order</em> of a discrete map (of any dimensionality). Fixed points of order <span>\(n&gt;1\)</span> are simply periodic orbits of order <span>\(n.\)</span></li>
-<li>Convenience functions for defining and realizing all possible combinations of<span>\(\mathbf{\Lambda}_k\)</span> matrices required in the above method.</li>
+<li>Convenience functions for defining and realizing all possible combinations of <span>\(\mathbf{\Lambda}_k\)</span> matrices required in the above method.</li>
 </ul>
+</li>
+</ol>
 <p><a id='Wanted-Features-1'></a></p>
 <h3 id="wanted-features">Wanted Features</h3>
 <p>The <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/issues?utf8=%E2%9C%93&amp;q=is%3Aissue%20is%3Aopen%20label%3Awanted_feature">wanted features GitHub page</a> lists features that are wanted by the <code>DynamicalSystems</code>, and are open to contributors.</p>
@@ -571,12 +611,16 @@
       
     </div>
     
-      <script src="./assets/javascripts/application-f3ab9e5ff8.js"></script>
+      <script src="./assets/javascripts/application-268d62d82d.js"></script>
       
       
       <script>app.initialize({url:{base:"."}})</script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+        <script src="./search/require.js"></script>
+      
+        <script src="./search/search.js"></script>
       
     
     

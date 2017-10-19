@@ -14,9 +14,24 @@
         <meta name="author" content="George Datseris">
       
       
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.languages" content="">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      
         <link rel="shortcut icon" href="../assets/images/favicon.png">
       
-      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.10.3">
+      <meta name="generator" content="mkdocs-0.17.0, mkdocs-material-1.11.0">
     
     
       
@@ -27,7 +42,7 @@
       <script src="../assets/javascripts/modernizr-e826f8942a.js"></script>
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application-9011e2d3f8.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application-0741cbeb94.css">
       
         <link rel="stylesheet" href="../assets/stylesheets/application-23f75ab9c7.palette.css">
       
@@ -51,7 +66,7 @@
   
   
   
-    <body data-md-color-primary="teal" data-md-color-accent="deep-orange">
+    <body data-md-color-primary="deep-purple" data-md-color-accent="teal">
   
     <svg class="md-svg">
       <defs>
@@ -102,8 +117,8 @@
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="result" data-md-lang-search="" data-md-lang-tokenizer="[\s\-]+">
-          <div class="md-search-result__meta" data-md-lang-result-none="No matching documents" data-md-lang-result-one="1 matching document" data-md-lang-result-other="# matching documents">
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
             Type to start searching
           </div>
           <ol class="md-search-result__list"></ol>
@@ -377,14 +392,14 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/edit/master/docs/lyapunovs.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/edit/master/docs/lyapunovs.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
                 <p><a id='Lyapunov-Exponents-1'></a></p>
 <h1 id="lyapunov-exponents">Lyapunov Exponents</h1>
 <p>Lyapunov exponents measure rates of separation of nearby trajectories in the flow of a dynamical system. The <a href="https://en.wikipedia.org/wiki/Lyapunov_exponent">Wikipedia</a> and the <a href="http://www.scholarpedia.org/article/Lyapunov_exponent">Scholarpedia</a> entries have a lot of valuable information about the history and usage of these quantities.</p>
 <p>The naming comes after Aleksandr M. Lyapunov, a Russian mathematician/physicist that had major impact on the analysis of the stability of systems.</p>
-<p>This page treats systems where the equations of motion are known. If instead you have numerical data, see the nonlinear <a href="../nlts">timeseries analysis page</a>.</p>
+<p>This page treats systems where the equations of motion are known. If instead you have numerical data, see the <a href="../nlts">nonlinear timeseries analysis page</a>.</p>
 <p><a id='Lyapunov-Spectrum-1'></a></p>
 <h2 id="lyapunov-spectrum">Lyapunov Spectrum</h2>
 <p>The function <code>lyapunovs</code> calculates the entire spectrum of the Lyapunov exponents of a system:</p>
@@ -394,7 +409,7 @@
 </pre></div>
 
 
-<p>Calculate the spectrum of lyapunov [1] exponents of <code>ds</code> by applying the QR-decomposition method <code>N</code> times (see method "H2" of [2], or directly the original paper(s) [3]). Returns a vector with the <em>final</em> values of the lyapunov exponents in descending order.</p>
+<p>Calculate the spectrum of Lyapunov exponents [1] of <code>ds</code> by applying the QR-decomposition method <code>N</code> times (see method "H2" of [2], or directly the original paper(s) [3]). Returns a vector with the <em>final</em> values of the lyapunov exponents in descending order.</p>
 <p><strong>Keyword Arguments:</strong></p>
 <ul>
 <li><code>Ttr = 0</code> : Extra "transient" time to evolve the system before application of the algorithm. Should be <code>Int</code> for discrete systems.</li>
@@ -404,7 +419,7 @@
 <p>[1] : A. M. Lyapunov, <em>The General Problem of the Stability of Motion</em>, Taylor &amp; Francis (1992)</p>
 <p>[2] : K. Geist <em>et al.</em>, Progr. Theor. Phys. <strong>83</strong>, pp 875 (1990)</p>
 <p>[3] : G. Benettin <em>et al.</em>, Meccanica <strong>15</strong>, pp 9-20 &amp; 21-30 (1980)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/4ec9576b7f1e4aac69b424b8d33575da120f384e/src/lyapunovs.jl#L5-L29' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/32261cee31a86accd707255c1babe25a826980ab/src/lyapunovs.jl#L5-L29' class='documenter-source'>source</a><br></p>
 <hr />
 <p>As you can see, the documentation string is detailed and self-contained. For example, the lyapunov spectrum of the <a href="http://www.scholarpedia.org/article/Hyperchaos">folded towel map</a> is calculated as:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -438,8 +453,8 @@
 </pre></div>
 
 
-<p>Calculate the maximum lyapunov exponent <code>λ</code> using a method due to Benettin [1], which simply evolves two neighboring trajectories (one called "given" and one called "test") while constantly rescaling the test one. <code>T</code>  denotes the total time of evolution (should be <code>Int</code> for discrete systems).</p>
-<p>If <code>ret_conv</code> is <code>Val{true}</code> return the convergence timeseries of the lyapunov exponent <code>λts</code> as well as the corresponding time vector <code>ts</code>. If <code>ret_conv</code> is <code>Val{false}</code> (default) return the converged lyapunov value <code>λts[end]</code> instead.</p>
+<p>Calculate the maximum Lyapunov exponent <code>λ</code> using a method due to Benettin [1], which simply evolves two neighboring trajectories (one called "given" and one called "test") while constantly rescaling the test one. <code>T</code>  denotes the total time of evolution (should be <code>Int</code> for discrete systems).</p>
+<p>If <code>ret_conv</code> is <code>Val{true}</code> return the convergence timeseries of the Lyapunov exponent <code>λts</code> as well as the corresponding time vector <code>ts</code>. If <code>ret_conv</code> is <code>Val{false}</code> (default) return the converged Lyapunov value <code>λts[end]</code> instead.</p>
 <p><strong>Keyword Arguments:</strong></p>
 <ul>
 <li><code>Ttr = 0</code> : Extra "transient" time to evolve the system before application of the algorithm. Should be <code>Int</code> for discrete systems.</li>
@@ -447,14 +462,14 @@
 <li><code>threshold = 10^3*d0</code> : Threshold to rescale the test trajectory.</li>
 <li><code>diff_eq_kwargs = Dict()</code> : (only for continuous) Keyword arguments passed into the solvers of the <code>DifferentialEquations</code> package (see <code>timeseries</code> for more info).</li>
 <li><code>dt = 0.1</code> : (only for continuous) Time of evolution between each check of distance exceeding the <code>threshold</code>.</li>
-<li><code>inittest = (st1, d0) -&gt; st1 .+ d0/sqrt(D)</code> A function that given <code>(st1, d0)</code> initializes the test state with distance (approximatelly) <code>d0</code> from the given state (<code>st1</code>). (<code>D</code> is the dimension of the system, used in the default expression)</li>
+<li><code>inittest = (st1, d0) -&gt; st1 .+ d0/sqrt(D)</code> A function that given <code>(st1, d0)</code> initializes the test state with distance <code>d0</code> from the given state <code>st1</code>. (<code>D</code> is the dimension of the system)</li>
 <li>
 <p><code>rescale = (st2, st1, a) -&gt; @. st1 + (st2 - st1)/a</code></p>
 <p>The function used to rescale the test state <code>st2</code> close to the given state <code>st1</code>, given the ratio of distances <code>a</code> between the two states at the start the rescaling process and after exceeding the threshold, i.e. <span>\(a = d(t_i)/d(t_{i-1})\)</span>. This function can be used when you want to avoid the test state appearing in a region of the phase-space where it would have different energy or escape to infinity.</p>
 </li>
 </ul>
 <p>[1] : G. Benettin <em>et al.</em>, Phys. Rev. A <strong>14</strong>, pp 2338 (1976)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/4ec9576b7f1e4aac69b424b8d33575da120f384e/src/lyapunovs.jl#L61-L106' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/32261cee31a86accd707255c1babe25a826980ab/src/lyapunovs.jl#L61-L106' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -478,7 +493,7 @@
 
 <p><a id='Convergence-Timeseries-1'></a></p>
 <h2 id="convergence-timeseries">Convergence Timeseries</h2>
-<p>As was explained in the documentation of the functions, one can choose to get the convergence timeseries of the lyapunov exponents, instead of simply the converged values. This can be very helpful if one will e.g. prepare to run a lot of simulations and would like to have some optimal keyword parameters for optimal convergence.</p>
+<p>As was explained in the documentation of the functions, one can choose to get the convergence timeseries of the lyapunov exponents, instead of simply the converged values. This can be very helpful if one will e.g. prepare to run a lot of simulations and would like to have some adjusted parameters for optimal convergence.</p>
 <p>For example</p>
 <div class="codehilite"><pre><span></span><span class="n">lor</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">lorenz</span><span class="p">()</span> <span class="c">#works for continuous</span>
 <span class="n">hen</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">()</span>  <span class="c">#works for discrete as well</span>
@@ -575,12 +590,16 @@
       
     </div>
     
-      <script src="../assets/javascripts/application-f3ab9e5ff8.js"></script>
+      <script src="../assets/javascripts/application-268d62d82d.js"></script>
       
       
       <script>app.initialize({url:{base:".."}})</script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+        <script src="../search/require.js"></script>
+      
+        <script src="../search/search.js"></script>
       
     
     
