@@ -474,21 +474,19 @@
 <h2 id="contents">Contents</h2>
 <p><a id='<a href="system_definition">System-Definition</a>-1'></a></p>
 <h3 id="system-definition"><a href="./system_definition">System Definition</a></h3>
-<ol>
-<li>
-<p>Intuitive, consistent APIs for the definition of general dynamical systems. The currently supported system types are:</p>
-<ul>
-<li><a href="./system_definition/#discrete-systems">Discrete Maps</a></li>
-<li><a href="./system_definition/#continuous-systems">Continuous Flows</a></li>
-<li><a href="./system_definition/#numerical-data">Numerical Data</a></li>
-<li>Automatic "completion" of the dynamics of the system with numerically computed Jacobians, in case they are not provided by the user.</li>
-<li>Interface for <a href="http://docs.juliadiffeq.org/latest/index.html"><code>DifferentialEquations.jl</code></a> for flexible integration of continuous system.</li>
-<li>Well-defined functions for (numerically) evolving dynamical systems.</li>
-<li>Dedicated interface (<a href="system_definition/#DynamicalSystems.Dataset"><code>Dataset</code></a>) for handling sets of data, in a way that feels familiar to scientists but is also fast.</li>
-<li>Library of predefined well-known dynamical systems that have been used extensively in scientific research.</li>
-</ul>
-</li>
-</ol>
+<div class="codehilite"><pre><span></span><span class="mf">1.</span> <span class="n">Intuitive</span><span class="p">,</span> <span class="n">consistent</span> <span class="n">APIs</span> <span class="k">for</span> <span class="n">the</span> <span class="n">definition</span> <span class="n">of</span> <span class="n">general</span> <span class="n">dynamical</span> <span class="n">systems</span><span class="p">.</span> <span class="n">The</span> <span class="n">currently</span> <span class="n">supported</span> <span class="n">system</span> <span class="n">types</span> <span class="nl">are</span><span class="p">:</span>
+    <span class="o">*</span> <span class="p">[</span><span class="n">Discrete</span> <span class="n">Maps</span><span class="p">](</span><span class="n">system_definition</span><span class="o">/</span><span class="err">#</span><span class="n">discrete</span><span class="o">-</span><span class="n">systems</span><span class="p">)</span>
+    <span class="o">*</span> <span class="p">[</span><span class="n">Continuous</span> <span class="n">Flows</span><span class="p">](</span><span class="n">system_definition</span><span class="o">/</span><span class="err">#</span><span class="n">continuous</span><span class="o">-</span><span class="n">systems</span><span class="p">)</span>
+    <span class="o">*</span> <span class="p">[</span><span class="n">Numerical</span> <span class="n">Data</span><span class="p">](</span><span class="n">system_definition</span><span class="o">/</span><span class="err">#</span><span class="n">numerical</span><span class="o">-</span><span class="n">data</span><span class="p">)</span>
+
+<span class="mf">2.</span> <span class="n">Automatic</span> <span class="s">&quot;completion&quot;</span> <span class="n">of</span> <span class="n">the</span> <span class="n">dynamics</span> <span class="n">of</span> <span class="n">the</span> <span class="n">system</span> <span class="n">with</span> <span class="n">numerically</span> <span class="n">computed</span> <span class="n">Jacobians</span><span class="p">,</span> <span class="k">in</span> <span class="k">case</span> <span class="n">they</span> <span class="n">are</span> <span class="n">not</span> <span class="n">provided</span> <span class="n">by</span> <span class="n">the</span> <span class="n">user</span><span class="p">.</span>
+<span class="mf">3.</span> <span class="n">Interface</span> <span class="k">for</span> <span class="p">[</span><span class="err">`</span><span class="n">DifferentialEquations</span><span class="p">.</span><span class="n">jl</span><span class="err">`</span><span class="p">](</span><span class="nl">http</span><span class="p">:</span><span class="c1">//docs.juliadiffeq.org/latest/index.html) for flexible integration of continuous system.</span>
+<span class="mf">4.</span> <span class="n">Well</span><span class="o">-</span><span class="n">defined</span> <span class="n">functions</span> <span class="k">for</span> <span class="p">(</span><span class="n">numerically</span><span class="p">)</span> <span class="n">evolving</span> <span class="n">dynamical</span> <span class="n">systems</span><span class="p">.</span>
+<span class="mf">5.</span> <span class="n">Dedicated</span> <span class="n">interface</span> <span class="p">([</span><span class="err">`</span><span class="n">Dataset</span><span class="err">`</span><span class="p">](@</span><span class="n">ref</span><span class="p">))</span> <span class="k">for</span> <span class="n">handling</span> <span class="n">sets</span> <span class="n">of</span> <span class="n">data</span><span class="p">,</span> <span class="k">in</span> <span class="n">a</span> <span class="n">way</span> <span class="n">that</span> <span class="n">feels</span> <span class="n">familiar</span> <span class="n">to</span> <span class="n">scientists</span> <span class="n">but</span> <span class="n">is</span> <span class="n">also</span> <span class="n">fast</span><span class="p">.</span>
+<span class="mf">6.</span> <span class="n">Library</span> <span class="n">of</span> <span class="n">predefined</span> <span class="n">well</span><span class="o">-</span><span class="n">known</span> <span class="n">dynamical</span> <span class="n">systems</span> <span class="n">that</span> <span class="n">have</span> <span class="n">been</span> <span class="n">used</span> <span class="n">extensively</span> <span class="k">in</span> <span class="n">scientific</span> <span class="n">research</span><span class="p">.</span>
+</pre></div>
+
+
 <p><a id='<a href="lyapunovs">Lyapunov-Exponents</a>-1'></a></p>
 <h3 id="lyapunov-exponents"><a href="./lyapunovs">Lyapunov Exponents</a></h3>
 <p>The following treat systems where the equations of motion are known:</p>
