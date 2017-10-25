@@ -31,7 +31,7 @@
       
         <link rel="shortcut icon" href="../assets/images/favicon.png">
       
-      <meta name="generator" content="mkdocs-0.17.0, mkdocs-material-1.11.0">
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.12.1">
     
     
       
@@ -42,7 +42,7 @@
       <script src="../assets/javascripts/modernizr-e826f8942a.js"></script>
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application-0741cbeb94.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application-04ea671600.css">
       
         <link rel="stylesheet" href="../assets/stylesheets/application-23f75ab9c7.palette.css">
       
@@ -171,11 +171,11 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="drawer">
-    <div class="md-nav__button md-logo">
+    <span class="md-nav__button md-logo">
       
         <i class="md-icon md-icon--home"></i>
       
-    </div>
+    </span>
     DynamicalSystems.jl
   </label>
   
@@ -392,7 +392,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/edit/master/docs/lyapunovs.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/edit/master/docs/lyapunovs.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
                 <p><a id='Lyapunov-Exponents-1'></a></p>
@@ -414,12 +414,12 @@
 <ul>
 <li><code>Ttr = 0</code> : Extra "transient" time to evolve the system before application of the algorithm. Should be <code>Int</code> for discrete systems.</li>
 <li><code>dt = 1.0</code> : (only for continuous) Time of individual evolutions between sucessive orthonormalization steps.</li>
-<li><code>diff_eq_kwargs = Dict()</code> : (only for continuous) Keyword arguments passed into the solvers of the <code>DifferentialEquations</code> package (see <code>timeseries</code> for more info).</li>
+<li><code>diff_eq_kwargs = Dict()</code> : (only for continuous) Keyword arguments passed into the solvers of the <code>DifferentialEquations</code> package (see <a href="../system_definition/#DynamicalSystems.trajectory"><code>trajectory</code></a> for more info).</li>
 </ul>
 <p>[1] : A. M. Lyapunov, <em>The General Problem of the Stability of Motion</em>, Taylor &amp; Francis (1992)</p>
 <p>[2] : K. Geist <em>et al.</em>, Progr. Theor. Phys. <strong>83</strong>, pp 875 (1990)</p>
 <p>[3] : G. Benettin <em>et al.</em>, Meccanica <strong>15</strong>, pp 9-20 &amp; 21-30 (1980)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/14cdab01abfac8d6b7ed57d5a7d2edcd64471e07/src/lyapunovs.jl#L5-L29' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/cb3a8826817eab0a4fac9046431a977faae74111/src/lyapunovs.jl#L5-L29' class='documenter-source'>source</a><br></p>
 <hr />
 <p>As you can see, the documentation string is detailed and self-contained. For example, the lyapunov spectrum of the <a href="http://www.scholarpedia.org/article/Hyperchaos">folded towel map</a> is calculated as:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -435,7 +435,7 @@
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
 
 <span class="n">lor</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">lorenz</span><span class="p">(</span><span class="n">ρ</span> <span class="o">=</span> <span class="mf">32.0</span><span class="p">)</span> <span class="c">#this is not the original parameter!</span>
-<span class="n">issubtype</span><span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">ds</span><span class="p">),</span> <span class="n">ContinuousDynamicalSystem</span><span class="p">)</span> <span class="c"># true</span>
+<span class="n">issubtype</span><span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">ds</span><span class="p">),</span> <span class="n">DynamicalSystems</span><span class="o">.</span><span class="n">ContinuousDynamicalSystem</span><span class="p">)</span> <span class="c"># true</span>
 
 <span class="n">λλ</span> <span class="o">=</span> <span class="n">lyapunovs</span><span class="p">(</span><span class="n">lor</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span>
 <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">diff_eq_kwargs</span> <span class="o">=</span> <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">abstol</span> <span class="o">=&gt;</span> <span class="mf">1e-9</span><span class="p">,</span> <span class="o">:</span><span class="n">reltol</span> <span class="o">=&gt;</span> <span class="mf">1e-9</span><span class="p">))</span>
@@ -453,23 +453,24 @@
 </pre></div>
 
 
-<p>Calculate the maximum Lyapunov exponent <code>λ</code> using a method due to Benettin [1], which simply evolves two neighboring trajectories (one called "given" and one called "test") while constantly rescaling the test one. <code>T</code>  denotes the total time of evolution (should be <code>Int</code> for discrete systems).</p>
+<p>Calculate the maximum Lyapunov exponent <code>λ</code> using a method due to Benettin [1], which simply evolves two neighboring trajectories (one called "given" and one called "test") while constantly rescaling the test one. <code>T</code>  denotes the total time of evolution (should be <code>Int</code> for discrete systems). The Lyapunov exponent is the average of the time-local Lyapunov exponents, meaning</p>
+<span>\[
+\lambda = \frac{1}{t_{n}}\sum_{i=1}^{n}
+\ln\left( a_i \right),\quad a_i = \frac{d(t_{i})}{d_0}
+\]</span><p>with <span>\(d(t_i)\)</span> the distance between test and given trajectory at time <span>\(t_i\)</span>, which is also the time of the <span>\(i\)</span>-th rescaling.</p>
 <p>If <code>ret_conv</code> is <code>Val{true}</code> return the convergence timeseries of the Lyapunov exponent <code>λts</code> as well as the corresponding time vector <code>ts</code>. If <code>ret_conv</code> is <code>Val{false}</code> (default) return the converged Lyapunov value <code>λts[end]</code> instead.</p>
 <p><strong>Keyword Arguments:</strong></p>
 <ul>
 <li><code>Ttr = 0</code> : Extra "transient" time to evolve the system before application of the algorithm. Should be <code>Int</code> for discrete systems.</li>
 <li><code>d0 = 1e-9</code> : Initial &amp; rescaling distance between two neighboring trajectories.</li>
-<li><code>threshold = 10^3*d0</code> : Threshold to rescale the test trajectory.</li>
-<li><code>diff_eq_kwargs = Dict()</code> : (only for continuous) Keyword arguments passed into the solvers of the <code>DifferentialEquations</code> package (see <code>timeseries</code> for more info).</li>
+<li><code>threshold = 1e-5</code> : Whenever the distance between given and test trajectory exceeds <code>threshold</code>, the test trajectory is rescaled back to having distance <code>d0</code> from the given trajectory.</li>
+<li><code>diff_eq_kwargs = Dict(:abstol=&gt;d0, :reltol=&gt;d0)</code> : (only for continuous) Keyword arguments passed into the solvers of the <code>DifferentialEquations</code> package (see <a href="../system_definition/#DynamicalSystems.trajectory"><code>trajectory</code></a> for more info).</li>
 <li><code>dt = 0.1</code> : (only for continuous) Time of evolution between each check of distance exceeding the <code>threshold</code>.</li>
-<li><code>inittest = (st1, d0) -&gt; st1 .+ d0/sqrt(D)</code> A function that given <code>(st1, d0)</code> initializes the test state with distance <code>d0</code> from the given state <code>st1</code>. (<code>D</code> is the dimension of the system)</li>
-<li>
-<p><code>rescale = (st2, st1, a) -&gt; @. st1 + (st2 - st1)/a</code></p>
-<p>The function used to rescale the test state <code>st2</code> close to the given state <code>st1</code>, given the ratio of distances <code>a</code> between the two states at the start the rescaling process and after exceeding the threshold, i.e. <span>\(a = d(t_i)/d(t_{i-1})\)</span>. This function can be used when you want to avoid the test state appearing in a region of the phase-space where it would have different energy or escape to infinity.</p>
-</li>
+<li><code>inittest = (st1, d0) -&gt; st1 .+ d0/sqrt(D)</code> : A function that given <code>(st1, d0)</code> initializes the test state with distance <code>d0</code> from the given state <code>st1</code> (<code>D</code> is the dimension of the system). This function can be used when you want to avoid the test state appearing in a region of the phase-space where it would have e.g. different energy or escape to infinity.</li>
 </ul>
+<p>For the continuous case, the algorithm becomes faster with increasing <code>dt</code>, since integration is interrupted less frequenty. For the fastest performance you want to fine-tune <code>dt, d0, threshold</code> such that you have the minimum amount of rescalings but you want to still be well within the linearized dynamics region.</p>
 <p>[1] : G. Benettin <em>et al.</em>, Phys. Rev. A <strong>14</strong>, pp 2338 (1976)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/14cdab01abfac8d6b7ed57d5a7d2edcd64471e07/src/lyapunovs.jl#L61-L106' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/cb3a8826817eab0a4fac9046431a977faae74111/src/lyapunovs.jl#L61-L112' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -477,7 +478,7 @@
 <span class="n">henon</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">()</span>
 <span class="n">λ</span> <span class="o">=</span> <span class="n">lyapunov</span><span class="p">(</span><span class="n">henon</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="n">d0</span> <span class="o">=</span> <span class="mf">1e-7</span><span class="p">,</span> <span class="n">threshold</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">,</span> <span class="n">Ttr</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
 <span class="c"># result:</span>
-<span class="mf">0.42011626111385747</span>
+<span class="mf">0.420</span><span class="o">...</span>
 </pre></div>
 
 
@@ -485,9 +486,9 @@
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span><span class="p">,</span> <span class="n">OrdinaryDiffEq</span>
 
 <span class="n">ross</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">roessler</span><span class="p">(</span><span class="n">a</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mf">14.0</span><span class="p">)</span> <span class="c">#not original parameters</span>
-<span class="n">λ</span> <span class="o">=</span> <span class="n">lyapunov</span><span class="p">(</span><span class="n">ross</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">diff_eq_kwargs</span> <span class="o">=</span> <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">solver</span> <span class="o">=&gt;</span> <span class="n">Vern8</span><span class="p">()))</span>
+<span class="n">λ</span> <span class="o">=</span> <span class="n">lyapunov</span><span class="p">(</span><span class="n">ross</span><span class="p">,</span> <span class="mi">100000</span><span class="p">,</span> <span class="n">dt</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">,</span> <span class="n">diff_eq_kwargs</span> <span class="o">=</span> <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">solver</span> <span class="o">=&gt;</span> <span class="n">Vern8</span><span class="p">(),</span> <span class="o">:</span><span class="n">abstol</span><span class="o">=&gt;</span><span class="mf">1e-9</span><span class="p">,</span> <span class="o">:</span><span class="n">reltol</span><span class="o">=&gt;</span><span class="mf">1e-9</span><span class="p">),</span> <span class="n">Ttr</span> <span class="o">=</span> <span class="mf">100.0</span><span class="p">)</span>
 <span class="c"># result:</span>
-<span class="mf">0.06957484163052223</span>
+<span class="mf">0.0711</span><span class="o">...</span>
 </pre></div>
 
 
@@ -590,16 +591,12 @@
       
     </div>
     
-      <script src="../assets/javascripts/application-268d62d82d.js"></script>
+      <script src="../assets/javascripts/application-946997f430.js"></script>
       
       
-      <script>app.initialize({url:{base:".."}})</script>
+      <script>app.initialize({version:"0.16.3",url:{base:".."}})</script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-      
-        <script src="../search/require.js"></script>
-      
-        <script src="../search/search.js"></script>
       
     
     

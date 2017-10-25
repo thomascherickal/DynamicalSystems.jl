@@ -31,7 +31,7 @@
       
         <link rel="shortcut icon" href="../assets/images/favicon.png">
       
-      <meta name="generator" content="mkdocs-0.17.0, mkdocs-material-1.11.0">
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.12.1">
     
     
       
@@ -42,7 +42,7 @@
       <script src="../assets/javascripts/modernizr-e826f8942a.js"></script>
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application-0741cbeb94.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application-04ea671600.css">
       
         <link rel="stylesheet" href="../assets/stylesheets/application-23f75ab9c7.palette.css">
       
@@ -171,11 +171,11 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="drawer">
-    <div class="md-nav__button md-logo">
+    <span class="md-nav__button md-logo">
       
         <i class="md-icon md-icon--home"></i>
       
-    </div>
+    </span>
     DynamicalSystems.jl
   </label>
   
@@ -460,14 +460,14 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/edit/master/docs/nlts.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/edit/master/docs/nlts.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
                 <p><a id='Nonlinear-Timeseries-Analysis-1'></a></p>
 <h1 id="nonlinear-timeseries-analysis">Nonlinear Timeseries Analysis</h1>
 <p><a id='Delay-Coordinates-Reconstruction-1'></a></p>
 <h2 id="delay-coordinates-reconstruction">Delay Coordinates Reconstruction</h2>
-<p>A mono-dimensional timeseries recorded in some manner from a dynamcal system can be used to gain information about the dynamics of the entire phase-space of the system. This can be done by reconstructing a new phase-space from the timeseries. One method that can do this is what is known as <a href="https://en.wikipedia.org/wiki/Takens%27_theorem">delay coordinates embedding</a>.</p>
+<p>A timeseries recorded in some manner from a dynamical system can be used to gain information about the dynamics of the entire phase-space of the system. This can be done by reconstructing a new phase-space from the timeseries. One method that can do this is what is known as <a href="https://en.wikipedia.org/wiki/Takens%27_theorem">delay coordinates embedding</a>.</p>
 <p>In <code>DynamicalSystems.jl</code> this is done through the <code>reconstruct</code> interface:</p>
 <p><a id='DynamicalSystems.Reconstruction' href='#DynamicalSystems.Reconstruction'>#</a>
 <strong><code>DynamicalSystems.Reconstruction</code></strong> &mdash; <em>Type</em>.</p>
@@ -481,7 +481,7 @@
 (s(n), s(n+\tau), s(n+2\tau), \dots, s(n+(D-1)\tau))
 \]</span><p>which is created only on demand. (<span>\(s\)</span> = <code>R.s</code> with <code>R</code> the <code>Reconstruction</code> object)</p>
 <p>See <a href="./#DynamicalSystems.reconstruct"><code>reconstruct</code></a> for usage.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/14cdab01abfac8d6b7ed57d5a7d2edcd64471e07/src/delay_coords.jl#L13-L25' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/cb3a8826817eab0a4fac9046431a977faae74111/src/delay_coords.jl#L13-L25' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.reconstruct' href='#DynamicalSystems.reconstruct'>#</a>
 <strong><code>DynamicalSystems.reconstruct</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>reconstruct(s::AbstractVector, D::Int, τ::Int) -&gt; R::Reconstruction
@@ -501,12 +501,12 @@
 <p>The functions <code>dimension(R)</code> and <code>delay(R)</code> return <code>D</code> and <code>τ</code> respectively. Notice that <code>length(R) = length(s) - (D-1)*τ</code> (i.e. the amount of D-dimensional points "contained" in <code>R</code>) but <code>size(R) = (length(R), D)</code>.</p>
 <p>[1] : F. Takens, <em>Detecting Strange Attractors in Turbulence — Dynamical Systems and Turbulence</em>, Lecture Notes in Mathematics <strong>366</strong>, Springer (1981)</p>
 <p>[2] : T. Sauer <em>et al.</em>, J. Stat. Phys. <strong>65</strong>, pp 579 (1991)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/14cdab01abfac8d6b7ed57d5a7d2edcd64471e07/src/delay_coords.jl#L84-L116' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/cb3a8826817eab0a4fac9046431a977faae74111/src/delay_coords.jl#L85-L117' class='documenter-source'>source</a><br></p>
 <hr />
 <p>As an example, let's pass a <code>Reconstruction</code> into e.g. a method that calculates the attractor dimension:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
 <span class="n">he</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">()</span>
-<span class="n">ts</span> <span class="o">=</span> <span class="n">timeseries</span><span class="p">(</span><span class="n">he</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">he</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span>
 <span class="n">D1</span> <span class="o">=</span> <span class="n">information_dim</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span> <span class="c"># around 1.20</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">ts</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="c"># some &quot;recorded&quot; timeseries</span>
 <span class="n">R</span> <span class="o">=</span> <span class="n">reconstruct</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c"># delay coords. reconstruction of dimension 2 and delay 1</span>
@@ -522,10 +522,14 @@
 <p><a id='Estimating-Reconstruction-Parameters-1'></a></p>
 <h2 id="estimating-reconstruction-parameters">Estimating Reconstruction Parameters</h2>
 <p>The following functions are provided estimate good values that can be used in <a href="./#DynamicalSystems.reconstruct"><code>reconstruct</code></a>:</p>
-<div class="codehilite"><pre><span></span>estimate_delay
+<p><a id='DynamicalSystems.estimate_delay' href='#DynamicalSystems.estimate_delay'>#</a>
+<strong><code>DynamicalSystems.estimate_delay</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>estimate_delay(s) -&gt; τ
 </pre></div>
 
 
+<p>Estimate an optimal delay to be used in <a href="./#DynamicalSystems.reconstruct"><code>reconstruct</code></a>, by performing an exponential fit to the <code>abs.(c)</code> with <code>c</code> the auto-correlation function of <code>s</code>. Return the exponential decay time <code>τ</code> rounded to an integer.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/cb3a8826817eab0a4fac9046431a977faae74111/src/delay_coords.jl#L181-L187' class='documenter-source'>source</a><br></p>
 <p><a id='Numerical-Lyapunov-Estimation-1'></a></p>
 <h2 id="numerical-lyapunov-estimation">Numerical Lyapunov Estimation</h2>
 <p>Given any timeseries, one can first <code>reconstruct</code> it, and then calculate a maximum lyapunov exponent for it, provided that the system the timeseries was recorded from actually exhibits exponential separation of nearby trajectories. This is done with</p>
@@ -550,7 +554,7 @@ E(k) \approx \lambda\Delta t k + E(0)
 <p>This function assumes that the Theiler window (see [1]) is the same as the delay time: <span>\(w  = \tau\)</span>.</p>
 <p>[1] : Skokos, C. H. <em>et al.</em>, <em>Chaos Detection and Predictability</em> - Chapter 1 (section 1.3.2), Lecture Notes in Physics <strong>915</strong>, Springer (2016)</p>
 <p>[2] : Kantz, H., Phys. Lett. A <strong>185</strong>, pp 77–87 (1994)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/14cdab01abfac8d6b7ed57d5a7d2edcd64471e07/src/delay_coords.jl#L286-L349' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/cb3a8826817eab0a4fac9046431a977faae74111/src/delay_coords.jl#L287-L350' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Neighborhoods-1'></a></p>
 <h3 id="neighborhoods">Neighborhoods</h3>
@@ -566,7 +570,7 @@ E(k) \approx \lambda\Delta t k + E(0)
 </ul>
 <p>Notice that these distances are always computed using the <code>Euclidean()</code> distance in <code>D</code>-dimensional space, irrespectively of the <code>distance</code> used in the function <a href="./#DynamicalSystems.numericallyapunov"><code>numericallyapunov</code></a>.</p>
 <p>See also <a href="./#DynamicalSystems.neighborhood"><code>neighborhood</code></a> or <a href="./#DynamicalSystems.numericallyapunov"><code>numericallyapunov</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/14cdab01abfac8d6b7ed57d5a7d2edcd64471e07/src/delay_coords.jl#L218-L232' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/cb3a8826817eab0a4fac9046431a977faae74111/src/delay_coords.jl#L219-L233' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.neighborhood' href='#DynamicalSystems.neighborhood'>#</a>
 <strong><code>DynamicalSystems.neighborhood</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>neighborhood(n, point, tree::KDTree, method::AbstractNeighborhood)
@@ -584,7 +588,7 @@ E(k) \approx \lambda\Delta t k + E(0)
 <p>where <code>R</code> can be <em>either</em> a <a href="../system_definition/#DynamicalSystems.Dataset"><code>Dataset</code></a> or a <a href="./#DynamicalSystems.Reconstruction"><code>Reconstruction</code></a>.</p>
 <p>Notice that the distances in the trees are always computed using the <code>Euclidean()</code> distance in <code>D</code>-dimensional space, irrespectively of the <code>distance</code> used in the <a href="./#DynamicalSystems.numericallyapunov"><code>numericallyapunov</code></a> function.</p>
 <p><code>neighborhood</code> <strong>simply interfaces</strong> the functions <code>knn</code> and <code>inrange</code> from <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a> by using the last argument, <code>method</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/14cdab01abfac8d6b7ed57d5a7d2edcd64471e07/src/delay_coords.jl#L243-L266' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/cb3a8826817eab0a4fac9046431a977faae74111/src/delay_coords.jl#L244-L267' class='documenter-source'>source</a><br></p>
 <hr />
 <p>As you can see, the function <code>neighborhood</code> is generally applicable!</p>
 <p><a id='Example-of-Numerical-Lyapunov-computation-1'></a></p>
@@ -592,7 +596,7 @@ E(k) \approx \lambda\Delta t k + E(0)
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span><span class="p">,</span> <span class="n">PyPlot</span>
 
 <span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">()</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">timeseries</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 
 <span class="n">ks</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="mi">20</span>
@@ -633,7 +637,7 @@ E(k) \approx \lambda\Delta t k + E(0)
 </div>
 <p>Let's revisit the example of the previous section:</p>
 <div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">()</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">timeseries</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 </pre></div>
 
@@ -658,7 +662,7 @@ E(k) \approx \lambda\Delta t k + E(0)
 <span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">lorenz</span><span class="p">()</span> <span class="c"># Max lyapunov is around 0.90</span>
 <span class="c"># create a timeseries of 1 dimension</span>
 <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.05</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">timeseries</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">;</span> <span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span><span class="p">)[</span><span class="o">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">;</span> <span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span><span class="p">)[</span><span class="o">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 
 <span class="n">τ1</span> <span class="o">=</span> <span class="n">estimate_delay</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c">#gives 7</span>
 
@@ -773,16 +777,12 @@ E(k) \approx \lambda\Delta t k + E(0)
       
     </div>
     
-      <script src="../assets/javascripts/application-268d62d82d.js"></script>
+      <script src="../assets/javascripts/application-946997f430.js"></script>
       
       
-      <script>app.initialize({url:{base:".."}})</script>
+      <script>app.initialize({version:"0.16.3",url:{base:".."}})</script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-      
-        <script src="../search/require.js"></script>
-      
-        <script src="../search/search.js"></script>
       
     
     

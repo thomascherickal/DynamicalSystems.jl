@@ -31,7 +31,7 @@
       
         <link rel="shortcut icon" href="./assets/images/favicon.png">
       
-      <meta name="generator" content="mkdocs-0.17.0, mkdocs-material-1.11.0">
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.12.1">
     
     
       
@@ -42,7 +42,7 @@
       <script src="./assets/javascripts/modernizr-e826f8942a.js"></script>
     
     
-      <link rel="stylesheet" href="./assets/stylesheets/application-0741cbeb94.css">
+      <link rel="stylesheet" href="./assets/stylesheets/application-04ea671600.css">
       
         <link rel="stylesheet" href="./assets/stylesheets/application-23f75ab9c7.palette.css">
       
@@ -171,11 +171,11 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="drawer">
-    <div class="md-nav__button md-logo">
+    <span class="md-nav__button md-logo">
       
         <i class="md-icon md-icon--home"></i>
       
-    </div>
+    </span>
     DynamicalSystems.jl
   </label>
   
@@ -234,6 +234,13 @@
   
     <label class="md-nav__title" for="toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" title="Installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#contents" title="Contents" class="md-nav__link">
@@ -392,6 +399,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#installation" title="Installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#contents" title="Contents" class="md-nav__link">
     Contents
   </a>
@@ -460,16 +474,22 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/edit/master/docs/index.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/edit/master/docs/index.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
                 <p><img alt="DynamicalSystems.jl logo: The Double Pendulum" src="https://i.imgur.com/nFQFdB0.gif" /></p>
 <p><a id='Introduction-1'></a></p>
 <h1 id="introduction">Introduction</h1>
 <p><code>DynamicalSystems.jl</code> is a Julia package for the exploration of continuous and discrete dynamical systems. It aims to be a useful and powerful companion for students and scientists treading on the fields of Chaos, nonlinear dynamics and dynamical systems in general.</p>
-<p>One of a major goals of this package is to be completely transparent as to what is going on "under the hood". In scientific research, you never want to use <em>black boxes</em>, e.g. functions that give a result without telling you how it was calculated. <code>DynamicalSystems.jl</code> battles this in 2 ways: Firstly, it is written entirely in Julia, making the source code clear and easy to understand for even novice users. Secondly, almost every documentation string gives <strong>direct references to the original papers</strong> where the algorithm is taken from, in case some users don't understand (or simply don't want to read) the source code. For example, the documentation string of <a href="lyapunovs/#DynamicalSystems.lyapunovs"><code>lyapunovs</code></a> will cite relevant publications for the definition and computation of the lyapunov spectrum.</p>
+<p>One of a major goals of this package is to be completely transparent as to what is going on "under the hood". In scientific research, you never want to use <em>black boxes</em>, e.g. functions that give a result without telling you how it was calculated. <code>DynamicalSystems.jl</code> battles this in 3 ways: Firstly, it is written entirely in Julia, making the source code clear and easy to understand for even novice users. Secondly, almost every documentation string gives <strong>direct references to the original papers</strong> where the algorithm is taken from, in case some users don't understand (or simply don't want to read) the source code. For example, the documentation string of <a href="lyapunovs/#DynamicalSystems.lyapunovs"><code>lyapunovs</code></a> will cite relevant publications for the definition and computation of the lyapunov spectrum. Thirdly, all documentation strings for all exported names have very detailed descriptions of the algorithms (whenever it is possible).</p>
 <p><em>You can <a href="https://gitter.im/JuliaDynamics/Lobby">join our chatroom</a> for discussions related to dynamical systems and Julia as well as for asking questions about the packages of the JuliaDynamics organization!</em></p>
 <p>Be sure to visit the <a href="./contributors_guide">Contributor Guide</a> page, because you can help make this package better without having to write a single line of code! Also, if you find this package helpful please consider staring it on <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl">GitHub</a>! This gives us an accurate lower bound of users that this package has already helped!</p>
+<p><a id='Installation-1'></a></p>
+<h2 id="installation">Installation</h2>
+<p>This package is registered. Simply use <code>Pkg.add("DynamicalSystems")</code> to install it.</p>
+<p>Bug-fixes and upgrades are constantly fed to the master branch, which accessed with <code>Pkg.checkout("DynamicalSystems")</code> after installing. On the other hand the master branch may also have breaking changes and therefore caution is advised!</p>
+<p><em>The <a href="https://JuliaDynamics.github.io/DynamicalSystems.jl/stable">stable</a> documentation refers to the version of the package installed with <code>Pkg.add()</code>. The <a href="https://JuliaDynamics.github.io/DynamicalSystems.jl/latest">latest</a> documentation refers to the version under development, obtained with <code>Pkg.checkout("DynamicalSystems")</code>.</em></p>
+<p>To ensure that your installation works perfectly, you can use <code>Pkg.test("DynamicalSystems")</code>.</p>
 <p><a id='Contents-1'></a></p>
 <h2 id="contents">Contents</h2>
 <p><a id='<a href="system_definition">System-Definition</a>-1'></a></p>
@@ -526,10 +546,10 @@
 <p><a id='<a href="nlts">Nonlinear-Timeseries-Analysis</a>-1'></a></p>
 <h3 id="nonlinear-timeseries-analysis"><a href="./nlts">Nonlinear Timeseries Analysis</a></h3>
 <ol>
-<li>Flexible and abstracted <a href="nlts/#DynamicalSystems.Reconstruction"><code>Reconstruction</code></a> interface, that creates the delay-coordinates reconstruction of a 1D timeseries efficiently.</li>
+<li>Flexible and abstracted <a href="nlts/#DynamicalSystems.Reconstruction"><code>Reconstruction</code></a> interface, that creates the delay-coordinates reconstruction of a timeseries efficiently.</li>
 <li>Methods for estimating good <code>Reconstruction</code> parameters (delay and dimension).</li>
 <li>
-<p><em>Four</em> different algorithms for numerically determining the maximum Lyapunov exponent of a (e.g. experimentally) measured 1-dimensional timeseries: <a href="nlts/#DynamicalSystems.numericallyapunov"><code>numericallyapunov</code></a>.</p>
+<p><em>Four</em> different algorithms for numerically determining the maximum Lyapunov exponent of a (e.g. experimentally) measured timeseries: <a href="nlts/#DynamicalSystems.numericallyapunov"><code>numericallyapunov</code></a>.</p>
 <ul>
 <li>Fast computation of the above algorithms made possible by the interaction of <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a>, multiple dispatch and smart indexing (through the <code>Reconstruction</code> abstraction).</li>
 </ul>
@@ -611,16 +631,12 @@
       
     </div>
     
-      <script src="./assets/javascripts/application-268d62d82d.js"></script>
+      <script src="./assets/javascripts/application-946997f430.js"></script>
       
       
-      <script>app.initialize({url:{base:"."}})</script>
+      <script>app.initialize({version:"0.16.3",url:{base:"."}})</script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-      
-        <script src="./search/require.js"></script>
-      
-        <script src="./search/search.js"></script>
       
     
     

@@ -31,7 +31,7 @@
       
         <link rel="shortcut icon" href="../assets/images/favicon.png">
       
-      <meta name="generator" content="mkdocs-0.17.0, mkdocs-material-1.11.0">
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.12.1">
     
     
       
@@ -42,7 +42,7 @@
       <script src="../assets/javascripts/modernizr-e826f8942a.js"></script>
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application-0741cbeb94.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application-04ea671600.css">
       
         <link rel="stylesheet" href="../assets/stylesheets/application-23f75ab9c7.palette.css">
       
@@ -171,11 +171,11 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="drawer">
-    <div class="md-nav__button md-logo">
+    <span class="md-nav__button md-logo">
       
         <i class="md-icon md-icon--home"></i>
       
-    </div>
+    </span>
     DynamicalSystems.jl
   </label>
   
@@ -470,7 +470,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/edit/master/docs/entropies.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/edit/master/docs/entropies.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
                 <p><a id='Entropies-and-Dimensions-1'></a></p>
@@ -497,7 +497,7 @@
 <p>The Rényi entropy</p>
 <span>\[
 R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p_i^\alpha
-\]</span><p>generalizes other known entropies, like e.g. the information entropy (<span>\(\alpha = 1\)</span>, see <em>the</em> Shannon paper [2]), the maximum entropy (<span>\(\alpha=0\)</span>, also known as Hartley entropy), or the correlation entropy (<span>\(\alpha = 2\)</span>, also known as collision entropy).</p>
+\]</span><p>generalizes other known entropies, like e.g. the information entropy (<span>\(\alpha = 1\)</span>, see [2]), the maximum entropy (<span>\(\alpha=0\)</span>, also known as Hartley entropy), or the correlation entropy (<span>\(\alpha = 2\)</span>, also known as collision entropy).</p>
 <p>The following aliases are provided:</p>
 <ul>
 <li><code>renyi = genentropy</code></li>
@@ -506,34 +506,33 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p_i^\alpha
 </ul>
 <p>[1] : A. Rényi, <em>Proceedings of the fourth Berkeley Symposium on Mathematics, Statistics and Probability</em>, pp 547 (1960)</p>
 <p>[2] : C. E. Shannon, Bell Systems Technical Journal <strong>27</strong>, pp 379 (1948)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/14cdab01abfac8d6b7ed57d5a7d2edcd64471e07/src/dimensions/entropies.jl#L54-L86' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/cb3a8826817eab0a4fac9046431a977faae74111/src/dimensions/entropies.jl#L42-L74' class='documenter-source'>source</a><br></p>
 <hr />
 <p>Basically, given a <a href="../system_definition/#numerical-data">dataset</a> you can partition it into boxes to calculate an entropy.</p>
 <div class="admonition tip">
 <p class="admonition-title">Worried about memory overflow? Don't be!</p>
-<p>Partitioning the dataset (i.e. doing a <em>histogram</em>) is in general a costly operation that depends exponentially on the number of dimensions of the system. However, in this specific case the partition process has some special aspects that can be taken advantage of, reducing tremendously the memory allocation and spent time!</p>
+<p>Partitioning the dataset (i.e. doing a <em>histogram</em>) is in general a costly operation that depends exponentially on the number of dimensions of the system. However, in this specific case the partition process has some special aspects that can be taken advantage of, reducing tremendously the memory allocation and spent time! You can compare <a href="./#DynamicalSystems.non0hist"><code>non0hist</code></a> with <code>fit(Histogram, ...)</code> of <a href="http://juliastats.github.io/StatsBase.jl/stable/"><code>StatsBase</code></a> for specific numbers on your machine.</p>
 </div>
-<p>The function used internally is <code>non0hist</code>:</p>
+<p>The function used internally by <code>genentropy</code> is <code>non0hist</code>:</p>
 <p><a id='DynamicalSystems.non0hist' href='#DynamicalSystems.non0hist'>#</a>
 <strong><code>DynamicalSystems.non0hist</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="n">non0hist</span><span class="p">(</span><span class="n">ε</span><span class="p">,</span> <span class="n">dataset</span><span class="p">)</span>
 </pre></div>
 
 
-<p>Partition a dataset into tabulated intervals (boxes) of size <code>ε</code> and return the <em>sum-normalized</em> histogram in an <strong>unordered 1D form</strong>, <strong>discarding all zero</strong> elements. This method is extremely effecient in both memory and speed, because it uses a dictionary to collect the information of bins with elements, while it completely disregards empty bins.</p>
+<p>Partition a dataset into tabulated intervals (boxes) of size <code>ε</code> and return the <em>sum-normalized</em> histogram in an <strong>unordered 1D form</strong>, <strong>discarding all zero</strong> elements. This method is effecient in both memory and speed, because it uses a dictionary to collect the information of bins with elements, while it completely disregards empty bins.</p>
 <p>Use e.g. <code>fit(Histogram, ...)</code> from <code>StatsBase</code> if you wish to keep information about the edges of the binning as well as the zero elements.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/14cdab01abfac8d6b7ed57d5a7d2edcd64471e07/src/dimensions/entropies.jl#L27-L40' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/cb3a8826817eab0a4fac9046431a977faae74111/src/dimensions/entropies.jl#L3-L16' class='documenter-source'>source</a><br></p>
 <hr />
-<p>It typically outperforms traditional histograms by <strong>several orders of magnitude</strong> in both memory and speed. You can compare <code>DynamicalSystems.perform_non0hist</code> with <code>fit(Histogram, ...)</code> of <a href="http://juliastats.github.io/StatsBase.jl/stable/"><code>StatsBase</code></a> for specific numbers on your machine.</p>
 <p>For example, the Shannon entropy of a coin-flip process should be one bit, <a href="https://en.wikipedia.org/wiki/Shannon_(unit)">by definition</a>. Let's see...</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
-<span class="n">y</span> <span class="o">=</span> <span class="kt">Int</span><span class="o">.</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="kt">Bool</span><span class="p">,</span> <span class="mi">10000</span><span class="p">))</span> <span class="c"># just some coin tosses</span>
-<span class="n">sh</span> <span class="o">=</span> <span class="n">shannon</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>       <span class="c"># ≡ genentropy(1, 0.01, y)</span>
-<span class="n">isapprox</span><span class="p">(</span><span class="n">sh</span><span class="p">,</span> <span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>  <span class="n">rtol</span> <span class="o">=</span> <span class="mf">1e-3</span><span class="p">)</span> <span class="c"># true!</span>
+<span class="n">y</span> <span class="o">=</span> <span class="kt">Float64</span><span class="o">.</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="kt">Bool</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">))</span> <span class="c"># just some coin tosses</span>
+<span class="n">sh</span> <span class="o">=</span> <span class="n">shannon</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>  <span class="c"># ≡ genentropy(1, 0.0, y)</span>
+<span class="n">isapprox</span><span class="p">(</span><span class="n">sh</span><span class="p">,</span> <span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>  <span class="n">rtol</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">)</span> <span class="c"># true!</span>
 </pre></div>
 
 
-<p>Because all entropies are calculated on base-e, the unit of measurement is "nat", and one bit is log(2)×nat.</p>
+<p>Because all entropies are calculated on base-<span>\(e\)</span>, the unit of measurement is "nat" and one bit is <span>\(\log(2)\times\)</span>nat.</p>
 <p><a id='Attractor-Dimension-Estimation-1'></a></p>
 <h2 id="attractor-dimension-estimation">Attractor Dimension Estimation</h2>
 <p>There are numerous methods that one can use to calculate a so-called "dimension" of a dataset, like for example the <a href="https://en.wikipedia.org/wiki/Fractal_dimension">Fractal dimension</a>. This real number can offer a lot of information about the object that the dataset represents.</p>
@@ -562,7 +561,7 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p_i^\alpha
 <li>α = 1 : <code>information_dim</code></li>
 <li>α = 2 : <code>correlation_dim</code>, <code>collision_dim</code></li>
 </ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/14cdab01abfac8d6b7ed57d5a7d2edcd64471e07/src/dimensions/dims.jl#L171-L195' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/cb3a8826817eab0a4fac9046431a977faae74111/src/dimensions/dims.jl#L171-L195' class='documenter-source'>source</a><br></p>
 <hr />
 <p>As stated clearly, this call performs a lot of automated steps by calling the following functions with default arguments:</p>
 <p><a id='DynamicalSystems.estimate_boxsizes' href='#DynamicalSystems.estimate_boxsizes'>#</a>
@@ -572,7 +571,7 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p_i^\alpha
 
 
 <p>Return a <code>k</code>-element <code>logspace</code> from the magnitude + <code>z</code> of the biggest absolute value of the dataset, to the magnitude + <code>w</code> of the minimum pair-wise distance between datapoints.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/14cdab01abfac8d6b7ed57d5a7d2edcd64471e07/src/dimensions/dims.jl#L146-L151' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/cb3a8826817eab0a4fac9046431a977faae74111/src/dimensions/dims.jl#L146-L151' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.linear_regions' href='#DynamicalSystems.linear_regions'>#</a>
 <strong><code>DynamicalSystems.linear_regions</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>linear_regions(x, y; dxi::Int = 1, tol = 0.2) -&gt; (lrs, tangents)
@@ -582,7 +581,7 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p_i^\alpha
 <p>Identify regions where the curve <code>y(x)</code> is linear, by scanning the <code>x</code>-axis every <code>dxi</code> indices (e.g. at <code>x[1] to x[5], x[5] to x[10], x[10] to x[15]</code> and so on if <code>dxi=5</code>).</p>
 <p>If the slope (calculated using <code>LsqFit</code>) of a region of width <code>dxi</code> is approximatelly equal to that of the previous region, within tolerance <code>tol</code>, then these two regions belong to the same linear region.</p>
 <p>Return the indices of <code>x</code> that correspond to linear regions, <code>lrs</code>, and the approximated <code>tangents</code> at each region. <code>lrs</code> is a vector of <code>Int</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/14cdab01abfac8d6b7ed57d5a7d2edcd64471e07/src/dimensions/dims.jl#L59-L72' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/cb3a8826817eab0a4fac9046431a977faae74111/src/dimensions/dims.jl#L59-L72' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.linear_region' href='#DynamicalSystems.linear_region'>#</a>
 <strong><code>DynamicalSystems.linear_region</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>linear_region(x, y; dxi::Int = 1, tol = 0.2) -&gt; ([ind1, ind2], slope)
@@ -590,7 +589,7 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p_i^\alpha
 
 
 <p>Call <a href="./#DynamicalSystems.linear_regions"><code>linear_regions</code></a>, identify the largest linear region and approximate the slope of the entire region using least squares fit. Return the indices where the region starts and stops (<code>x[ind1:ind2]</code>) as well as the approximated slope.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/14cdab01abfac8d6b7ed57d5a7d2edcd64471e07/src/dimensions/dims.jl#L20-L26' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/cb3a8826817eab0a4fac9046431a977faae74111/src/dimensions/dims.jl#L20-L26' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Example-1'></a></p>
 <h4 id="example">Example</h4>
@@ -598,16 +597,16 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p_i^\alpha
 <p>For example, we will calculate the dimensions of the strange attractors of the <a href="../system_definition/#DynamicalSystems.Systems.henon">Hénon map</a> and the <a href="../system_definition/#DynamicalSystems.Systems.lorenz">Lorenz system</a>:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
 <span class="n">hen</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">(</span><span class="o">-</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
-<span class="n">ts</span> <span class="o">=</span> <span class="n">timeseries</span><span class="p">(</span><span class="n">hen</span><span class="p">,</span> <span class="mi">200000</span><span class="p">)</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">hen</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">)</span>
 <span class="n">D_hen</span> <span class="o">=</span> <span class="n">information_dim</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
 
 <span class="n">lor</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">lorenz</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
-<span class="n">ts</span> <span class="o">=</span> <span class="n">timeseries</span><span class="p">(</span><span class="n">lor</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">)</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">lor</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">)</span>
 <span class="n">D_lor</span> <span class="o">=</span> <span class="n">capacity_dim</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
 </pre></div>
 
 
-<p>You will find that <code>D_hen</code> is around <code>1.2</code> and <code>D_lor</code> is around <code>1.95</code>, both of which <a href="http://www.dt.fee.unicamp.br/~tiago/courses/dinamica_caotica/Lyapunov.pdf">are correct values</a>. As a side note, be sure that you have enough data points, otherwise the values you will get will never be correct, as is demonstrated by J.-P. Eckmann and D. Ruelle (see Physica D <strong>56</strong>, pp 185-187 (1992)).</p>
+<p>You will find that <code>D_hen</code> is around <code>1.2</code> and <code>D_lor</code> is around <code>1.9</code>. As a side note, be sure that you have enough data points, otherwise the values you will get will never be correct, as is demonstrated by J.-P. Eckmann and D. Ruelle (see Physica D <strong>56</strong>, pp 185-187 (1992)).</p>
 <p><a id='Kaplan-Yorke-Dimension-1'></a></p>
 <h3 id="kaplan-yorke-dimension">Kaplan-Yorke Dimension</h3>
 <p>Also known as Lyapunov Dimension:</p>
@@ -620,11 +619,11 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p_i^\alpha
 <p>Calculate the Kaplan-Yorke dimension <a href="../aka Lyapunov dimension">1</a>. This simply is the point where <code>cumsum(lyapunovs)</code> becomes zero (interpolated). Returns the length of the vector if the sum of the exponents never becomes negative.</p>
 <p>Useful in combination with <a href="../lyapunovs/#DynamicalSystems.lyapunovs"><code>lyapunovs</code></a>.</p>
 <p>[1] :  J. Kaplan &amp; J. Yorke, <em>Chaotic behavior of multidimensional difference equations</em>, Lecture Notes in Mathematics vol. <strong>730</strong>, Springer (1979)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/14cdab01abfac8d6b7ed57d5a7d2edcd64471e07/src/dimensions/dims.jl#L221-L233' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/cb3a8826817eab0a4fac9046431a977faae74111/src/dimensions/dims.jl#L221-L233' class='documenter-source'>source</a><br></p>
 <hr />
-<p>Notice that calling this function requires you to pass the lyapunov exponents in an ordered vector form (largest to smallest). Example:</p>
+<p>Notice that calling this function requires you to pass the Lyapunov exponents in an ordered vector form (largest to smallest). Example:</p>
 <div class="codehilite"><pre><span></span><span class="n">hen</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">()</span>
-<span class="n">D_kp</span> <span class="o">=</span> <span class="n">kaplanyorke_dim</span><span class="p">(</span><span class="n">lyapunovs</span><span class="p">(</span><span class="n">hen</span><span class="p">,</span> <span class="mi">200000</span><span class="p">))</span>
+<span class="n">D_kp</span> <span class="o">=</span> <span class="n">kaplanyorke_dim</span><span class="p">(</span><span class="n">lyapunovs</span><span class="p">(</span><span class="n">hen</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">))</span>
 </pre></div>
                 
                   
@@ -703,16 +702,12 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p_i^\alpha
       
     </div>
     
-      <script src="../assets/javascripts/application-268d62d82d.js"></script>
+      <script src="../assets/javascripts/application-946997f430.js"></script>
       
       
-      <script>app.initialize({url:{base:".."}})</script>
+      <script>app.initialize({version:"0.16.3",url:{base:".."}})</script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-      
-        <script src="../search/require.js"></script>
-      
-        <script src="../search/search.js"></script>
       
     
     
