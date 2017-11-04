@@ -1,4 +1,7 @@
 
+
+
+
 <!DOCTYPE html>
 <html lang="en" class="no-js">
   <head>
@@ -18,7 +21,7 @@
       
         <meta name="lang:clipboard.copied" content="Copied to clipboard">
       
-        <meta name="lang:search.languages" content="">
+        <meta name="lang:search.language" content="en">
       
         <meta name="lang:search.result.none" content="No matching documents">
       
@@ -28,10 +31,8 @@
       
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
-      
-        <link rel="shortcut icon" href="../assets/images/favicon.png">
-      
-      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.12.1">
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-0.17.1, mkdocs-material-2.0.2">
     
     
       
@@ -39,19 +40,14 @@
       
     
     
+      <link rel="stylesheet" href="../assets/stylesheets/application-5b1b46901f.css">
+      
+    
+    
       <script src="../assets/javascripts/modernizr-e826f8942a.js"></script>
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application-04ea671600.css">
       
-        <link rel="stylesheet" href="../assets/stylesheets/application-23f75ab9c7.palette.css">
-      
-    
-    
-      
-        
-        
-        
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
@@ -63,10 +59,7 @@
     
   </head>
   
-  
-  
-  
-    <body data-md-color-primary="deep-purple" data-md-color-accent="teal">
+    <body>
   
     <svg class="md-svg">
       <defs>
@@ -86,7 +79,7 @@
       <div class="md-flex__cell md-flex__cell--shrink">
         <a href=".." title="DynamicalSystems.jl" class="md-header-nav__button md-logo">
           
-            <i class="md-icon md-icon--home"></i>
+            <i class="md-icon"></i>
           
         </a>
       </div>
@@ -105,8 +98,9 @@
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
         
-          <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
           
+            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+            
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="search"></label>
   <div class="md-search__inner">
@@ -127,6 +121,7 @@
     </div>
   </div>
 </div>
+          
         
       </div>
       
@@ -138,7 +133,7 @@
   
 
 
-  <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl" title="Go to repository" class="md-source" data-md-source="github">
+  <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/" title="Go to repository" class="md-source" data-md-source="github">
     
       <div class="md-source__icon">
         <svg viewBox="0 0 24 24" width="24" height="24">
@@ -160,8 +155,6 @@
     
     <div class="md-container">
       
-      
-      
       <main class="md-main">
         <div class="md-main__inner md-grid" data-md-component="container">
           
@@ -173,7 +166,7 @@
   <label class="md-nav__title md-nav__title--site" for="drawer">
     <span class="md-nav__button md-logo">
       
-        <i class="md-icon md-icon--home"></i>
+        <i class="md-icon"></i>
       
     </span>
     DynamicalSystems.jl
@@ -186,7 +179,7 @@
   
 
 
-  <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl" title="Go to repository" class="md-source" data-md-source="github">
+  <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/" title="Go to repository" class="md-source" data-md-source="github">
     
       <div class="md-source__icon">
         <svg viewBox="0 0 24 24" width="24" height="24">
@@ -415,7 +408,7 @@
 <li><code>roundtol::Int = 4</code> : The found fixed points are rounded  to <code>roundtol</code> digits before pushed into the list of returned fixed points <code>FP</code>,  <em>if</em> they are not already contained in <code>FP</code>.  This is done so that <code>FP</code> doesn't contain duplicate fixed points (notice  that this has nothing to do with <code>disttol</code>). Turn this to <code>16</code> to get the full  precision of the algorithm.</li>
 </ul>
 <p>[1] : P. Schmelcher &amp; F. K. Diakonos, Phys. Rev. Lett. <strong>78</strong>, pp 4733 (1997)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/86f2f33c5dd6883dc715ddace035e052549ce181/src/periodic.jl#L81-L122' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/e361ea19f102bb3e608906d8fe820574071ca698/src/periodic.jl#L81-L122' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.lambdamatrix' href='#DynamicalSystems.lambdamatrix'>#</a>
 <strong><code>DynamicalSystems.lambdamatrix</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>lambdamatrix(λ, inds::Vector{Int}, sings) -&gt; Λk
@@ -441,7 +434,7 @@
 
 <p>[2] : D. Pingel <em>et al.</em>, Phys. Rev. E <strong>62</strong>, pp 2119 (2000)</p>
 <p>[3] : F. K. Diakonos <em>et al.</em>, Phys. Rev. Lett. <strong>81</strong>, pp 4349 (1998)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/86f2f33c5dd6883dc715ddace035e052549ce181/src/periodic.jl#L9-L43' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/e361ea19f102bb3e608906d8fe820574071ca698/src/periodic.jl#L9-L43' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.lambdaperms' href='#DynamicalSystems.lambdaperms'>#</a>
 <strong><code>DynamicalSystems.lambdaperms</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>lambdaperms(D) -&gt; indperms, singperms
@@ -449,7 +442,7 @@
 
 
 <p>Return two collections that each contain all possible combinations of indices (total of <span>\(D!\)</span>) and signs (total of <span>\(2^D\)</span>) for dimension <code>D</code> (see <a href="./#DynamicalSystems.lambdamatrix"><code>lambdamatrix</code></a>).</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/86f2f33c5dd6883dc715ddace035e052549ce181/src/periodic.jl#L65-L69' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/e361ea19f102bb3e608906d8fe820574071ca698/src/periodic.jl#L65-L69' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Standard-Map-example-1'></a></p>
 <h3 id="standard-map-example">Standard Map example</h3>
@@ -595,10 +588,9 @@
       
     </div>
     
-      <script src="../assets/javascripts/application-946997f430.js"></script>
+      <script src="../assets/javascripts/application-84693e5e49.js"></script>
       
-      
-      <script>app.initialize({version:"0.16.3",url:{base:".."}})</script>
+      <script>app.initialize({version:"0.17.1",url:{base:".."}})</script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
