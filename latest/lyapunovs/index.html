@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.1, mkdocs-material-2.0.2">
+      <meta name="generator" content="mkdocs-0.17.1, mkdocs-material-2.0.4">
     
     
       
@@ -40,7 +40,9 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application-5b1b46901f.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application-709eec9410.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-23f75ab9c7.palette.css">
       
     
     
@@ -54,12 +56,16 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     
     
-      <link rel="stylesheet" href="../assets/Documenter.css">
+      <link rel="stylesheet" href="../assets\Documenter.css">
     
     
   </head>
   
-    <body>
+    
+    
+    
+      <body data-md-color-primary="deep-purple" data-md-color-accent="teal">
+    
   
     <svg class="md-svg">
       <defs>
@@ -402,17 +408,21 @@
 </pre></div>
 
 
-<p>Calculate the spectrum of Lyapunov exponents [1] of <code>ds</code> by applying the QR-decomposition method <code>N</code> times (see method "H2" of [2], or directly the original paper(s) [3]). Returns a vector with the <em>final</em> values of the lyapunov exponents in descending order.</p>
-<p><strong>Keyword Arguments:</strong></p>
+<p>Calculate the spectrum of Lyapunov exponents [1] of <code>ds</code> by applying a QR-decomposition on the parallelepiped matrix space <code>N</code> times. Return the spectrum sorted from maximum to minimum.</p>
+<p><strong>Keyword Arguments</strong></p>
 <ul>
 <li><code>Ttr = 0</code> : Extra "transient" time to evolve the system before application of the algorithm. Should be <code>Int</code> for discrete systems.</li>
-<li><code>dt = 1.0</code> : (only for continuous) Time of individual evolutions between sucessive orthonormalization steps.</li>
+<li><code>dt = 1.0</code> : (only for continuous) Time of individual evolutions between successive orthonormalization steps.</li>
 <li><code>diff_eq_kwargs = Dict()</code> : (only for continuous) Keyword arguments passed into the solvers of the <code>DifferentialEquations</code> package (see <a href="../system_definition/#DynamicalSystems.trajectory"><code>trajectory</code></a> for more info).</li>
 </ul>
+<p><strong>Description</strong></p>
+<p>The method we employ is "H2" of [2], originally stated in [3]. The vectors defining a <code>D</code>-dimensional parallepiped are evolved using the tangent dynamics of the system. A QR-decomposition at each step yields the local growth rate for each dimension of the parallepiped. The growth rates are then averaged over <code>N</code> successive steps, yielding the lyapunov exponent spectrum.</p>
+<p>For discrete systems the QR-decomposition is performed at <em>every</em> step <code>i ∈ 1:N</code>.</p>
+<p><strong>References</strong></p>
 <p>[1] : A. M. Lyapunov, <em>The General Problem of the Stability of Motion</em>, Taylor &amp; Francis (1992)</p>
 <p>[2] : K. Geist <em>et al.</em>, Progr. Theor. Phys. <strong>83</strong>, pp 875 (1990)</p>
 <p>[3] : G. Benettin <em>et al.</em>, Meccanica <strong>15</strong>, pp 9-20 &amp; 21-30 (1980)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/e361ea19f102bb3e608906d8fe820574071ca698/src/lyapunovs.jl#L5-L29' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/e7d254c8e389f58f41ae2511ed4ced63680616e4/src/lyapunovs.jl#L5-L41' class='documenter-source'>source</a><br></p>
 <hr />
 <p>As you can see, the documentation string is detailed and self-contained. For example, the lyapunov spectrum of the <a href="http://www.scholarpedia.org/article/Hyperchaos">folded towel map</a> is calculated as:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -446,24 +456,28 @@
 </pre></div>
 
 
-<p>Calculate the maximum Lyapunov exponent <code>λ</code> using a method due to Benettin [1], which simply evolves two neighboring trajectories (one called "given" and one called "test") while constantly rescaling the test one. <code>T</code>  denotes the total time of evolution (should be <code>Int</code> for discrete systems). The Lyapunov exponent is the average of the time-local Lyapunov exponents, meaning</p>
-<span>\[
-\lambda = \frac{1}{t_{n}}\sum_{i=1}^{n}
-\ln\left( a_i \right),\quad a_i = \frac{d(t_{i})}{d_0}
-\]</span><p>with <span>\(d(t_i)\)</span> the distance between test and given trajectory at time <span>\(t_i\)</span>, which is also the time of the <span>\(i\)</span>-th rescaling.</p>
-<p>If <code>ret_conv</code> is <code>Val{true}</code> return the convergence timeseries of the Lyapunov exponent <code>λts</code> as well as the corresponding time vector <code>ts</code>. If <code>ret_conv</code> is <code>Val{false}</code> (default) return the converged Lyapunov value <code>λts[end]</code> instead. The number of rescalings happened is also given, as it is equal to <code>length(λts)</code>.</p>
-<p><strong>Keyword Arguments:</strong></p>
+<p>Calculate the maximum Lyapunov exponent <code>λ</code> using a method due to Benettin [1], which simply evolves two neighboring trajectories (one called "given" and one called "test") while constantly rescaling the test one. <code>T</code>  denotes the total time of evolution (should be <code>Int</code> for discrete systems).</p>
+<p><strong>Keyword Arguments</strong></p>
 <ul>
 <li><code>Ttr = 0</code> : Extra "transient" time to evolve the system before application of the algorithm. Should be <code>Int</code> for discrete systems.</li>
-<li><code>d0 = 1e-9</code> : Initial &amp; rescaling distance between two neighboring trajectories.</li>
-<li><code>threshold = 1e-5</code> : Whenever the distance between given and test trajectory exceeds <code>threshold</code>, the test trajectory is rescaled back to having distance <code>d0</code> from the given trajectory.</li>
+<li><code>d0 = 1e-9</code> : Initial &amp; rescaling distance between the two neighboring trajectories.</li>
+<li><code>threshold = 1e-5</code> : Distance threshold for rescaling.</li>
 <li><code>diff_eq_kwargs = Dict(:abstol=&gt;d0, :reltol=&gt;d0)</code> : (only for continuous) Keyword arguments passed into the solvers of the <code>DifferentialEquations</code> package (see <a href="../system_definition/#DynamicalSystems.trajectory"><code>trajectory</code></a> for more info).</li>
 <li><code>dt = 0.1</code> : (only for continuous) Time of evolution between each check of distance exceeding the <code>threshold</code>.</li>
 <li><code>inittest = (st1, d0) -&gt; st1 .+ d0/sqrt(D)</code> : A function that given <code>(st1, d0)</code> initializes the test state with distance <code>d0</code> from the given state <code>st1</code> (<code>D</code> is the dimension of the system). This function can be used when you want to avoid the test state appearing in a region of the phase-space where it would have e.g. different energy or escape to infinity.</li>
 </ul>
-<p>For the continuous case, the algorithm becomes faster with increasing <code>dt</code>, since integration is interrupted less frequenty. For the fastest performance you want to fine-tune <code>dt, d0, threshold</code> such that you have the minimum amount of rescalings but you want to still be well within the linearized dynamics region.</p>
+<p><strong>Description</strong></p>
+<p>Two neighboring trajectories with initial distance <code>d0</code> are evolved in time. At time <span>\(d(t_i)\)</span> their distance exceeds the <code>threshold</code>, which initializes a rescaling of the test trajectory back to having distance <code>d0</code> from the given one, while the rescaling keeps the distance vector along the maximal expansion direction.</p>
+<p>The maximum Lyapunov exponent is the average of the time-local Lyapunov exponents</p>
+<span>\[
+\lambda = \frac{1}{t_{n}}\sum_{i=1}^{n}
+\ln\left( a_i \right),\quad a_i = \frac{d(t_{i})}{d_0}.
+\]</span><p>If <code>ret_conv</code> is <code>Val{true}</code> the function returns the convergence timeseries of the Lyapunov exponent <code>λts</code> as well as the corresponding time vector <code>ts</code>. If <code>ret_conv</code> is <code>Val{false}</code> (default) the converged Lyapunov value <code>λts[end]</code> is returned instead. The number of rescalings happened is also given, as it is equal to <code>length(λts)</code>.</p>
+<p><strong>Performance Notes</strong></p>
+<p>For the continuous case, the algorithm becomes faster with increasing <code>dt</code>, since integration is interrupted less frequenty. For the fastest performance you want to fine-tune <code>dt, d0, threshold</code> such that you have the minimum amount of rescalings <em>while still being well within the linearized dynamics region</em>.</p>
+<p><strong>References</strong></p>
 <p>[1] : G. Benettin <em>et al.</em>, Phys. Rev. A <strong>14</strong>, pp 2338 (1976)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/e361ea19f102bb3e608906d8fe820574071ca698/src/lyapunovs.jl#L61-L113' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/e7d254c8e389f58f41ae2511ed4ced63680616e4/src/lyapunovs.jl#L73-L132' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -573,7 +587,7 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
-      <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl" class="md-footer-social__link fa fa-github"></a>
+      <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl" class="md-footer-social__link fa fa-github"></a>
     
   </div>
 
@@ -584,9 +598,11 @@
       
     </div>
     
-      <script src="../assets/javascripts/application-84693e5e49.js"></script>
+      <script src="../assets/javascripts/application-8e4952e681.js"></script>
       
       <script>app.initialize({version:"0.17.1",url:{base:".."}})</script>
+      
+        <script src="../assets\mathjaxhelper.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       

@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.1, mkdocs-material-2.0.2">
+      <meta name="generator" content="mkdocs-0.17.1, mkdocs-material-2.0.4">
     
     
       
@@ -40,7 +40,9 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application-5b1b46901f.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application-709eec9410.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-23f75ab9c7.palette.css">
       
     
     
@@ -54,12 +56,16 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     
     
-      <link rel="stylesheet" href="../assets/Documenter.css">
+      <link rel="stylesheet" href="../assets\Documenter.css">
     
     
   </head>
   
-    <body>
+    
+    
+    
+      <body data-md-color-primary="deep-purple" data-md-color-accent="teal">
+    
   
     <svg class="md-svg">
       <defs>
@@ -301,6 +307,20 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#reporting-bugs-and-other-issues" title="Reporting Bugs and other Issues" class="md-nav__link">
+    Reporting Bugs and other Issues
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing-new-methods-and-algorithms" title="Contributing New Methods and Algorithms" class="md-nav__link">
+    Contributing New Methods and Algorithms
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#examples-of-new-things-you-could-contribute" title="Examples of new things you could contribute" class="md-nav__link">
     Examples of new things you could contribute
   </a>
@@ -344,6 +364,20 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#reporting-bugs-and-other-issues" title="Reporting Bugs and other Issues" class="md-nav__link">
+    Reporting Bugs and other Issues
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing-new-methods-and-algorithms" title="Contributing New Methods and Algorithms" class="md-nav__link">
+    Contributing New Methods and Algorithms
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#examples-of-new-things-you-could-contribute" title="Examples of new things you could contribute" class="md-nav__link">
     Examples of new things you could contribute
   </a>
@@ -376,8 +410,13 @@
                 
                 <p><a id='Contributor-Guide-1'></a></p>
 <h1 id="contributor-guide">Contributor Guide</h1>
-<p><strong>You can contribute to this package even if you are not familiar with Julia or coding.</strong></p>
-<p>The ultimate goal for <code>DynamicalSystems.jl</code> is to be a useful tool for scientists working on chaos &amp; nonlinear dynamics and in general dynamical systems.</p>
+<p><em>You can contribute to this package even if you are very good with coding with Julia.</em></p>
+<p><a id='Reporting-Bugs-and-other-Issues-1'></a></p>
+<h2 id="reporting-bugs-and-other-issues">Reporting Bugs and other Issues</h2>
+<p>The easiest and most common way to improve this package is simply by <em>using it</em> and reporting any unexpected behavior! You can use the <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/issues">DynamicalSystems.jl Issues</a> page or, if you think it is something minor not worth opening an issue, just come over to our <a href="../(https://gitter.im/JuliaDynamics/Lobby)">gitter chatroom</a> and let us know what the problem is.</p>
+<p><a id='Contributing-New-Methods-and-Algorithms-1'></a></p>
+<h2 id="contributing-new-methods-and-algorithms">Contributing New Methods and Algorithms</h2>
+<p>The ultimate goal for DynamicalSystems.jl is to be a useful tool for scientists working on chaos, nonlinear dynamics and in general dynamical systems.</p>
 <p>For such a feat to be accomplished, many different methods across this interdisciplinary field have to be not only implemented but suggested in the first place!</p>
 <p>For a something to be implemented in this package, the following steps have to happen:</p>
 <ol>
@@ -385,11 +424,9 @@
 <li>An algorithm that describes how the method will be implemented has to be formulated. This algorithm most probably already exist in the papers that first introduce the method, however it may not be trivial to transform this algorithm from a mathematical abstraction to something realistic and applicable in a computational manner.</li>
 <li>The source code for the above has to be implemented in Julia. In general, the speed of the implementation is important, but not as important as the <strong>reliability of the implementation</strong>.</li>
 </ol>
-<p>It is clear that one can contribute to <code>DynamicalSystems.jl</code> by contributing in steps (1) and (2). Neither of those require any knowledge of coding with Julia.</p>
+<p>It is clear that one can contribute to <code>DynamicalSystems.jl</code> by contributing in steps (1) and (2). Neither of those require any hardcore coding knowledge with Julia.</p>
 <p>For step (1), you can open a new issue at the <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/issues">DynamicalSystems.jl Issues</a> page. All issues that refer methods that we would want to have in our package are labeled as "wanted_feature". You can view the current wanted features <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/issues?utf8=%E2%9C%93&amp;q=is%3Aissue%20is%3Aopen%20label%3Awanted_feature">here</a> and see for yourself if you can contribute to some of them!</p>
-<p>Of course, you can always contribute in the enhancement of the existing package by solving the some of the existing issues.</p>
 <p>If you have any idea about how to improve this package please do not hesitate to <a href="https://gitter.im/JuliaDynamics/Lobby">join our chatroom</a> and share your ideas!</p>
-<p>Don't forget; you always help this package simply by <em>using it</em> and reporting any unexpected behavior! So far we had very few testers and tested on a small subset of dynamical systems! Thus any extra testing is welcomed!</p>
 <p><a id='Examples-of-new-things-you-could-contribute-1'></a></p>
 <h2 id="examples-of-new-things-you-could-contribute">Examples of new things you could contribute</h2>
 <ul>
@@ -401,7 +438,7 @@
 <p><a id='How-you-should-contribute-**code**-1'></a></p>
 <h2 id="how-you-should-contribute-code">How you should contribute <strong>code</strong></h2>
 <ul>
-<li>For new methods and systems please always have very clear and self-contained documentation strings.</li>
+<li>For new methods and systems please follow the convention of the documentation strings (do e.g. <code>?lyapunov</code> to see how they are structured).</li>
 <li>Have enough comments in your code so that somebody that knows the method, can also understand the code immediately.</li>
 <li>Always have a reference to the original work that first introduces the method or the system that you are using. You should put this reference to the main function's documentation string. See the existing documentation strings and do it in an identical manner.</li>
 <li>If you are adding a new system type accompanied by new methods and quantities, please introduce a new file in the <code>/src</code> folder, or even better create your own subfolder, instead of adding code to the existing files.</li>
@@ -462,7 +499,7 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
-      <a href="https://github.com/JuliaDynamics/DynamicalBilliards.jl" class="md-footer-social__link fa fa-github"></a>
+      <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl" class="md-footer-social__link fa fa-github"></a>
     
   </div>
 
@@ -473,9 +510,11 @@
       
     </div>
     
-      <script src="../assets/javascripts/application-84693e5e49.js"></script>
+      <script src="../assets/javascripts/application-8e4952e681.js"></script>
       
       <script>app.initialize({version:"0.17.1",url:{base:".."}})</script>
+      
+        <script src="../assets\mathjaxhelper.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
