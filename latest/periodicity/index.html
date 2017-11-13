@@ -401,7 +401,7 @@
 
 <p>Find stable and unstable fixed points <code>FP</code> of order <code>o</code> for the map <code>ds</code> using the algorithm due to Schmelcher &amp; Diakonos [1]. <code>ics</code> is a collection of initial conditions (container of <code>SVector</code>s) to be evolved.</p>
 <p><strong>Optional Arguments</strong></p>
-<p>The optional arguments <code>λs, indss, singss</code> <strong>must be containers</strong> of appropriate values, besides <code>λs</code> which can also be a number. The elements of those containers are passed to: <code>lambdamatrix(λ, inds, sings)</code>, which creates the appropriate <span>\(\mathbf{\Lambda}_k\)</span> matrix (see <a href="./#DynamicalSystems.lambdamatrix"><code>lambdamatrix</code></a> for more). If these arguments are not given, a random permutation will be chosen for them, with <code>λ=0.001</code>.</p>
+<p>The optional arguments <code>λs, indss, singss</code> <em>must be containers</em> of appropriate values, besides <code>λs</code> which can also be a number. The elements of those containers are passed to: <code>lambdamatrix(λ, inds, sings)</code>, which creates the appropriate <span>\(\mathbf{\Lambda}_k\)</span> matrix (see <a href="./#DynamicalSystems.lambdamatrix"><code>lambdamatrix</code></a> for more). If these arguments are not given, a random permutation will be chosen for them, with <code>λ=0.001</code>.</p>
 <p><strong>Keyword Arguments</strong></p>
 <ul>
 <li><code>maxiters::Int = 100000</code> : Maximum amount of iterations an i.c. will be iterated  before claiming it has not converged.</li>
@@ -417,10 +417,10 @@
 \]</span><p>with <span>\(f\)</span> = <code>ds.eom</code>. The index <span>\(k\)</span> counts the various possible <span>\(\mathbf{\Lambda}_k\)</span>.</p>
 <p>Note that algorithm is intented for <em>unstable</em> orbits, and thus there are cases where it may not work for stable orbits.</p>
 <p><strong>Performance Notes</strong></p>
-<p><strong>All</strong> initial conditions are evolved for <strong>all</strong> <span>\(\mathbf{\Lambda}_k\)</span> which can very quickly lead to long computation times, so be wise on your choice of <code>λs, indss, singss</code>!</p>
+<p><em>All</em> initial conditions are evolved for <em>all</em> <span>\(\mathbf{\Lambda}_k\)</span> which can very quickly lead to long computation times.</p>
 <p><strong>References</strong></p>
 <p>[1] : P. Schmelcher &amp; F. K. Diakonos, Phys. Rev. Lett. <strong>78</strong>, pp 4733 (1997)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/e7d254c8e389f58f41ae2511ed4ced63680616e4/src/periodic.jl#L82-L134' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/dfaeafa244f814e5d1abd65b6248105bac1be2f3/src/periodic.jl#L82-L134' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.lambdamatrix' href='#DynamicalSystems.lambdamatrix'>#</a>
 <strong><code>DynamicalSystems.lambdamatrix</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>lambdamatrix(λ, inds::Vector{Int}, sings) -&gt; Λk
@@ -436,12 +436,12 @@
 </ol>
 <p>Calling <code>lambdamatrix(λ, D::Int)</code> creates a random <span>\(\mathbf{\Lambda}_k\)</span> by randomly generating an <code>inds</code> and a <code>signs</code> from all possible combinations. The <em>collections</em> of all these combinations can be obtained from the function <a href="./#DynamicalSystems.lambdaperms"><code>lambdaperms</code></a></p>
 <p><strong>Description</strong></p>
-<p>Each element of <code>inds</code> <strong>must be unique</strong> such that the resulting matrix is orthogonal <em>and</em> represents the group of special reflections and permutations.</p>
+<p>Each element of <code>inds</code> <em>must be unique</em> such that the resulting matrix is orthogonal and represents the group of special reflections and permutations.</p>
 <p>Deciding the appropriate values for <code>λ, inds, sings</code> is not trivial. However, in ref. [2] there is a lot of information that can help with that decision. Also, by appropriately choosing various values for <code>λ</code>, one can sort periodic orbits from e.g. least unstable to most unstable, see [3] for details.</p>
 <p><strong>References</strong></p>
 <p>[2] : D. Pingel <em>et al.</em>, Phys. Rev. E <strong>62</strong>, pp 2119 (2000)</p>
 <p>[3] : F. K. Diakonos <em>et al.</em>, Phys. Rev. Lett. <strong>81</strong>, pp 4349 (1998)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/e7d254c8e389f58f41ae2511ed4ced63680616e4/src/periodic.jl#L9-L44' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/dfaeafa244f814e5d1abd65b6248105bac1be2f3/src/periodic.jl#L9-L44' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.lambdaperms' href='#DynamicalSystems.lambdaperms'>#</a>
 <strong><code>DynamicalSystems.lambdaperms</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>lambdaperms(D) -&gt; indperms, singperms
@@ -449,7 +449,7 @@
 
 
 <p>Return two collections that each contain all possible combinations of indices (total of <span>\(D!\)</span>) and signs (total of <span>\(2^D\)</span>) for dimension <code>D</code> (see <a href="./#DynamicalSystems.lambdamatrix"><code>lambdamatrix</code></a>).</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/e7d254c8e389f58f41ae2511ed4ced63680616e4/src/periodic.jl#L66-L70' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/dfaeafa244f814e5d1abd65b6248105bac1be2f3/src/periodic.jl#L66-L70' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Standard-Map-example-1'></a></p>
 <h3 id="standard-map-example">Standard Map example</h3>
