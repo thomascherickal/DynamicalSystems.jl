@@ -479,7 +479,7 @@
 <p><strong>References</strong></p>
 <p>[1] : Skokos, C. H. <em>et al.</em>, Physica D <strong>231</strong>, pp 30–54 (2007)</p>
 <p>[2] : Skokos, C. H. <em>et al.</em>, <em>Chaos Detection and Predictability</em> - Chapter 5 (section 5.3.1 and ref. [85] therein), Lecture Notes in Physics <strong>915</strong>, Springer (2016)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/909df5b22e36e9ea75dedc2a29b556482f4ae040/src/chaos_detection.jl#L27-L96' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/c3b410365796db9212ccd1009eacd122383dcbde/src/chaos_detection.jl#L27-L96' class='documenter-source'>source</a><br></p>
 <p><a id='Discrete-Example-1'></a></p>
 <h3 id="discrete-example">Discrete Example</h3>
 <p>We will use 3 coupled standard maps as an example for a discrete system:</p>
@@ -618,8 +618,7 @@
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
 <span class="k">using</span> <span class="n">PyPlot</span>
 
-<span class="n">t</span> <span class="o">=</span> <span class="mf">500.0</span>
-<span class="n">chaoticness</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span> <span class="o">=</span> <span class="n">gali</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">t</span><span class="p">)[</span><span class="mi">2</span><span class="p">][</span><span class="k">end</span><span class="p">]</span>
+<span class="n">chaoticness</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span> <span class="o">=</span> <span class="n">gali</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">500.0</span><span class="p">)[</span><span class="mi">2</span><span class="p">][</span><span class="k">end</span><span class="p">]</span>
 
 <span class="n">dens</span> <span class="o">=</span> <span class="mi">201</span>
 <span class="n">chaoticity</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">dens</span><span class="p">,</span><span class="n">dens</span><span class="p">)</span>
