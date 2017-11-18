@@ -434,11 +434,11 @@
                 
                 <p><a id='Chaos-Detection-1'></a></p>
 <h1 id="chaos-detection">Chaos Detection</h1>
-<p>Can detect chaos with maximum lyapunov exponent.</p>
-<p>There are better ways.</p>
+<p>Being able to detect and distinguish chaotic from regular behavior is crucial in the study of dynamical systems. Most of the time a positive maximum <a href="../lyapunovs/#DynamicalSystems.lyapunov"><code>lyapunov</code></a> exponent and a bounded system indicate chaos.</p>
+<p>However, the convergence of the Lyapunov exponent is often very slow and the computation costly. There are many alternatives that are both more efficient and more accurate in characterizing chaotic and regular motion, some of which are included in DynamicalSystems.jl.</p>
 <p><a id='Generalized-Alignment-Index-1'></a></p>
 <h2 id="generalized-alignment-index">Generalized Alignment Index</h2>
-<p>GALI for short is the shit.</p>
+<p>"GALI" for sort is a method that relies on the fact that initially orthogonal deviation vectors tend to align towards the direction of the maximum Lyapunov exponent for chaotic motion. It is one of the most recent and cheapest methods for distinguishing chaos, introduced first in 2007 by Skokos, Bountis &amp; Antonopoulos.</p>
 <p><a id='DynamicalSystems.gali' href='#DynamicalSystems.gali'>#</a>
 <strong><code>DynamicalSystems.gali</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="nt">gali</span><span class="o">(</span><span class="nt">ds</span><span class="p">::</span><span class="nd">DynamicalSystem</span><span class="o">,</span> <span class="nt">k</span><span class="p">::</span><span class="nd">Int</span><span class="o">,</span> <span class="nt">tmax</span> <span class="cp">[</span><span class="p">,</span> <span class="nx">ws</span><span class="cp">]</span><span class="o">;</span> <span class="nt">kwargs</span><span class="o">...)</span> <span class="nt">-</span><span class="o">&gt;</span> <span class="nt">GALI_k</span><span class="o">,</span> <span class="nt">t</span>
@@ -446,7 +446,7 @@
 
 
 <p>Compute <span>\(\text{GALI}_k\)</span> [1] for a given <code>k</code> up to time <code>tmax</code>. Return <span>\(\text{GALI}_k(t)\)</span> and time vector <span>\(t\)</span>.</p>
-<p><code>ws</code> is an optional argument containing the deviation vectors <span>\(w_i\)</span> for <span>\(i \in [1,k]\)</span>, expected either as a matrix with each column a deviation vector, or as a vector of vectors. If not given, random orthonormal vectors are chosen using <code>qr</code>.</p>
+<p><code>ws</code> is an optional argument containing the deviation vectors <span>\(w_i\)</span> for <span>\(i \in [1,k]\)</span>, expected either as a matrix with each column a deviation vector, or as a vector of vectors. If not given, random orthonormal vectors are chosen.</p>
 <p><strong>Keyword Arguments</strong></p>
 <ul>
 <li><code>threshold</code> : If <code>GALI_k</code> falls below the <code>threshold</code> iteration is terminated. Default value is <code>1e-12</code>.</li>
@@ -479,33 +479,67 @@
 <p><strong>References</strong></p>
 <p>[1] : Skokos, C. H. <em>et al.</em>, Physica D <strong>231</strong>, pp 30–54 (2007)</p>
 <p>[2] : Skokos, C. H. <em>et al.</em>, <em>Chaos Detection and Predictability</em> - Chapter 5 (section 5.3.1 and ref. [85] therein), Lecture Notes in Physics <strong>915</strong>, Springer (2016)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/b40f55bf6e59238866ce8cdc6ba4f787a6bbf838/src/chaos_detection.jl#L27-L96' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/fbc5907347cba222316d0f0be7e199178b1baf09/src/chaos_detection.jl#L27-L96' class='documenter-source'>source</a><br></p>
 <p><a id='Discrete-Example-1'></a></p>
 <h3 id="discrete-example">Discrete Example</h3>
-<p>Let's see an example for a discrete:</p>
+<p>We will use 3 coupled standard maps as an example for a discrete system:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
-<span class="k">using</span> <span class="n">PyPlot</span>
+<span class="k">using</span> <span class="n">PyPlot</span><span class="p">;</span> <span class="n">figure</span><span class="p">()</span>
+<span class="n">M</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">ks</span> <span class="o">=</span> <span class="mi">3</span><span class="n">ones</span><span class="p">(</span><span class="n">M</span><span class="p">);</span> <span class="n">Γ</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">;</span>
+<span class="n">stable</span> <span class="o">=</span> <span class="p">[</span><span class="nb">π</span><span class="p">,</span> <span class="nb">π</span><span class="p">,</span> <span class="nb">π</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">.+</span> <span class="mf">0.1</span>
+<span class="n">chaotic</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="n">M</span><span class="p">)</span>
 
-<span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">towel</span><span class="p">()</span>
-<span class="n">ls</span> <span class="o">=</span> <span class="n">lyapunovs</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">coupledstandardmaps</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">stable</span><span class="p">;</span> <span class="n">ks</span><span class="o">=</span><span class="n">ks</span><span class="p">,</span> <span class="n">Γ</span> <span class="o">=</span> <span class="n">Γ</span><span class="p">)</span>
+<span class="c"># ds = BigDiscreteDS(ds.state, ds.eom!)</span>
+<span class="n">tr</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span>
 
-<span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="kp">in</span> <span class="n">enumerate</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
-    <span class="n">ex</span> <span class="o">=</span> <span class="n">sum</span><span class="p">(</span><span class="n">ls</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">ls</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="kp">in</span> <span class="mi">2</span><span class="o">:</span><span class="n">k</span><span class="p">)</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">tr</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">tr</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="mi">1</span><span class="o">+</span><span class="n">M</span><span class="p">],</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+<span class="n">label</span><span class="o">=</span><span class="s">&quot;stable&quot;</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s">&quot;o&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">legend</span><span class="p">()</span>
+<span class="c">#</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">k</span> <span class="kp">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+    <span class="n">g</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">gali</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="mf">1e5</span><span class="p">;</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">)</span>
+    <span class="n">lt</span> <span class="o">=</span> <span class="n">log10</span><span class="o">.</span><span class="p">(</span><span class="n">t</span><span class="p">);</span> <span class="n">lg</span> <span class="o">=</span> <span class="n">log10</span><span class="o">.</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
 
-    <span class="n">g</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">gali</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="mi">1000</span><span class="p">;</span> <span class="n">threshold</span> <span class="o">=</span> <span class="mf">1e-12</span><span class="p">)</span>
-
-    <span class="n">semilogy</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&quot;GALI</span><span class="se">\$</span><span class="s"> _</span><span class="si">$</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="s">(t)</span><span class="se">\$</span><span class="s">&quot;</span><span class="p">)</span>
-    <span class="n">semilogy</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">exp</span><span class="o">.</span><span class="p">(</span><span class="o">-</span><span class="n">ex</span><span class="o">.*</span><span class="n">t</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s">&quot;exp. k=</span><span class="si">$k</span><span class="s">&quot;</span><span class="p">)</span>
-    <span class="n">xlabel</span><span class="p">(</span><span class="s">&quot;t&quot;</span><span class="p">)</span>
-    <span class="n">legend</span><span class="p">()</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">lt</span><span class="p">,</span> <span class="n">lg</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&quot;GALI_</span><span class="si">$</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="s">&quot;</span><span class="p">)</span>
 <span class="k">end</span>
+<span class="n">lt</span> <span class="o">=</span> <span class="mi">2</span><span class="o">:</span><span class="mf">0.5</span><span class="o">:</span><span class="mf">5.5</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">lt</span><span class="p">,</span> <span class="n">zeros</span><span class="p">(</span><span class="n">lt</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s">&quot;const&quot;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">lt</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">(</span><span class="n">lt</span> <span class="o">-</span> <span class="mi">3</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s">&quot;slope -2&quot;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">lt</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">(</span><span class="n">lt</span> <span class="o">-</span> <span class="mi">3</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s">&quot;slope -4&quot;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">lt</span><span class="p">,</span> <span class="o">-</span><span class="mi">6</span><span class="p">(</span><span class="n">lt</span> <span class="o">-</span> <span class="mi">3</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s">&quot;slope -6&quot;</span><span class="p">)</span>
+
+<span class="n">xlim</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">)</span>
+<span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 <span class="n">tight_layout</span><span class="p">()</span>
+
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">coupledstandardmaps</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">chaotic</span><span class="p">;</span> <span class="n">ks</span><span class="o">=</span><span class="n">ks</span><span class="p">,</span> <span class="n">Γ</span> <span class="o">=</span> <span class="n">Γ</span><span class="p">)</span>
+<span class="n">tr</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">tr</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">tr</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="mi">1</span><span class="o">+</span><span class="n">M</span><span class="p">],</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+<span class="n">label</span><span class="o">=</span><span class="s">&quot;chaotic&quot;</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s">&quot;o&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">legend</span><span class="p">()</span>
+
+
+<span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">ls</span> <span class="o">=</span> <span class="n">lyapunovs</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">k</span> <span class="kp">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span> <span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+    <span class="n">ex</span> <span class="o">=</span> <span class="n">sum</span><span class="p">(</span><span class="n">ls</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">ls</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="kp">in</span> <span class="mi">2</span><span class="o">:</span><span class="n">k</span><span class="p">)</span>
+    <span class="n">g</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">gali</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+    <span class="n">semilogy</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">exp</span><span class="o">.</span><span class="p">(</span><span class="o">-</span><span class="n">ex</span><span class="o">.*</span><span class="n">t</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s">&quot;exp. k=</span><span class="si">$k</span><span class="s">&quot;</span><span class="p">)</span>
+    <span class="n">semilogy</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&quot;GALI_</span><span class="si">$</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">ylim</span><span class="p">(</span><span class="mf">1e-12</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
 
-<p><img alt="GALI Discrete" src="https://i.imgur.com/Kl8bFIR.png" /> The left figure demonstrates the drawback of <span>\(\text{SALI} \equiv \text{GALI}_2\)</span> (which was one of the incentives for the invention of <span>\(\text{GALI}_k\)</span>) : If <span>\(\lambda_1\)</span> and <span>\(\lambda_2\)</span> are very close, the convergence is very slow.</p>
+<p><img alt="GALI Discrete" src="https://i.imgur.com/tzoaOqV.png" /></p>
 <p><a id='Continuous-Example-1'></a></p>
 <h3 id="continuous-example">Continuous Example</h3>
 <p>As an example of a continuous system, let's see the <a href="../@ref"><code>henonhelies</code></a>:</p>
@@ -575,7 +609,7 @@
 </pre></div>
 
 
-<p><img alt="GALI Continuous" src="https://i.imgur.com/VJE6MpC.png" /> As you can see, the results match almost perfectly the theory described in <a href="../@ref0"><code>gali</code></a>.</p>
+<p><img alt="GALI Continuous" src="https://i.imgur.com/VJE6MpC.png" /> As you can see, the results of both discrete and continuous match very well the theory described in <a href="../@ref0"><code>gali</code></a>.</p>
 <p><a id='Using-GALI-1'></a></p>
 <h3 id="using-gali">Using GALI</h3>
 <p>No-one in their right mind would try to fit power-laws in order to distinguish between chaotic and regular behavior, like the above examples. These were just demonstrations.</p>
@@ -584,9 +618,8 @@
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
 <span class="k">using</span> <span class="n">PyPlot</span>
 
-<span class="c"># Default threshold</span>
 <span class="n">t</span> <span class="o">=</span> <span class="mf">500.0</span>
-<span class="n">ischaotic</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span> <span class="o">=</span> <span class="n">gali</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">t</span><span class="p">)[</span><span class="mi">2</span><span class="p">][</span><span class="k">end</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">t</span> <span class="o">?</span> <span class="mf">1.0</span> <span class="o">:</span> <span class="mf">0.0</span>
+<span class="n">chaoticness</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span> <span class="o">=</span> <span class="n">gali</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">t</span><span class="p">)[</span><span class="mi">2</span><span class="p">][</span><span class="k">end</span><span class="p">]</span>
 
 <span class="n">dens</span> <span class="o">=</span> <span class="mi">201</span>
 <span class="n">chaoticity</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">dens</span><span class="p">,</span><span class="n">dens</span><span class="p">)</span>
@@ -595,16 +628,17 @@
 <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">θ</span><span class="p">)</span> <span class="o">∈</span> <span class="n">enumerate</span><span class="p">(</span><span class="n">θs</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="n">dens</span><span class="p">])</span>
     <span class="k">for</span> <span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="o">∈</span> <span class="n">enumerate</span><span class="p">(</span><span class="n">ps</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="n">dens</span><span class="p">])</span>
         <span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">standardmap</span><span class="p">([</span><span class="n">θ</span><span class="p">,</span> <span class="n">p</span><span class="p">])</span>
-        <span class="n">chaoticity</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">ischaotic</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+        <span class="n">chaoticity</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">chaoticness</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
     <span class="k">end</span>
 <span class="k">end</span>
 
 <span class="n">pcolormesh</span><span class="p">(</span><span class="n">θs</span> <span class="o">.-</span> <span class="p">(</span><span class="n">θs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">θs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">ps</span> <span class="o">.-</span> <span class="p">(</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">ps</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>
 <span class="n">chaoticity</span><span class="o">&#39;</span><span class="p">)</span>
+<span class="n">colorbar</span><span class="p">()</span>
 </pre></div>
 
 
-<p>and after around <code>0.0005*201*201 ≈ 20</code> seconds you will get what looks to be identical with the phase space of the standard map: <img alt="Chaos detection" src="https://i.imgur.com/lc1WfLF.png" /></p>
+<p>and after around <code>0.0005*201*201 ≈ 20</code> seconds you will get: <img alt="Chaos detection" src="https://i.imgur.com/z85KBRh.png" /></p>
                 
                   
                 
