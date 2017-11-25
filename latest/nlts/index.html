@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.0.4">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.2.0">
     
     
       
@@ -40,13 +40,13 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application-709eec9410.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application.5d3fffba.css">
       
-        <link rel="stylesheet" href="../assets/stylesheets/application-23f75ab9c7.palette.css">
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.fbd935c7.css">
       
     
     
-      <script src="../assets/javascripts/modernizr-e826f8942a.js"></script>
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
     
     
       
@@ -93,14 +93,18 @@
         <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
       </div>
       <div class="md-flex__cell md-flex__cell--stretch">
-        <span class="md-flex__ellipsis md-header-nav__title">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           
             
-              
+              <span class="md-header-nav__topic">
+                DynamicalSystems.jl
+              </span>
+              <span class="md-header-nav__topic">
+                Nonlinear Timeseries Analysis
+              </span>
             
-            Nonlinear Timeseries Analysis
           
-        </span>
+        </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
         
@@ -160,6 +164,9 @@
 </header>
     
     <div class="md-container">
+      
+        
+      
       
       <main class="md-main">
         <div class="md-main__inner md-grid" data-md-component="container">
@@ -287,11 +294,24 @@
     Delay Coordinates Reconstruction
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#estimating-reconstruction-parameters" title="Estimating Reconstruction Parameters" class="md-nav__link">
+    Estimating Reconstruction Parameters
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#estimating-reconstruction-parameters" title="Estimating Reconstruction Parameters" class="md-nav__link">
-    Estimating Reconstruction Parameters
+  <a href="#neighborhoods-of-a-point-in-a-dataset" title="Neighborhoods of a point in a Dataset" class="md-nav__link">
+    Neighborhoods of a point in a Dataset
   </a>
   
 </li>
@@ -303,13 +323,6 @@
   
     <nav class="md-nav">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#neighborhoods" title="Neighborhoods" class="md-nav__link">
-    Neighborhoods
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#example-of-numerical-lyapunov-computation" title="Example of Numerical Lyapunov computation" class="md-nav__link">
@@ -407,11 +420,24 @@
     Delay Coordinates Reconstruction
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#estimating-reconstruction-parameters" title="Estimating Reconstruction Parameters" class="md-nav__link">
+    Estimating Reconstruction Parameters
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#estimating-reconstruction-parameters" title="Estimating Reconstruction Parameters" class="md-nav__link">
-    Estimating Reconstruction Parameters
+  <a href="#neighborhoods-of-a-point-in-a-dataset" title="Neighborhoods of a point in a Dataset" class="md-nav__link">
+    Neighborhoods of a point in a Dataset
   </a>
   
 </li>
@@ -423,13 +449,6 @@
   
     <nav class="md-nav">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#neighborhoods" title="Neighborhoods" class="md-nav__link">
-    Neighborhoods
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#example-of-numerical-lyapunov-computation" title="Example of Numerical Lyapunov computation" class="md-nav__link">
@@ -493,7 +512,7 @@
 (s(n), s(n+\tau), s(n+2\tau), \dots, s(n+(D-1)\tau))
 \]</span><p>which is created only on demand.</p>
 <p>See <a href="./#DynamicalSystems.reconstruct"><code>reconstruct</code></a> for usage.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/c3b410365796db9212ccd1009eacd122383dcbde/src/delay_coords.jl#L13-L26' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/3bd730323777e9e6e1ac938f865ea378dee6a2d8/src/delay_coords.jl#L13-L26' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.reconstruct' href='#DynamicalSystems.reconstruct'>#</a>
 <strong><code>DynamicalSystems.reconstruct</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>reconstruct(s::AbstractVector, D::Int, τ::Int) -&gt; R::Reconstruction
@@ -516,7 +535,7 @@
 <p><strong>References</strong></p>
 <p>[1] : F. Takens, <em>Detecting Strange Attractors in Turbulence — Dynamical Systems and Turbulence</em>, Lecture Notes in Mathematics <strong>366</strong>, Springer (1981)</p>
 <p>[2] : T. Sauer <em>et al.</em>, J. Stat. Phys. <strong>65</strong>, pp 579 (1991)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/c3b410365796db9212ccd1009eacd122383dcbde/src/delay_coords.jl#L86-L123' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/3bd730323777e9e6e1ac938f865ea378dee6a2d8/src/delay_coords.jl#L86-L123' class='documenter-source'>source</a><br></p>
 <hr />
 <p>As an example, let's pass a <code>Reconstruction</code> into e.g. a method that calculates the attractor dimension:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -535,7 +554,7 @@
 
 <p>The 2 numbers <code>D1</code> and <code>D2</code> are <em>very close</em>, but of course I knew before-hand good parameter values for <code>D</code> and <code>τ</code> (I cheated, huhu!).</p>
 <p><a id='Estimating-Reconstruction-Parameters-1'></a></p>
-<h2 id="estimating-reconstruction-parameters">Estimating Reconstruction Parameters</h2>
+<h3 id="estimating-reconstruction-parameters">Estimating Reconstruction Parameters</h3>
 <p>The following functions are provided estimate good values that can be used in <a href="./#DynamicalSystems.reconstruct"><code>reconstruct</code></a>:</p>
 <p><a id='DynamicalSystems.estimate_delay' href='#DynamicalSystems.estimate_delay'>#</a>
 <strong><code>DynamicalSystems.estimate_delay</code></strong> &mdash; <em>Function</em>.</p>
@@ -544,40 +563,10 @@
 
 
 <p>Estimate an optimal delay to be used in <a href="./#DynamicalSystems.reconstruct"><code>reconstruct</code></a>, by performing an exponential fit to the <code>abs.(c)</code> with <code>c</code> the auto-correlation function of <code>s</code>. Return the exponential decay time <code>τ</code> rounded to an integer.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/c3b410365796db9212ccd1009eacd122383dcbde/src/delay_coords.jl#L187-L193' class='documenter-source'>source</a><br></p>
-<p><a id='Numerical-Lyapunov-Exponent-1'></a></p>
-<h2 id="numerical-lyapunov-exponent">Numerical Lyapunov Exponent</h2>
-<p>Given any timeseries, one can first <code>reconstruct</code> it, and then calculate a maximum Lyapunov exponent for it, provided that the system the timeseries was recorded from actually exhibits exponential separation of nearby trajectories. This is done with</p>
-<p><a id='DynamicalSystems.numericallyapunov' href='#DynamicalSystems.numericallyapunov'>#</a>
-<strong><code>DynamicalSystems.numericallyapunov</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="n">numericallyapunov</span><span class="p">(</span><span class="n">R</span><span class="o">::</span><span class="n">Reconstruction</span><span class="p">,</span> <span class="n">ks</span><span class="p">;</span>  <span class="n">refstates</span><span class="p">,</span> <span class="n">distance</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
-</pre></div>
-
-
-<p>Return <code>E = [E(k) for k ∈ ks]</code>, where <code>E(k)</code> is the average logarithmic distance for nearby states that are evolved in time for <code>k</code> steps (<code>k</code> must be integer).</p>
-<p><strong>Keyword Arguments</strong></p>
-<ul>
-<li><code>refstates::AbstractVector{Int} = 1:(length(R) - ks[end])</code> : Vector of indices that notes which states of the reconstruction should be used as "reference states", which means that the algorithm is applied for all state indices contained in <code>refstates</code>.</li>
-<li><code>method::AbstractNeighborhood = FixedMassNeighborhood(1)</code> : The method to be used when evaluating the neighborhood of each reference state. See <a href="./#DynamicalSystems.AbstractNeighborhood"><code>AbstractNeighborhood</code></a> or <a href="./#DynamicalSystems.neighborhood"><code>neighborhood</code></a> for more info.</li>
-<li><code>distance::Metric = Cityblock()</code> : The distance function used in the logarithmic distance of nearby states. The allowed distances are <code>Cityblock()</code> and <code>Euclidean()</code>. See below for more info.</li>
-</ul>
-<p><strong>Description</strong></p>
-<p>If the reconstruction exhibits exponential divergence of nearby states, then it should clearly hold:</p>
-<span>\[
-E(k) \approx \lambda\Delta t k + E(0)
-\]</span><p>for a <em>well defined region</em> in the <code>k</code> axis, where <span>\(\lambda\)</span> is the approximated maximum Lyapunov exponent. <span>\(\Delta t\)</span> is the time between samples in the original timeseries. You can use <a href="../entropies/#DynamicalSystems.linear_region"><code>linear_region</code></a> with arguments <code>(ks .* Δt, E)</code> to identify the slope (= <span>\(\lambda\)</span>) immediatelly, assuming you have choosen sufficiently good <code>ks</code> such that the linear scaling region is bigger than the saturated region.</p>
-<p>The algorithm used in this function is due to Parlitz [1], which itself expands upon Kantz [2]. In sort, for each reference state a neighborhood is evaluated. Then, for each point in this neighborhood, the logarithmic distance between reference state and neighborhood state is calculated as the "time" index <code>k</code> increases. The average of the above over all neighborhood states over all reference states is the returned result.</p>
-<p>If the <code>Metric</code> is <code>Euclidean()</code> then use the Euclidean distance of the full <code>D</code>-dimensional points (distance <span>\(d_E\)</span> in ref. [1]). If however the <code>Metric</code> is <code>Cityblock()</code>, calculate the absolute distance of <em>only the first elements</em> of the <code>m+k</code> and <code>n+k</code> points of the reconstruction <code>R</code>, which are the <code>m+k</code> and <code>n+k</code> elements of vector <code>R.s</code> (distance <span>\(d_F\)</span> in ref. [1]). Notice that the distances used are defined in the package <a href="https://github.com/JuliaStats/Distances.jl">Distances.jl</a>, but are re-exported in DynamicalSystems.jl for ease-of-use (the distances are used for dispatch purposes <em>only</em>).</p>
-<p>This function assumes that the Theiler window (see [1]) is the same as the delay time: <span>\(w  = \tau\)</span>.</p>
-<p><strong>References</strong></p>
-<p>[1] : Skokos, C. H. <em>et al.</em>, <em>Chaos Detection and Predictability</em> - Chapter 1 (section 1.3.2), Lecture Notes in Physics <strong>915</strong>, Springer (2016)</p>
-<p>[2] : Kantz, H., Phys. Lett. A <strong>185</strong>, pp 77–87 (1994)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/c3b410365796db9212ccd1009eacd122383dcbde/src/delay_coords.jl#L303-L372' class='documenter-source'>source</a><br></p>
-<hr />
-<p><a id='Neighborhoods-1'></a></p>
-<h3 id="neighborhoods">Neighborhoods</h3>
-<p>The function <code>numericallyapunov</code> has a total of 4 different approaches for the algorithmic process, by combining 2 types of distances with 2 types of neighborhoods.</p>
-<p>The methods for the neighborhoods are subtypes of <code>AbstractNeighborhood</code>, and offer a convenient way to find neighboring points to a given point in a dataset.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/3bd730323777e9e6e1ac938f865ea378dee6a2d8/src/delay_coords.jl#L187-L193' class='documenter-source'>source</a><br></p>
+<p><a id='Neighborhoods-of-a-point-in-a-Dataset-1'></a></p>
+<h2 id="neighborhoods-of-a-point-in-a-dataset">Neighborhoods of a point in a Dataset</h2>
+<p>Incorporating the excellent performance of <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a> and the flexibility of <code>AbstractDataset</code> allows us to define a function that calculates a "neighborhood" of a given point, i.e. other points near it. The different "types" of the neighborhoods are subtypes of <code>AbstractNeighborhood</code>.</p>
 <p><a id='DynamicalSystems.AbstractNeighborhood' href='#DynamicalSystems.AbstractNeighborhood'>#</a>
 <strong><code>DynamicalSystems.AbstractNeighborhood</code></strong> &mdash; <em>Type</em>.</p>
 <div class="codehilite"><pre><span></span>AbstractNeighborhood
@@ -592,7 +581,7 @@ E(k) \approx \lambda\Delta t k + E(0)
 </ul>
 <p>Notice that these distances are always computed using the <code>Euclidean()</code> distance in <code>D</code>-dimensional space.</p>
 <p>See also <a href="./#DynamicalSystems.neighborhood"><code>neighborhood</code></a> or <a href="./#DynamicalSystems.numericallyapunov"><code>numericallyapunov</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/c3b410365796db9212ccd1009eacd122383dcbde/src/delay_coords.jl#L225-L239' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/3bd730323777e9e6e1ac938f865ea378dee6a2d8/src/delay_coords.jl#L225-L239' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.neighborhood' href='#DynamicalSystems.neighborhood'>#</a>
 <strong><code>DynamicalSystems.neighborhood</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>neighborhood(n, point, tree::KDTree, method::AbstractNeighborhood)
@@ -617,16 +606,45 @@ E(k) \approx \lambda\Delta t k + E(0)
 <p>Notice that the distances in the trees are always computed using the <code>Euclidean()</code> distance in <code>D</code>-dimensional space, irrespectively of the <code>distance</code> used in the <a href="./#DynamicalSystems.numericallyapunov"><code>numericallyapunov</code></a> function.</p>
 <p><strong>References</strong></p>
 <p><code>neighborhood</code> simply interfaces the functions <code>knn</code> and <code>inrange</code> from <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a> by using the last argument, <code>method</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/c3b410365796db9212ccd1009eacd122383dcbde/src/delay_coords.jl#L250-L283' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/3bd730323777e9e6e1ac938f865ea378dee6a2d8/src/delay_coords.jl#L250-L283' class='documenter-source'>source</a><br></p>
 <hr />
-<p>As you can see, the function <code>neighborhood</code> is generally applicable!</p>
+<p><a id='Numerical-Lyapunov-Exponent-1'></a></p>
+<h2 id="numerical-lyapunov-exponent">Numerical Lyapunov Exponent</h2>
+<p>Given any timeseries, one can first <a href="./#DynamicalSystems.reconstruct"><code>reconstruct</code></a> it, and then calculate a maximum Lyapunov exponent for it, provided that the system the timeseries was recorded from actually exhibits exponential separation of nearby trajectories. This is done with</p>
+<p><a id='DynamicalSystems.numericallyapunov' href='#DynamicalSystems.numericallyapunov'>#</a>
+<strong><code>DynamicalSystems.numericallyapunov</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span><span class="n">numericallyapunov</span><span class="p">(</span><span class="n">R</span><span class="o">::</span><span class="n">Reconstruction</span><span class="p">,</span> <span class="n">ks</span><span class="p">;</span>  <span class="n">refstates</span><span class="p">,</span> <span class="n">distance</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Return <code>E = [E(k) for k ∈ ks]</code>, where <code>E(k)</code> is the average logarithmic distance for nearby states that are evolved in time for <code>k</code> steps (<code>k</code> must be integer).</p>
+<p><strong>Keyword Arguments</strong></p>
+<ul>
+<li><code>refstates::AbstractVector{Int} = 1:(length(R) - ks[end])</code> : Vector of indices that notes which states of the reconstruction should be used as "reference states", which means that the algorithm is applied for all state indices contained in <code>refstates</code>.</li>
+<li><code>method::AbstractNeighborhood = FixedMassNeighborhood(1)</code> : The method to be used when evaluating the neighborhood of each reference state. See <a href="./#DynamicalSystems.AbstractNeighborhood"><code>AbstractNeighborhood</code></a> or <a href="./#DynamicalSystems.neighborhood"><code>neighborhood</code></a> for more info.</li>
+<li><code>distance::Metric = Cityblock()</code> : The distance function used in the logarithmic distance of nearby states. The allowed distances are <code>Cityblock()</code> and <code>Euclidean()</code>. See below for more info.</li>
+</ul>
+<p><strong>Description</strong></p>
+<p>If the reconstruction exhibits exponential divergence of nearby states, then it should clearly hold:</p>
+<span>\[
+E(k) \approx \lambda\Delta t k + E(0)
+\]</span><p>for a <em>well defined region</em> in the <code>k</code> axis, where <span>\(\lambda\)</span> is the approximated maximum Lyapunov exponent. <span>\(\Delta t\)</span> is the time between samples in the original timeseries. You can use <a href="../entropies/#DynamicalSystems.linear_region"><code>linear_region</code></a> with arguments <code>(ks .* Δt, E)</code> to identify the slope (= <span>\(\lambda\)</span>) immediatelly, assuming you have choosen sufficiently good <code>ks</code> such that the linear scaling region is bigger than the saturated region.</p>
+<p>The algorithm used in this function is due to Parlitz [1], which itself expands upon Kantz [2]. In sort, for each reference state a neighborhood is evaluated. Then, for each point in this neighborhood, the logarithmic distance between reference state and neighborhood state is calculated as the "time" index <code>k</code> increases. The average of the above over all neighborhood states over all reference states is the returned result.</p>
+<p>If the <code>Metric</code> is <code>Euclidean()</code> then use the Euclidean distance of the full <code>D</code>-dimensional points (distance <span>\(d_E\)</span> in ref. [1]). If however the <code>Metric</code> is <code>Cityblock()</code>, calculate the absolute distance of <em>only the first elements</em> of the <code>m+k</code> and <code>n+k</code> points of the reconstruction <code>R</code>, which are the <code>m+k</code> and <code>n+k</code> elements of vector <code>R.s</code> (distance <span>\(d_F\)</span> in ref. [1]). Notice that the distances used are defined in the package <a href="https://github.com/JuliaStats/Distances.jl">Distances.jl</a>, but are re-exported in DynamicalSystems.jl for ease-of-use.</p>
+<p>This function assumes that the Theiler window (see [1]) is the same as the delay time: <span>\(w  = \tau\)</span>.</p>
+<p><strong>References</strong></p>
+<p>[1] : Skokos, C. H. <em>et al.</em>, <em>Chaos Detection and Predictability</em> - Chapter 1 (section 1.3.2), Lecture Notes in Physics <strong>915</strong>, Springer (2016)</p>
+<p>[2] : Kantz, H., Phys. Lett. A <strong>185</strong>, pp 77–87 (1994)</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/3bd730323777e9e6e1ac938f865ea378dee6a2d8/src/delay_coords.jl#L303-L371' class='documenter-source'>source</a><br></p>
+<hr />
+<p>The function <code>numericallyapunov</code> has a total of 4 different approaches for the algorithmic process, by combining 2 types of distances with 2 types of neighborhoods.</p>
 <p><a id='Example-of-Numerical-Lyapunov-computation-1'></a></p>
 <h3 id="example-of-numerical-lyapunov-computation">Example of Numerical Lyapunov computation</h3>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span><span class="p">,</span> <span class="n">PyPlot</span>
 
 <span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">()</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="c">#fake measurements for the win!</span>
 
 <span class="n">ks</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="mi">20</span>
 <span class="n">ℜ</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="mi">10000</span>
@@ -784,9 +802,9 @@ E(k) \approx \lambda\Delta t k + E(0)
       <div class="md-footer-copyright">
         
         powered by
-        <a href="http://www.mkdocs.org" title="MkDocs">MkDocs</a>
+        <a href="http://www.mkdocs.org">MkDocs</a>
         and
-        <a href="http://squidfunk.github.io/mkdocs-material/" title="Material for MkDocs">
+        <a href="https://squidfunk.github.io/mkdocs-material/">
           Material for MkDocs</a>
       </div>
       
@@ -806,7 +824,7 @@ E(k) \approx \lambda\Delta t k + E(0)
       
     </div>
     
-      <script src="../assets/javascripts/application-8e4952e681.js"></script>
+      <script src="../assets/javascripts/application.6cdc17f0.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:".."}})</script>
       

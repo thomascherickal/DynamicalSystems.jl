@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.0.4">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.2.0">
     
     
       
@@ -40,13 +40,13 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application-709eec9410.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application.5d3fffba.css">
       
-        <link rel="stylesheet" href="../assets/stylesheets/application-23f75ab9c7.palette.css">
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.fbd935c7.css">
       
     
     
-      <script src="../assets/javascripts/modernizr-e826f8942a.js"></script>
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
     
     
       
@@ -93,14 +93,18 @@
         <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
       </div>
       <div class="md-flex__cell md-flex__cell--stretch">
-        <span class="md-flex__ellipsis md-header-nav__title">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           
             
-              
+              <span class="md-header-nav__topic">
+                DynamicalSystems.jl
+              </span>
+              <span class="md-header-nav__topic">
+                Lyapunov Exponents
+              </span>
             
-            Lyapunov Exponents
           
-        </span>
+        </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
         
@@ -160,6 +164,9 @@
 </header>
     
     <div class="md-container">
+      
+        
+      
       
       <main class="md-main">
         <div class="md-main__inner md-grid" data-md-component="container">
@@ -420,7 +427,7 @@
 </pre></div>
 
 
-<p>Calculate the spectrum of Lyapunov exponents [1] of <code>ds</code> by applying a QR-decomposition on the parallelepiped matrix space <code>N</code> times. Return the spectrum sorted from maximum to minimum.</p>
+<p>Calculate the spectrum of Lyapunov exponents [1] of <code>ds</code> by applying a QR-decomposition on the parallelepiped matrix <code>N</code> times. Return the spectrum sorted from maximum to minimum.</p>
 <p><strong>Keyword Arguments</strong></p>
 <ul>
 <li><code>Ttr = 0</code> : Extra "transient" time to evolve the system before application of the algorithm. Should be <code>Int</code> for discrete systems.</li>
@@ -428,13 +435,13 @@
 <li><code>diff_eq_kwargs = Dict()</code> : (only for continuous) Keyword arguments passed into the solvers of the <code>DifferentialEquations</code> package (see <a href="../system_definition/#DynamicalSystems.trajectory"><code>trajectory</code></a> for more info).</li>
 </ul>
 <p><strong>Description</strong></p>
-<p>The method we employ is "H2" of [2], originally stated in [3]. The vectors defining a <code>D</code>-dimensional parallepiped are evolved using the tangent dynamics of the system. A QR-decomposition at each step yields the local growth rate for each dimension of the parallepiped. The growth rates are then averaged over <code>N</code> successive steps, yielding the lyapunov exponent spectrum.</p>
+<p>The method we employ is "H2" of [2], originally stated in [3]. The vectors defining a <code>D</code>-dimensional parallepiped are evolved using the tangent dynamics (known also as variational equations) of the system. A QR-decomposition at each step yields the local growth rate for each dimension of the parallepiped. The growth rates are then averaged over <code>N</code> successive steps, yielding the lyapunov exponent spectrum.</p>
 <p>For discrete systems the QR-decomposition is performed at <em>every</em> step <code>i ∈ 1:N</code>.</p>
 <p><strong>References</strong></p>
 <p>[1] : A. M. Lyapunov, <em>The General Problem of the Stability of Motion</em>, Taylor &amp; Francis (1992)</p>
 <p>[2] : K. Geist <em>et al.</em>, Progr. Theor. Phys. <strong>83</strong>, pp 875 (1990)</p>
 <p>[3] : G. Benettin <em>et al.</em>, Meccanica <strong>15</strong>, pp 9-20 &amp; 21-30 (1980)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/c3b410365796db9212ccd1009eacd122383dcbde/src/lyapunovs.jl#L5-L41' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/3bd730323777e9e6e1ac938f865ea378dee6a2d8/src/lyapunovs.jl#L5-L40' class='documenter-source'>source</a><br></p>
 <hr />
 <p>As you can see, the documentation string is detailed and self-contained. For example, the lyapunov spectrum of the <a href="http://www.scholarpedia.org/article/Hyperchaos">folded towel map</a> is calculated as:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -489,7 +496,7 @@
 <p>For the continuous case, the algorithm becomes faster with increasing <code>dt</code>, since integration is interrupted less frequenty. For the fastest performance you want to fine-tune <code>dt, d0, threshold</code> such that you have the minimum amount of rescalings <em>while still being well within the linearized dynamics region</em>.</p>
 <p><strong>References</strong></p>
 <p>[1] : G. Benettin <em>et al.</em>, Phys. Rev. A <strong>14</strong>, pp 2338 (1976)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/c3b410365796db9212ccd1009eacd122383dcbde/src/lyapunovs.jl#L93-L152' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/3bd730323777e9e6e1ac938f865ea378dee6a2d8/src/lyapunovs.jl#L92-L151' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -588,9 +595,9 @@
       <div class="md-footer-copyright">
         
         powered by
-        <a href="http://www.mkdocs.org" title="MkDocs">MkDocs</a>
+        <a href="http://www.mkdocs.org">MkDocs</a>
         and
-        <a href="http://squidfunk.github.io/mkdocs-material/" title="Material for MkDocs">
+        <a href="https://squidfunk.github.io/mkdocs-material/">
           Material for MkDocs</a>
       </div>
       
@@ -610,7 +617,7 @@
       
     </div>
     
-      <script src="../assets/javascripts/application-8e4952e681.js"></script>
+      <script src="../assets/javascripts/application.6cdc17f0.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:".."}})</script>
       
