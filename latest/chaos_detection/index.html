@@ -461,7 +461,7 @@
 <li><code>diff_eq_kwargs</code> : See <a href="../system_definition/#DynamicalSystems.trajectory"><code>trajectory</code></a>.</li>
 </ul>
 <p><strong>Description</strong></p>
-<p>The Generalized Alignment Index, <span>\(\text{GALI}_k\)</span>, is an efficient (and very fast) indicator of chaotic or regular behavior type in <span>\(D\)</span>-dimensional <em>Hamiltonian</em> systems (<span>\(D\)</span> is number of variables). The behavior of <span>\(\text{GALI}_k(t)\)</span> depends critically of the type of orbit resulting from the initial condition <code>ds.state</code>. If it is a chaotic orbit, then</p>
+<p>The Generalized Alignment Index, <span>\(\text{GALI}_k\)</span>, is an efficient (and very fast) indicator of chaotic or regular behavior type in <span>\(D\)</span>-dimensional Hamiltonian systems (<span>\(D\)</span> is number of variables). The <em>assymptotic</em> behavior of <span>\(\text{GALI}_k(t)\)</span> depends critically of the type of orbit resulting from the initial condition <code>ds.state</code>. If it is a chaotic orbit, then</p>
 <span>\[
 \text{GALI}_k(t) \sim
 \exp\left[\sum_{j=1}^k (\lambda_1 - \lambda_j)t \right]
@@ -486,7 +486,7 @@
 <p><strong>References</strong></p>
 <p>[1] : Skokos, C. H. <em>et al.</em>, Physica D <strong>231</strong>, pp 30–54 (2007)</p>
 <p>[2] : Skokos, C. H. <em>et al.</em>, <em>Chaos Detection and Predictability</em> - Chapter 5 (section 5.3.1 and ref. [85] therein), Lecture Notes in Physics <strong>915</strong>, Springer (2016)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/3bd730323777e9e6e1ac938f865ea378dee6a2d8/src/chaos_detection.jl#L5-L74' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/6d49b0fe49660582d71c66bc49328bf58fa264a1/src/chaos_detection.jl#L5-L74' class='documenter-source'>source</a><br></p>
 <p><a id='Discrete-Example-1'></a></p>
 <h3 id="discrete-example">Discrete Example</h3>
 <p>We will use 3 coupled standard maps as an example for a discrete system:</p>
