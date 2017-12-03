@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.2.0">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.2.1">
     
     
       
@@ -40,9 +40,9 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application.5d3fffba.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application.41c6761c.css">
       
-        <link rel="stylesheet" href="../assets/stylesheets/application-palette.fbd935c7.css">
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.792431c1.css">
       
     
     
@@ -507,12 +507,18 @@
 
 <p><code>D</code>-dimensional reconstruction object with delay <code>τ</code>, created from a vector <code>s::V</code>. <code>s</code> is the only field of <code>Reconstruction</code>.</p>
 <p><strong>Description</strong></p>
-<p>The <span>\(n\)</span>th row of a <code>Reconstruction</code> is formally the <code>D</code>-dimensional vector</p>
-<span>\[
+<p>The <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>th row of a <code>Reconstruction</code> is formally the <code>D</code>-dimensional vector</p>
+<div>
+<div class="MathJax_Preview">
 (s(n), s(n+\tau), s(n+2\tau), \dots, s(n+(D-1)\tau))
-\]</span><p>which is created only on demand.</p>
+</div>
+<script type="math/tex; mode=display">
+(s(n), s(n+\tau), s(n+2\tau), \dots, s(n+(D-1)\tau))
+</script>
+</div>
+<p>which is created only on demand.</p>
 <p>See <a href="./#DynamicalSystems.reconstruct"><code>reconstruct</code></a> for usage.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/1e529af4a9d3e34780730df7040034f3a72fce63/src/delay_coords.jl#L13-L26' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/f0fd878a95617619e054e57d2aa4e0d13c7d2b76/src/delay_coords.jl#L13-L26' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.reconstruct' href='#DynamicalSystems.reconstruct'>#</a>
 <strong><code>DynamicalSystems.reconstruct</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>reconstruct(s::AbstractVector, D::Int, τ::Int) -&gt; R::Reconstruction
@@ -535,7 +541,7 @@
 <p><strong>References</strong></p>
 <p>[1] : F. Takens, <em>Detecting Strange Attractors in Turbulence — Dynamical Systems and Turbulence</em>, Lecture Notes in Mathematics <strong>366</strong>, Springer (1981)</p>
 <p>[2] : T. Sauer <em>et al.</em>, J. Stat. Phys. <strong>65</strong>, pp 579 (1991)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/1e529af4a9d3e34780730df7040034f3a72fce63/src/delay_coords.jl#L86-L123' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/f0fd878a95617619e054e57d2aa4e0d13c7d2b76/src/delay_coords.jl#L86-L123' class='documenter-source'>source</a><br></p>
 <hr />
 <p>As an example, let's pass a <code>Reconstruction</code> into e.g. a method that calculates the attractor dimension:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -563,7 +569,7 @@
 
 
 <p>Estimate an optimal delay to be used in <a href="./#DynamicalSystems.reconstruct"><code>reconstruct</code></a>, by performing an exponential fit to the <code>abs.(c)</code> with <code>c</code> the auto-correlation function of <code>s</code>. Return the exponential decay time <code>τ</code> rounded to an integer.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/1e529af4a9d3e34780730df7040034f3a72fce63/src/delay_coords.jl#L187-L193' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/f0fd878a95617619e054e57d2aa4e0d13c7d2b76/src/delay_coords.jl#L187-L193' class='documenter-source'>source</a><br></p>
 <p><a id='Neighborhoods-of-a-point-in-a-Dataset-1'></a></p>
 <h2 id="neighborhoods-of-a-point-in-a-dataset">Neighborhoods of a point in a Dataset</h2>
 <p>Incorporating the excellent performance of <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a> and the flexibility of <code>AbstractDataset</code> allows us to define a function that calculates a "neighborhood" of a given point, i.e. other points near it. The different "types" of the neighborhoods are subtypes of <code>AbstractNeighborhood</code>.</p>
@@ -581,7 +587,7 @@
 </ul>
 <p>Notice that these distances are always computed using the <code>Euclidean()</code> distance in <code>D</code>-dimensional space.</p>
 <p>See also <a href="./#DynamicalSystems.neighborhood"><code>neighborhood</code></a> or <a href="./#DynamicalSystems.numericallyapunov"><code>numericallyapunov</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/1e529af4a9d3e34780730df7040034f3a72fce63/src/delay_coords.jl#L225-L239' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/f0fd878a95617619e054e57d2aa4e0d13c7d2b76/src/delay_coords.jl#L225-L239' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.neighborhood' href='#DynamicalSystems.neighborhood'>#</a>
 <strong><code>DynamicalSystems.neighborhood</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>neighborhood(n, point, tree::KDTree, method::AbstractNeighborhood)
@@ -606,7 +612,7 @@
 <p>Notice that the distances in the trees are always computed using the <code>Euclidean()</code> distance in <code>D</code>-dimensional space, irrespectively of the <code>distance</code> used in the <a href="./#DynamicalSystems.numericallyapunov"><code>numericallyapunov</code></a> function.</p>
 <p><strong>References</strong></p>
 <p><code>neighborhood</code> simply interfaces the functions <code>knn</code> and <code>inrange</code> from <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a> by using the last argument, <code>method</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/1e529af4a9d3e34780730df7040034f3a72fce63/src/delay_coords.jl#L250-L283' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/f0fd878a95617619e054e57d2aa4e0d13c7d2b76/src/delay_coords.jl#L250-L283' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Numerical-Lyapunov-Exponent-1'></a></p>
 <h2 id="numerical-lyapunov-exponent">Numerical Lyapunov Exponent</h2>
@@ -626,16 +632,22 @@
 </ul>
 <p><strong>Description</strong></p>
 <p>If the reconstruction exhibits exponential divergence of nearby states, then it should clearly hold:</p>
-<span>\[
+<div>
+<div class="MathJax_Preview">
 E(k) \approx \lambda\Delta t k + E(0)
-\]</span><p>for a <em>well defined region</em> in the <code>k</code> axis, where <span>\(\lambda\)</span> is the approximated maximum Lyapunov exponent. <span>\(\Delta t\)</span> is the time between samples in the original timeseries. You can use <a href="../entropies/#DynamicalSystems.linear_region"><code>linear_region</code></a> with arguments <code>(ks .* Δt, E)</code> to identify the slope (= <span>\(\lambda\)</span>) immediatelly, assuming you have choosen sufficiently good <code>ks</code> such that the linear scaling region is bigger than the saturated region.</p>
+</div>
+<script type="math/tex; mode=display">
+E(k) \approx \lambda\Delta t k + E(0)
+</script>
+</div>
+<p>for a <em>well defined region</em> in the <code>k</code> axis, where <span><span class="MathJax_Preview">\lambda</span><script type="math/tex">\lambda</script></span> is the approximated maximum Lyapunov exponent. <span><span class="MathJax_Preview">\Delta t</span><script type="math/tex">\Delta t</script></span> is the time between samples in the original timeseries. You can use <a href="../entropies/#DynamicalSystems.linear_region"><code>linear_region</code></a> with arguments <code>(ks .* Δt, E)</code> to identify the slope (= <span><span class="MathJax_Preview">\lambda</span><script type="math/tex">\lambda</script></span>) immediatelly, assuming you have choosen sufficiently good <code>ks</code> such that the linear scaling region is bigger than the saturated region.</p>
 <p>The algorithm used in this function is due to Parlitz [1], which itself expands upon Kantz [2]. In sort, for each reference state a neighborhood is evaluated. Then, for each point in this neighborhood, the logarithmic distance between reference state and neighborhood state is calculated as the "time" index <code>k</code> increases. The average of the above over all neighborhood states over all reference states is the returned result.</p>
-<p>If the <code>Metric</code> is <code>Euclidean()</code> then use the Euclidean distance of the full <code>D</code>-dimensional points (distance <span>\(d_E\)</span> in ref. [1]). If however the <code>Metric</code> is <code>Cityblock()</code>, calculate the absolute distance of <em>only the first elements</em> of the <code>m+k</code> and <code>n+k</code> points of the reconstruction <code>R</code>, which are the <code>m+k</code> and <code>n+k</code> elements of vector <code>R.s</code> (distance <span>\(d_F\)</span> in ref. [1]). Notice that the distances used are defined in the package <a href="https://github.com/JuliaStats/Distances.jl">Distances.jl</a>, but are re-exported in DynamicalSystems.jl for ease-of-use.</p>
-<p>This function assumes that the Theiler window (see [1]) is the same as the delay time: <span>\(w  = \tau\)</span>.</p>
+<p>If the <code>Metric</code> is <code>Euclidean()</code> then use the Euclidean distance of the full <code>D</code>-dimensional points (distance <span><span class="MathJax_Preview">d_E</span><script type="math/tex">d_E</script></span> in ref. [1]). If however the <code>Metric</code> is <code>Cityblock()</code>, calculate the absolute distance of <em>only the first elements</em> of the <code>m+k</code> and <code>n+k</code> points of the reconstruction <code>R</code>, which are the <code>m+k</code> and <code>n+k</code> elements of vector <code>R.s</code> (distance <span><span class="MathJax_Preview">d_F</span><script type="math/tex">d_F</script></span> in ref. [1]). Notice that the distances used are defined in the package <a href="https://github.com/JuliaStats/Distances.jl">Distances.jl</a>, but are re-exported in DynamicalSystems.jl for ease-of-use.</p>
+<p>This function assumes that the Theiler window (see [1]) is the same as the delay time: <span><span class="MathJax_Preview">w  = \tau</span><script type="math/tex">w  = \tau</script></span>.</p>
 <p><strong>References</strong></p>
 <p>[1] : Skokos, C. H. <em>et al.</em>, <em>Chaos Detection and Predictability</em> - Chapter 1 (section 1.3.2), Lecture Notes in Physics <strong>915</strong>, Springer (2016)</p>
 <p>[2] : Kantz, H., Phys. Lett. A <strong>185</strong>, pp 77–87 (1994)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/1e529af4a9d3e34780730df7040034f3a72fce63/src/delay_coords.jl#L303-L371' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/f0fd878a95617619e054e57d2aa4e0d13c7d2b76/src/delay_coords.jl#L303-L371' class='documenter-source'>source</a><br></p>
 <hr />
 <p>The function <code>numericallyapunov</code> has a total of 4 different approaches for the algorithmic process, by combining 2 types of distances with 2 types of neighborhoods.</p>
 <p><a id='Example-of-Numerical-Lyapunov-computation-1'></a></p>

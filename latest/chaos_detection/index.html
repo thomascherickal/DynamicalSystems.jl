@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.2.0">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.2.1">
     
     
       
@@ -40,9 +40,9 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application.5d3fffba.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application.41c6761c.css">
       
-        <link rel="stylesheet" href="../assets/stylesheets/application-palette.fbd935c7.css">
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.792431c1.css">
       
     
     
@@ -452,8 +452,8 @@
 </pre></div>
 
 
-<p>Compute <span>\(\text{GALI}_k\)</span> [1] for a given <code>k</code> up to time <code>tmax</code>. Return <span>\(\text{GALI}_k(t)\)</span> and time vector <span>\(t\)</span>.</p>
-<p><code>ws</code> is an optional argument containing the deviation vectors <span>\(w_i\)</span> for <span>\(i \in [1,k]\)</span>, expected either as a matrix with each column a deviation vector, or as a vector of vectors. If not given, random orthonormal vectors are chosen.</p>
+<p>Compute <span><span class="MathJax_Preview">\text{GALI}_k</span><script type="math/tex">\text{GALI}_k</script></span> [1] for a given <code>k</code> up to time <code>tmax</code>. Return <span><span class="MathJax_Preview">\text{GALI}_k(t)</span><script type="math/tex">\text{GALI}_k(t)</script></span> and time vector <span><span class="MathJax_Preview">t</span><script type="math/tex">t</script></span>.</p>
+<p><code>ws</code> is an optional argument containing the deviation vectors <span><span class="MathJax_Preview">w_i</span><script type="math/tex">w_i</script></span> for <span><span class="MathJax_Preview">i \in [1,k]</span><script type="math/tex">i \in [1,k]</script></span>, expected either as a matrix with each column a deviation vector, or as a vector of vectors. If not given, random orthonormal vectors are chosen.</p>
 <p><strong>Keyword Arguments</strong></p>
 <ul>
 <li><code>threshold</code> : If <code>GALI_k</code> falls below the <code>threshold</code> iteration is terminated. Default value is <code>1e-12</code>.</li>
@@ -461,12 +461,20 @@
 <li><code>diff_eq_kwargs</code> : See <a href="../system_definition/#DynamicalSystems.trajectory"><code>trajectory</code></a>.</li>
 </ul>
 <p><strong>Description</strong></p>
-<p>The Generalized Alignment Index, <span>\(\text{GALI}_k\)</span>, is an efficient (and very fast) indicator of chaotic or regular behavior type in <span>\(D\)</span>-dimensional Hamiltonian systems (<span>\(D\)</span> is number of variables). The <em>assymptotic</em> behavior of <span>\(\text{GALI}_k(t)\)</span> depends critically of the type of orbit resulting from the initial condition <code>ds.state</code>. If it is a chaotic orbit, then</p>
-<span>\[
+<p>The Generalized Alignment Index, <span><span class="MathJax_Preview">\text{GALI}_k</span><script type="math/tex">\text{GALI}_k</script></span>, is an efficient (and very fast) indicator of chaotic or regular behavior type in <span><span class="MathJax_Preview">D</span><script type="math/tex">D</script></span>-dimensional Hamiltonian systems (<span><span class="MathJax_Preview">D</span><script type="math/tex">D</script></span> is number of variables). The <em>assymptotic</em> behavior of <span><span class="MathJax_Preview">\text{GALI}_k(t)</span><script type="math/tex">\text{GALI}_k(t)</script></span> depends critically of the type of orbit resulting from the initial condition <code>ds.state</code>. If it is a chaotic orbit, then</p>
+<div>
+<div class="MathJax_Preview">
 \text{GALI}_k(t) \sim
 \exp\left[\sum_{j=1}^k (\lambda_1 - \lambda_j)t \right]
-\]</span><p>with <span>\(\lambda_1\)</span> being the maximum <a href="../lyapunovs/#DynamicalSystems.lyapunov"><code>lyapunov</code></a> exponent. If on the other hand the orbit is regular, corresponding to movement in <span>\(d\)</span>-dimensional torus with <span>\(1 \le d \le D/2\)</span> then it holds</p>
-<span>\[
+</div>
+<script type="math/tex; mode=display">
+\text{GALI}_k(t) \sim
+\exp\left[\sum_{j=1}^k (\lambda_1 - \lambda_j)t \right]
+</script>
+</div>
+<p>with <span><span class="MathJax_Preview">\lambda_1</span><script type="math/tex">\lambda_1</script></span> being the maximum <a href="../lyapunovs/#DynamicalSystems.lyapunov"><code>lyapunov</code></a> exponent. If on the other hand the orbit is regular, corresponding to movement in <span><span class="MathJax_Preview">d</span><script type="math/tex">d</script></span>-dimensional torus with <span><span class="MathJax_Preview">1 \le d \le D/2</span><script type="math/tex">1 \le d \le D/2</script></span> then it holds</p>
+<div>
+<div class="MathJax_Preview">
 \text{GALI}_k(t) \sim
     \begin{cases}
       \text{const.}, &amp; \text{if} \;\; 2 \le k \le d  \; \; \text{and}
@@ -474,8 +482,19 @@
       t^{-(k - d)}, &amp; \text{if} \;\;  d &lt; k \le D - d \\
       t^{-(2k - D)}, &amp; \text{if} \;\;  D - d &lt; k \le D
     \end{cases}
-\]</span><p>Traditionally, if <span>\(\text{GALI}_k(t)\)</span> does not become less than the <code>threshold</code> until <code>tmax</code> the given orbit is said to be chaotic, otherwise it is regular.</p>
-<p>The entirety of our implementation is not based on the original paper, but rather in the method described in [2], which uses the product of the singular values of <span>\(A\)</span>, a matrix that has as <em>columns</em> the deviation vectors.</p>
+</div>
+<script type="math/tex; mode=display">
+\text{GALI}_k(t) \sim
+    \begin{cases}
+      \text{const.}, & \text{if} \;\; 2 \le k \le d  \; \; \text{and}
+      \; \;d > 1 \\
+      t^{-(k - d)}, & \text{if} \;\;  d < k \le D - d \\
+      t^{-(2k - D)}, & \text{if} \;\;  D - d < k \le D
+    \end{cases}
+</script>
+</div>
+<p>Traditionally, if <span><span class="MathJax_Preview">\text{GALI}_k(t)</span><script type="math/tex">\text{GALI}_k(t)</script></span> does not become less than the <code>threshold</code> until <code>tmax</code> the given orbit is said to be chaotic, otherwise it is regular.</p>
+<p>The entirety of our implementation is not based on the original paper, but rather in the method described in [2], which uses the product of the singular values of <span><span class="MathJax_Preview">A</span><script type="math/tex">A</script></span>, a matrix that has as <em>columns</em> the deviation vectors.</p>
 <p><strong>Performance Notes</strong></p>
 <p>If you want to do repeated evaluations of <code>gali</code> for many initial conditions and for continuous systems, you can take advantage of the function:</p>
 <div class="codehilite"><pre><span></span>gali(integrator, k, W, tmax, dt, threshold)
@@ -486,7 +505,7 @@
 <p><strong>References</strong></p>
 <p>[1] : Skokos, C. H. <em>et al.</em>, Physica D <strong>231</strong>, pp 30–54 (2007)</p>
 <p>[2] : Skokos, C. H. <em>et al.</em>, <em>Chaos Detection and Predictability</em> - Chapter 5 (section 5.3.1 and ref. [85] therein), Lecture Notes in Physics <strong>915</strong>, Springer (2016)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/1e529af4a9d3e34780730df7040034f3a72fce63/src/chaos_detection.jl#L5-L74' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/f0fd878a95617619e054e57d2aa4e0d13c7d2b76/src/chaos_detection.jl#L5-L74' class='documenter-source'>source</a><br></p>
 <p><a id='Discrete-Example-1'></a></p>
 <h3 id="discrete-example">Discrete Example</h3>
 <p>We will use 3 coupled standard maps as an example for a discrete system:</p>
@@ -620,7 +639,7 @@
 <p><a id='Using-GALI-1'></a></p>
 <h3 id="using-gali">Using GALI</h3>
 <p>No-one in their right mind would try to fit power-laws in order to distinguish between chaotic and regular behavior, like the above examples. These were just demonstrations.</p>
-<p>The most common usage of <span>\(\text{GALI}_k\)</span> is to define a (sufficiently) small amount of time and a (sufficiently) small threshold and see whether <span>\(\text{GALI}_k\)</span> stays below it, for a (sufficiently) big <span>\(k\)</span>.</p>
+<p>The most common usage of <span><span class="MathJax_Preview">\text{GALI}_k</span><script type="math/tex">\text{GALI}_k</script></span> is to define a (sufficiently) small amount of time and a (sufficiently) small threshold and see whether <span><span class="MathJax_Preview">\text{GALI}_k</span><script type="math/tex">\text{GALI}_k</script></span> stays below it, for a (sufficiently) big <span><span class="MathJax_Preview">k</span><script type="math/tex">k</script></span>.</p>
 <p>For example one could do</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
 <span class="k">using</span> <span class="n">PyPlot</span>
