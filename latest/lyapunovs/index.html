@@ -279,13 +279,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#convergence-timeseries" title="Convergence Timeseries" class="md-nav__link">
-    Convergence Timeseries
-  </a>
-  
-</li>
-      
       
       
     </ul>
@@ -401,13 +394,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#convergence-timeseries" title="Convergence Timeseries" class="md-nav__link">
-    Convergence Timeseries
-  </a>
-  
-</li>
-      
       
       
     </ul>
@@ -453,28 +439,34 @@
 <p>[1] : A. M. Lyapunov, <em>The General Problem of the Stability of Motion</em>, Taylor &amp; Francis (1992)</p>
 <p>[2] : K. Geist <em>et al.</em>, Progr. Theor. Phys. <strong>83</strong>, pp 875 (1990)</p>
 <p>[3] : G. Benettin <em>et al.</em>, Meccanica <strong>15</strong>, pp 9-20 &amp; 21-30 (1980)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/add22e0dc719cf5b38e7456dec5f3ec95d698ac7/src/lyapunovs.jl#L5-L40' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/b2798f528447d4a8fcc94b83dac82db73d1ca8af/src/lyapunovs.jl#L5-L40' class='documenter-source'>source</a><br></p>
 <hr />
 <p>As you can see, the documentation string is detailed and self-contained. For example, the lyapunov spectrum of the <a href="http://www.scholarpedia.org/article/Hyperchaos">folded towel map</a> is calculated as:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
 
 <span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">towel</span><span class="p">()</span>
 <span class="n">λλ</span> <span class="o">=</span> <span class="n">lyapunovs</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
-<span class="c"># result:</span>
-<span class="p">[</span><span class="mf">0.432253</span><span class="p">,</span> <span class="mf">0.371617</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.29632</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>3-element Array{Float64,1}:
+  0.432253
+  0.371617
+ -3.29632
 </pre></div>
 
 
 <p>Similarly, for a continuous system, e.g. the Lorenz system, you would do:</p>
-<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
-
-<span class="n">lor</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">lorenz</span><span class="p">(</span><span class="n">ρ</span> <span class="o">=</span> <span class="mf">32.0</span><span class="p">)</span> <span class="c">#this is not the original parameter!</span>
-<span class="n">issubtype</span><span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">ds</span><span class="p">),</span> <span class="n">DynamicalSystems</span><span class="o">.</span><span class="n">ContinuousDynamicalSystem</span><span class="p">)</span> <span class="c"># true</span>
-
+<div class="codehilite"><pre><span></span><span class="n">lor</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">lorenz</span><span class="p">(</span><span class="n">ρ</span> <span class="o">=</span> <span class="mf">32.0</span><span class="p">)</span> <span class="c">#this is not the original parameter!</span>
 <span class="n">λλ</span> <span class="o">=</span> <span class="n">lyapunovs</span><span class="p">(</span><span class="n">lor</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span>
 <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">diff_eq_kwargs</span> <span class="o">=</span> <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">abstol</span> <span class="o">=&gt;</span> <span class="mf">1e-9</span><span class="p">,</span> <span class="o">:</span><span class="n">reltol</span> <span class="o">=&gt;</span> <span class="mf">1e-9</span><span class="p">))</span>
-<span class="c"># result:</span>
-<span class="p">[</span><span class="mf">0.999176</span><span class="p">,</span> <span class="mf">0.000774754</span><span class="p">,</span> <span class="o">-</span><span class="mf">14.6666</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>3-element Array{Float64,1}:
+   0.985688
+   0.00271333
+ -14.6551
 </pre></div>
 
 
@@ -483,7 +475,7 @@
 <p>The function <code>lyapunov</code> calculates the maximum lyapunov exponent of a system, much more efficiently than getting the first result of <code>lyapunovs</code>:</p>
 <p><a id='DynamicalSystems.lyapunov' href='#DynamicalSystems.lyapunov'>#</a>
 <strong><code>DynamicalSystems.lyapunov</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="n">lyapunov</span><span class="p">(</span><span class="n">ds</span><span class="o">::</span><span class="n">DynamicalSystem</span><span class="p">,</span> <span class="n">Τ</span><span class="p">,</span> <span class="n">ret_conv</span> <span class="o">=</span> <span class="kt">Val</span><span class="p">{</span><span class="kc">false</span><span class="p">};</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="n">lyapunov</span><span class="p">(</span><span class="n">ds</span><span class="o">::</span><span class="n">DynamicalSystem</span><span class="p">,</span> <span class="n">Τ</span><span class="p">;</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
 </pre></div>
 
 
@@ -510,20 +502,22 @@
 \ln\left( a_i \right),\quad a_i = \frac{d(t_{i})}{d_0}.
 </script>
 </div>
-<p>If <code>ret_conv</code> is <code>Val{true}</code> the function returns the convergence timeseries of the Lyapunov exponent <code>λts</code> as well as the corresponding time vector <code>ts</code>. If <code>ret_conv</code> is <code>Val{false}</code> (default) the converged Lyapunov value <code>λts[end]</code> is returned instead. The number of rescalings happened is also given, as it is equal to <code>length(λts)</code>.</p>
 <p><strong>Performance Notes</strong></p>
 <p>For the continuous case, the algorithm becomes faster with increasing <code>dt</code>, since integration is interrupted less frequenty. For the fastest performance you want to fine-tune <code>dt, d0, threshold</code> such that you have the minimum amount of rescalings <em>while still being well within the linearized dynamics region</em>.</p>
+<p>You can easily modify the source code to return the convergence timeseries of the exponent, if need be.</p>
 <p><strong>References</strong></p>
 <p>[1] : G. Benettin <em>et al.</em>, Phys. Rev. A <strong>14</strong>, pp 2338 (1976)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/add22e0dc719cf5b38e7456dec5f3ec95d698ac7/src/lyapunovs.jl#L94-L153' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/b2798f528447d4a8fcc94b83dac82db73d1ca8af/src/lyapunovs.jl#L95-L150' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
 
 <span class="n">henon</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">()</span>
 <span class="n">λ</span> <span class="o">=</span> <span class="n">lyapunov</span><span class="p">(</span><span class="n">henon</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="n">d0</span> <span class="o">=</span> <span class="mf">1e-7</span><span class="p">,</span> <span class="n">threshold</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">,</span> <span class="n">Ttr</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
-<span class="c"># result:</span>
-<span class="mf">0.420</span><span class="o">...</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>0.42007471604734054
 </pre></div>
 
 
@@ -531,34 +525,14 @@
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span><span class="p">,</span> <span class="n">OrdinaryDiffEq</span>
 
 <span class="n">ross</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">roessler</span><span class="p">(</span><span class="n">a</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mf">14.0</span><span class="p">)</span> <span class="c">#not original parameters</span>
-<span class="n">λ</span> <span class="o">=</span> <span class="n">lyapunov</span><span class="p">(</span><span class="n">ross</span><span class="p">,</span> <span class="mi">100000</span><span class="p">,</span> <span class="n">dt</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">,</span> <span class="n">diff_eq_kwargs</span> <span class="o">=</span> <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">solver</span> <span class="o">=&gt;</span> <span class="n">Vern8</span><span class="p">(),</span> <span class="o">:</span><span class="n">abstol</span><span class="o">=&gt;</span><span class="mf">1e-9</span><span class="p">,</span> <span class="o">:</span><span class="n">reltol</span><span class="o">=&gt;</span><span class="mf">1e-9</span><span class="p">),</span> <span class="n">Ttr</span> <span class="o">=</span> <span class="mf">100.0</span><span class="p">)</span>
-<span class="c"># result:</span>
-<span class="mf">0.0711</span><span class="o">...</span>
+<span class="n">λ</span> <span class="o">=</span> <span class="n">lyapunov</span><span class="p">(</span><span class="n">ross</span><span class="p">,</span> <span class="mi">100000</span><span class="p">,</span> <span class="n">dt</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">,</span>
+<span class="n">diff_eq_kwargs</span> <span class="o">=</span> <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">solver</span> <span class="o">=&gt;</span> <span class="n">Vern8</span><span class="p">(),</span> <span class="o">:</span><span class="n">abstol</span><span class="o">=&gt;</span><span class="mf">1e-9</span><span class="p">,</span> <span class="o">:</span><span class="n">reltol</span><span class="o">=&gt;</span><span class="mf">1e-9</span><span class="p">),</span>
+<span class="n">Ttr</span> <span class="o">=</span> <span class="mf">100.0</span><span class="p">)</span>
 </pre></div>
 
 
-<p><a id='Convergence-Timeseries-1'></a></p>
-<h2 id="convergence-timeseries">Convergence Timeseries</h2>
-<p>As was explained in the documentation of the functions, one can choose to get the convergence timeseries of the lyapunov exponents, instead of simply the converged values. This can be very helpful if one will e.g. prepare to run a lot of simulations and would like to have some adjusted parameters for optimal convergence.</p>
-<p>For example</p>
-<div class="codehilite"><pre><span></span><span class="n">lor</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">lorenz</span><span class="p">()</span> <span class="c">#works for continuous</span>
-<span class="n">hen</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">()</span>  <span class="c">#works for discrete as well</span>
-
-<span class="c"># use `Val{true}` as the third argument to get convergence info</span>
-<span class="n">ls</span><span class="p">,</span> <span class="n">ts</span> <span class="o">=</span> <span class="n">lyapunov</span><span class="p">(</span><span class="n">hen</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">,</span> <span class="kt">Val</span><span class="p">{</span><span class="kc">true</span><span class="p">},</span> <span class="n">d0</span> <span class="o">=</span> <span class="mf">1e-12</span><span class="p">)</span>
-<span class="n">ls2</span><span class="p">,</span> <span class="n">ts2</span> <span class="o">=</span> <span class="n">lyapunov</span><span class="p">(</span><span class="n">hen</span><span class="p">,</span> <span class="mi">100000</span><span class="p">,</span> <span class="kt">Val</span><span class="p">{</span><span class="kc">true</span><span class="p">},</span> <span class="n">d0</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="n">threshold</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">)</span>
-
-<span class="k">using</span> <span class="n">PyPlot</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">ls</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s">&quot;1: λ = </span><span class="si">$</span><span class="p">(</span><span class="n">ls</span><span class="p">[</span><span class="k">end</span><span class="p">])</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s">&quot;dashed&quot;</span><span class="p">)</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">ts2</span><span class="p">,</span> <span class="n">ls2</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s">&quot;2: λ = </span><span class="si">$</span><span class="p">(</span><span class="n">ls2</span><span class="p">[</span><span class="k">end</span><span class="p">])</span><span class="s">&quot;</span><span class="p">)</span>
-<span class="n">legend</span><span class="p">()</span>
-<span class="n">xlabel</span><span class="p">(</span><span class="s">&quot;n&quot;</span><span class="p">)</span>
-<span class="n">ylabel</span><span class="p">(</span><span class="s">&quot;λ&quot;</span><span class="p">)</span>
-<span class="n">tight_layout</span><span class="p">()</span>
+<div class="codehilite"><pre><span></span>0.07113103278954945
 </pre></div>
-
-
-<p>which plots: <img alt="Convergence timeseries for lyapunov" src="https://i.imgur.com/MEaXnyB.png" /></p>
                 
                   
                 
