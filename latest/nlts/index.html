@@ -530,7 +530,7 @@
 </div>
 <p>which is created only on demand.</p>
 <p>See <a href="./#DynamicalSystems.reconstruct"><code>reconstruct</code></a> for usage.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/b2798f528447d4a8fcc94b83dac82db73d1ca8af/src/delay_coords.jl#L13-L26' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/56392a2ee3d8ae9544fcacfa87c4a0a252164e9b/src/delay_coords.jl#L13-L26' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.reconstruct' href='#DynamicalSystems.reconstruct'>#</a>
 <strong><code>DynamicalSystems.reconstruct</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>reconstruct(s::AbstractVector, D::Int, τ::Int) -&gt; R::Reconstruction
@@ -553,7 +553,7 @@
 <p><strong>References</strong></p>
 <p>[1] : F. Takens, <em>Detecting Strange Attractors in Turbulence — Dynamical Systems and Turbulence</em>, Lecture Notes in Mathematics <strong>366</strong>, Springer (1981)</p>
 <p>[2] : T. Sauer <em>et al.</em>, J. Stat. Phys. <strong>65</strong>, pp 579 (1991)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/b2798f528447d4a8fcc94b83dac82db73d1ca8af/src/delay_coords.jl#L86-L123' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/56392a2ee3d8ae9544fcacfa87c4a0a252164e9b/src/delay_coords.jl#L86-L123' class='documenter-source'>source</a><br></p>
 <hr />
 <p>As an example, let's pass a <code>Reconstruction</code> into e.g. a method that calculates the attractor dimension:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -581,7 +581,7 @@
 
 
 <p>Estimate an optimal delay to be used in <a href="./#DynamicalSystems.reconstruct"><code>reconstruct</code></a>, by performing an exponential fit to the <code>abs.(c)</code> with <code>c</code> the auto-correlation function of <code>s</code>. Return the exponential decay time <code>τ</code> rounded to an integer.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/b2798f528447d4a8fcc94b83dac82db73d1ca8af/src/delay_coords.jl#L187-L193' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/56392a2ee3d8ae9544fcacfa87c4a0a252164e9b/src/delay_coords.jl#L187-L193' class='documenter-source'>source</a><br></p>
 <p><a id='Neighborhoods-of-a-point-in-a-Dataset-1'></a></p>
 <h2 id="neighborhoods-of-a-point-in-a-dataset">Neighborhoods of a point in a Dataset</h2>
 <p>Incorporating the excellent performance of <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a> and the flexibility of <code>AbstractDataset</code> allows us to define a function that calculates a "neighborhood" of a given point, i.e. other points near it. The different "types" of the neighborhoods are subtypes of <code>AbstractNeighborhood</code>.</p>
@@ -599,7 +599,7 @@
 </ul>
 <p>Notice that these distances are always computed using the <code>Euclidean()</code> distance in <code>D</code>-dimensional space.</p>
 <p>See also <a href="./#DynamicalSystems.neighborhood"><code>neighborhood</code></a> or <a href="./#DynamicalSystems.numericallyapunov"><code>numericallyapunov</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/b2798f528447d4a8fcc94b83dac82db73d1ca8af/src/delay_coords.jl#L225-L239' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/56392a2ee3d8ae9544fcacfa87c4a0a252164e9b/src/delay_coords.jl#L225-L239' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.neighborhood' href='#DynamicalSystems.neighborhood'>#</a>
 <strong><code>DynamicalSystems.neighborhood</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>neighborhood(n, point, tree::KDTree, method::AbstractNeighborhood)
@@ -624,7 +624,7 @@
 <p>Notice that the distances in the trees are always computed using the <code>Euclidean()</code> distance in <code>D</code>-dimensional space, irrespectively of the <code>distance</code> used in the <a href="./#DynamicalSystems.numericallyapunov"><code>numericallyapunov</code></a> function.</p>
 <p><strong>References</strong></p>
 <p><code>neighborhood</code> simply interfaces the functions <code>knn</code> and <code>inrange</code> from <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a> by using the last argument, <code>method</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/b2798f528447d4a8fcc94b83dac82db73d1ca8af/src/delay_coords.jl#L250-L283' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/56392a2ee3d8ae9544fcacfa87c4a0a252164e9b/src/delay_coords.jl#L250-L283' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Numerical-Lyapunov-Exponent-1'></a></p>
 <h2 id="numerical-lyapunov-exponent">Numerical Lyapunov Exponent</h2>
@@ -659,7 +659,7 @@ E(k) \approx \lambda\Delta t k + E(0)
 <p><strong>References</strong></p>
 <p>[1] : Skokos, C. H. <em>et al.</em>, <em>Chaos Detection and Predictability</em> - Chapter 1 (section 1.3.2), Lecture Notes in Physics <strong>915</strong>, Springer (2016)</p>
 <p>[2] : Kantz, H., Phys. Lett. A <strong>185</strong>, pp 77–87 (1994)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/b2798f528447d4a8fcc94b83dac82db73d1ca8af/src/delay_coords.jl#L303-L371' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/56392a2ee3d8ae9544fcacfa87c4a0a252164e9b/src/delay_coords.jl#L303-L371' class='documenter-source'>source</a><br></p>
 <hr />
 <p>The function <code>numericallyapunov</code> has a total of 4 different approaches for the algorithmic process, by combining 2 types of distances with 2 types of neighborhoods.</p>
 <p><a id='Example-of-Numerical-Lyapunov-computation-1'></a></p>
