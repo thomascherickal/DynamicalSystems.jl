@@ -517,7 +517,7 @@
 <p><strong>References</strong></p>
 <p>[1] : Skokos, C. H. <em>et al.</em>, Physica D <strong>231</strong>, pp 30–54 (2007)</p>
 <p>[2] : Skokos, C. H. <em>et al.</em>, <em>Chaos Detection and Predictability</em> - Chapter 5 (section 5.3.1 and ref. [85] therein), Lecture Notes in Physics <strong>915</strong>, Springer (2016)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/26dcf963b41804dbbcd852cfae31d1f0b54152e4/src/chaos_detection.jl#L5-L74' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/35b5407be0fdaef3f405a7c6c0b441fee23f8fff/src/chaos_detection.jl#L5-L74' class='documenter-source'>source</a><br></p>
 <p><a id='Discrete-Example-1'></a></p>
 <h3 id="discrete-example">Discrete Example</h3>
 <p>We will use 3 coupled standard maps as an example for a discrete system:</p>
@@ -658,24 +658,31 @@
 
 <span class="n">chaoticness</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span> <span class="o">=</span> <span class="n">gali</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">500.0</span><span class="p">)[</span><span class="mi">2</span><span class="p">][</span><span class="k">end</span><span class="p">]</span>
 
-<span class="n">dens</span> <span class="o">=</span> <span class="mi">201</span>
-<span class="n">chaoticity</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">dens</span><span class="p">,</span><span class="n">dens</span><span class="p">)</span>
-<span class="n">θs</span> <span class="o">=</span> <span class="n">ps</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="nb">π</span><span class="p">,</span> <span class="n">dens</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">function</span> <span class="n">main</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">θ</span><span class="p">)</span> <span class="o">∈</span> <span class="n">enumerate</span><span class="p">(</span><span class="n">θs</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="n">dens</span><span class="p">])</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="o">∈</span> <span class="n">enumerate</span><span class="p">(</span><span class="n">ps</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="n">dens</span><span class="p">])</span>
-        <span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">standardmap</span><span class="p">([</span><span class="n">θ</span><span class="p">,</span> <span class="n">p</span><span class="p">])</span>
-        <span class="n">chaoticity</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">chaoticness</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+    <span class="n">dens</span> <span class="o">=</span> <span class="mi">201</span>
+    <span class="n">chaoticity</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">dens</span><span class="p">,</span><span class="n">dens</span><span class="p">)</span>
+    <span class="n">θs</span> <span class="o">=</span> <span class="n">ps</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="nb">π</span><span class="p">,</span> <span class="n">dens</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">standardmap</span><span class="p">(</span><span class="n">k</span> <span class="o">=</span> <span class="n">k</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">θ</span><span class="p">)</span> <span class="o">∈</span> <span class="n">enumerate</span><span class="p">(</span><span class="n">θs</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="n">dens</span><span class="p">])</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="o">∈</span> <span class="n">enumerate</span><span class="p">(</span><span class="n">ps</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="n">dens</span><span class="p">])</span>
+            <span class="n">ds</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">SVector</span><span class="p">{</span><span class="mi">2</span><span class="p">}(</span><span class="n">θ</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+            <span class="n">chaoticity</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">chaoticness</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+        <span class="k">end</span>
     <span class="k">end</span>
+
+    <span class="n">pcolormesh</span><span class="p">(</span><span class="n">θs</span> <span class="o">.-</span> <span class="p">(</span><span class="n">θs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">θs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">ps</span> <span class="o">.-</span> <span class="p">(</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">ps</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">chaoticity</span><span class="o">&#39;</span><span class="p">)</span>
+    <span class="n">colorbar</span><span class="p">()</span>
+
 <span class="k">end</span>
 
-<span class="n">pcolormesh</span><span class="p">(</span><span class="n">θs</span> <span class="o">.-</span> <span class="p">(</span><span class="n">θs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">θs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">ps</span> <span class="o">.-</span> <span class="p">(</span><span class="n">ps</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">ps</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>
-<span class="n">chaoticity</span><span class="o">&#39;</span><span class="p">)</span>
-<span class="n">colorbar</span><span class="p">()</span>
+<span class="n">main</span><span class="p">(</span><span class="mf">0.9</span><span class="p">)</span>
 </pre></div>
 
 
-<p>and after around <code>0.0005*201*201 ≈ 20</code> seconds you will get: <img alt="Chaos detection" src="https://i.imgur.com/z85KBRh.png" /></p>
+<p>and after about two minutes you will get: <img alt="Chaos detection" src="https://i.imgur.com/z85KBRh.png" /></p>
                 
                   
                 
