@@ -290,6 +290,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#neighborhoods-of-a-point-in-a-dataset" title="Neighborhoods of a point in a Dataset" class="md-nav__link">
+    Neighborhoods of a point in a Dataset
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#delay-coordinates-reconstruction" title="Delay Coordinates Reconstruction" class="md-nav__link">
     Delay Coordinates Reconstruction
   </a>
@@ -306,13 +313,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#neighborhoods-of-a-point-in-a-dataset" title="Neighborhoods of a point in a Dataset" class="md-nav__link">
-    Neighborhoods of a point in a Dataset
-  </a>
   
 </li>
       
@@ -428,6 +428,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#neighborhoods-of-a-point-in-a-dataset" title="Neighborhoods of a point in a Dataset" class="md-nav__link">
+    Neighborhoods of a point in a Dataset
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#delay-coordinates-reconstruction" title="Delay Coordinates Reconstruction" class="md-nav__link">
     Delay Coordinates Reconstruction
   </a>
@@ -444,13 +451,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#neighborhoods-of-a-point-in-a-dataset" title="Neighborhoods of a point in a Dataset" class="md-nav__link">
-    Neighborhoods of a point in a Dataset
-  </a>
   
 </li>
       
@@ -507,81 +507,6 @@
                 
                 <p><a id='Nonlinear-Timeseries-Analysis-1'></a></p>
 <h1 id="nonlinear-timeseries-analysis">Nonlinear Timeseries Analysis</h1>
-<p><a id='Delay-Coordinates-Reconstruction-1'></a></p>
-<h2 id="delay-coordinates-reconstruction">Delay Coordinates Reconstruction</h2>
-<p>A timeseries recorded in some manner from a dynamical system can be used to gain information about the dynamics of the entire phase-space of the system. This can be done by reconstructing a new phase-space from the timeseries. One method that can do this is what is known as <a href="https://en.wikipedia.org/wiki/Takens%27_theorem">delay coordinates embedding</a>.</p>
-<p>In <code>DynamicalSystems.jl</code> this is done through the <code>reconstruct</code> interface:</p>
-<p><a id='DynamicalSystems.Reconstruction' href='#DynamicalSystems.Reconstruction'>#</a>
-<strong><code>DynamicalSystems.Reconstruction</code></strong> &mdash; <em>Type</em>.</p>
-<div class="codehilite"><pre><span></span>Reconstruction{V, T, D, τ} &lt;: AbstractDataset{D}
-</pre></div>
-
-
-<p><code>D</code>-dimensional reconstruction object with delay <code>τ</code>, created from a vector <code>s::V</code>. <code>s</code> is the only field of <code>Reconstruction</code>.</p>
-<p><strong>Description</strong></p>
-<p>The <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>th row of a <code>Reconstruction</code> is formally the <code>D</code>-dimensional vector</p>
-<div>
-<div class="MathJax_Preview">
-(s(n), s(n+\tau), s(n+2\tau), \dots, s(n+(D-1)\tau))
-</div>
-<script type="math/tex; mode=display">
-(s(n), s(n+\tau), s(n+2\tau), \dots, s(n+(D-1)\tau))
-</script>
-</div>
-<p>which is created only on demand.</p>
-<p>See <a href="./#DynamicalSystems.reconstruct"><code>reconstruct</code></a> for usage.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/147c3f0d2ba3ac03d9b5a609b24b05bbf7912355/src/delay_coords.jl#L13-L26' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalSystems.reconstruct' href='#DynamicalSystems.reconstruct'>#</a>
-<strong><code>DynamicalSystems.reconstruct</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>reconstruct(s::AbstractVector, D::Int, τ::Int) -&gt; R::Reconstruction
-</pre></div>
-
-
-<p>Create and return an efficient <a href="./#DynamicalSystems.Reconstruction"><code>Reconstruction</code></a> data structure that serves as the delay coordinates embedding reconstruction of the signal <code>s</code>. The reconstuction has dimension <code>D</code> and delay <code>τ</code> (measured in indices).</p>
-<p><strong>Description</strong></p>
-<p>The reconstruction object <code>R</code> can have same invariant quantities (like e.g. lyapunov exponents) with the original system that the timeseries were recorded from, for proper <code>D</code> and <code>τ</code> [1, 2].</p>
-<p><code>R</code> can be accessed similarly to a <a href="../system_definition/#DynamicalSystems.Dataset"><code>Dataset</code></a>:</p>
-<div class="codehilite"><pre><span></span><span class="n">R</span> <span class="o">=</span> <span class="n">reconstruct</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c"># dimension 4 and delay 1</span>
-<span class="n">R</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="c"># third point of reconstruction, ≡ (s[3], s[4], s[5], s[6])</span>
-<span class="n">R</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="c"># Second element of first point of reconstruction, ≡ s[2]</span>
-</pre></div>
-
-
-<p><em>(this is only smart indexing, no Vectors or SVectors are created during the construction of <code>R</code>)</em></p>
-<p><code>R</code> can also be given to all functions that accept a <code>Dataset</code>, but it is first converted to a <code>Dataset</code> at each call. This means that you should first convert it yourself, using <code>Dataset(R)</code> if you call functions like <a href="../entropies/#DynamicalSystems.generalized_dim"><code>generalized_dim</code></a> multiple times.</p>
-<p>The functions <code>dimension(R)</code> and <code>delay(R)</code> return <code>D</code> and <code>τ</code> respectively. Notice that <code>length(R) = length(s) - (D-1)*τ</code> (i.e. the amount of D-dimensional points "contained" in <code>R</code>) but <code>size(R) = (length(R), D)</code>.</p>
-<p><strong>References</strong></p>
-<p>[1] : F. Takens, <em>Detecting Strange Attractors in Turbulence — Dynamical Systems and Turbulence</em>, Lecture Notes in Mathematics <strong>366</strong>, Springer (1981)</p>
-<p>[2] : T. Sauer <em>et al.</em>, J. Stat. Phys. <strong>65</strong>, pp 579 (1991)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/147c3f0d2ba3ac03d9b5a609b24b05bbf7912355/src/delay_coords.jl#L86-L123' class='documenter-source'>source</a><br></p>
-<p>As an example, let's pass a <code>Reconstruction</code> into e.g. a method that calculates the attractor dimension:</p>
-<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
-<span class="n">he</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">()</span>
-<span class="n">ts</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">he</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span>
-<span class="n">D1</span> <span class="o">=</span> <span class="n">information_dim</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span> <span class="c"># around 1.20</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">ts</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="c"># some &quot;recorded&quot; timeseries</span>
-<span class="n">R</span> <span class="o">=</span> <span class="n">reconstruct</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c"># delay coords. reconstruction</span>
-<span class="n">R</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c"># first point of reconstruction, ≡ (x[1], x[2])</span>
-<span class="n">R</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="c"># Second COLUMN of the reconstruction, ≡ x[2:end] since τ=1</span>
-<span class="n">D2</span> <span class="o">=</span> <span class="n">information_dim</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="c">#around 1.20</span>
-<span class="n">println</span><span class="p">(</span><span class="s">&quot;D2 - D1 = </span><span class="si">$</span><span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="n">D2</span><span class="o">-</span> <span class="n">D1</span><span class="p">))</span><span class="s">&quot;</span><span class="p">)</span>
-<span class="c"># Prints something like 0.0032000971757613073</span>
-</pre></div>
-
-
-<p>The 2 numbers <code>D1</code> and <code>D2</code> are <em>very close</em>, but of course I knew before-hand good parameter values for <code>D</code> and <code>τ</code> (I cheated, huhu!).</p>
-<p><a id='Estimating-Reconstruction-Parameters-1'></a></p>
-<h3 id="estimating-reconstruction-parameters">Estimating Reconstruction Parameters</h3>
-<p>The following functions are provided estimate good values that can be used in <a href="./#DynamicalSystems.reconstruct"><code>reconstruct</code></a>:</p>
-<p><a id='DynamicalSystems.estimate_delay' href='#DynamicalSystems.estimate_delay'>#</a>
-<strong><code>DynamicalSystems.estimate_delay</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>estimate_delay(s) -&gt; τ
-</pre></div>
-
-
-<p>Estimate an optimal delay to be used in <a href="./#DynamicalSystems.reconstruct"><code>reconstruct</code></a>, by performing an exponential fit to the <code>abs.(c)</code> with <code>c</code> the auto-correlation function of <code>s</code>. Return the exponential decay time <code>τ</code> rounded to an integer.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/147c3f0d2ba3ac03d9b5a609b24b05bbf7912355/src/delay_coords.jl#L187-L193' class='documenter-source'>source</a><br></p>
-<hr />
 <p><a id='Neighborhoods-of-a-point-in-a-Dataset-1'></a></p>
 <h2 id="neighborhoods-of-a-point-in-a-dataset">Neighborhoods of a point in a Dataset</h2>
 <p>Incorporating the excellent performance of <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a> and the flexibility of <code>AbstractDataset</code> allows us to define a function that calculates a "neighborhood" of a given point, i.e. other points near it. The different "types" of the neighborhoods are subtypes of <code>AbstractNeighborhood</code>.</p>
@@ -595,11 +520,11 @@
 <p>Concrete subtypes:</p>
 <ul>
 <li><code>FixedMassNeighborhood(K::Int)</code>  : The neighborhood of a point consists of the <code>K</code> nearest neighbors of the point.</li>
-<li><code>FixedSizeNeighborhood(ϵ::Real)</code> : The neighborhood of a point consists of all neighbors that have distance &lt; <code>ϵ</code> from the point.</li>
+<li><code>FixedSizeNeighborhood(ε::Real)</code> : The neighborhood of a point consists of all neighbors that have distance &lt; <code>ε</code> from the point.</li>
 </ul>
 <p>Notice that these distances are always computed using the <code>Euclidean()</code> distance in <code>D</code>-dimensional space.</p>
 <p>See also <a href="./#DynamicalSystems.neighborhood"><code>neighborhood</code></a> or <a href="./#DynamicalSystems.numericallyapunov"><code>numericallyapunov</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/147c3f0d2ba3ac03d9b5a609b24b05bbf7912355/src/delay_coords.jl#L225-L239' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/b507fca78c9fa2f05873a3aae5d37c4a45868e3b/src/delay_coords.jl#L177-L191' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.neighborhood' href='#DynamicalSystems.neighborhood'>#</a>
 <strong><code>DynamicalSystems.neighborhood</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>neighborhood(n, point, tree::KDTree, method::AbstractNeighborhood)
@@ -607,28 +532,90 @@
 
 
 <p>Return a vector of indices which are the neighborhood of <code>point</code>, whose index in the original data is <code>n</code>.</p>
-<p>Both <code>point</code> and <code>n</code> must be provided because the <code>tree</code> has indices in different sorting.</p>
-<p>The <code>method</code> can be a subtype of <a href="./#DynamicalSystems.AbstractNeighborhood"><code>AbstractNeighborhood</code></a>:</p>
-<ul>
-<li><code>FixedMassNeighborhood(K::Int)</code>  : The neighborhood of a point consists of the <code>K</code> nearest neighbors of the point.</li>
-<li><code>FixedSizeNeighborhood(ϵ::Real)</code> : The neighborhood of a point consists of all neighbors that have distance &lt; <code>ϵ</code> from the point.</li>
-</ul>
-<p><code>neighborhood</code> works for <em>any</em> kind of <code>AbstractDataset</code>, for example</p>
+<p>If the original data is <code>data &lt;: AbstractDataset</code>, then use <code>tree = KDTree(data)</code> to obtain the <code>tree</code> instance (which also contains a copy of the data). Both <code>point</code> and <code>n</code> must be provided because the <code>tree</code> has indices in different sorting.</p>
+<p>The <code>method</code> can be a subtype of <a href="./#DynamicalSystems.AbstractNeighborhood"><code>AbstractNeighborhood</code></a>.</p>
+<p><code>neighborhood</code> works for <em>any</em> subtype of <code>AbstractDataset</code>, for example</p>
 <div class="codehilite"><pre><span></span><span class="n">R</span> <span class="o">=</span> <span class="n">some_dataset</span>
 <span class="n">tree</span> <span class="o">=</span> <span class="n">KDTree</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
 <span class="n">neigh</span> <span class="o">=</span> <span class="n">neighborhood</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">R</span><span class="p">[</span><span class="n">n</span><span class="p">],</span> <span class="n">tree</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
 </pre></div>
 
 
-<p>where <code>R</code> can be <em>either</em> a <a href="../system_definition/#DynamicalSystems.Dataset"><code>Dataset</code></a> or a <a href="./#DynamicalSystems.Reconstruction"><code>Reconstruction</code></a>.</p>
-<p>Notice that the distances in the trees are always computed using the <code>Euclidean()</code> distance in <code>D</code>-dimensional space, irrespectively of the <code>distance</code> used in the <a href="./#DynamicalSystems.numericallyapunov"><code>numericallyapunov</code></a> function.</p>
 <p><strong>References</strong></p>
 <p><code>neighborhood</code> simply interfaces the functions <code>knn</code> and <code>inrange</code> from <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a> by using the last argument, <code>method</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/147c3f0d2ba3ac03d9b5a609b24b05bbf7912355/src/delay_coords.jl#L250-L283' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/b507fca78c9fa2f05873a3aae5d37c4a45868e3b/src/delay_coords.jl#L202-L228' class='documenter-source'>source</a><br></p>
+<hr />
+<p><a id='Delay-Coordinates-Reconstruction-1'></a></p>
+<h2 id="delay-coordinates-reconstruction">Delay Coordinates Reconstruction</h2>
+<p>A timeseries recorded in some manner from a dynamical system can be used to gain information about the dynamics of the entire phase-space of the system. This can be done by reconstructing a new phase-space from the timeseries. One method that can do this is what is known as <a href="https://en.wikipedia.org/wiki/Takens%27_theorem">delay coordinates embedding</a>.</p>
+<p>In <code>DynamicalSystems.jl</code> this is done through the <code>Reconstruction</code> interface:</p>
+<p><a id='DynamicalSystems.Reconstruction' href='#DynamicalSystems.Reconstruction'>#</a>
+<strong><code>DynamicalSystems.Reconstruction</code></strong> &mdash; <em>Type</em>.</p>
+<div class="codehilite"><pre><span></span>Reconstruction{D, T, τ} &lt;: AbstractDataset{D, T}
+</pre></div>
+
+
+<p><code>D</code>-dimensional delay-coordinates reconstruction object with delay <code>τ</code>, created from a timeseries <code>s</code> with <code>T</code> type numbers.</p>
+<p>Use <code>Reconstruction(s::AbstractVector{T}, D, τ)</code> to create an instance.</p>
+<p><strong>Description</strong></p>
+<p>The <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>th row of a <code>Reconstruction</code> is the <code>D</code>-dimensional vector</p>
+<div>
+<div class="MathJax_Preview">
+(s(n), s(n+\tau), s(n+2\tau), \dots, s(n+(D-1)\tau))
+</div>
+<script type="math/tex; mode=display">
+(s(n), s(n+\tau), s(n+2\tau), \dots, s(n+(D-1)\tau))
+</script>
+</div>
+<p>The reconstruction object <code>R</code> can have same invariant quantities (like e.g. lyapunov exponents) with the original system that the timeseries were recorded from, for proper <code>D</code> and <code>τ</code> [1, 2].</p>
+<p><code>R</code> can be accessed similarly to a <a href="../system_definition/#DynamicalSystems.Dataset"><code>Dataset</code></a>:</p>
+<div class="codehilite"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="mf">1e6</span><span class="p">)</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">Reconstruction</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c"># dimension 4 and delay 1</span>
+<span class="n">R</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="c"># third point of reconstruction, ≡ (s[3], s[4], s[5], s[6])</span>
+<span class="n">R</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="c"># Second element of first point of reconstruction, ≡ s[2]</span>
+</pre></div>
+
+
+<p>and can also be given to all functions that accept a <code>Dataset</code>, like <a href="../entropies/#DynamicalSystems.generalized_dim"><code>generalized_dim</code></a>.</p>
+<p>The functions <code>dimension(R)</code> and <code>delay(R)</code> return <code>D</code> and <code>τ</code> respectively.</p>
+<p><strong>References</strong></p>
+<p>[1] : F. Takens, <em>Detecting Strange Attractors in Turbulence — Dynamical Systems and Turbulence</em>, Lecture Notes in Mathematics <strong>366</strong>, Springer (1981)</p>
+<p>[2] : T. Sauer <em>et al.</em>, J. Stat. Phys. <strong>65</strong>, pp 579 (1991)</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/b507fca78c9fa2f05873a3aae5d37c4a45868e3b/src/delay_coords.jl#L13-L48' class='documenter-source'>source</a><br></p>
+<p>As an example, let's pass a <code>Reconstruction</code> into e.g. a method that calculates the attractor dimension:</p>
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
+<span class="n">he</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">()</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">he</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span>
+<span class="n">D1</span> <span class="o">=</span> <span class="n">information_dim</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span> <span class="c"># around 1.20</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">ts</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="c"># some &quot;recorded&quot; timeseries</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">Reconstruction</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c"># delay coords. reconstruction</span>
+<span class="n">R</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c"># first point of reconstruction, ≡ (x[1], x[2])</span>
+<span class="n">R</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="c"># Second COLUMN of the reconstruction, ≡ x[2:end] since τ=1</span>
+<span class="n">D2</span> <span class="o">=</span> <span class="n">information_dim</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="c">#around 1.20</span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;D2 - D1 = </span><span class="si">$</span><span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="n">D2</span><span class="o">-</span> <span class="n">D1</span><span class="p">))</span><span class="s">&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>D2 - D1 = 0.0032000972403620764
+</pre></div>
+
+
+<p>The 2 numbers <code>D1</code> and <code>D2</code> are <em>very close</em>, but of course I knew before-hand good parameter values for <code>D</code> and <code>τ</code> (I cheated, huhu!).</p>
+<p><a id='Estimating-Reconstruction-Parameters-1'></a></p>
+<h3 id="estimating-reconstruction-parameters">Estimating Reconstruction Parameters</h3>
+<p>The following functions are provided estimate good values that can be used in <a href="./#DynamicalSystems.Reconstruction"><code>Reconstruction</code></a>:</p>
+<p><a id='DynamicalSystems.estimate_delay' href='#DynamicalSystems.estimate_delay'>#</a>
+<strong><code>DynamicalSystems.estimate_delay</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>estimate_delay(s) -&gt; τ
+</pre></div>
+
+
+<p>Estimate an optimal delay to be used in <a href="../@ref"><code>reconstruct</code></a>, by performing an exponential fit to the <code>abs.(c)</code> with <code>c</code> the auto-correlation function of <code>s</code>. Return the exponential decay time <code>τ</code> rounded to an integer.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/b507fca78c9fa2f05873a3aae5d37c4a45868e3b/src/delay_coords.jl#L142-L148' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Numerical-Lyapunov-Exponent-1'></a></p>
 <h2 id="numerical-lyapunov-exponent">Numerical Lyapunov Exponent</h2>
-<p>Given any timeseries, one can first <a href="./#DynamicalSystems.reconstruct"><code>reconstruct</code></a> it, and then calculate a maximum Lyapunov exponent for it, provided that the system the timeseries was recorded from actually exhibits exponential separation of nearby trajectories. This is done with</p>
+<p>Given any timeseries, one can first obtain a <a href="./#DynamicalSystems.Reconstruction"><code>Reconstruction</code></a> from it using delay coordinates, and then calculate a maximum Lyapunov exponent for it. This is done with</p>
 <p><a id='DynamicalSystems.numericallyapunov' href='#DynamicalSystems.numericallyapunov'>#</a>
 <strong><code>DynamicalSystems.numericallyapunov</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="n">numericallyapunov</span><span class="p">(</span><span class="n">R</span><span class="o">::</span><span class="n">Reconstruction</span><span class="p">,</span> <span class="n">ks</span><span class="p">;</span>  <span class="n">refstates</span><span class="p">,</span> <span class="n">distance</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
@@ -654,13 +641,12 @@ E(k) \approx \lambda\Delta t k + E(0)
 </div>
 <p>for a <em>well defined region</em> in the <code>k</code> axis, where <span><span class="MathJax_Preview">\lambda</span><script type="math/tex">\lambda</script></span> is the approximated maximum Lyapunov exponent. <span><span class="MathJax_Preview">\Delta t</span><script type="math/tex">\Delta t</script></span> is the time between samples in the original timeseries. You can use <a href="../entropies/#DynamicalSystems.linear_region"><code>linear_region</code></a> with arguments <code>(ks .* Δt, E)</code> to identify the slope (= <span><span class="MathJax_Preview">\lambda</span><script type="math/tex">\lambda</script></span>) immediatelly, assuming you have choosen sufficiently good <code>ks</code> such that the linear scaling region is bigger than the saturated region.</p>
 <p>The algorithm used in this function is due to Parlitz [1], which itself expands upon Kantz [2]. In sort, for each reference state a neighborhood is evaluated. Then, for each point in this neighborhood, the logarithmic distance between reference state and neighborhood state is calculated as the "time" index <code>k</code> increases. The average of the above over all neighborhood states over all reference states is the returned result.</p>
-<p>If the <code>Metric</code> is <code>Euclidean()</code> then use the Euclidean distance of the full <code>D</code>-dimensional points (distance <span><span class="MathJax_Preview">d_E</span><script type="math/tex">d_E</script></span> in ref. [1]). If however the <code>Metric</code> is <code>Cityblock()</code>, calculate the absolute distance of <em>only the first elements</em> of the <code>m+k</code> and <code>n+k</code> points of the reconstruction <code>R</code>, which are the <code>m+k</code> and <code>n+k</code> elements of vector <code>R.s</code> (distance <span><span class="MathJax_Preview">d_F</span><script type="math/tex">d_F</script></span> in ref. [1]). Notice that the distances used are defined in the package <a href="https://github.com/JuliaStats/Distances.jl">Distances.jl</a>, but are re-exported in DynamicalSystems.jl for ease-of-use.</p>
+<p>If the <code>Metric</code> is <code>Euclidean()</code> then use the Euclidean distance of the full <code>D</code>-dimensional points (distance <span><span class="MathJax_Preview">d_E</span><script type="math/tex">d_E</script></span> in ref. [1]). If however the <code>Metric</code> is <code>Cityblock()</code>, calculate the absolute distance of <em>only the first elements</em> of the <code>m+k</code> and <code>n+k</code> points of the reconstruction <code>R</code>(distance <span><span class="MathJax_Preview">d_F</span><script type="math/tex">d_F</script></span> in ref. [1]). Notice that the distances used are defined in the package <a href="https://github.com/JuliaStats/Distances.jl">Distances.jl</a>, but are re-exported here for ease-of-use.</p>
 <p>This function assumes that the Theiler window (see [1]) is the same as the delay time: <span><span class="MathJax_Preview">w  = \tau</span><script type="math/tex">w  = \tau</script></span>.</p>
 <p><strong>References</strong></p>
 <p>[1] : Skokos, C. H. <em>et al.</em>, <em>Chaos Detection and Predictability</em> - Chapter 1 (section 1.3.2), Lecture Notes in Physics <strong>915</strong>, Springer (2016)</p>
 <p>[2] : Kantz, H., Phys. Lett. A <strong>185</strong>, pp 77–87 (1994)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/147c3f0d2ba3ac03d9b5a609b24b05bbf7912355/src/delay_coords.jl#L303-L371' class='documenter-source'>source</a><br></p>
-<hr />
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/b507fca78c9fa2f05873a3aae5d37c4a45868e3b/src/delay_coords.jl#L247-L315' class='documenter-source'>source</a><br></p>
 <p>The function <code>numericallyapunov</code> has a total of 4 different approaches for the algorithmic process, by combining 2 types of distances with 2 types of neighborhoods. –-</p>
 <p><a id='Example-of-Numerical-Lyapunov-computation-1'></a></p>
 <h3 id="example-of-numerical-lyapunov-computation">Example of Numerical Lyapunov computation</h3>
@@ -682,7 +668,7 @@ E(k) \approx \lambda\Delta t k + E(0)
 
   <span class="n">title</span><span class="p">(</span><span class="s">&quot;Distance: </span><span class="si">$</span><span class="p">(</span><span class="n">di</span><span class="p">)</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">18</span><span class="p">)</span>
   <span class="k">for</span> <span class="n">D</span> <span class="kp">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
-    <span class="n">R</span> <span class="o">=</span> <span class="n">reconstruct</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">Reconstruction</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
     <span class="n">E</span> <span class="o">=</span> <span class="n">numericallyapunov</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">ks</span><span class="p">;</span>
     <span class="n">refstates</span> <span class="o">=</span> <span class="n">ℜ</span><span class="p">,</span> <span class="n">distance</span> <span class="o">=</span> <span class="n">di</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">method</span><span class="p">)</span>
     <span class="c"># The following operation:</span>
@@ -715,7 +701,7 @@ E(k) \approx \lambda\Delta t k + E(0)
 
 <p>The timeseries of length 100000 could be considered big. A time length of 100 seems very small. Yet it turns out it is way too big! The following</p>
 <div class="codehilite"><pre><span></span><span class="n">ks</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="mi">100</span>
-<span class="n">R</span> <span class="o">=</span> <span class="n">reconstruct</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">Reconstruction</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">E</span> <span class="o">=</span> <span class="n">numericallyapunov</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">ks</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">FixedMassNeighborhood</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
 <span class="n">figure</span><span class="p">()</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">ks</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">E</span><span class="o">-</span><span class="n">E</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
@@ -740,7 +726,7 @@ E(k) \approx \lambda\Delta t k + E(0)
 <span class="c"># Reconstruct it</span>
 <span class="n">figure</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">D</span> <span class="kp">in</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="n">τ</span> <span class="kp">in</span> <span class="p">[</span><span class="n">τ1</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span>
-    <span class="n">R</span> <span class="o">=</span> <span class="n">reconstruct</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">τ</span><span class="p">)</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">Reconstruction</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">τ</span><span class="p">)</span>
 
     <span class="c"># I now know that I have to use much bigger ks than 1:20, because this is a</span>
     <span class="c"># continuous case! (See reference given in `numericallyapunovs`)</span>
