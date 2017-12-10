@@ -544,7 +544,7 @@ D_\alpha(p) = \frac{1}{1-\alpha}\sum_i p_i^\alpha
 <p><strong>References</strong></p>
 <p>[1] : A. Rényi, <em>Proceedings of the fourth Berkeley Symposium on Mathematics, Statistics and Probability</em>, pp 547 (1960)</p>
 <p>[2] : C. E. Shannon, Bell Systems Technical Journal <strong>27</strong>, pp 379 (1948)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/35b5407be0fdaef3f405a7c6c0b441fee23f8fff/src/dimensions/entropies.jl#L47-L82' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/0028857bed853e38cb6e7dd593e487108fae71c6/src/dimensions/entropies.jl#L47-L82' class='documenter-source'>source</a><br></p>
 <hr />
 <p>Basically, given a <a href="../system_definition/#numerical-data">dataset</a> you can partition it into boxes to calculate an entropy.</p>
 <div class="admonition tip">
@@ -562,7 +562,7 @@ D_\alpha(p) = \frac{1}{1-\alpha}\sum_i p_i^\alpha
 <p><strong>Performances Notes</strong></p>
 <p>This method is effecient in both memory and speed, because it uses a dictionary to collect the information of bins with elements, while it completely disregards empty bins. This allows computation of entropies of high-dimensional datasets without memory overflow.</p>
 <p>Use e.g. <code>fit(Histogram, ...)</code> from <a href="http://juliastats.github.io/StatsBase.jl/stable/"><code>StatsBase</code></a> if you wish to keep information about the edges of the binning as well as the zero elements.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/35b5407be0fdaef3f405a7c6c0b441fee23f8fff/src/dimensions/entropies.jl#L3-L21' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/0028857bed853e38cb6e7dd593e487108fae71c6/src/dimensions/entropies.jl#L3-L21' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example, the Shannon entropy of a coin-flip process should be one bit, <a href="https://en.wikipedia.org/wiki/Shannon_(unit)">by definition</a>. Let's see...</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -585,17 +585,17 @@ D_\alpha(p) = \frac{1}{1-\alpha}\sum_i p_i^\alpha
 <p>Based on the definition of the <a href="../entropies/#DynamicalSystems.genentropy">generalized entropy</a>, one can calculate an appropriate dimension, called <em>generalized dimension</em>:</p>
 <p><a id='DynamicalSystems.generalized_dim' href='#DynamicalSystems.generalized_dim'>#</a>
 <strong><code>DynamicalSystems.generalized_dim</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>generalized_dim(α, dataset) -&gt; D_α
+<div class="codehilite"><pre><span></span>generalized_dim(α, dataset [, sizes]) -&gt; D_α
 </pre></div>
 
 
-<p>Return the <code>α</code> order generalized dimension of the <code>dataset</code>.</p>
+<p>Return the <code>α</code> order generalized dimension of the <code>dataset</code>, by calculating the <a href="./#DynamicalSystems.genentropy"><code>genentropy</code></a> for each <code>ε ∈ sizes</code>.</p>
 <p><strong>Description</strong></p>
-<p>The returned dimension is approximated by the (inverse) power law exponent of the scaling of the <a href="./#DynamicalSystems.genentropy"><code>genentropy</code></a> versus the box size <code>ε</code>.</p>
+<p>The returned dimension is approximated by the (inverse) power law exponent of the scaling of the <a href="./#DynamicalSystems.genentropy"><code>genentropy</code></a> versus the box size <code>ε</code>, where <code>ε ∈ sizes</code>.</p>
 <p>Calling this function performs a lot of automated steps:</p>
 <ol>
-<li>A vector of box sizes is decided by calling <code>es = estimate_boxsizes(dataset)</code>.</li>
-<li>For each element of <code>es</code> the appropriate entropy is calculated, through <code>d[i] = genentropy(α, es[i], dataset)</code>. Let <code>x = -log.(es)</code>.</li>
+<li>A vector of box sizes is decided by calling <code>sizes = estimate_boxsizes(dataset)</code>, if <code>sizes</code> is not given.</li>
+<li>For each element of <code>sizes</code> the appropriate entropy is calculated, through <code>d[i] = genentropy(α, sizes[i], dataset)</code>. Let <code>x = -log.(sizes)</code>.</li>
 <li>The curve <code>d(x)</code> is decomposed into linear regions, using <a href="./#DynamicalSystems.linear_regions"><code>linear_regions</code></a><code>(x, d)</code>.</li>
 <li>The biggest linear region is chosen, and a fit for the slope of that region is performed using the function <a href="./#DynamicalSystems.linear_region"><code>linear_region</code></a>.</li>
 <li>This fitted slope is returned.</li>
@@ -607,17 +607,17 @@ D_\alpha(p) = \frac{1}{1-\alpha}\sum_i p_i^\alpha
 <li>α = 1 : <code>information_dim</code></li>
 <li>α = 2 : <code>correlation_dim</code></li>
 </ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/35b5407be0fdaef3f405a7c6c0b441fee23f8fff/src/dimensions/dims.jl#L169-L197' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/0028857bed853e38cb6e7dd593e487108fae71c6/src/dimensions/dims.jl#L153-L184' class='documenter-source'>source</a><br></p>
 <hr />
 <p>As stated clearly, this call performs a lot of automated steps by calling the following functions with default arguments:</p>
 <p><a id='DynamicalSystems.estimate_boxsizes' href='#DynamicalSystems.estimate_boxsizes'>#</a>
 <strong><code>DynamicalSystems.estimate_boxsizes</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>estimate_boxsizes(dataset; k::Int = 12, z = 0, w = 2)
+<div class="codehilite"><pre><span></span>estimate_boxsizes(dataset; k::Int = 12, z = 0, w = 1)
 </pre></div>
 
 
 <p>Return a <code>k</code>-element <code>logspace</code> from the magnitude + <code>z</code> of the biggest absolute value of the dataset, to the magnitude + <code>w</code> of the minimum pair-wise distance between datapoints.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/35b5407be0fdaef3f405a7c6c0b441fee23f8fff/src/dimensions/dims.jl#L144-L149' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/0028857bed853e38cb6e7dd593e487108fae71c6/src/dimensions/dims.jl#L128-L133' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.linear_regions' href='#DynamicalSystems.linear_regions'>#</a>
 <strong><code>DynamicalSystems.linear_regions</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>linear_regions(x, y; dxi::Int = 1, tol = 0.2) -&gt; (lrs, tangents)
@@ -627,7 +627,7 @@ D_\alpha(p) = \frac{1}{1-\alpha}\sum_i p_i^\alpha
 <p>Identify regions where the curve <code>y(x)</code> is linear, by scanning the <code>x</code>-axis every <code>dxi</code> indices (e.g. at <code>x[1] to x[5], x[5] to x[10], x[10] to x[15]</code> and so on if <code>dxi=5</code>).</p>
 <p>If the slope (calculated using <code>LsqFit</code>) of a region of width <code>dxi</code> is approximatelly equal to that of the previous region, within tolerance <code>tol</code>, then these two regions belong to the same linear region.</p>
 <p>Return the indices of <code>x</code> that correspond to linear regions, <code>lrs</code>, and the approximated <code>tangents</code> at each region. <code>lrs</code> is a vector of <code>Int</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/35b5407be0fdaef3f405a7c6c0b441fee23f8fff/src/dimensions/dims.jl#L62-L75' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/0028857bed853e38cb6e7dd593e487108fae71c6/src/dimensions/dims.jl#L62-L75' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystems.linear_region' href='#DynamicalSystems.linear_region'>#</a>
 <strong><code>DynamicalSystems.linear_region</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>linear_region(x, y; dxi::Int = 1, tol = 0.2) -&gt; ([ind1, ind2], slope)
@@ -635,7 +635,7 @@ D_\alpha(p) = \frac{1}{1-\alpha}\sum_i p_i^\alpha
 
 
 <p>Call <a href="./#DynamicalSystems.linear_regions"><code>linear_regions</code></a>, identify the largest linear region and approximate the slope of the entire region using least squares fit. Return the indices where the region starts and stops (<code>x[ind1:ind2]</code>) as well as the approximated slope.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/35b5407be0fdaef3f405a7c6c0b441fee23f8fff/src/dimensions/dims.jl#L23-L29' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/0028857bed853e38cb6e7dd593e487108fae71c6/src/dimensions/dims.jl#L23-L29' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Example-1'></a></p>
 <h4 id="example">Example</h4>
@@ -668,7 +668,7 @@ D_\alpha(p) = \frac{1}{1-\alpha}\sum_i p_i^\alpha
 <p>Useful in combination with <a href="../lyapunovs/#DynamicalSystems.lyapunovs"><code>lyapunovs</code></a>.</p>
 <p><strong>References</strong></p>
 <p>[1] :  J. Kaplan &amp; J. Yorke, <em>Chaotic behavior of multidimensional difference equations</em>, Lecture Notes in Mathematics vol. <strong>730</strong>, Springer (1979)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/35b5407be0fdaef3f405a7c6c0b441fee23f8fff/src/dimensions/dims.jl#L222-L239' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystems.jl/blob/0028857bed853e38cb6e7dd593e487108fae71c6/src/dimensions/dims.jl#L208-L225' class='documenter-source'>source</a><br></p>
 <hr />
 <p>Notice that calling this function requires you to pass the Lyapunov exponents in an ordered vector form (largest to smallest). Example:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
