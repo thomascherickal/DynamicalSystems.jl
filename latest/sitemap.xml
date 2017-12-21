@@ -4,71 +4,101 @@
     
     <url>
      <loc>/</loc>
-     <lastmod>2017-12-13</lastmod>
+     <lastmod>2017-12-21</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
 
     
+        
     <url>
-     <loc>/system_definition/</loc>
-     <lastmod>2017-12-13</lastmod>
+     <loc>/definition/general/</loc>
+     <lastmod>2017-12-21</lastmod>
      <changefreq>daily</changefreq>
     </url>
+        
+    <url>
+     <loc>/definition/continuous/</loc>
+     <lastmod>2017-12-21</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/definition/discrete/</loc>
+     <lastmod>2017-12-21</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/definition/evolve/</loc>
+     <lastmod>2017-12-21</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/definition/dataset/</loc>
+     <lastmod>2017-12-21</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/definition/predefined/</loc>
+     <lastmod>2017-12-21</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
     
 
     
+        
     <url>
-     <loc>/lyapunovs/</loc>
-     <lastmod>2017-12-13</lastmod>
+     <loc>/chaos/overview/</loc>
+     <lastmod>2017-12-21</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
+        
     <url>
-     <loc>/entropies/</loc>
-     <lastmod>2017-12-13</lastmod>
+     <loc>/chaos/lyapunovs/</loc>
+     <lastmod>2017-12-21</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
+        
     <url>
-     <loc>/nlts/</loc>
-     <lastmod>2017-12-13</lastmod>
+     <loc>/chaos/entropies/</loc>
+     <lastmod>2017-12-21</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
+        
     <url>
-     <loc>/periodicity/</loc>
-     <lastmod>2017-12-13</lastmod>
+     <loc>/chaos/nlts/</loc>
+     <lastmod>2017-12-21</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
+        
     <url>
-     <loc>/chaos_detection/</loc>
-     <lastmod>2017-12-13</lastmod>
+     <loc>/chaos/periodicity/</loc>
+     <lastmod>2017-12-21</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
+        
     <url>
-     <loc>/visualization/</loc>
-     <lastmod>2017-12-13</lastmod>
+     <loc>/chaos/chaos_detection/</loc>
+     <lastmod>2017-12-21</lastmod>
      <changefreq>daily</changefreq>
     </url>
+        
+    <url>
+     <loc>/chaos/visualization/</loc>
+     <lastmod>2017-12-21</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
     
 
     
     <url>
      <loc>/contributors_guide/</loc>
-     <lastmod>2017-12-13</lastmod>
+     <lastmod>2017-12-21</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
