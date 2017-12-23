@@ -419,6 +419,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../chaos/orbitdiagram/" title="Orbit Diagrams & PSOS" class="md-nav__link">
+      Orbit Diagrams & PSOS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../chaos/lyapunovs/" title="Lyapunov Exponents" class="md-nav__link">
       Lyapunov Exponents
     </a>
@@ -607,7 +619,7 @@
 <p>Only the first two fields of this type are displayed during print.</p>
 <p>As mentioned in our <a href="https://juliadynamics.github.io/DynamicalSystems.jl/latest/system_definition#example-using-functors">official documentation</a>, it is preferred to use Functors for both the equations of motion and the Jacobian.</p>
 <p>If the <code>jacob</code> is not provided by the user, it is created automatically using the module <a href="http://www.juliadiff.org/ForwardDiff.jl/stable/"><code>ForwardDiff</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/020890d73ecc896b46cd197e7eb0887a58703313/src/discrete.jl#L78-L103' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/75891e0696a3b3de3caeff328ee6e567add062e6/src/discrete.jl#L78-L103' class='documenter-source'>source</a><br></p>
 <hr />
 <p>This system is identical to <a href="../continuous/#DynamicalSystemsBase.ContinuousDS"><code>ContinuousDS</code></a> as far as definition is concerned. All operations are done in place, and the type is immutable. The same suggestions about using Functors and initialized Jacobians also apply here.</p>
 <p>See the source code of the pre-defined <a href="../definition/systems#DynamicalSystemsBase.Systems.coupledstandardmaps">coupled standard maps</a> for an example of a <code>BigDiscreteDS</code> definition.</p>
@@ -629,7 +641,7 @@
 </ul>
 <p>Only the first two fields of this type are displayed during print.</p>
 <p>If the <code>jacob</code> is not provided by the user, it is created automatically using the module <a href="http://www.juliadiff.org/ForwardDiff.jl/stable/"><code>ForwardDiff</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/020890d73ecc896b46cd197e7eb0887a58703313/src/discrete.jl#L11-L29' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/75891e0696a3b3de3caeff328ee6e567add062e6/src/discrete.jl#L11-L29' class='documenter-source'>source</a><br></p>
 <hr />
 <p>The documentation string of the constructor is perfectly self-contained, but for the sake of clarity we will go through all the steps in the following.</p>
 <p><code>state</code> is simply the state the system starts (a.k.a. initial conditions) and is always of type <code>SVector</code> from <a href="https://github.com/JuliaArrays/StaticArrays.jl"><code>StaticArrays.jl</code></a>. <code>eom</code> is a <em>function</em> that takes a <code>state</code> as an input and returns the next state as an output. The <code>jacob</code> is also a <em>function</em> that takes a <code>state</code> as an input and returns the Jacobian matrix of the system (at this state). So far this is actually different than <a href="./#DynamicalSystemsBase.BigDiscreteDS"><code>BigDiscreteDS</code></a> where the functions where in-place.</p>
@@ -718,7 +730,7 @@
 
 
 <div class="codehilite"><pre><span></span>1-dimensional discrete dynamical system:
-state: 0.5895179862611828
+state: 0.8021754429038312
 eom: ex-3.##1#2{Float64}
 </pre></div>
 

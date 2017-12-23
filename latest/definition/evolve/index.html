@@ -365,6 +365,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../chaos/orbitdiagram/" title="Orbit Diagrams & PSOS" class="md-nav__link">
+      Orbit Diagrams & PSOS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../chaos/lyapunovs/" title="Lyapunov Exponents" class="md-nav__link">
       Lyapunov Exponents
     </a>
@@ -490,7 +502,7 @@
 <p>Evolve the <code>ds.state</code> (or <code>u0</code> if given) for total time <code>T</code> and return the <code>final_state</code>. For discrete systems <code>T</code> corresponds to steps and thus it must be integer.</p>
 <p>Notice that for <code>BigDiscreteDS</code> a <em>copy</em> of <code>ds.state</code> is made for no given <code>u0</code>, so that <code>ds.state</code> is not mutated.</p>
 <p><code>evolve</code> <em>does not store</em> any information about intermediate steps. Use <a href="./#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> if you want to produce a trajectory of the system. If you want to perform step-by-step evolution of a continuous system, use <code>ODEIntegrator(ds, args...)</code> and the <code>step!(integrator)</code> function provided by <a href="https://github.com/JuliaDiffEq/DifferentialEquations.jl"><code>DifferentialEquations</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/020890d73ecc896b46cd197e7eb0887a58703313/src/discrete.jl#L151-L167' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/75891e0696a3b3de3caeff328ee6e567add062e6/src/discrete.jl#L151-L167' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.trajectory' href='#DynamicalSystemsBase.trajectory'>#</a>
 <strong><code>DynamicalSystemsBase.trajectory</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="o">::</span><span class="n">DynamicalSystem</span><span class="p">,</span> <span class="n">T</span><span class="p">;</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">dataset</span>
@@ -504,17 +516,17 @@
 <li><code>dt = 0.05</code> : (only for continuous) Time step of value output during the solving of the continuous system.</li>
 <li><code>diff_eq_kwargs = Dict()</code> : (only for continuous) A dictionary <code>Dict{Symbol, ANY}</code> of keyword arguments passed into the <code>solve</code> of the <code>DifferentialEquations.jl</code> package, for example <code>Dict(:abstol =&gt; 1e-9)</code>. If you want to specify a solver, do so by using the symbol <code>:solver</code>, e.g.: <code>Dict(:solver =&gt; DP5(), :maxiters =&gt; 1e9)</code>. This requires you to have been first <code>using OrdinaryDiffEq</code> to access the solvers.</li>
 </ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/020890d73ecc896b46cd197e7eb0887a58703313/src/discrete.jl#L185-L207' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/75891e0696a3b3de3caeff328ee6e567add062e6/src/discrete.jl#L185-L207' class='documenter-source'>source</a><br></p>
 <hr />
 <p>Especially in the continuous case, an API is provided for usage directly with <a href="https://github.com/JuliaDiffEq/DifferentialEquations.jl">DifferentialEquations.jl</a>, by giving additional constructors:</p>
 <p><a id='DiffEqBase.ODEProblem' href='#DiffEqBase.ODEProblem'>#</a>
 <strong><code>DiffEqBase.ODEProblem</code></strong> &mdash; <em>Type</em>.</p>
-<div class="codehilite"><pre><span></span>ODEProblem(ds::ContinuousDS, t)
+<div class="codehilite"><pre><span></span>ODEProblem(ds::ContinuousDS, t, state = ds.state)
 </pre></div>
 
 
-<p>Return an <code>ODEProblem</code> with the given system information (t0 is zero). This can be passed directly into <code>solve</code> from <a href="http://docs.juliadiffeq.org/stable/index.html"><code>DifferentialEquations.jl</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/020890d73ecc896b46cd197e7eb0887a58703313/src/continuous.jl#L80-L85' class='documenter-source'>source</a><br></p>
+<p>Return an <code>ODEProblem</code> with the given system information (<code>t</code> is the final time of <code>tspan</code>, and <code>tspan[1]</code> is zero). This can be passed directly into <code>solve</code> from <a href="http://docs.juliadiffeq.org/stable/index.html"><code>DifferentialEquations.jl</code></a>.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/75891e0696a3b3de3caeff328ee6e567add062e6/src/continuous.jl#L83-L89' class='documenter-source'>source</a><br></p>
 <p><a id='OrdinaryDiffEq.ODEIntegrator' href='#OrdinaryDiffEq.ODEIntegrator'>#</a>
 <strong><code>OrdinaryDiffEq.ODEIntegrator</code></strong> &mdash; <em>Type</em>.</p>
 <div class="codehilite"><pre><span></span><span class="nt">ODEIntegrator</span><span class="o">(</span><span class="nt">ds</span><span class="p">::</span><span class="nd">ContinuousDS</span><span class="o">,</span> <span class="nt">t</span><span class="o">;</span> <span class="nt">diff_eq_kwargs</span><span class="o">)</span>
@@ -523,7 +535,7 @@
 
 <p>Return an <code>ODEIntegrator</code>, by first creating an <code>ODEProblem(ds, t)</code>. This can be used directly with the interfaces of <a href="http://docs.juliadiffeq.org/stable/index.html"><code>DifferentialEquations.jl</code></a>.</p>
 <p><code>diff_eq_kwargs = Dict()</code> is a dictionary <code>Dict{Symbol, ANY}</code> of keyword arguments passed into the <code>init</code> of the <a href="http://docs.juliadiffeq.org/stable/index.html"><code>DifferentialEquations.jl</code></a> package, for example <code>Dict(:abstol =&gt; 1e-9)</code>. If you want to specify a solver, do so by using the symbol <code>:solver</code>, e.g.: <code>Dict(:solver =&gt; DP5(), :tstops =&gt; 0:0.01:t)</code>. This requires you to have been first <code>using OrdinaryDiffEq</code> to access the solvers.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/020890d73ecc896b46cd197e7eb0887a58703313/src/continuous.jl#L93-L107' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/75891e0696a3b3de3caeff328ee6e567add062e6/src/continuous.jl#L97-L111' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.variational_integrator' href='#DynamicalSystemsBase.variational_integrator'>#</a>
 <strong><code>DynamicalSystemsBase.variational_integrator</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>variational_integrator(ds::ContinuousDS, k::Int, tfinal, S::Matrix, kwargs...)
@@ -533,7 +545,7 @@
 <p>Return an <code>ODEIntegrator</code> that represents the variational equations of motion for the system.</p>
 <p>It evolves in parallel <code>ds.state</code> and <code>k</code> deviation vectors <span><span class="MathJax_Preview">w_i</span><script type="math/tex">w_i</script></span> such that <span><span class="MathJax_Preview">\dot{w}_i = J\times w_i</span><script type="math/tex">\dot{w}_i = J\times w_i</script></span> with <span><span class="MathJax_Preview">J</span><script type="math/tex">J</script></span> the Jacobian at the current state. <code>S</code> is the initial "conditions" which contain both the system's state as well as the initial diviation vectors: <code>S = cat(2, ds.state, ws)</code> if <code>ws</code> is a matrix that has as <em>columns</em> the initial deviation vectors.</p>
 <p>The only keyword argument for this funcion is <code>diff_eq_kwargs = Dict()</code> (see <a href="./#DynamicalSystemsBase.trajectory"><code>trajectory</code></a>).</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/020890d73ecc896b46cd197e7eb0887a58703313/src/continuous.jl#L129-L143' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/75891e0696a3b3de3caeff328ee6e567add062e6/src/continuous.jl#L133-L147' class='documenter-source'>source</a><br></p>
 <hr />
 <p>Notice that if you want to do repeated evolutions of different states of a continuous system, you should use the <code>ODEIntegrator(ds::DynamicalSystem)</code> in conjunction with <code>DifferentialEquations.reinit!(integrator, newstate)</code> to avoid the intermediate initializations of the integrator each time.</p>
                 

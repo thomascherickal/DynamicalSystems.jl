@@ -392,6 +392,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../chaos/orbitdiagram/" title="Orbit Diagrams & PSOS" class="md-nav__link">
+      Orbit Diagrams & PSOS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../chaos/lyapunovs/" title="Lyapunov Exponents" class="md-nav__link">
       Lyapunov Exponents
     </a>
@@ -539,9 +551,10 @@
 </pre></div>
 
 
-<p>Use <code>convert(Matrix, dataset)</code> to create a <code>Matrix</code>, and <code>convert(Dataset, matrix)</code> to create a <code>Dataset</code> from a matrix. Notice: <code>convert(Dataset, matrix)</code> assumes that each column of the matrix represents one dynamic variable. If instead each column of the matrix represents a datapoint, use <code>reinterpret(Dataset, matrix)</code>.</p>
+<p>Use <code>Matrix(dataset)</code> to create a <code>Matrix</code>, and <code>Dataset(matrix)</code> to create a <code>Dataset</code> from a matrix. Notice: <code>Dataset(matrix)</code> assumes that each column of the matrix represents one dynamic variable. If instead each column of the matrix represents a datapoint, use <code>reinterpret(Dataset, matrix)</code>.</p>
 <p>If you have various timeseries vectors <code>x, y, z, ...</code> pass them like <code>Dataset(x, y, z, ...)</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/020890d73ecc896b46cd197e7eb0887a58703313/src/dataset.jl#L39-L68' class='documenter-source'>source</a><br></p>
+<p>See also <a href="./#DynamicalSystemsBase.read_dataset"><code>read_dataset</code></a>, <a href="./#DynamicalSystemsBase.write_dataset"><code>write_dataset</code></a>.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/75891e0696a3b3de3caeff328ee6e567add062e6/src/dataset.jl#L45-L76' class='documenter-source'>source</a><br></p>
 <hr />
 <p>In essence a <code>Dataset</code> is simply a container for a <code>Vector</code> of <code>SVector</code>s. However, it is visually represented as a matrix, similarly to how numerical data would be printed on a spreadsheet (with time being the <em>column</em> direction). It also offers a lot more functionality than just pretty-printing. Besides the examples in the documentation string, you can also do:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -566,7 +579,7 @@
 
 <p>Read a <code>delim</code>-delimited text file directly into a dataset of dimension <code>D</code> with numbers of type <code>T</code>.</p>
 <p>Optionally skip the first <code>skipstart</code> rows of the file (that may e.g. contain headers).</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/020890d73ecc896b46cd197e7eb0887a58703313/src/dataset.jl#L211-L218' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/75891e0696a3b3de3caeff328ee6e567add062e6/src/dataset.jl#L219-L226' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.write_dataset' href='#DynamicalSystemsBase.write_dataset'>#</a>
 <strong><code>DynamicalSystemsBase.write_dataset</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="nt">write_dataset</span><span class="o">(</span><span class="nt">file</span><span class="o">,</span> <span class="nt">dataset</span><span class="p">::</span><span class="nd">AbstractDataset</span><span class="o">,</span> <span class="nt">delim</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">;</span> <span class="nt">opts</span><span class="o">...)</span>
@@ -574,7 +587,7 @@
 
 
 <p>Simply calls <code>writedlm(f, dataset.data, delim; opts...)</code> and writes the data in a delimited (text) format in <code>file</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/020890d73ecc896b46cd197e7eb0887a58703313/src/dataset.jl#L234-L238' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/75891e0696a3b3de3caeff328ee6e567add062e6/src/dataset.jl#L242-L246' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>

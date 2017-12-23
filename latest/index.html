@@ -444,6 +444,18 @@
 
 
   <li class="md-nav__item">
+    <a href="chaos/orbitdiagram/" title="Orbit Diagrams & PSOS" class="md-nav__link">
+      Orbit Diagrams & PSOS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="chaos/lyapunovs/" title="Lyapunov Exponents" class="md-nav__link">
       Lyapunov Exponents
     </a>
@@ -654,7 +666,7 @@
 <p>Notice however, that this does not have anything to do with the official release versions of packages that do contain the actual code. Because our documentation is based on utilizing <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the documentation strings of exported function names, you can be assured that the documentation you read on the <a href="https://JuliaDynamics.github.io/DynamicalSystems.jl/latest">latest</a> page reflects accurately the latest release versions.</p>
 <p><a id='Low-Dependency-usage-1'></a></p>
 <h3 id="low-dependency-usage">Low Dependency usage</h3>
-<p>All packages of the <strong>DynamicalSystems.jl</strong> ecosystem have a dependency on DynamicalSystemsBase.jl. By running <code>Pkg.add("DynamicalSystems")</code> you install all the packages of the ecosystem. That is not necessary however, since <strong>DynamicalSystems.jl</strong> is a bridging package that exports everything and hosts the documentation.</p>
+<p>By running <code>Pkg.add("DynamicalSystems")</code> you install all packages of the ecosystem. That is not necessary however, since <strong>DynamicalSystems.jl</strong> is a bridging package that exports everything and hosts the documentation.</p>
 <p>For example, if you only need the features of <a href="./chaos/overview">ChaosTools.jl</a> then you can get away by doing only <code>Pkg.add("ChaosTools")</code> and all other dependencies will be resolved accordingly.</p>
 <p><a id='Contents-1'></a></p>
 <h2 id="contents">Contents</h2>

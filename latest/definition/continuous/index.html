@@ -392,6 +392,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../chaos/orbitdiagram/" title="Orbit Diagrams & PSOS" class="md-nav__link">
+      Orbit Diagrams & PSOS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../chaos/lyapunovs/" title="Lyapunov Exponents" class="md-nav__link">
       Lyapunov Exponents
     </a>
@@ -548,7 +560,7 @@
 <p>Only the first two fields of this type are displayed during print.</p>
 <p>As mentioned in our <a href="https://juliadynamics.github.io/DynamicalSystems.jl/latest/system_definition#example-using-functors">official documentation</a>, it is preferred to use Functors for both the equations of motion and the Jacobian.</p>
 <p>If the <code>jacob</code> is not provided by the user, it is created automatically using the module <a href="http://www.juliadiff.org/ForwardDiff.jl/stable/"><code>ForwardDiff</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/020890d73ecc896b46cd197e7eb0887a58703313/src/continuous.jl#L14-L36' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/75891e0696a3b3de3caeff328ee6e567add062e6/src/continuous.jl#L14-L36' class='documenter-source'>source</a><br></p>
 <hr />
 <p>Notice that the fields <code>eom!</code> and <code>jacob!</code> end with a <code>!</code>, to remind users that these functions should operate in-place. Also notice that the type <code>ContinuousDS</code> is actually immutable.</p>
 <p>You can use any function that complies with the requirements stated by the documentation string. However, it is highly advised to use <a href="https://docs.julialang.org/en/stable/manual/methods/#Function-like-objects-1">Functors</a> for dynamical systems where the equations of motion contain parameters.</p>
@@ -615,7 +627,7 @@
 
 
 <div class="codehilite"><pre><span></span>3-dimensional continuous dynamical system:
-state: [0.329236, 0.0166542, 0.703058]
+state: [0.353783, 0.0775124, 0.806441]
 eom: ex-1.Rössler
 </pre></div>
 
