@@ -656,13 +656,12 @@
 <p><a id='Our-Goals-1'></a></p>
 <h2 id="our-goals">Our Goals</h2>
 <p>Our aim is for the <strong>DynamicalSystems.jl</strong> ecosystem to be a useful and powerful companion for students and scientists working on chaos and nonlinear dynamics.</p>
-<p>One of a major goals of this ecosystem is to be completely transparent as to what is going on "under the hood". In scientific research, you never want to use <em>black boxes</em>, e.g. functions that give a result without telling you how it was calculated. <strong>DynamicalSystems.jl</strong> battles this in 3 ways:</p>
+<p>Our goals with this package can be summarized in the following three:</p>
 <ol>
-<li>It is written entirely in Julia, making the source code clear and easy to understand for even novice users.</li>
-<li>Almost every documentation string gives <strong>direct references to the original papers</strong> where the algorithm is taken from, in case some users don't understand (or simply don't want to read) the source code. For example, the documentation string of <a href="chaos/lyapunovs/#ChaosTools.lyapunovs"><code>lyapunovs</code></a> will cite relevant publications for the definition and computation of the lyapunov spectrum.</li>
-<li>Documentation strings for exported names have summarized descriptions of the algorithms (whenever it is possible).</li>
+<li>Be concise, intuitive, and general. All functions we offer work just as well with any system, whether it is a simple continuous chaotic system, like the Lorenz attractor [@Lorenz1963], or a high dimensional discrete map like coupled standard maps [@Kantz1988].</li>
+<li>Be accurate, reliable and performant.</li>
+<li>Be transparent with respect to what is happening "under the hood", i.e. be clear about exactly what each function call does. We take care of this aspect in many ways; by being well-documented, giving references to scientific papers and having clear source code.</li>
 </ol>
-<p>Another major goal is to offer code that is concise, intuitive, performant and <strong>general</strong>. All functions work just as well with <em>any</em> <code>DynamicalSystem</code>, whether it is a simple continuous chaotic system, like the Lorenz attractor, or a high dimensional discrete map like 20 coupled standard maps!</p>
 <p>For example, provided you have first defined a <a href="./definition/general"><code>DynamicalSystem</code></a> (which simply reduces to writing a function for the equations of motion), you should be able to e.g. calculate the Lyapunov spectrum for it in a single line:</p>
 <div class="codehilite"><pre><span></span><span class="n">lyapunovs</span><span class="p">(</span><span class="n">system</span><span class="p">,</span> <span class="n">times_to_do_QR</span><span class="p">;</span> <span class="n">keywords</span><span class="o">...</span><span class="p">)</span>
 </pre></div>
