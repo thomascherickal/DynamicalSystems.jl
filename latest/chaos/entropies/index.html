@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.2.5">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.2.6">
     
     
       
@@ -40,7 +40,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.bcabdff3.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.6525f7f6.css">
       
         <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
       
@@ -435,8 +435,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#generalized-dimensions-co" title="Generalized Dimensions &amp; Co." class="md-nav__link">
-    Generalized Dimensions &amp; Co.
+  <a href="#generalized-dimensions" title="Generalized Dimensions" class="md-nav__link">
+    Generalized Dimensions
   </a>
   
     <nav class="md-nav">
@@ -589,8 +589,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#generalized-dimensions-co" title="Generalized Dimensions &amp; Co." class="md-nav__link">
-    Generalized Dimensions &amp; Co.
+  <a href="#generalized-dimensions" title="Generalized Dimensions" class="md-nav__link">
+    Generalized Dimensions
   </a>
   
     <nav class="md-nav">
@@ -714,9 +714,9 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p[i]^\alpha
 <p><a id='Attractor-Dimension-Estimation-1'></a></p>
 <h2 id="attractor-dimension-estimation">Attractor Dimension Estimation</h2>
 <p>There are numerous methods that one can use to calculate a so-called "dimension" of a dataset, like for example the <a href="https://en.wikipedia.org/wiki/Fractal_dimension">Fractal dimension</a>. This real number can offer a lot of information about the object that the dataset represents.</p>
-<p><a id='Generalized-Dimensions-and-Co.-1'></a></p>
-<h3 id="generalized-dimensions-co">Generalized Dimensions &amp; Co.</h3>
-<p>Based on the definition of the <a href="../entropies/#DynamicalSystems.genentropy">generalized entropy</a>, one can calculate an appropriate dimension, called <em>generalized dimension</em>:</p>
+<p><a id='Generalized-Dimensions-1'></a></p>
+<h3 id="generalized-dimensions">Generalized Dimensions</h3>
+<p>Based on the definition of the <a href="#ChaosTools.genentropy">generalized entropy</a>, one can calculate an appropriate dimension, called <em>generalized dimension</em>:</p>
 <p><a id='ChaosTools.generalized_dim' href='#ChaosTools.generalized_dim'>#</a>
 <strong><code>ChaosTools.generalized_dim</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>generalized_dim(α, dataset::AbstractDataset [, sizes]) -&gt; D_α
@@ -743,7 +743,10 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p[i]^\alpha
 </ul>
 <p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/8d3d0adce198ab19c0b76c50a3d7392f5ac9b617/src/dimensions/dims.jl#L156-L187' class='documenter-source'>source</a><br></p>
 <hr />
-<p>As stated clearly, this call performs a lot of automated steps by calling the following functions with default arguments:</p>
+<div class="admonition warn">
+<p class="admonition-title">Be wary when using <code>generalized_dim</code></p>
+<p>As stated clearly by the documentation string, calling <code>generalized_dim</code> performs a lot of automated steps by calling other functions (see below) with default arguments. It is actually more like a convenient bundle than an actual function and therefore you should be very careful when using it.</p>
+</div>
 <p><a id='ChaosTools.estimate_boxsizes' href='#ChaosTools.estimate_boxsizes'>#</a>
 <strong><code>ChaosTools.estimate_boxsizes</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="nt">estimate_boxsizes</span><span class="o">(</span><span class="nt">dataset</span><span class="p">::</span><span class="nd">AbstractDataset</span><span class="o">;</span> <span class="nt">k</span><span class="p">::</span><span class="nd">Int</span> <span class="o">=</span> <span class="nt">12</span><span class="o">,</span> <span class="nt">z</span> <span class="o">=</span> <span class="nt">0</span><span class="o">,</span> <span class="nt">w</span> <span class="o">=</span> <span class="nt">1</span><span class="o">)</span>
@@ -774,19 +777,16 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p[i]^\alpha
 <hr />
 <p><a id='Example-1'></a></p>
 <h4 id="example">Example</h4>
-<p>For example, we will calculate the dimensions of the strange attractors of the <a href="../system_definition/#DynamicalSystems.Systems.henon">Hénon map</a> and the <a href="../system_definition/#DynamicalSystems.Systems.lorenz">Lorenz system</a>:</p>
+<p>For example, the dimension of the strange attractor of the <a href="../system_definition/#DynamicalSystems.Systems.henon">Hénon map</a> is:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
 <span class="n">hen</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">(</span><span class="o">-</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
 <span class="n">ts</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">hen</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">)</span>
 <span class="n">D_hen</span> <span class="o">=</span> <span class="n">information_dim</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
-
-<span class="n">lor</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">lorenz</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
-<span class="n">ts</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">lor</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">)</span>
-<span class="n">D_lor</span> <span class="o">=</span> <span class="n">capacity_dim</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
 </pre></div>
 
 
-<p>You will find that <code>D_hen</code> is around <code>1.2</code> and <code>D_lor</code> is around <code>1.9</code>. As a side note, be sure that you have enough data points, otherwise the values you will get will never be correct, as is demonstrated by J.-P. Eckmann and D. Ruelle (see Physica D <strong>56</strong>, pp 185-187 (1992)).</p>
+<p>You will find that <code>D_hen ≈ 1.20...</code></p>
+<p>As a side note, be sure that you have enough data points, otherwise the values you will get will never be correct, as is demonstrated by J.-P. Eckmann and D. Ruelle (see Physica D <strong>56</strong>, pp 185-187 (1992)).</p>
 <hr />
 <p><a id='Kaplan-Yorke-Dimension-1'></a></p>
 <h3 id="kaplan-yorke-dimension">Kaplan-Yorke Dimension</h3>
@@ -891,7 +891,7 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p[i]^\alpha
       
     </div>
     
-      <script src="../../assets/javascripts/application.6cdc17f0.js"></script>
+      <script src="../../assets/javascripts/application.cae2244d.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
       
