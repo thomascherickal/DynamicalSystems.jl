@@ -566,6 +566,7 @@
 
 
 <p>Compute the orbit diagram (also called bifurcation diagram) of the given system for the <code>i</code>-th variable for parameter values <code>pvalues</code>. The <code>parameter</code> specifies which parameter of the equations of motion is to be changed.</p>
+<p>This function assumes that you have created the <code>ContinuousDS</code> using functors; see the <a href="https://juliadynamics.github.io/DynamicalSystems.jl/latest/">official documentation</a> for more.</p>
 <p><strong>Keyword Arguments</strong></p>
 <ul>
 <li><code>ics = [ds.state]</code> : container of initial conditions that are used at each parameter value to evolve orbits.</li>
@@ -576,7 +577,7 @@
 <p>The method works by computing orbits at each parameter value in <code>pvalues</code> for each initial condition in <code>ics</code>. The symbol of the parameter is used to set <code>ds.eom.parameter</code> or <code>ds.eom!.parameter</code>.</p>
 <p>The returned <code>output</code> is a vector of vectors. <code>output[j]</code> are the orbit points of the <code>i</code>-th variable of the system, at parameter value <code>pvalues[j]</code>.</p>
 <p>See also <a href="./#ChaosTools.poincaresos"><code>poincaresos</code></a> and <a href="./#ChaosTools.produce_orbitdiagram"><code>produce_orbitdiagram</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/8d3d0adce198ab19c0b76c50a3d7392f5ac9b617/src/orbitdiagram.jl#L4-L28' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/5cf6b944bb5f2ba2e4e3632b8ffc808e3a996ae6/src/orbitdiagram.jl#L4-L32' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example, let's compute the famous orbit diagram of the logistic map:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -632,18 +633,19 @@
 
 <p>Calculate the Poincaré surface of section (also called Poincaré map) [1,2] of the given system on the plane of the <code>j</code>-th variable of the system. The system is evolved for total time of <code>tfinal</code>.</p>
 <p>Returns a <a href="../../definition/dataset/#DynamicalSystemsBase.Dataset"><code>Dataset</code></a> of the points that are on the surface of section.</p>
+<p>This function assumes that you have created the <code>ContinuousDS</code> using functors; see the <a href="https://juliadynamics.github.io/DynamicalSystems.jl/latest/">official documentation</a> for more.</p>
 <p><strong>Keyword Arguments</strong></p>
 <ul>
 <li><code>direction = 1</code> and <code>offset = 0.0</code> : The surface of section is defined as the (hyper-) plane where <code>state[j] = offset</code>. Only crossings of the plane that have direction <code>sign(direction)</code> are considered to belong to the surface of section.</li>
 <li><code>Ttr = 0.0</code> : Transient time to evolve the system before starting to compute the PSOS.</li>
-<li><code>diff_eq_kwargs = Dict()</code> : See <a href="../../definition/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a></li>
+<li><code>diff_eq_kwargs = Dict()</code> : See <a href="../../definition/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a>.</li>
 <li><code>callback_kwargs = Dict(:abstol=&gt;1e-6)</code> : Keyword arguments passed into the <code>ContinuousCallback</code> type of <code>DifferentialEquations</code>. The option <code>callback_kwargs[:idxs] = j</code> is enforced.</li>
 </ul>
 <p><strong>References</strong></p>
 <p>[1] : H. Poincaré, <em>Les Methods Nouvelles de la Mécanique Celeste</em>, Paris: Gauthier-Villars (1892)</p>
 <p>[2] : M. Tabor, <em>Chaos and Integrability in Nonlinear Dynamics: An Introduction</em>, §4.1, in pp. 118-126, New York: Wiley (1989)</p>
 <p>See also <a href="./#ChaosTools.orbitdiagram"><code>orbitdiagram</code></a>, <a href="./#ChaosTools.produce_orbitdiagram"><code>produce_orbitdiagram</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/8d3d0adce198ab19c0b76c50a3d7392f5ac9b617/src/orbitdiagram.jl#L69-L97' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/5cf6b944bb5f2ba2e4e3632b8ffc808e3a996ae6/src/orbitdiagram.jl#L73-L105' class='documenter-source'>source</a><br></p>
 <hr />
 <p>An example of the <a href="../efinition/predefined/#DynamicalSystemsBase.Systems.henonhelies">Henon-Helies</a> system using a quasi-periodic solution</p>
 <div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henonhelies</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.</span><span class="p">])</span>
@@ -669,6 +671,7 @@
 
 
 <p>Produce an orbit diagram (also called bifurcation diagram) for the <code>i</code>-th variable of the given continuous system by computing Poincaré surfaces of section of the <code>j</code>-th variable of the system for the given parameter values.</p>
+<p>This funtion assumes that you have created the <code>ContinuousDS</code> using functors; see the <a href="https://juliadynamics.github.io/DynamicalSystems.jl/latest/">official documentation</a> for more.</p>
 <p><strong>Keyword Arguments</strong></p>
 <ul>
 <li><code>direction</code>, <code>offset</code>, <code>diff_eq_kwargs</code>, <code>callback_kwargs</code>, <code>Ttr</code> : Passed into <a href="./#ChaosTools.poincaresos"><code>poincaresos</code></a>.</li>
@@ -682,7 +685,7 @@
 <p><strong>Performance Notes</strong></p>
 <p>The total amount of PSOS produced will be <code>length(ics)×length(pvalues)</code>.</p>
 <p>See also <a href="./#ChaosTools.poincaresos"><code>poincaresos</code></a>, <a href="./#ChaosTools.orbitdiagram"><code>orbitdiagram</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/8d3d0adce198ab19c0b76c50a3d7392f5ac9b617/src/orbitdiagram.jl#L138-L171' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/5cf6b944bb5f2ba2e4e3632b8ffc808e3a996ae6/src/orbitdiagram.jl#L146-L183' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example, we will calculate the orbit diagram of the Shinriki oscillator, a continuous system that undergoes a period doubling route to chaos, much like the logistic map!</p>
 <div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">shinriki</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
