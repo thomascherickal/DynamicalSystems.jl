@@ -528,7 +528,7 @@ p_{i}' &= p_i + k_i\sin(\theta_i) - \Gamma \left[
 <p>A discrete system of <code>M</code> nonlinearly coupled standard maps, first introduced in [1] to study diffusion and chaos thresholds. The <em>total</em> dimension of the system is <code>2M</code>. The maps are coupled through <code>Γ</code> and the <code>i</code>-th map has a nonlinear parameter <code>ks[i]</code>.</p>
 <p>The <code>eom!</code> field of the returned system has as fields the keyword arguments of this function. You can access them and change their value at any point using <code>ds.eom!.parameter = value</code>.</p>
 <p>[1] : H. Kantz &amp; P. Grassberger, J. Phys. A <strong>21</strong>, pp 127–133 (1988)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/06df5220faa72fb1259e3a6947786926b136c99a/src/famous_systems.jl#L401-L424' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6b9a7db4e422554d859997a7fa7f52aeadafa448/src/famous_systems.jl#L406-L429' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.Systems.double_pendulum' href='#DynamicalSystemsBase.Systems.double_pendulum'>#</a>
 <strong><code>DynamicalSystemsBase.Systems.double_pendulum</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>double_pendulum(u0=rand(4); G=10.0, L1 = 1.0, L2 = 1.0, M1 = 1.0, M2 = 1.0)
@@ -540,26 +540,25 @@ p_{i}' &= p_i + k_i\sin(\theta_i) - \Gamma \left[
 <p>Jacobian is created automatically (thus methods that use the Jacobian will be slower)!</p>
 <p>(please contribute the Jacobian and the e.o.m. in LaTeX :smile:)</p>
 <p>The <code>eom!</code> field of the returned system has as fields the keyword arguments of this function. You can access them and change their value at any point using <code>ds.eom!.parameter = value</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/06df5220faa72fb1259e3a6947786926b136c99a/src/famous_systems.jl#L116-L130' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6b9a7db4e422554d859997a7fa7f52aeadafa448/src/famous_systems.jl#L116-L130' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.Systems.duffing' href='#DynamicalSystemsBase.Systems.duffing'>#</a>
 <strong><code>DynamicalSystemsBase.Systems.duffing</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>duffing(u0 = [rand(), rand(), 0]; ω = 2.2, f = 27.0, d = 0.2)
+<div class="codehilite"><pre><span></span>duffing(u0 = [rand(), rand(), 0]; ω = 2.2, f = 27.0, d = 0.2, β = 1)
 </pre></div>
 
 
 <p>The (forced) duffing oscillator, that satisfies the equation</p>
 <div>
 <div class="MathJax_Preview">
-\ddot{x} + d\cdot\dot{x} + x + x^3 = f\cos(\omega t)
+\ddot{x} + d\cdot\dot{x} + β*x + x^3 = f\cos(\omega t)
 </div>
 <script type="math/tex; mode=display">
-\ddot{x} + d\cdot\dot{x} + x + x^3 = f\cos(\omega t)
+\ddot{x} + d\cdot\dot{x} + β*x + x^3 = f\cos(\omega t)
 </script>
 </div>
 <p>with <code>f, ω</code> the forcing strength and frequency and <code>d</code> the dampening.</p>
-<p>(Jacobian is computed automatically)</p>
 <p>The <code>eom!</code> field of the returned system has as fields the keyword arguments of this function. You can access them and change their value at any point using <code>ds.eom!.parameter = value</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/06df5220faa72fb1259e3a6947786926b136c99a/src/famous_systems.jl#L244-L257' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6b9a7db4e422554d859997a7fa7f52aeadafa448/src/famous_systems.jl#L244-L255' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.Systems.henon' href='#DynamicalSystemsBase.Systems.henon'>#</a>
 <strong><code>DynamicalSystemsBase.Systems.henon</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="n">henon</span><span class="p">(</span><span class="n">u0</span><span class="o">=</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">1.4</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">)</span>
@@ -584,7 +583,7 @@ y_{n+1} & = bx_n
 <p>According to the author, it is a system displaying all the properties of the Lorentz system (1963) while being as simple as possible. Default values are the ones used in the original paper.</p>
 <p>The <code>eom</code> field of the returned system has as fields the keyword arguments of this function. You can access them and change their value at any point using <code>ds.eom.parameter = value</code>.</p>
 <p>[1] : M. Hénon, Commun.Math. Phys. <strong>50</strong>, pp 69 (1976)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/06df5220faa72fb1259e3a6947786926b136c99a/src/famous_systems.jl#L483-L506' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6b9a7db4e422554d859997a7fa7f52aeadafa448/src/famous_systems.jl#L488-L511' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.Systems.henonhelies' href='#DynamicalSystemsBase.Systems.henonhelies'>#</a>
 <strong><code>DynamicalSystemsBase.Systems.henonhelies</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>henonhelies(u0=[0, -0.25, 0.42081,0]; λ = 1)
@@ -613,7 +612,7 @@ y_{n+1} & = bx_n
 <p>The default initial condition is a typical chaotic orbit.</p>
 <p>The <code>eom!</code> field of the returned system has as fields the keyword arguments of this function. You can access them and change their value at any point using <code>ds.eom!.parameter = value</code>.</p>
 <p>[1] : Hénon, M. &amp; Heiles, C., The Astronomical Journal <strong>69</strong>, pp 73–79 (1964)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/06df5220faa72fb1259e3a6947786926b136c99a/src/famous_systems.jl#L164-L188' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6b9a7db4e422554d859997a7fa7f52aeadafa448/src/famous_systems.jl#L164-L188' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.Systems.logistic' href='#DynamicalSystemsBase.Systems.logistic'>#</a>
 <strong><code>DynamicalSystemsBase.Systems.logistic</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="n">logistic</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="n">rand</span><span class="p">();</span> <span class="n">r</span> <span class="o">=</span> <span class="mf">4.0</span><span class="p">)</span>
@@ -633,7 +632,7 @@ x_{n+1} = rx_n(1-x_n)
 <p>The <code>eom</code> field of the returned system has as fields the keyword arguments of this function. You can access them and change their value at any point using <code>ds.eom.parameter = value</code>.</p>
 <p>[1] : R. M. May, Nature <strong>261</strong>, pp 459 (1976)</p>
 <p>[2] : M. J. Feigenbaum, J. Stat. Phys. <strong>19</strong>, pp 25 (1978)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/06df5220faa72fb1259e3a6947786926b136c99a/src/famous_systems.jl#L521-L542' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6b9a7db4e422554d859997a7fa7f52aeadafa448/src/famous_systems.jl#L526-L547' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.Systems.lorenz' href='#DynamicalSystemsBase.Systems.lorenz'>#</a>
 <strong><code>DynamicalSystemsBase.Systems.lorenz</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="n">lorenz</span><span class="p">(</span><span class="n">u0</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">];</span> <span class="n">σ</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">,</span> <span class="n">ρ</span> <span class="o">=</span> <span class="mf">28.0</span><span class="p">,</span> <span class="n">β</span> <span class="o">=</span> <span class="mi">8</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ds</span>
@@ -660,7 +659,7 @@ x_{n+1} = rx_n(1-x_n)
 <p>Currently, it is most famous for its strange attractor (occuring at the default parameters), which resembles a butterfly. For the same reason it is also associated with the term "butterfly effect" (a term which Lorenz himself disliked) even though the effect applies generally to dynamical systems. Default values are the ones used in the original paper.</p>
 <p>The <code>eom!</code> field of the returned system has as fields the keyword arguments of this function. You can access them and change their value at any point using <code>ds.eom!.parameter = value</code>.</p>
 <p>[1] : E. N. Lorenz, J. atmos. Sci. <strong>20</strong>, pp 130 (1963)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/06df5220faa72fb1259e3a6947786926b136c99a/src/famous_systems.jl#L11-L37' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6b9a7db4e422554d859997a7fa7f52aeadafa448/src/famous_systems.jl#L11-L37' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.Systems.lorenz96' href='#DynamicalSystemsBase.Systems.lorenz96'>#</a>
 <strong><code>DynamicalSystemsBase.Systems.lorenz96</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="nt">lorenz96</span><span class="o">(</span><span class="nt">N</span><span class="p">::</span><span class="nd">Int</span><span class="o">,</span> <span class="nt">u0</span> <span class="o">=</span> <span class="nt">rand</span><span class="o">(</span><span class="nt">M</span><span class="o">);</span> <span class="nt">F</span><span class="o">=</span><span class="nt">0</span><span class="p">.</span><span class="nc">01</span><span class="o">)</span>
@@ -668,7 +667,7 @@ x_{n+1} = rx_n(1-x_n)
 
 
 <p><code>N</code> is the chain length, <code>F</code> the forcing. Jacobian is created automatically.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/06df5220faa72fb1259e3a6947786926b136c99a/src/famous_systems.jl#L217-L220' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6b9a7db4e422554d859997a7fa7f52aeadafa448/src/famous_systems.jl#L217-L220' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.Systems.roessler' href='#DynamicalSystemsBase.Systems.roessler'>#</a>
 <strong><code>DynamicalSystemsBase.Systems.roessler</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="n">roessler</span><span class="p">(</span><span class="n">u0</span><span class="o">=</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mf">5.7</span><span class="p">)</span>
@@ -694,7 +693,7 @@ x_{n+1} = rx_n(1-x_n)
 <p>This three-dimensional continuous system is due to Rössler [1]. It is a system that by design behaves similarly to the <code>lorenz</code> system and displays a (fractal) strange attractor. However, it is easier to analyze qualitatively, as for example the attractor is composed of a single manifold. Default values are the same as the original paper.</p>
 <p>The <code>eom!</code> field of the returned system has as fields the keyword arguments of this function. You can access them and change their value at any point using <code>ds.eom!.parameter = value</code>.</p>
 <p>[1] : O. E. Rössler, Phys. Lett. <strong>57A</strong>, pp 397 (1976)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/06df5220faa72fb1259e3a6947786926b136c99a/src/famous_systems.jl#L64-L87' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6b9a7db4e422554d859997a7fa7f52aeadafa448/src/famous_systems.jl#L64-L87' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.Systems.shinriki' href='#DynamicalSystemsBase.Systems.shinriki'>#</a>
 <strong><code>DynamicalSystemsBase.Systems.shinriki</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>shinriki(u0 = [-2, 0, 0.2]; R1 = 22.0)
@@ -703,7 +702,7 @@ x_{n+1} = rx_n(1-x_n)
 
 <p>Shinriki oscillator with all other parameters (besides <code>R1</code>) set to constants.</p>
 <p>Always use <code>diff_eq_kwargs = Dict(:abstol=&gt;1e-9, :reltol =&gt; 1e-9)</code> when solving this system because it involves an exponential function.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/06df5220faa72fb1259e3a6947786926b136c99a/src/famous_systems.jl#L275-L281' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6b9a7db4e422554d859997a7fa7f52aeadafa448/src/famous_systems.jl#L279-L285' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.Systems.standardmap' href='#DynamicalSystemsBase.Systems.standardmap'>#</a>
 <strong><code>DynamicalSystemsBase.Systems.standardmap</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="n">standardmap</span><span class="p">(</span><span class="n">u0</span><span class="o">=</span><span class="mf">0.001</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="n">k</span> <span class="o">=</span> <span class="mf">0.971635</span><span class="p">)</span>
@@ -730,7 +729,7 @@ p_{n+1} &= p_n + k\sin(\theta_n)
 <p>The <code>eom</code> field of the returned system has as fields the keyword arguments of this function. You can access them and change their value at any point using <code>ds.eom.parameter = value</code>.</p>
 <p>[1] : B. V. Chirikov, Preprint N. <strong>267</strong>, Institute of Nuclear Physics, Novosibirsk (1969)</p>
 <p>[2] : J. M. Greene, J. Math. Phys. <strong>20</strong>, pp 1183 (1979)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/06df5220faa72fb1259e3a6947786926b136c99a/src/famous_systems.jl#L345-L378' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6b9a7db4e422554d859997a7fa7f52aeadafa448/src/famous_systems.jl#L350-L383' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.Systems.towel' href='#DynamicalSystemsBase.Systems.towel'>#</a>
 <strong><code>DynamicalSystemsBase.Systems.towel</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="n">towel</span><span class="p">(</span><span class="n">u0</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.085</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.121</span><span class="p">,</span> <span class="mf">0.075</span><span class="p">])</span>
@@ -758,7 +757,7 @@ z_{n+1} &= 3.78 z_n (1-z_n) + b y_n
 <p>The folded-towel map is a hyperchaotic mapping due to Rössler [1]. It is famous for being a mapping that has the smallest possible dimensions necessary for hyperchaos, having two positive and one negative Lyapunov exponent. The name comes from the fact that when plotted looks like a folded towel, in every projection.</p>
 <p>Default values are the ones used in the original paper.</p>
 <p>[1] : O. E. Rössler, Phys. Lett. <strong>71A</strong>, pp 155 (1979)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/06df5220faa72fb1259e3a6947786926b136c99a/src/famous_systems.jl#L307-L328' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6b9a7db4e422554d859997a7fa7f52aeadafa448/src/famous_systems.jl#L312-L333' class='documenter-source'>source</a><br></p>
                 
                   
                 

@@ -293,6 +293,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#using-odeproblem-to-define-a-continuousds" title="Using ODEProblem to define a ContinuousDS" class="md-nav__link">
+    Using ODEProblem to define a ContinuousDS
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -514,6 +521,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#using-odeproblem-to-define-a-continuousds" title="Using ODEProblem to define a ContinuousDS" class="md-nav__link">
+    Using ODEProblem to define a ContinuousDS
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -536,51 +550,69 @@
 <p>Continuous systems of the form</p>
 <div>
 <div class="MathJax_Preview">
-\frac{d\vec{u}}{dt} = \vec{f}(\vec{u}),
+\frac{d\vec{u}}{dt} = \vec{f}(t, \vec{u}),
 </div>
 <script type="math/tex; mode=display">
-\frac{d\vec{u}}{dt} = \vec{f}(\vec{u}),
+\frac{d\vec{u}}{dt} = \vec{f}(t, \vec{u}),
 </script>
 </div>
 <p>are defined using the <code>ContinuousDS</code> structure:</p>
 <p><a id='DynamicalSystemsBase.ContinuousDS' href='#DynamicalSystemsBase.ContinuousDS'>#</a>
 <strong><code>DynamicalSystemsBase.ContinuousDS</code></strong> &mdash; <em>Type</em>.</p>
-<div class="codehilite"><pre><span></span>ContinuousDS(state, eom! [, jacob! [, J]]) &lt;: DynamicalSystem
+<div class="codehilite"><pre><span></span>ContinuousDS &lt;: DynamicalSystem
 </pre></div>
 
 
 <p><code>D</code>-dimensional continuous dynamical system.</p>
-<p><strong>Fields:</strong></p>
+<p><strong>Fields</strong></p>
 <ul>
-<li><code>state::Vector{T}</code> : Current state-vector of the system. Do <code>ds.state .= u</code> to change the state.</li>
-<li><code>eom!</code> (function) : The function that represents the system's equations of motion (also called vector field). The function is of the format: <code>eom!(du, u)</code> which means that it is <strong>in-place</strong>, with the Julian syntax (the mutated argument <code>du</code> is the first).</li>
-<li><code>jacob!</code> (function) : The function that represents the Jacobian of the system, given in the format: <code>jacob!(J, u)</code> which means it is in-place, with the mutated argument being the first.</li>
-<li><code>J::Matrix{T}</code> : Initialized Jacobian matrix (optional).</li>
+<li><code>prob::ODEProblem</code> : The fundamental structure used to describe a continuous dynamical system and also used in the <a href="http://docs.juliadiffeq.org/latest/index.html">DifferentialEquations.jl</a> ecosystem. Contains the system's state, the equations of motion and optionally other information like e.g. <a href="http://docs.juliadiffeq.org/latest/features/callback_functions.html#Event-Handling-and-Callback-Functions-1">callbacks</a>.</li>
+<li><code>jacob!</code> (function) : The function that represents the Jacobian of the system, given in the format: <code>jacob!(t, u, J)</code> which means it is in-place, with the mutated argument being the last.</li>
+<li><code>J::Matrix{T}</code> : Jacobian matrix.</li>
 </ul>
-<p>Only the first two fields of this type are displayed during print.</p>
+<p>You can use <code>ds.prob.u0 .= newstate</code> to set a new state to the system.</p>
+<p><strong>Creating a <code>ContinuousDS</code></strong></p>
+<p>The equations of motion <strong>must be</strong> in the form <code>eom!(t, u, du)</code>, which means that they are <strong>in-place</strong> with the mutated argument <code>du</code> the last one. Both <code>u, du</code> <strong>must be</strong> <code>Vector</code>s.</p>
+<p>If you have this function, and optionally a function for the Jacobian, you can use the constructor</p>
+<div class="codehilite"><pre><span></span><span class="n">ContinuousDS</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">eom!</span> <span class="p">[,</span> <span class="n">jacob!</span> <span class="p">[,</span> <span class="n">J</span><span class="p">]];</span> <span class="n">tspan</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">))</span>
+</pre></div>
+
+
+<p>with <code>state</code> the initial condition of the system.</p>
+<p>If instead you already have an <code>ODEProblem</code> because you also want to take advantage of the callback functionality of DifferentialEquations.jl, you may use the constructor</p>
+<div class="codehilite"><pre><span></span><span class="n">ContinuousDS</span><span class="p">(</span><span class="n">odeproblem</span> <span class="p">[,</span> <span class="n">jacob!</span> <span class="p">[,</span> <span class="n">J</span><span class="p">]])</span>
+</pre></div>
+
+
+<p>If the <code>jacob!</code> is not provided by the user, it is created automatically using the module <a href="http://www.juliadiff.org/ForwardDiff.jl/stable/"><code>ForwardDiff</code></a> (which always passes <code>t=0</code> at the <code>eom!</code>) in both cases.</p>
 <p>As mentioned in our <a href="https://juliadynamics.github.io/DynamicalSystems.jl/latest/system_definition#example-using-functors">official documentation</a>, it is preferred to use Functors for both the equations of motion and the Jacobian.</p>
-<p>If the <code>jacob</code> is not provided by the user, it is created automatically using the module <a href="http://www.juliadiff.org/ForwardDiff.jl/stable/"><code>ForwardDiff</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/06df5220faa72fb1259e3a6947786926b136c99a/src/continuous.jl#L14-L36' class='documenter-source'>source</a><br></p>
+<p>To interfece <em>towards</em> DifferentialEquations.jl use <code>ODEIntegrator(ds, stuff...)</code>. Notice that you can have performance gains for stiff methods by explicitly adding a Jacobian caller for DifferentialEquations.jl by defining <code>eom!(::Type{Val{:jac}}, t, u, J) = jacob!(t, u, J)</code>.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6b9a7db4e422554d859997a7fa7f52aeadafa448/src/continuous.jl#L14-L59' class='documenter-source'>source</a><br></p>
 <hr />
-<p>Notice that the fields <code>eom!</code> and <code>jacob!</code> end with a <code>!</code>, to remind users that these functions should operate in-place. Also notice that the type <code>ContinuousDS</code> is actually immutable.</p>
 <p>You can use any function that complies with the requirements stated by the documentation string. However, it is highly advised to use <a href="https://docs.julialang.org/en/stable/manual/methods/#Function-like-objects-1">Functors</a> for dynamical systems where the equations of motion contain parameters.</p>
+<p>In the following examples we will demonstrate how one can use both constructors.</p>
 <p><a id='Defining-a-DynamicalSystem-using-Functors-1'></a></p>
 <h2 id="defining-a-dynamicalsystem-using-functors">Defining a <code>DynamicalSystem</code> using Functors</h2>
 <p>A Functor is a shorthand for saying <a href="https://docs.julialang.org/en/stable/manual/methods/#Function-like-objects-1">Function-like objects</a>, i.e. <code>struct</code>s that are also callable (see the linked documentation page). Using such objects one can create both the equations of motion and a parameter container under a single <code>struct</code> definition.</p>
-<p>For example, let's take a look at the source code that generates continuous Rössler system, from the <a href="../predefined">Predefined Systems</a>:</p>
+<p>Here we will use the constructor</p>
+<div class="codehilite"><pre><span></span><span class="n">ContinuousDS</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">eom!</span> <span class="p">[,</span> <span class="n">jacob!</span> <span class="p">[,</span> <span class="n">J</span><span class="p">]];</span> <span class="n">tspan</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">))</span>
+</pre></div>
+
+
+<p>and create the continuous Rössler system, from our <a href="../predefined">Predefined Systems</a>:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
 <span class="n">mutable</span> <span class="n">struct</span> <span class="n">Rössler</span>
     <span class="n">a</span><span class="o">::</span><span class="kt">Float64</span>
     <span class="n">b</span><span class="o">::</span><span class="kt">Float64</span>
     <span class="n">c</span><span class="o">::</span><span class="kt">Float64</span>
 <span class="k">end</span>
-<span class="k">function</span> <span class="p">(</span><span class="n">s</span><span class="o">::</span><span class="n">Rössler</span><span class="p">)(</span><span class="n">du</span><span class="o">::</span><span class="n">EomVector</span><span class="p">,</span> <span class="n">u</span><span class="o">::</span><span class="n">EomVector</span><span class="p">)</span>
+<span class="nd">@inline</span> <span class="nd">@inbounds</span> <span class="k">function</span> <span class="p">(</span><span class="n">s</span><span class="o">::</span><span class="n">Rössler</span><span class="p">)(</span><span class="n">t</span><span class="p">,</span> <span class="n">u</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">,</span> <span class="n">du</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">)</span>
     <span class="n">du</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">u</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
     <span class="n">du</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">s</span><span class="o">.</span><span class="n">a</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
     <span class="n">du</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">b</span> <span class="o">+</span> <span class="n">u</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">s</span><span class="o">.</span><span class="n">c</span><span class="p">)</span>
     <span class="k">return</span> <span class="nb">nothing</span>
 <span class="k">end</span>
-<span class="k">function</span> <span class="p">(</span><span class="n">s</span><span class="o">::</span><span class="n">Rössler</span><span class="p">)(</span><span class="n">J</span><span class="o">::</span><span class="n">EomMatrix</span><span class="p">,</span> <span class="n">u</span><span class="o">::</span><span class="n">EomVector</span><span class="p">)</span>
+<span class="nd">@inline</span> <span class="nd">@inbounds</span> <span class="k">function</span> <span class="p">(</span><span class="n">s</span><span class="o">::</span><span class="n">Rössler</span><span class="p">)(</span><span class="n">t</span><span class="p">,</span> <span class="n">u</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">,</span> <span class="n">J</span><span class="o">::</span><span class="kt">AbstractMatrix</span><span class="p">)</span>
     <span class="n">J</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">a</span>
     <span class="n">J</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span> <span class="n">J</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">s</span><span class="o">.</span><span class="n">c</span>
     <span class="k">return</span> <span class="nb">nothing</span>
@@ -591,53 +623,123 @@
 <p>The first code-block defines a <code>struct</code> that is simply a container for the parameters of the Rössler system. The second code-block defines the equations of motion of the system, by taking advantage of the fact that you can <em>call</em> this <code>struct</code> as if it was a function:</p>
 <div class="codehilite"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">Rössler</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">u</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="n">du</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
-<span class="n">s</span><span class="p">(</span><span class="n">du</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
-<span class="n">du</span> <span class="o">==</span> <span class="n">u</span>
-</pre></div>
-
-
-<div class="codehilite"><pre><span></span>false
+<span class="n">s</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">du</span><span class="p">)</span>
 </pre></div>
 
 
 <p>The third code-block then defines the Jacobian function using multiple dispatch. This allows us to use the <em>same</em> instance of <code>Rössler</code> for <em>both</em> the equations of motion <em>and</em> the Jacobian function!</p>
 <div class="admonition important">
-<p class="admonition-title">Use <code>EomVector</code> and <code>EomMatrix</code></p>
-<p>The Types <code>EomVector</code> and <code>EomMatrix</code> are simple aliases exported by our package. They represent a <code>Union{}</code> over all possible vectors or matrices that are involved in the equations of motion as used in <strong>DynamicalSystems.jl</strong> (namely <code>Vector</code>, <code>SubArray</code> and <code>SVector</code>).</p>
-<p><strong>You must define your equations of motion / Jacobian functions using these Types instead of a simple <code>Vector</code> or <code>Matrix</code>, otherwise functions like <code>lyapunovs</code> won't work properly.</strong></p>
+<p class="admonition-title">Use <code>AbstractVector</code> and <code>AbstractMatrix</code></p>
+<p>You must define your equations of motion / Jacobian functions using <code>Abstract</code> Types, and <strong>not</strong> types like <code>Vector</code> or <code>Matrix</code>, otherwise functions like <code>lyapunovs</code> won't work properly.</p>
 </div>
 <p>The possibility of providing an initialized Jacobian to the <code>ContinuousDS</code> constructor allows us to "cheat". Notice that the Jacobian function only accesses fields that depend on the parameters and/or the state variables, because the other fields are constants and will be initialized properly later.</p>
 <p>Next, we define a "set-up" function, that returns a <code>ContinuousDS</code>:</p>
-<div class="codehilite"><pre><span></span><span class="c"># this is in fact the function Systems.roessler()</span>
-<span class="k">function</span> <span class="n">roessler</span><span class="p">(</span><span class="n">u0</span><span class="o">=</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mf">5.7</span><span class="p">)</span>
-    <span class="c"># Initialize Jacobian matrix:</span>
+<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">roessler</span><span class="p">(</span><span class="n">u0</span><span class="o">=</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mf">5.7</span><span class="p">)</span>
     <span class="n">i</span> <span class="o">=</span> <span class="n">one</span><span class="p">(</span><span class="n">eltype</span><span class="p">(</span><span class="n">u0</span><span class="p">))</span>
     <span class="n">o</span> <span class="o">=</span> <span class="n">zero</span><span class="p">(</span><span class="n">eltype</span><span class="p">(</span><span class="n">u0</span><span class="p">))</span>
     <span class="n">J</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">eltype</span><span class="p">(</span><span class="n">u0</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
     <span class="n">J</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="o">:</span><span class="p">]</span> <span class="o">.=</span> <span class="p">[</span><span class="n">o</span><span class="p">,</span> <span class="o">-</span><span class="n">i</span><span class="p">,</span>      <span class="o">-</span><span class="n">i</span><span class="p">]</span>
     <span class="n">J</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="o">:</span><span class="p">]</span> <span class="o">.=</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span>  <span class="n">a</span><span class="p">,</span>       <span class="n">o</span><span class="p">]</span>
     <span class="n">J</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="o">:</span><span class="p">]</span> <span class="o">.=</span> <span class="p">[</span><span class="n">u0</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">o</span><span class="p">,</span> <span class="n">u0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">c</span><span class="p">]</span>
+
     <span class="n">s</span> <span class="o">=</span> <span class="n">Rössler</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
-    <span class="c"># Pass the same system to both fields!</span>
     <span class="k">return</span> <span class="n">ContinuousDS</span><span class="p">(</span><span class="n">u0</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">J</span><span class="p">)</span>
 <span class="k">end</span>
 
 <span class="n">ds</span> <span class="o">=</span> <span class="n">roessler</span><span class="p">()</span>
+<span class="c"># Equivalent with our predefined system:</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">roessler</span><span class="p">()</span>
 </pre></div>
 
 
 <div class="codehilite"><pre><span></span>3-dimensional continuous dynamical system:
-state: [0.976918, 0.157937, 0.354333]
-eom: ex-1.Rössler
+state: [0.021655, 0.530449, 0.0227049]
+e.o.m.: DynamicalSystemsBase.Systems.Rössler(0.2, 0.2, 5.7)
 </pre></div>
 
 
-<p>Then, it is trivial to change a parameter of the system by e.g. doing <code>ds.eom!.c = 2.2</code>. Notice that this parameter change will affect both the equations of motion as well as the Jacobian function, making everything concise and easy-to-use!</p>
-<div class="admonition info">
-<p class="admonition-title"><code>Vectors</code> vs. <code>SVectors</code> for continuous systems.</p>
-<p>There is no distinction based on the size of the system for continuous because using <code>SVectors</code> or in-place operations with normal <code>Vectors</code> yield almost no speed differences in conjunction with <a href="http://docs.juliadiffeq.org/stable/index.html">DifferentialEquations.jl</a> for small dimensions.</p>
+<p>Then, it is trivial to change a parameter of the system by e.g. doing <code>ds.prob.f.c = 2.2</code>. The equations of motion for a continuous system are stored in the <code>ODEProblem</code> struct, the field <code>f</code>.</p>
+<p>Notice that this parameter change will affect both the equations of motion as well as the Jacobian function, making everything concise and easy-to-use!</p>
+<p><a id='Using-ODEProblem-to-define-a-ContinuousDS-1'></a></p>
+<h2 id="using-odeproblem-to-define-a-continuousds">Using <code>ODEProblem</code> to define a <code>ContinuousDS</code></h2>
+<p>Here we will show how one can take advantage of the callback capabilities of <a href="http://docs.juliadiffeq.org/latest/">DifferentialEquations.jl</a> to define a system.</p>
+<div class="admonition danger">
+<p class="admonition-title">Callbacks do not propagate in variation vector methods!</p>
+<p>Methods that evolve variation vectors in time (currenlty <a href="../../chaos/chaos_detection/#ChaosTools.gali"><code>gali</code></a> and <a href="../../chaos/lyapunovs/#ChaosTools.lyapunovs"><code>lyapunovs</code></a>) do not inherit callbacks present in the definition of a <code>ContinuousDS</code>.</p>
 </div>
-<p>An example of a system definition without Functors is <a href="../definition/discrete#defining-a-dynamicalsystem-without-functors">also shown here</a>.</p>
+<p>We will make a Hénon–Heiles that also satisfies energy conservation. We first write the equations of motion and the Jacobian functions in the instructed form:</p>
+<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">hheom!</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">u</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">,</span> <span class="n">du</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">)</span>
+    <span class="n">du</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">du</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+    <span class="n">du</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">du</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span> <span class="o">-</span> <span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">nothing</span>
+<span class="k">end</span>
+<span class="k">function</span> <span class="n">hhjacob!</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">u</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">,</span> <span class="n">J</span><span class="o">::</span><span class="kt">AbstractMatrix</span><span class="p">)</span>
+    <span class="n">J</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span><span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="n">J</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">J</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">J</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span>  <span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">nothing</span>
+<span class="k">end</span>
+</pre></div>
+
+
+<p>The Jacobian matrix will be initialized properly later. Now, we are going to use a <code>Callback</code> to conserve energy. First, define the energy functions</p>
+<div class="codehilite"><pre><span></span><span class="nd">@inline</span> <span class="n">V</span><span class="p">(</span><span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="o">//</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">q1</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">q2</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="n">q1</span><span class="o">^</span><span class="mi">2</span> <span class="o">*</span> <span class="n">q2</span> <span class="o">-</span> <span class="mi">2</span><span class="o">//</span><span class="mi">3</span> <span class="o">*</span> <span class="n">q2</span><span class="o">^</span><span class="mi">3</span><span class="p">)</span>
+<span class="nd">@inline</span> <span class="n">T</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="o">//</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">p1</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">p2</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
+<span class="nd">@inline</span> <span class="n">H</span><span class="p">(</span><span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">)</span> <span class="o">=</span> <span class="n">T</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">)</span> <span class="o">+</span> <span class="n">V</span><span class="p">(</span><span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">)</span>
+<span class="nd">@inline</span> <span class="n">H</span><span class="p">(</span><span class="n">u</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">)</span> <span class="o">=</span> <span class="n">H</span><span class="p">(</span><span class="n">u</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Then, create a "residual" function, used in the <a href="http://docs.juliadiffeq.org/latest/features/callback_library.html#Manifold-Conservation-and-Projection-1"><code>ManifoldProjection</code></a> callback:</p>
+<div class="codehilite"><pre><span></span><span class="n">u0</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]</span>
+<span class="kd">const</span> <span class="n">E</span> <span class="o">=</span> <span class="n">H</span><span class="p">(</span><span class="n">u0</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">u0</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">u0</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">u0</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+
+<span class="k">function</span> <span class="n">g</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">resid</span><span class="p">)</span>
+    <span class="n">resid</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">H</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">u</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">u</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="o">-</span> <span class="n">E</span>
+    <span class="n">resid</span><span class="p">[</span><span class="mi">2</span><span class="o">:</span><span class="mi">4</span><span class="p">]</span> <span class="o">.=</span> <span class="mi">0</span>
+<span class="k">end</span>
+</pre></div>
+
+
+<p>Next we create the <a href="http://docs.juliadiffeq.org/latest/features/callback_functions.html"><code>Callback</code></a>, the <a href="http://docs.juliadiffeq.org/latest/types/ode_types.html"><code>ODEProblem</code></a> and then dynamical system structure, <code>ContinuousDS</code>:</p>
+<div class="codehilite"><pre><span></span><span class="c"># Pkg.add(&quot;DiffEqCallbacks&quot;)</span>
+<span class="k">using</span> <span class="n">DiffEqCallbacks</span><span class="p">,</span> <span class="n">OrdinaryDiffEq</span>
+
+<span class="n">cb</span> <span class="o">=</span> <span class="n">ManifoldProjection</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">nlopts</span><span class="o">=</span><span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">ftol</span><span class="o">=&gt;</span><span class="mf">1e-13</span><span class="p">),</span> <span class="n">save</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span>
+<span class="n">prob</span> <span class="o">=</span> <span class="n">ODEProblem</span><span class="p">(</span><span class="n">hheom!</span><span class="p">,</span> <span class="n">u0</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">),</span>  <span class="n">callback</span><span class="o">=</span><span class="n">cb</span><span class="p">)</span>
+
+<span class="c"># Initialize Jacobian</span>
+<span class="n">o</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span> <span class="n">i</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span> <span class="n">J</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">J</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="o">:</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">o</span><span class="p">,</span>    <span class="n">o</span><span class="p">,</span>     <span class="n">i</span><span class="p">,</span>    <span class="n">o</span><span class="p">]</span>
+<span class="n">J</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="o">:</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">o</span><span class="p">,</span>    <span class="n">o</span><span class="p">,</span>     <span class="n">o</span><span class="p">,</span>    <span class="n">i</span><span class="p">]</span>
+<span class="n">J</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="o">:</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span> <span class="o">-</span><span class="n">i</span> <span class="o">-</span> <span class="mi">2</span><span class="n">u0</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>   <span class="o">-</span><span class="mi">2</span><span class="n">u0</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>   <span class="n">o</span><span class="p">,</span>   <span class="n">o</span><span class="p">]</span>
+<span class="n">J</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="o">:</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="n">u0</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>  <span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="n">u0</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>  <span class="n">o</span><span class="p">,</span>   <span class="n">o</span><span class="p">]</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ContinuousDS</span><span class="p">(</span><span class="n">prob</span><span class="p">,</span> <span class="n">hhjacob!</span><span class="p">,</span> <span class="n">J</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Notice that using the argument <code>save = false</code> in the <code>ManifoldProjection</code> is crucial, because otherwise any data taken from the system, using e.g. <a href="../evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> will necessarily have saved points at every callback realization (which you <em>do not</em> want if you want timeseries of equi-sampled points).</p>
+<p>Let's see now if our system does indeed conserve energy!</p>
+<div class="codehilite"><pre><span></span><span class="n">a1</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">)</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">,</span> <span class="n">diff_eq_kwargs</span> <span class="o">=</span> <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">solver</span> <span class="o">=&gt;</span> <span class="n">Vern9</span><span class="p">(),</span>
+<span class="o">:</span><span class="n">abstol</span> <span class="o">=&gt;</span> <span class="mf">1e-9</span><span class="p">,</span> <span class="o">:</span><span class="n">reltol</span> <span class="o">=&gt;</span> <span class="mf">1e-9</span><span class="p">))</span>
+
+<span class="n">energies1</span> <span class="o">=</span> <span class="p">[</span><span class="n">H</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="kp">in</span> <span class="n">a1</span><span class="p">]</span>
+<span class="n">energies2</span> <span class="o">=</span> <span class="p">[</span><span class="n">H</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="kp">in</span> <span class="n">a2</span><span class="p">]</span>
+
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;Default solver: ΔE = &quot;</span><span class="p">,</span> <span class="n">std</span><span class="p">(</span><span class="n">energies1</span><span class="p">))</span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;High-Accuracy solver: ΔΕ = &quot;</span><span class="p">,</span> <span class="n">std</span><span class="p">(</span><span class="n">energies2</span><span class="p">))</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>Default solver: ΔE = 2.7868013699842223e-5
+High-Accuracy solver: ΔΕ = 1.2345950190344736e-12
+</pre></div>
+
+
+<p>By combining a high-accuracy solver with a callback one can get an incredibly low energy error.</p>
                 
                   
                 

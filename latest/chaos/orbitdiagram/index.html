@@ -390,6 +390,19 @@
     Poincaré Surface of Section
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stroboscopic-map" title="Stroboscopic Map" class="md-nav__link">
+    Stroboscopic Map
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -527,6 +540,19 @@
     Poincaré Surface of Section
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stroboscopic-map" title="Stroboscopic Map" class="md-nav__link">
+    Stroboscopic Map
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -561,7 +587,7 @@
 <p><a id='ChaosTools.orbitdiagram' href='#ChaosTools.orbitdiagram'>#</a>
 <strong><code>ChaosTools.orbitdiagram</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="nt">orbitdiagram</span><span class="o">(</span><span class="nt">ds</span><span class="p">::</span><span class="nd">DiscreteDynamicalSystem</span><span class="o">,</span> <span class="nt">i</span><span class="p">::</span><span class="nd">Int</span><span class="o">,</span> <span class="nt">parameter</span><span class="p">::</span><span class="nd">Symbol</span><span class="o">,</span> <span class="nt">pvalues</span><span class="o">;</span>
-<span class="nt">n</span><span class="p">::</span><span class="nd">Int</span> <span class="o">=</span> <span class="nt">100</span><span class="o">,</span> <span class="nt">Ttr</span><span class="p">::</span><span class="nd">Int</span> <span class="o">=</span> <span class="nt">1000</span><span class="o">,</span> <span class="nt">ics</span> <span class="o">=</span> <span class="cp">[</span><span class="nx">ds.state</span><span class="cp">]</span><span class="o">)</span> <span class="nt">-</span><span class="o">&gt;</span> <span class="nt">output</span>
+<span class="nt">n</span><span class="p">::</span><span class="nd">Int</span> <span class="o">=</span> <span class="nt">100</span><span class="o">,</span> <span class="nt">Ttr</span><span class="p">::</span><span class="nd">Int</span> <span class="o">=</span> <span class="nt">1000</span><span class="o">,</span> <span class="nt">ics</span> <span class="o">=</span> <span class="cp">[</span><span class="nx">state</span><span class="p">(</span><span class="nx">ds</span><span class="p">)</span><span class="cp">]</span><span class="o">)</span> <span class="nt">-</span><span class="o">&gt;</span> <span class="nt">output</span>
 </pre></div>
 
 
@@ -569,7 +595,7 @@
 <p>This function assumes that you have created the <code>ContinuousDS</code> using functors; see the <a href="https://juliadynamics.github.io/DynamicalSystems.jl/latest/">official documentation</a> for more.</p>
 <p><strong>Keyword Arguments</strong></p>
 <ul>
-<li><code>ics = [ds.state]</code> : container of initial conditions that are used at each parameter value to evolve orbits.</li>
+<li><code>ics = [state(ds)]</code> : container of initial conditions that are used at each parameter value to evolve orbits.</li>
 <li><code>Ttr::Int = 1000</code> : Transient steps; each orbit is evolved for <code>Ttr</code> first before saving output.</li>
 <li><code>n::Int = 100</code> : Amount of points to save for each initial condition.</li>
 </ul>
@@ -577,7 +603,7 @@
 <p>The method works by computing orbits at each parameter value in <code>pvalues</code> for each initial condition in <code>ics</code>. The symbol of the parameter is used to set <code>ds.eom.parameter</code> or <code>ds.eom!.parameter</code>.</p>
 <p>The returned <code>output</code> is a vector of vectors. <code>output[j]</code> are the orbit points of the <code>i</code>-th variable of the system, at parameter value <code>pvalues[j]</code>.</p>
 <p>See also <a href="./#ChaosTools.poincaresos"><code>poincaresos</code></a> and <a href="./#ChaosTools.produce_orbitdiagram"><code>produce_orbitdiagram</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/5cf6b944bb5f2ba2e4e3632b8ffc808e3a996ae6/src/orbitdiagram.jl#L4-L32' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/e28798177aaefd4a97d033ca26c620117483ee3b/src/orbitdiagram.jl#L4-L32' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example, let's compute the famous orbit diagram of the logistic map:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -645,9 +671,9 @@
 <p>[1] : H. Poincaré, <em>Les Methods Nouvelles de la Mécanique Celeste</em>, Paris: Gauthier-Villars (1892)</p>
 <p>[2] : M. Tabor, <em>Chaos and Integrability in Nonlinear Dynamics: An Introduction</em>, §4.1, in pp. 118-126, New York: Wiley (1989)</p>
 <p>See also <a href="./#ChaosTools.orbitdiagram"><code>orbitdiagram</code></a>, <a href="./#ChaosTools.produce_orbitdiagram"><code>produce_orbitdiagram</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/5cf6b944bb5f2ba2e4e3632b8ffc808e3a996ae6/src/orbitdiagram.jl#L73-L105' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/e28798177aaefd4a97d033ca26c620117483ee3b/src/orbitdiagram.jl#L73-L105' class='documenter-source'>source</a><br></p>
 <hr />
-<p>An example of the <a href="../efinition/predefined/#DynamicalSystemsBase.Systems.henonhelies">Henon-Helies</a> system using a quasi-periodic solution</p>
+<p>An example of the <a href="../../definition/predefined/#DynamicalSystemsBase.Systems.henonhelies">Henon-Helies</a> system using a quasi-periodic solution</p>
 <div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henonhelies</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.</span><span class="p">])</span>
 <span class="n">output</span> <span class="o">=</span> <span class="n">poincaresos</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">,</span> <span class="n">diff_eq_kwargs</span><span class="o">=</span><span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">solver</span><span class="o">=&gt;</span><span class="n">Vern9</span><span class="p">()))</span>
 
@@ -659,6 +685,18 @@
 
 <p><img alt="Poincare SOS" src="https://i.imgur.com/AkAKOh4.png" /></p>
 <p>Here the surface of section was the (hyper-) plane that <span><span class="MathJax_Preview">p_1 = 0</span><script type="math/tex">p_1 = 0</script></span>. As expected the section is 1-dimensional, because the torus the solution lives in is 2-dimensional. if we produced the PSOS for much longer times, the result would be a filled line instead of individual points.</p>
+<p><a id='Stroboscopic-Map-1'></a></p>
+<h3 id="stroboscopic-map">Stroboscopic Map</h3>
+<p>A special case of a PSOS is a stroboscopic map, which is defined for non-autonomous systems with periodic time dependence, like e.g. the <a href="../../definition/predefined/#DynamicalSystemsBase.Systems.duffing">Duffing oscillator</a>.</p>
+<p>A PSOS at this case can be produced at every period <span><span class="MathJax_Preview">T = 2\pi/\omega</span><script type="math/tex">T = 2\pi/\omega</script></span>. There is no reason to use <code>poincaresos</code> for this case though, because you can simply use <a href="../../definition/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> and get the solution with a certain time distance:</p>
+<div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">duffing</span><span class="p">(</span><span class="n">β</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">ω</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">f</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">)</span> <span class="c"># non-autonomous chaotic system</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mf">100000.0</span><span class="p">,</span> <span class="n">dt</span> <span class="o">=</span> <span class="mi">2</span><span class="nb">π</span><span class="p">)</span> <span class="c"># every period T = 2π/ω</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">marker</span> <span class="o">=</span><span class="s">&quot;o&quot;</span><span class="p">,</span> <span class="n">ms</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\$</span><span class="s">x</span><span class="se">\$</span><span class="s">&quot;</span><span class="p">);</span> <span class="n">ylabel</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\$\\</span><span class="s">dot{x}</span><span class="se">\$</span><span class="s">&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Duffing attractor" src="https://i.imgur.com/Bfqoska.png" /> What a cool looking attractor is that!</p>
 <p><a id='Producing-Orbit-Diagrams-for-Continuous-Flows-1'></a></p>
 <h2 id="producing-orbit-diagrams-for-continuous-flows">Producing Orbit Diagrams for Continuous Flows</h2>
 <p>The <a href="./#ChaosTools.orbitdiagram"><code>orbitdiagram</code></a> does not make much sense for continuous systems, besides the trivial case where the system is at a fixed point. In order for <a href="./#ChaosTools.orbitdiagram"><code>orbitdiagram</code></a> to have meaning one must have a map.</p>
@@ -676,16 +714,16 @@
 <ul>
 <li><code>direction</code>, <code>offset</code>, <code>diff_eq_kwargs</code>, <code>callback_kwargs</code>, <code>Ttr</code> : Passed into <a href="./#ChaosTools.poincaresos"><code>poincaresos</code></a>.</li>
 <li><code>printparams::Bool = false</code> : Whether to print the parameter used during computation in order to keep track of running time.</li>
-<li><code>ics = [ds.state]</code> : Collection of initial conditions. For every <code>state ∈ ics</code> a PSOS will be produced.</li>
+<li><code>ics = [state(ds)]</code> : Collection of initial conditions. For every <code>state ∈ ics</code> a PSOS will be produced.</li>
 </ul>
 <p><strong>Description</strong></p>
-<p><code>parameter</code> is a symbol that indicates which parameter of <code>ds.eom!</code> should be updated. <code>pvalues</code> is a collection with all the parameter values that the orbit diagram will be computed for.</p>
+<p><code>parameter</code> is a symbol that indicates which parameter of <code>ds.prob.f</code> should be updated. <code>pvalues</code> is a collection with all the parameter values that the orbit diagram will be computed for.</p>
 <p>For each parameter, a PSOS reduces the system from a flow to a map. This then allows the formal computation of an "orbit diagram" for one of the <code>i ≠ j</code> variables of the system, just like it is done in <a href="./#ChaosTools.orbitdiagram"><code>orbitdiagram</code></a>.</p>
 <p>The returned <code>output</code> is a vector of vectors. <code>output[k]</code> are the "orbit diagram" points of the <code>i</code>-th variable of the system, at parameter value <code>pvalues[k]</code>.</p>
 <p><strong>Performance Notes</strong></p>
-<p>The total amount of PSOS produced will be <code>length(ics)×length(pvalues)</code>.</p>
+<p>The total amount of PSOS produced will be <code>length(ics)*length(pvalues)</code>.</p>
 <p>See also <a href="./#ChaosTools.poincaresos"><code>poincaresos</code></a>, <a href="./#ChaosTools.orbitdiagram"><code>orbitdiagram</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/5cf6b944bb5f2ba2e4e3632b8ffc808e3a996ae6/src/orbitdiagram.jl#L146-L183' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/e28798177aaefd4a97d033ca26c620117483ee3b/src/orbitdiagram.jl#L153-L191' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example, we will calculate the orbit diagram of the Shinriki oscillator, a continuous system that undergoes a period doubling route to chaos, much like the logistic map!</p>
 <div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">shinriki</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>

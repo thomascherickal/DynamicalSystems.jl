@@ -597,7 +597,12 @@
 </script>
 </div>
 <p><strong>DynamicalSystems.jl</strong> categorizes discrete systems in three cases, due to the extremely performant handling that <a href="https://github.com/JuliaArrays/StaticArrays.jl"><code>StaticArrays</code></a> offers for small dimensionalities.</p>
-<p>When defining a system using Functors, be sure to use <code>EomVector</code> and <code>EomMatrix</code> (see the <a href="../continuous/#defining-a-dynamicalsystem-using-functors">continuous system</a> page for more info).</p>
+<p>Handling of discrete systems is done exclusively from <strong>DynamicalSystems.jl</strong> and so there is no interaction with DifferentialEquations.jl. This also means that the definition of a discrete system may differ slightly from a continuous one.</p>
+<p>When defining a system using Functors, be sure to use <code>AbstractVector</code> and <code>AbstractMatrix</code> (see <a href="../continuous/#defining-a-dynamicalsystem-using-functors">here</a> ).</p>
+<div class="admonition info">
+<p class="admonition-title">Non-autonomous systems</p>
+<p>To define a discrete system that depends on "time" <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>, extend the equations of motion by introducing a new variable <span><span class="MathJax_Preview">\tau</span><script type="math/tex">\tau</script></span> such that <span><span class="MathJax_Preview">\tau_{n+1} =  \tau_n + 1</span><script type="math/tex">\tau_{n+1} =  \tau_n + 1</script></span> and use this in the equations for the other variables.</p>
+</div>
 <p><a id='High-Dimensional-1'></a></p>
 <h2 id="high-dimensional">High-Dimensional</h2>
 <p>At around <code>D=10</code> dimensions, Static Arrays start to become less efficient than Julia's base Arrays, provided that the latter use in-place operations. For cases of discrete systems with much high dimensionality, we offer a type called <code>BigDiscreteDS</code>:</p>
@@ -610,7 +615,7 @@
 <p><code>D</code>-dimensional discrete dynamical system (used for big <code>D</code>). The equations for this system perform all operations <em>in-place</em>.</p>
 <p><strong>Fields:</strong></p>
 <ul>
-<li><code>state::Vector{T}</code> : Current state-vector of the system. Do <code>ds.state .= u</code> to change the state.</li>
+<li><code>state::Vector{T}</code> : Current state-vector of the system. Do <code>state(ds) .= u</code> to change the state.</li>
 <li><code>eom!</code> (function) : The function that represents the system's equations of motion (also called vector field). The function is of the format: <code>eom!(xnew, x)</code> which means that given a state-vector <code>x</code> and another similar one <code>xnew</code>, it writes in-place the new state in <code>xnew</code>.</li>
 <li><code>jacob!</code> (function) : A function that calculates the system's jacobian matrix, based on the format: <code>jacob!(J, x)</code> which means that given a state-vector <code>x</code> it writes in-place the Jacobian in <code>J</code>.</li>
 <li><code>J::Matrix{T}</code> : Initialized Jacobian matrix (optional).</li>
@@ -619,10 +624,10 @@
 <p>Only the first two fields of this type are displayed during print.</p>
 <p>As mentioned in our <a href="https://juliadynamics.github.io/DynamicalSystems.jl/latest/system_definition#example-using-functors">official documentation</a>, it is preferred to use Functors for both the equations of motion and the Jacobian.</p>
 <p>If the <code>jacob</code> is not provided by the user, it is created automatically using the module <a href="http://www.juliadiff.org/ForwardDiff.jl/stable/"><code>ForwardDiff</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/06df5220faa72fb1259e3a6947786926b136c99a/src/discrete.jl#L78-L103' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6b9a7db4e422554d859997a7fa7f52aeadafa448/src/discrete.jl#L78-L103' class='documenter-source'>source</a><br></p>
 <hr />
-<p>This system is identical to <a href="../continuous/#DynamicalSystemsBase.ContinuousDS"><code>ContinuousDS</code></a> as far as definition is concerned. All operations are done in place, and the type is immutable. The same suggestions about using Functors and initialized Jacobians also apply here.</p>
-<p>See the source code of the pre-defined <a href="../definition/systems#DynamicalSystemsBase.Systems.coupledstandardmaps">coupled standard maps</a> for an example of a <code>BigDiscreteDS</code> definition.</p>
+<p>The source code of the pre-defined <a href="../definition/systems#DynamicalSystemsBase.Systems.coupledstandardmaps">coupled standard maps</a> can serve as an example of a <code>BigDiscreteDS</code> definition <em>(we do not show it here because it is very large</em>).</p>
+<p>Just keep in mind that the equations of motion for <code>BigDiscreteDS</code> are of the form <code>eom!(xnew, xold)</code>; in-place with the mutated argument <em>first</em>, in contrast to the continuous case. The same story goes for the Jacobian function!</p>
 <p><a id='Low-dimensional-1'></a></p>
 <h2 id="low-dimensional">Low-dimensional</h2>
 <p>The definition of low-dimensional discrete systems differs fundamentally from high dimensional ones, because everything is <em>much</em> more efficiently done with statically sized vectors. The <code>struct</code> representing such systems is called <code>DiscreteDS</code>:</p>
@@ -635,19 +640,17 @@
 <p><code>D</code>-dimensional discrete dynamical system.</p>
 <p><strong>Fields:</strong></p>
 <ul>
-<li><code>state::SVector{D}</code> : Current state-vector of the system, stored in the data format of <code>StaticArray</code>'s <code>SVector</code>. Use <code>ds.state = newstate</code> to set a new state.</li>
+<li><code>state::SVector{D}</code> : Current state-vector of the system, stored in the data format of <code>StaticArray</code>'s <code>SVector</code>. Use <code>state(ds) = newstate</code> to set a new state.</li>
 <li><code>eom</code> (function) : The function that represents the system's equations of motion (also called vector field). The function is of the format: <code>eom(u) -&gt; SVector</code> which means that given a state-vector <code>u</code> it returns an <code>SVector</code> containing the next state.</li>
 <li><code>jacob</code> (function) : A function that calculates the system's jacobian matrix, based on the format: <code>jacob(u) -&gt; SMatrix</code> which means that given a state-vector <code>u</code> it returns an <code>SMatrix</code> containing the Jacobian at that state.</li>
 </ul>
 <p>Only the first two fields of this type are displayed during print.</p>
 <p>If the <code>jacob</code> is not provided by the user, it is created automatically using the module <a href="http://www.juliadiff.org/ForwardDiff.jl/stable/"><code>ForwardDiff</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/06df5220faa72fb1259e3a6947786926b136c99a/src/discrete.jl#L11-L29' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6b9a7db4e422554d859997a7fa7f52aeadafa448/src/discrete.jl#L11-L29' class='documenter-source'>source</a><br></p>
 <hr />
-<p>The documentation string of the constructor is perfectly self-contained, but for the sake of clarity we will go through all the steps in the following.</p>
-<p><code>state</code> is simply the state the system starts (a.k.a. initial conditions) and is always of type <code>SVector</code> from <a href="https://github.com/JuliaArrays/StaticArrays.jl"><code>StaticArrays.jl</code></a>. <code>eom</code> is a <em>function</em> that takes a <code>state</code> as an input and returns the next state as an output. The <code>jacob</code> is also a <em>function</em> that takes a <code>state</code> as an input and returns the Jacobian matrix of the system (at this state). So far this is actually different than <a href="./#DynamicalSystemsBase.BigDiscreteDS"><code>BigDiscreteDS</code></a> where the functions where in-place.</p>
 <div class="admonition note">
 <p class="admonition-title">Return form of the <code>eom</code> function</p>
-<p>It is <strong>heavily</strong> advised that the equations of motion <code>eom</code> function returns an <code>SVector</code> from the julia package <a href="https://github.com/JuliaArrays/StaticArrays.jl"><code>StaticArrays.jl</code></a> and similarly the <code>jacob</code> function returns an <code>SMatrix</code>. <a href="https://github.com/Datseris/DynamicalSystems.jl/tree/master/test/benchmarks">Numerous benchmarks</a> have been made in order to deduce the most efficient way to define a system, and this way was proved to be the best when the system's dimension is small.</p>
+<p>It is <strong>heavily</strong> advised that the equations of motion <code>eom</code> function returns an <code>SVector</code> from the julia package <a href="https://github.com/JuliaArrays/StaticArrays.jl"><code>StaticArrays.jl</code></a> and similarly the <code>jacob</code> function returns an <code>SMatrix</code> in the case of <code>DiscreteDS</code>.</p>
 </div>
 <p>Something important to note when defining a <code>DiscreteDS</code> using Functors: since the function calls take only one argument (always a state), it is impossible to use multiple dispatch to differentiate between a call to the e.o.m. or the Jacobian functions.</p>
 <p>However, it is very easy to still define both function calls using a single <code>struct</code>, by using a 2 argument function given to the constructor. For example:</p>
@@ -658,8 +661,8 @@
     <span class="n">a</span><span class="o">::</span><span class="kt">Float64</span>
     <span class="n">b</span><span class="o">::</span><span class="kt">Float64</span>
 <span class="k">end</span>
-<span class="p">(</span><span class="n">f</span><span class="o">::</span><span class="n">HénonMap</span><span class="p">)(</span><span class="n">x</span><span class="o">::</span><span class="n">EomVector</span><span class="p">)</span> <span class="o">=</span> <span class="n">SVector</span><span class="p">{</span><span class="mi">2</span><span class="p">}(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">f</span><span class="o">.</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">f</span><span class="o">.</span><span class="n">b</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="p">(</span><span class="n">f</span><span class="o">::</span><span class="n">HénonMap</span><span class="p">)(</span><span class="n">x</span><span class="o">::</span><span class="n">EomVector</span><span class="p">,</span> <span class="n">no</span><span class="o">::</span><span class="kt">Void</span><span class="p">)</span> <span class="o">=</span> <span class="nd">@SMatrix</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">f</span><span class="o">.</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="mf">1.0</span><span class="p">;</span> <span class="n">f</span><span class="o">.</span><span class="n">b</span> <span class="mf">0.0</span><span class="p">]</span>
+<span class="p">(</span><span class="n">f</span><span class="o">::</span><span class="n">HénonMap</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="n">SVector</span><span class="p">{</span><span class="mi">2</span><span class="p">}(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">f</span><span class="o">.</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">f</span><span class="o">.</span><span class="n">b</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">(</span><span class="n">f</span><span class="o">::</span><span class="n">HénonMap</span><span class="p">)(</span><span class="n">x</span><span class="p">,</span> <span class="n">no</span><span class="o">::</span><span class="kt">Void</span><span class="p">)</span> <span class="o">=</span> <span class="nd">@SMatrix</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">f</span><span class="o">.</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="mf">1.0</span><span class="p">;</span> <span class="n">f</span><span class="o">.</span><span class="n">b</span> <span class="mf">0.0</span><span class="p">]</span>
 
 <span class="k">function</span> <span class="n">henon</span><span class="p">(</span><span class="n">u0</span><span class="o">=</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">1.4</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">)</span>
     <span class="n">he</span> <span class="o">=</span> <span class="n">HénonMap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
@@ -678,7 +681,7 @@
 </pre></div>
 
 
-<p>Here the example uses the type <code>Void</code> for dispatch, but you could use any other bittype like e.g. <code>::Float64</code> and pass in <code>zero(T)</code>.</p>
+<p>Here the example uses the type <code>Void</code> for dispatch, but you could use any other bittype like e.g. <code>::Int64</code> and pass in <code>0</code>.</p>
 <p>In this example case, doing <code>ds.eom.a = 2.5</code> would still affect <em>both</em> the equations of motion as well as the Jacobian, making everything work perfectly!</p>
 <p><a id='Defining-a-DynamicalSystem-without-Functors-1'></a></p>
 <h3 id="defining-a-dynamicalsystem-without-functors">Defining a <code>DynamicalSystem</code> without Functors</h3>
@@ -722,16 +725,22 @@
 <p>In the case of maps, there a special structure for one-dimensional systems. The syntax is <code>DiscreteDS1D(state, eom [, deriv])</code>. In this one-dimensional case, you don't need to worry about StaticArrays.jl because everything is in plain numbers. For example:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
 
-<span class="nd">@inline</span> <span class="n">eom_logistic</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">r</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">)</span>  <span class="c"># this is a closure</span>
-<span class="nd">@inline</span> <span class="n">deriv_logistic</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">r</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">2</span><span class="n">x</span><span class="p">)</span> <span class="c"># this is a closure</span>
+<span class="n">mutable</span> <span class="n">struct</span> <span class="n">Logistic</span>
+    <span class="n">r</span><span class="o">::</span><span class="kt">Float64</span>
+<span class="k">end</span>
+<span class="nd">@inline</span> <span class="p">(</span><span class="n">f</span><span class="o">::</span><span class="n">Logistic</span><span class="p">)(</span><span class="n">x</span><span class="o">::</span><span class="kt">Number</span><span class="p">)</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">r</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">)</span>
+<span class="nd">@inline</span> <span class="p">(</span><span class="n">f</span><span class="o">::</span><span class="n">Logistic</span><span class="p">)(</span><span class="n">x</span><span class="o">::</span><span class="kt">Number</span><span class="p">,</span> <span class="n">no</span><span class="o">::</span><span class="kt">Void</span><span class="p">)</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">r</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">2</span><span class="n">x</span><span class="p">)</span>
+
 <span class="n">r</span> <span class="o">=</span> <span class="mf">3.7</span>
-<span class="n">logistic</span> <span class="o">=</span> <span class="n">DiscreteDS1D</span><span class="p">(</span><span class="n">rand</span><span class="p">(),</span> <span class="n">eom_logistic</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="n">deriv_logistic</span><span class="p">(</span><span class="n">r</span><span class="p">))</span>
+<span class="n">lol</span> <span class="o">=</span> <span class="n">Logistic</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="n">deriv_logistic</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="n">lol</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">nothing</span><span class="p">)</span>
+<span class="k">return</span> <span class="n">DiscreteDS1D</span><span class="p">(</span><span class="n">rand</span><span class="p">(),</span> <span class="n">lol</span><span class="p">,</span> <span class="n">deriv_logistic</span><span class="p">)</span>
 </pre></div>
 
 
 <div class="codehilite"><pre><span></span>1-dimensional discrete dynamical system:
-state: 0.8380019843763997
-eom: ex-3.##1#2{Float64}
+state: 0.7084329743102422
+eom: ex-3.Logistic
 </pre></div>
 
 

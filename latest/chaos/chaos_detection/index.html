@@ -607,7 +607,7 @@
 <li><code>diff_eq_kwargs</code> : See <a href="../../definition/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a>.</li>
 </ul>
 <p><strong>Description</strong></p>
-<p>The Generalized Alignment Index, <span><span class="MathJax_Preview">\text{GALI}_k</span><script type="math/tex">\text{GALI}_k</script></span>, is an efficient (and very fast) indicator of chaotic or regular behavior type in <span><span class="MathJax_Preview">D</span><script type="math/tex">D</script></span>-dimensional Hamiltonian systems (<span><span class="MathJax_Preview">D</span><script type="math/tex">D</script></span> is number of variables). The <em>asymptotic</em> behavior of <span><span class="MathJax_Preview">\text{GALI}_k(t)</span><script type="math/tex">\text{GALI}_k(t)</script></span> depends critically of the type of orbit resulting from the initial condition <code>ds.state</code>. If it is a chaotic orbit, then</p>
+<p>The Generalized Alignment Index, <span><span class="MathJax_Preview">\text{GALI}_k</span><script type="math/tex">\text{GALI}_k</script></span>, is an efficient (and very fast) indicator of chaotic or regular behavior type in <span><span class="MathJax_Preview">D</span><script type="math/tex">D</script></span>-dimensional Hamiltonian systems (<span><span class="MathJax_Preview">D</span><script type="math/tex">D</script></span> is number of variables). The <em>asymptotic</em> behavior of <span><span class="MathJax_Preview">\text{GALI}_k(t)</span><script type="math/tex">\text{GALI}_k(t)</script></span> depends critically of the type of orbit resulting from the initial condition <code>state(ds)</code>. If it is a chaotic orbit, then</p>
 <div>
 <div class="MathJax_Preview">
 \text{GALI}_k(t) \sim
@@ -651,7 +651,7 @@
 <p><strong>References</strong></p>
 <p>[1] : Skokos, C. H. <em>et al.</em>, Physica D <strong>231</strong>, pp 30–54 (2007)</p>
 <p>[2] : Skokos, C. H. <em>et al.</em>, <em>Chaos Detection and Predictability</em> - Chapter 5 (section 5.3.1 and ref. [85] therein), Lecture Notes in Physics <strong>915</strong>, Springer (2016)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/5cf6b944bb5f2ba2e4e3632b8ffc808e3a996ae6/src/chaos_detection.jl#L6-L75' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/e28798177aaefd4a97d033ca26c620117483ee3b/src/chaos_detection.jl#L6-L75' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Discrete-Example-1'></a></p>
 <h3 id="discrete-example">Discrete Example</h3>
