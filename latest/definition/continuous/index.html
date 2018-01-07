@@ -665,7 +665,7 @@ e.o.m.: DynamicalSystemsBase.Systems.Rössler(0.2, 0.2, 5.7)
 <p>Here we will show how one can take advantage of the callback capabilities of <a href="http://docs.juliadiffeq.org/latest/">DifferentialEquations.jl</a> to define a system.</p>
 <div class="admonition danger">
 <p class="admonition-title">Callbacks do not propagate in variation vector methods!</p>
-<p>Methods that evolve variation vectors in time (currenlty <a href="../../chaos/chaos_detection/#ChaosTools.gali"><code>gali</code></a> and <a href="../../chaos/lyapunovs/#ChaosTools.lyapunovs"><code>lyapunovs</code></a>) do not inherit callbacks present in the definition of a <code>ContinuousDS</code>.</p>
+<p>Methods that evolve variation vectors in time (currenlty <a href="../../chaos/chaos_detection/#ChaosTools.gali"><code>gali</code></a> and <a href="../../chaos/lyapunovs/#ChaosTools.lyapunovs"><code>lyapunovs</code></a>) do not inherit callbacks present in the definition of a <code>ContinuousDS</code>. The issue that keeps track of this is <a href="https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/issues/8">here</a>.</p>
 </div>
 <p>We will make a Hénon–Heiles that also satisfies energy conservation. We first write the equations of motion and the Jacobian functions in the instructed form:</p>
 <div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">hheom!</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">u</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">,</span> <span class="n">du</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">)</span>
