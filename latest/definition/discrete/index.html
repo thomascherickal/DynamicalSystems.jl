@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.2.6">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.3.0">
     
     
       
@@ -40,7 +40,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.6525f7f6.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.0e9c8aca.css">
       
         <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
       
@@ -616,15 +616,15 @@
 <p><strong>Fields:</strong></p>
 <ul>
 <li><code>state::Vector{T}</code> : Current state-vector of the system. Do <code>state(ds) .= u</code> to change the state.</li>
-<li><code>eom!</code> (function) : The function that represents the system's equations of motion (also called vector field). The function is of the format: <code>eom!(xnew, x)</code> which means that given a state-vector <code>x</code> and another similar one <code>xnew</code>, it writes in-place the new state in <code>xnew</code>.</li>
-<li><code>jacob!</code> (function) : A function that calculates the system's jacobian matrix, based on the format: <code>jacob!(J, x)</code> which means that given a state-vector <code>x</code> it writes in-place the Jacobian in <code>J</code>.</li>
+<li><code>eom!</code> (function) : The function that represents the system's equations of motion (also called vector field). The function is of the format: <code>eom!(xnew, x)</code> which means that given a state <code>Vector</code> <code>x</code> and another similar one <code>xnew</code>, it writes in-place the new state in <code>xnew</code>.</li>
+<li><code>jacob!</code> (function) : A function that calculates the system's jacobian matrix, based on the format: <code>jacob!(J, x)</code> which means that given a state <code>Vector</code> <code>x</code> it writes in-place the Jacobian in <code>J</code>.</li>
 <li><code>J::Matrix{T}</code> : Initialized Jacobian matrix (optional).</li>
 <li><code>dummystate::Vector{T}</code> : Dummy vector, which most of the time fills the role of the previous state in e.g. <a href="../evolve/#DynamicalSystemsBase.evolve"><code>evolve</code></a>.</li>
 </ul>
 <p>Only the first two fields of this type are displayed during print.</p>
 <p>As mentioned in our <a href="https://juliadynamics.github.io/DynamicalSystems.jl/latest/system_definition#example-using-functors">official documentation</a>, it is preferred to use Functors for both the equations of motion and the Jacobian.</p>
 <p>If the <code>jacob</code> is not provided by the user, it is created automatically using the module <a href="http://www.juliadiff.org/ForwardDiff.jl/stable/"><code>ForwardDiff</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6b9a7db4e422554d859997a7fa7f52aeadafa448/src/discrete.jl#L78-L103' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/71b39100954b23356506a5bea62306740330a764/src/discrete.jl#L78-L103' class='documenter-source'>source</a><br></p>
 <hr />
 <p>The source code of the pre-defined <a href="../definition/systems#DynamicalSystemsBase.Systems.coupledstandardmaps">coupled standard maps</a> can serve as an example of a <code>BigDiscreteDS</code> definition <em>(we do not show it here because it is very large</em>).</p>
 <p>Just keep in mind that the equations of motion for <code>BigDiscreteDS</code> are of the form <code>eom!(xnew, xold)</code>; in-place with the mutated argument <em>first</em>, in contrast to the continuous case. The same story goes for the Jacobian function!</p>
@@ -641,12 +641,12 @@
 <p><strong>Fields:</strong></p>
 <ul>
 <li><code>state::SVector{D}</code> : Current state-vector of the system, stored in the data format of <code>StaticArray</code>'s <code>SVector</code>. Use <code>state(ds) = newstate</code> to set a new state.</li>
-<li><code>eom</code> (function) : The function that represents the system's equations of motion (also called vector field). The function is of the format: <code>eom(u) -&gt; SVector</code> which means that given a state-vector <code>u</code> it returns an <code>SVector</code> containing the next state.</li>
-<li><code>jacob</code> (function) : A function that calculates the system's jacobian matrix, based on the format: <code>jacob(u) -&gt; SMatrix</code> which means that given a state-vector <code>u</code> it returns an <code>SMatrix</code> containing the Jacobian at that state.</li>
+<li><code>eom</code> (function) : The function that represents the system's equations of motion (also called vector field). The function is of the format: <code>eom(u) -&gt; SVector</code> which means that given a state <code>SVector</code> <code>u</code> it returns an <code>SVector</code> containing the next state.</li>
+<li><code>jacob</code> (function) : A function that calculates the system's jacobian matrix, based on the format: <code>jacob(u) -&gt; SMatrix</code> which means that given a state <code>Svector</code> <code>u</code> it returns an <code>SMatrix</code> containing the Jacobian at that state.</li>
 </ul>
 <p>Only the first two fields of this type are displayed during print.</p>
 <p>If the <code>jacob</code> is not provided by the user, it is created automatically using the module <a href="http://www.juliadiff.org/ForwardDiff.jl/stable/"><code>ForwardDiff</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6b9a7db4e422554d859997a7fa7f52aeadafa448/src/discrete.jl#L11-L29' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/71b39100954b23356506a5bea62306740330a764/src/discrete.jl#L11-L29' class='documenter-source'>source</a><br></p>
 <hr />
 <div class="admonition note">
 <p class="admonition-title">Return form of the <code>eom</code> function</p>
@@ -677,7 +677,7 @@
 
 <div class="codehilite"><pre><span></span>2-dimensional discrete system
  state: [0.0, 0.0]
- eom: ex-henon.HénonMap
+ e.o.m.: ex-henon.HénonMap
 </pre></div>
 
 
@@ -710,7 +710,7 @@
 
 <div class="codehilite"><pre><span></span>3-dimensional discrete system
  state: [0.085, -0.121, 0.075]
- eom: ex-2.#eom_towel
+ e.o.m.: ex-2.#eom_towel
 </pre></div>
 
 
@@ -739,8 +739,8 @@
 
 
 <div class="codehilite"><pre><span></span>1-dimensional discrete dynamical system:
-state: 0.21633053402165747
-eom: ex-3.Logistic
+state: 0.79761924981203
+e.o.m.: ex-3.Logistic
 </pre></div>
 
 
