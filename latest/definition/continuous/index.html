@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.3.0">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.5.0">
     
     
       
@@ -40,7 +40,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.0e9c8aca.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.2a88008a.css">
       
         <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
       
@@ -61,11 +61,10 @@
     
   </head>
   
+  
     
     
-    
-      <body data-md-color-primary="deep-purple" data-md-color-accent="teal">
-    
+    <body dir="ltr" data-md-color-primary="deep-purple" data-md-color-accent="teal">
   
     <svg class="md-svg">
       <defs>
@@ -113,11 +112,13 @@
             
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="search"></label>
-  <div class="md-search__inner">
+  <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="search"></label>
-      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">&#xE5CD;</button>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -572,15 +573,14 @@
 </ul>
 <p>You can use <code>ds.prob.u0 .= newstate</code> to set a new state to the system.</p>
 <p><strong>Creating a <code>ContinuousDS</code></strong></p>
-<p>The equations of motion <strong>must be</strong> in the form <code>eom!(t, u, du)</code>, which means that they are <strong>in-place</strong> with the mutated argument <code>du</code> the last one. Both <code>u, du</code> <strong>must be</strong> <code>Vector</code>s. You can still use matrices in your equations of motion though! Just change <code>function eom(t, u, du)</code> to</p>
-<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">eom</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">du</span><span class="p">)</span>
+<p>The equations of motion <strong>must be</strong> in the form <code>eom!(t, u, du)</code>, which means that they are <strong>in-place</strong> with the mutated argument <code>du</code> the last one. Both <code>u, du</code> <strong>must be</strong> <code>Vector</code>s. You can still use matrices in your equations of motion though! Just change <code>function eom!(t, u, du)</code> to</p>
+<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">eom!</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">du</span><span class="p">)</span>
     <span class="n">um</span> <span class="o">=</span> <span class="n">reshape</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span> <span class="n">dum</span> <span class="o">=</span> <span class="n">reshape</span><span class="p">(</span><span class="n">du</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
     <span class="c"># equations of motion with matrix shape of a×b</span>
 </pre></div>
 
 
-<p>and you will be able to express the equations with matrix notation.</p>
-<p>If you have the <code>eom</code> function, and optionally a function for the Jacobian, you can use the constructor</p>
+<p>If you have the <code>eom!</code> function, and optionally a function for the Jacobian, you can use the constructor</p>
 <div class="codehilite"><pre><span></span><span class="n">ContinuousDS</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">eom!</span> <span class="p">[,</span> <span class="n">jacob!</span> <span class="p">[,</span> <span class="n">J</span><span class="p">]];</span> <span class="n">tspan</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">))</span>
 </pre></div>
 
@@ -593,8 +593,9 @@
 
 <p>If the <code>jacob!</code> is not provided by the user, it is created automatically using the module <a href="http://www.juliadiff.org/ForwardDiff.jl/stable/"><code>ForwardDiff</code></a> (which always passes <code>t=0</code> at the <code>eom!</code>) in both cases.</p>
 <p>As mentioned in our <a href="https://juliadynamics.github.io/DynamicalSystems.jl/latest/system_definition#example-using-functors">official documentation</a>, it is preferred to use Functors for both the equations of motion and the Jacobian.</p>
-<p>To interfece <em>towards</em> DifferentialEquations.jl use <code>ODEIntegrator(ds, stuff...)</code>. Notice that you can have performance gains for stiff methods by explicitly adding a Jacobian caller for DifferentialEquations.jl by defining <code>eom!(::Type{Val{:jac}}, t, u, J) = jacob!(t, u, J)</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/71b39100954b23356506a5bea62306740330a764/src/continuous.jl#L14-L66' class='documenter-source'>source</a><br></p>
+<p>To interfece <em>towards</em> DifferentialEquations.jl use <code>ODEIntegrator(ds, stuff...)</code> and <code>ODEProblem(ds, stuff...)</code>. Notice that you can have performance gains for stiff methods by explicitly adding a Jacobian caller for DifferentialEquations.jl by defining <code>eom!(::Type{Val{:jac}}, t, u, J) = jacob!(t, u, J)</code>.</p>
+<p><code>ContinuousDS</code> by default are evolved using solver <code>Vern9()</code> and tolerances <code>:abstol =&gt; 1e-9, :reltol =&gt; 1e-9</code>.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/ca4a2405590072e3fe38099586666fe5f6d3e0ec/src/continuous.jl#L14-L69' class='documenter-source'>source</a><br></p>
 <hr />
 <p>You can use any function that complies with the requirements stated by the documentation string. However, it is highly advised to use <a href="https://docs.julialang.org/en/stable/manual/methods/#Function-like-objects-1">Functors</a> for dynamical systems where the equations of motion contain parameters.</p>
 <p>In the following examples we will demonstrate how one can use both constructors.</p>
@@ -674,7 +675,8 @@ e.o.m.: DynamicalSystemsBase.Systems.Rössler(0.2, 0.2, 5.7)
 <p class="admonition-title">Callbacks do not propagate in variation vector methods!</p>
 <p>Methods that evolve variation vectors in time (currenlty <a href="../../chaos/chaos_detection/#ChaosTools.gali"><code>gali</code></a> and <a href="../../chaos/lyapunovs/#ChaosTools.lyapunovs"><code>lyapunovs</code></a>) do not inherit callbacks present in the definition of a <code>ContinuousDS</code>. The issue that keeps track of this is <a href="https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/issues/8">here</a>.</p>
 </div>
-<p>We will make a Hénon–Heiles that also satisfies energy conservation. We first write the equations of motion and the Jacobian functions in the instructed form:</p>
+<p>We will make a Hénon–Heiles that also satisfies energy conservation. This is also available in the <a href="../predefined">predefined systems</a>, but we will use it here as an example.</p>
+<p>We first write the equations of motion and the Jacobian functions in the instructed form:</p>
 <div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">hheom!</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">u</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">,</span> <span class="n">du</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">)</span>
     <span class="n">du</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
     <span class="n">du</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
@@ -730,23 +732,17 @@ e.o.m.: DynamicalSystemsBase.Systems.Rössler(0.2, 0.2, 5.7)
 <p>Notice that using the argument <code>save = false</code> in the <code>ManifoldProjection</code> is crucial, because otherwise any data taken from the system, using e.g. <a href="../evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> will necessarily have saved points at every callback realization (which you <em>do not</em> want if you want timeseries of equi-sampled points).</p>
 <p>Let's see now if our system does indeed conserve energy!</p>
 <div class="codehilite"><pre><span></span><span class="n">a1</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">)</span>
-<span class="n">a2</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">,</span> <span class="n">diff_eq_kwargs</span> <span class="o">=</span> <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">solver</span> <span class="o">=&gt;</span> <span class="n">Vern9</span><span class="p">(),</span>
-<span class="o">:</span><span class="n">abstol</span> <span class="o">=&gt;</span> <span class="mf">1e-9</span><span class="p">,</span> <span class="o">:</span><span class="n">reltol</span> <span class="o">=&gt;</span> <span class="mf">1e-9</span><span class="p">))</span>
-
 <span class="n">energies1</span> <span class="o">=</span> <span class="p">[</span><span class="n">H</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="kp">in</span> <span class="n">a1</span><span class="p">]</span>
-<span class="n">energies2</span> <span class="o">=</span> <span class="p">[</span><span class="n">H</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="kp">in</span> <span class="n">a2</span><span class="p">]</span>
-
-<span class="n">println</span><span class="p">(</span><span class="s">&quot;Default solver: ΔE = &quot;</span><span class="p">,</span> <span class="n">std</span><span class="p">(</span><span class="n">energies1</span><span class="p">))</span>
-<span class="n">println</span><span class="p">(</span><span class="s">&quot;High-Accuracy solver: ΔΕ = &quot;</span><span class="p">,</span> <span class="n">std</span><span class="p">(</span><span class="n">energies2</span><span class="p">))</span>
+<span class="n">maxer</span> <span class="o">=</span> <span class="n">maximum</span><span class="p">(</span><span class="err">@</span><span class="o">.</span> <span class="n">energies1</span> <span class="o">-</span> <span class="n">E</span><span class="p">)</span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;Default accuracy: max(ΔE) = </span><span class="si">$maxer</span><span class="s">&quot;</span><span class="p">)</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>Default solver: ΔE = 2.7868013699842223e-5
-High-Accuracy solver: ΔΕ = 1.2345950190344736e-12
+<div class="codehilite"><pre><span></span>Default accuracy: max(ΔE) = 9.926393040871062e-12
 </pre></div>
 
 
-<p>By combining a high-accuracy solver with a callback one can get an incredibly low energy error.</p>
+<p>Reminder: by default <strong>DynamicalSystems.jl</strong> uses the solver <code>Vern9()</code> and error tolerances of <code>1e-9</code>.</p>
                 
                   
                 
@@ -824,7 +820,7 @@ High-Accuracy solver: ΔΕ = 1.2345950190344736e-12
       
     </div>
     
-      <script src="../../assets/javascripts/application.cae2244d.js"></script>
+      <script src="../../assets/javascripts/application.ce2ab4bf.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
       

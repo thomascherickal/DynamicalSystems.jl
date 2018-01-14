@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.3.0">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.5.0">
     
     
       
@@ -40,7 +40,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.0e9c8aca.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.2a88008a.css">
       
         <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
       
@@ -61,11 +61,10 @@
     
   </head>
   
+  
     
     
-    
-      <body data-md-color-primary="deep-purple" data-md-color-accent="teal">
-    
+    <body dir="ltr" data-md-color-primary="deep-purple" data-md-color-accent="teal">
   
     <svg class="md-svg">
       <defs>
@@ -113,11 +112,13 @@
             
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="search"></label>
-  <div class="md-search__inner">
+  <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="search"></label>
-      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">&#xE5CD;</button>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -592,7 +593,7 @@
 <p><em>All</em> initial conditions are evolved for <em>all</em> <span><span class="MathJax_Preview">\mathbf{\Lambda}_k</span><script type="math/tex">\mathbf{\Lambda}_k</script></span> which can very quickly lead to long computation times.</p>
 <p><strong>References</strong></p>
 <p>[1] : P. Schmelcher &amp; F. K. Diakonos, Phys. Rev. Lett. <strong>78</strong>, pp 4733 (1997)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/e28798177aaefd4a97d033ca26c620117483ee3b/src/periodic.jl#L80-L132' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/5f726acc817b23160fec51f92b813bf4679ecbd2/src/periodic.jl#L80-L132' class='documenter-source'>source</a><br></p>
 <p><a id='ChaosTools.lambdamatrix' href='#ChaosTools.lambdamatrix'>#</a>
 <strong><code>ChaosTools.lambdamatrix</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>lambdamatrix(λ, inds::Vector{Int}, sings) -&gt; Λk
@@ -613,7 +614,7 @@
 <p><strong>References</strong></p>
 <p>[2] : D. Pingel <em>et al.</em>, Phys. Rev. E <strong>62</strong>, pp 2119 (2000)</p>
 <p>[3] : F. K. Diakonos <em>et al.</em>, Phys. Rev. Lett. <strong>81</strong>, pp 4349 (1998)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/e28798177aaefd4a97d033ca26c620117483ee3b/src/periodic.jl#L7-L42' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/5f726acc817b23160fec51f92b813bf4679ecbd2/src/periodic.jl#L7-L42' class='documenter-source'>source</a><br></p>
 <p><a id='ChaosTools.lambdaperms' href='#ChaosTools.lambdaperms'>#</a>
 <strong><code>ChaosTools.lambdaperms</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>lambdaperms(D) -&gt; indperms, singperms
@@ -621,7 +622,7 @@
 
 
 <p>Return two collections that each contain all possible combinations of indices (total of <span><span class="MathJax_Preview">D!</span><script type="math/tex">D!</script></span>) and signs (total of <span><span class="MathJax_Preview">2^D</span><script type="math/tex">2^D</script></span>) for dimension <code>D</code> (see <a href="./#ChaosTools.lambdamatrix"><code>lambdamatrix</code></a>).</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/e28798177aaefd4a97d033ca26c620117483ee3b/src/periodic.jl#L64-L68' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/5f726acc817b23160fec51f92b813bf4679ecbd2/src/periodic.jl#L64-L68' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Standard-Map-example-1'></a></p>
 <h3 id="standard-map-example">Standard Map example</h3>
@@ -767,7 +768,7 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application.cae2244d.js"></script>
+      <script src="../../assets/javascripts/application.ce2ab4bf.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
       

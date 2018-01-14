@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.3.0">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.5.0">
     
     
       
@@ -40,7 +40,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.0e9c8aca.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.2a88008a.css">
       
         <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
       
@@ -61,11 +61,10 @@
     
   </head>
   
+  
     
     
-    
-      <body data-md-color-primary="deep-purple" data-md-color-accent="teal">
-    
+    <body dir="ltr" data-md-color-primary="deep-purple" data-md-color-accent="teal">
   
     <svg class="md-svg">
       <defs>
@@ -113,11 +112,13 @@
             
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="search"></label>
-  <div class="md-search__inner">
+  <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="search"></label>
-      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">&#xE5CD;</button>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -624,7 +625,7 @@
 <p>Only the first two fields of this type are displayed during print.</p>
 <p>As mentioned in our <a href="https://juliadynamics.github.io/DynamicalSystems.jl/latest/system_definition#example-using-functors">official documentation</a>, it is preferred to use Functors for both the equations of motion and the Jacobian.</p>
 <p>If the <code>jacob</code> is not provided by the user, it is created automatically using the module <a href="http://www.juliadiff.org/ForwardDiff.jl/stable/"><code>ForwardDiff</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/71b39100954b23356506a5bea62306740330a764/src/discrete.jl#L78-L103' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/ca4a2405590072e3fe38099586666fe5f6d3e0ec/src/discrete.jl#L78-L103' class='documenter-source'>source</a><br></p>
 <hr />
 <p>The source code of the pre-defined <a href="../definition/systems#DynamicalSystemsBase.Systems.coupledstandardmaps">coupled standard maps</a> can serve as an example of a <code>BigDiscreteDS</code> definition <em>(we do not show it here because it is very large</em>).</p>
 <p>Just keep in mind that the equations of motion for <code>BigDiscreteDS</code> are of the form <code>eom!(xnew, xold)</code>; in-place with the mutated argument <em>first</em>, in contrast to the continuous case. The same story goes for the Jacobian function!</p>
@@ -646,7 +647,7 @@
 </ul>
 <p>Only the first two fields of this type are displayed during print.</p>
 <p>If the <code>jacob</code> is not provided by the user, it is created automatically using the module <a href="http://www.juliadiff.org/ForwardDiff.jl/stable/"><code>ForwardDiff</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/71b39100954b23356506a5bea62306740330a764/src/discrete.jl#L11-L29' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/ca4a2405590072e3fe38099586666fe5f6d3e0ec/src/discrete.jl#L11-L29' class='documenter-source'>source</a><br></p>
 <hr />
 <div class="admonition note">
 <p class="admonition-title">Return form of the <code>eom</code> function</p>
@@ -739,7 +740,7 @@
 
 
 <div class="codehilite"><pre><span></span>1-dimensional discrete dynamical system:
-state: 0.7942176718967102
+state: 0.6897241211886405
 e.o.m.: ex-3.Logistic
 </pre></div>
 
@@ -822,7 +823,7 @@ e.o.m.: ex-3.Logistic
       
     </div>
     
-      <script src="../../assets/javascripts/application.cae2244d.js"></script>
+      <script src="../../assets/javascripts/application.ce2ab4bf.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
       
