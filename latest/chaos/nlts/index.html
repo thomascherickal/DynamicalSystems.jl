@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.5.0">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.5.1">
     
     
       
@@ -40,7 +40,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.2a88008a.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.aa3de92b.css">
       
         <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
       
@@ -77,6 +77,11 @@
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
     <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <a href="#nonlinear-timeseries-analysis" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid">
@@ -663,7 +668,7 @@
 
 <p><strong>References</strong></p>
 <p><code>neighborhood</code> simply interfaces the functions <code>knn</code> and <code>inrange</code> from <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a> by using the last argument, <code>method</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/5f726acc817b23160fec51f92b813bf4679ecbd2/src/delay_coords.jl#L44-L70' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/461ae518784517fa6385f390da5562d8a3b1fe82/src/delay_coords.jl#L44-L70' class='documenter-source'>source</a><br></p>
 <p><a id='ChaosTools.AbstractNeighborhood' href='#ChaosTools.AbstractNeighborhood'>#</a>
 <strong><code>ChaosTools.AbstractNeighborhood</code></strong> &mdash; <em>Type</em>.</p>
 <div class="codehilite"><pre><span></span>AbstractNeighborhood
@@ -678,7 +683,7 @@
 </ul>
 <p>Notice that these distances are always computed using the <code>Euclidean()</code> distance in <code>D</code>-dimensional space.</p>
 <p>See also <a href="./#ChaosTools.neighborhood"><code>neighborhood</code></a> or <a href="./#ChaosTools.numericallyapunov"><code>numericallyapunov</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/5f726acc817b23160fec51f92b813bf4679ecbd2/src/delay_coords.jl#L19-L33' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/461ae518784517fa6385f390da5562d8a3b1fe82/src/delay_coords.jl#L19-L33' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Delay-Coordinates-Reconstruction-1'></a></p>
 <h2 id="delay-coordinates-reconstruction">Delay Coordinates Reconstruction</h2>
@@ -782,7 +787,7 @@ E(k) \approx \lambda\Delta t k + E(0)
 <p><strong>References</strong></p>
 <p>[1] : Skokos, C. H. <em>et al.</em>, <em>Chaos Detection and Predictability</em> - Chapter 1 (section 1.3.2), Lecture Notes in Physics <strong>915</strong>, Springer (2016)</p>
 <p>[2] : Kantz, H., Phys. Lett. A <strong>185</strong>, pp 77–87 (1994)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/5f726acc817b23160fec51f92b813bf4679ecbd2/src/delay_coords.jl#L89-L157' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/461ae518784517fa6385f390da5562d8a3b1fe82/src/delay_coords.jl#L89-L157' class='documenter-source'>source</a><br></p>
 <hr />
 <p>The function <code>numericallyapunov</code> has a total of 4 different approaches for the algorithmic process, by combining 2 types of distances with 2 types of neighborhoods.</p>
 <p><a id='Example-of-Numerical-Lyapunov-computation-1'></a></p>
@@ -975,7 +980,7 @@ E(k) \approx \lambda\Delta t k + E(0)
       
     </div>
     
-      <script src="../../assets/javascripts/application.ce2ab4bf.js"></script>
+      <script src="../../assets/javascripts/application.ed2cc613.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
       
