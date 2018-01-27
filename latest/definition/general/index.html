@@ -547,14 +547,14 @@
                 
                   <h1>General Remarks</h1>
                 
-                <p>All core definitions for <strong>DynamicalSystems.jl</strong> are contained in the <a href="https://github.com/JuliaDynamics/DynamicalSystemsBase.jl">DynamicalSystemsBase.jl</a> Julia.</p>
+                <p>All core definitions for <strong>DynamicalSystems.jl</strong> are contained in <a href="https://github.com/JuliaDynamics/DynamicalSystemsBase.jl">DynamicalSystemsBase.jl</a>.</p>
 <p>For <strong>DynamicalSystems.jl</strong> a "dynamical system" is a simple structure with three fundamental parts:</p>
 <ol>
 <li>The state,</li>
-<li>The equations of motion and</li>
+<li>The equations of motion function and</li>
 <li>The Jacobian function.</li>
 </ol>
-<p>The last two are <em>functions</em> that take as an input a state as well as the parameters of the model. Depending on the type, some dynamical system types may also have other fields that are necessary for smooth integration in the ecosystem.</p>
+<p>The last two are <em>functions</em> that take as an input a state as well as the parameters of the model. Depending on the type, some dynamical system types may also have some other fields that are of minor importance.</p>
 <p>The above "definition" of course stands for systems where one already <em>knows</em> the equations of motion. if instead, your "system" is in the form of <a href="../definition/dataset">numerical data</a>, then see the appropriate section.</p>
 <div class="admonition info">
 <p class="admonition-title">Trajectory and Timeseries</p>
