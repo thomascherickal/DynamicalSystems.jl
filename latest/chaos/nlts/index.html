@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.5.1">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.5.3">
     
     
       
@@ -485,6 +485,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#broomhead-king-coordinates" title="Broomhead-King Coordinates" class="md-nav__link">
+    Broomhead-King Coordinates
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -628,6 +635,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#broomhead-king-coordinates" title="Broomhead-King Coordinates" class="md-nav__link">
+    Broomhead-King Coordinates
+  </a>
+  
+</li>
+      
       
       
     </ul>
@@ -649,7 +663,7 @@
 <h1 id="nonlinear-timeseries-analysis">Nonlinear Timeseries Analysis</h1>
 <p><a id='Neighborhoods-in-a-Dataset-1'></a></p>
 <h2 id="neighborhoods-in-a-dataset">Neighborhoods in a Dataset</h2>
-<p>Incorporating the excellent performance of <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a> and the flexibility of <code>AbstractDataset</code> allows us to define a function that calculates a "neighborhood" of a given point, i.e. other points near it. The different "types" of the neighborhoods are subtypes of <code>AbstractNeighborhood</code>.</p>
+<p>Combining the excellent performance of <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a> with the <code>AbstractDataset</code> allows us to define a function that calculates a "neighborhood" of a given point, i.e. finds other points near it. The different "types" of the neighborhoods are subtypes of <code>AbstractNeighborhood</code>.</p>
 <p><a id='ChaosTools.neighborhood' href='#ChaosTools.neighborhood'>#</a>
 <strong><code>ChaosTools.neighborhood</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>neighborhood(n, point, tree::KDTree, method::AbstractNeighborhood)
@@ -668,7 +682,7 @@
 
 <p><strong>References</strong></p>
 <p><code>neighborhood</code> simply interfaces the functions <code>knn</code> and <code>inrange</code> from <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a> by using the last argument, <code>method</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/461ae518784517fa6385f390da5562d8a3b1fe82/src/delay_coords.jl#L44-L70' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/bcbc4a693cbf738161ea3801bc13344187b529ae/src/delay_coords.jl#L40-L66' class='documenter-source'>source</a><br></p>
 <p><a id='ChaosTools.AbstractNeighborhood' href='#ChaosTools.AbstractNeighborhood'>#</a>
 <strong><code>ChaosTools.AbstractNeighborhood</code></strong> &mdash; <em>Type</em>.</p>
 <div class="codehilite"><pre><span></span>AbstractNeighborhood
@@ -683,7 +697,7 @@
 </ul>
 <p>Notice that these distances are always computed using the <code>Euclidean()</code> distance in <code>D</code>-dimensional space.</p>
 <p>See also <a href="./#ChaosTools.neighborhood"><code>neighborhood</code></a> or <a href="./#ChaosTools.numericallyapunov"><code>numericallyapunov</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/461ae518784517fa6385f390da5562d8a3b1fe82/src/delay_coords.jl#L19-L33' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/bcbc4a693cbf738161ea3801bc13344187b529ae/src/delay_coords.jl#L15-L29' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Delay-Coordinates-Reconstruction-1'></a></p>
 <h2 id="delay-coordinates-reconstruction">Delay Coordinates Reconstruction</h2>
@@ -721,38 +735,46 @@
 <p><strong>References</strong></p>
 <p>[1] : F. Takens, <em>Detecting Strange Attractors in Turbulence — Dynamical Systems and Turbulence</em>, Lecture Notes in Mathematics <strong>366</strong>, Springer (1981)</p>
 <p>[2] : T. Sauer <em>et al.</em>, J. Stat. Phys. <strong>65</strong>, pp 579 (1991)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/ca4a2405590072e3fe38099586666fe5f6d3e0ec/src/reconstruction.jl#L10-L45' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/69abc031d145a7541a98e48163be4e951efa4709/src/reconstruction.jl#L8-L43' class='documenter-source'>source</a><br></p>
 <hr />
-<p>As an example, let's pass a <code>Reconstruction</code> into e.g. a method that calculates the attractor dimension:</p>
-<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
-<span class="n">he</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">()</span>
-<span class="n">ts</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">he</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span>
-<span class="n">D1</span> <span class="o">=</span> <span class="n">information_dim</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span> <span class="c"># around 1.20</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">ts</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="c"># some &quot;recorded&quot; timeseries</span>
-<span class="n">R</span> <span class="o">=</span> <span class="n">Reconstruction</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c"># delay coords. reconstruction</span>
-<span class="n">R</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c"># first point of reconstruction, ≡ (x[1], x[2])</span>
-<span class="n">R</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="c"># Second COLUMN of the reconstruction, ≡ x[2:end] since τ=1</span>
-<span class="n">D2</span> <span class="o">=</span> <span class="n">information_dim</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="c">#around 1.20</span>
-<span class="n">println</span><span class="p">(</span><span class="s">&quot;D2 - D1 = </span><span class="si">$</span><span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="n">D2</span><span class="o">-</span> <span class="n">D1</span><span class="p">))</span><span class="s">&quot;</span><span class="p">)</span>
+<p>Here are some examples of <code>Reconstruction</code>s of a 3D continuous chaotic system:</p>
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span><span class="p">,</span> <span class="n">PyPlot</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">gissinger</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">)</span>
+
+<span class="n">xyz</span> <span class="o">=</span> <span class="n">columns</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="mi">3</span>
+    <span class="k">for</span> <span class="n">τ</span> <span class="kp">in</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">Reconstruction</span><span class="p">(</span><span class="n">xyz</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">2</span><span class="p">,</span> <span class="n">τ</span><span class="p">)</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">k</span><span class="p">)</span>
+        <span class="n">plot</span><span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">R</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&quot;C</span><span class="si">$</span><span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">)</span>
+        <span class="n">title</span><span class="p">(</span><span class="s">&quot;var = </span><span class="si">$i</span><span class="s">, τ = </span><span class="si">$τ</span><span class="s">&quot;</span><span class="p">)</span>
+        <span class="n">k</span><span class="o">+=</span><span class="mi">1</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">suptitle</span><span class="p">(</span><span class="s">&quot;2D Reconstructions&quot;</span><span class="p">)</span>
+<span class="n">subplots_adjust</span><span class="p">(</span><span class="n">top</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>D2 - D1 = 0.026898030902081205
-</pre></div>
-
-
-<p>The 2 numbers <code>D1</code> and <code>D2</code> are <em>very close</em>, but of course I knew before-hand good parameter values for <code>D</code> and <code>τ</code> (I cheated, huhu!).</p>
+<p><img alt="Example reconstructions" src="https://i.imgur.com/OZDBvu5.png" /></p>
 <p><a id='Estimating-Reconstruction-Parameters-1'></a></p>
 <h3 id="estimating-reconstruction-parameters">Estimating Reconstruction Parameters</h3>
-<p>The following functions estimate good values that can be used in <a href="./#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a>:</p>
-<p><a id='DynamicalSystemsBase.estimate_delay' href='#DynamicalSystemsBase.estimate_delay'>#</a>
-<strong><code>DynamicalSystemsBase.estimate_delay</code></strong> &mdash; <em>Function</em>.</p>
+<p>The following functions can (sometimes) estimate good values that can be used in <a href="./#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a>. There are no guarantees though!</p>
+<p><a id='ChaosTools.estimate_delay' href='#ChaosTools.estimate_delay'>#</a>
+<strong><code>ChaosTools.estimate_delay</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>estimate_delay(s) -&gt; τ
 </pre></div>
 
 
 <p>Estimate an optimal delay to be used in <a href="./#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a>, by performing an exponential fit to the <code>abs.(c)</code> with <code>c</code> the auto-correlation function of <code>s</code>. Return the exponential decay time <code>τ</code> rounded to an integer.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/ca4a2405590072e3fe38099586666fe5f6d3e0ec/src/reconstruction.jl#L138-L144' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/bcbc4a693cbf738161ea3801bc13344187b529ae/src/delay_coords.jl#L296-L302' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Numerical-Lyapunov-Exponent-1'></a></p>
 <h2 id="numerical-lyapunov-exponent">Numerical Lyapunov Exponent</h2>
@@ -787,7 +809,7 @@ E(k) \approx \lambda\Delta t k + E(0)
 <p><strong>References</strong></p>
 <p>[1] : Skokos, C. H. <em>et al.</em>, <em>Chaos Detection and Predictability</em> - Chapter 1 (section 1.3.2), Lecture Notes in Physics <strong>915</strong>, Springer (2016)</p>
 <p>[2] : Kantz, H., Phys. Lett. A <strong>185</strong>, pp 77–87 (1994)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/461ae518784517fa6385f390da5562d8a3b1fe82/src/delay_coords.jl#L89-L157' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/bcbc4a693cbf738161ea3801bc13344187b529ae/src/delay_coords.jl#L88-L153' class='documenter-source'>source</a><br></p>
 <hr />
 <p>The function <code>numericallyapunov</code> has a total of 4 different approaches for the algorithmic process, by combining 2 types of distances with 2 types of neighborhoods.</p>
 <p><a id='Example-of-Numerical-Lyapunov-computation-1'></a></p>
@@ -903,6 +925,75 @@ E(k) \approx \lambda\Delta t k + E(0)
 
 
 <p>which produces: <img alt="Continuous Reconstruction exaple" src="https://i.imgur.com/lgyGLDv.png" /> As you can see, using <code>τ = 15</code> makes almost no sense! The estimates with <code>τ = 7</code> though are very good (the actual value is around <code>λ ≈ 0.89...</code>).</p>
+<p><a id='Broomhead-King-Coordinates-1'></a></p>
+<h2 id="broomhead-king-coordinates">Broomhead-King Coordinates</h2>
+<p><a id='ChaosTools.broomhead_king' href='#ChaosTools.broomhead_king'>#</a>
+<strong><code>ChaosTools.broomhead_king</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>broomhead_king(x::AbstractVector, d::Int) -&gt; U, S, Vtr
+</pre></div>
+
+
+<p>Return the Broomhead-King coordinates of a timeseries <code>x</code> by performing <code>svd</code> on the so-called trajectory matrix with dimension <code>d</code>.</p>
+<p><strong>Description</strong></p>
+<p>Broomhead and King coordinates is a method proposed in [1] that applies the Karhunen–Loève theorem to delay coordinates embedding with smallest possible delay.</p>
+<p>The function performs singular value decomposition on the <code>d</code>-dimensional trajectory matrix <span><span class="MathJax_Preview">X</span><script type="math/tex">X</script></span> of <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span>,</p>
+<div>
+<div class="MathJax_Preview">
+X = \frac{1}{\sqrt{N}}\left(
+\begin{array}{cccc}
+x_1 &amp; x_2 &amp; \ldots &amp; x_d \\
+x_2 &amp; x_3 &amp; \ldots &amp; x_{d+1}\\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots \\
+x_{N-d+1} &amp; x_{N-d+2} &amp;\ldots &amp; x_N
+\end{array}
+\right) = U\cdot S \cdot V^{tr}.
+</div>
+<script type="math/tex; mode=display">
+X = \frac{1}{\sqrt{N}}\left(
+\begin{array}{cccc}
+x_1 & x_2 & \ldots & x_d \\
+x_2 & x_3 & \ldots & x_{d+1}\\
+\vdots & \vdots & \vdots & \vdots \\
+x_{N-d+1} & x_{N-d+2} &\ldots & x_N
+\end{array}
+\right) = U\cdot S \cdot V^{tr}.
+</script>
+</div>
+<p>The columns of <span><span class="MathJax_Preview">U</span><script type="math/tex">U</script></span> can then be used as a new coordinate system, and by considering the values of the singular values <span><span class="MathJax_Preview">S</span><script type="math/tex">S</script></span> you can decide how many columns of <span><span class="MathJax_Preview">U</span><script type="math/tex">U</script></span> are "important". See the documentation page for example application.</p>
+<p><strong>References</strong></p>
+<p>[1] :  D. S. Broomhead, R. Jones and G. P. King, J. Phys. A <strong>20</strong>, 9, pp L563 (1987)</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/bcbc4a693cbf738161ea3801bc13344187b529ae/src/delay_coords.jl#L340-L367' class='documenter-source'>source</a><br></p>
+<hr />
+<p>This alternative/improvement of the traditional delay coordinates can be a very powerful tool. An example where it shines is noisy data where there is the effect of superficial dimensions due to noise.</p>
+<p>Take the following example where we produce noisy data from a system and then use Broomhead-King coordinates as an alternative to "vanilla" delay coordinates:</p>
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span><span class="p">,</span> <span class="n">PyPlot</span>
+<span class="k">using</span> <span class="n">Distributions</span> <span class="c"># for random numbers</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">gissinger</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> 
+
+<span class="n">L</span> <span class="o">=</span> <span class="n">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">distrib</span> <span class="o">=</span> <span class="n">Normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">x</span> <span class="o">.+</span> <span class="n">rand</span><span class="p">(</span><span class="n">distrib</span><span class="p">,</span> <span class="n">L</span><span class="p">)</span>
+
+<span class="n">U</span><span class="p">,</span> <span class="n">S</span> <span class="o">=</span> <span class="n">broomhead_king</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+
+<span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">U</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">U</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">title</span><span class="p">(</span><span class="s">&quot;Broomhead-King of s&quot;</span><span class="p">)</span>
+
+<span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">Reconstruction</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">columns</span><span class="p">(</span><span class="n">R</span><span class="p">)</span><span class="o">...</span><span class="p">;</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&quot;C3&quot;</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s">&quot;2D Reconstruction of s&quot;</span><span class="p">)</span>
+
+<span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+
+
+<p><img alt="Broomhead-King example" src="https://i.imgur.com/xVWDjuh.png" /> we have used the same system as in the <a href="#Delay-Coordinates-Reconstruction">delay coordinates reconstruction</a> example, and picked the optimal delay time of <code>τ = 30</code>. Regardless, the vanilla delay coordinates fail spectacularly when compared with the Broomhead-King coordinates.</p>
                 
                   
                 
@@ -980,7 +1071,7 @@ E(k) \approx \lambda\Delta t k + E(0)
       
     </div>
     
-      <script src="../../assets/javascripts/application.ed2cc613.js"></script>
+      <script src="../../assets/javascripts/application.f041762f.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
       

@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.5.1">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.5.3">
     
     
       
@@ -627,8 +627,9 @@
 <p><a id='<a href="entropies">Entropies-and-Dimensions</a>-1'></a></p>
 <h3 id="entropies-and-dimensions"><a href="../entropies">Entropies and Dimensions</a></h3>
 <ol>
-<li>Generalized (Renyi) entropy and all related entropies: <a href="../entropies/#ChaosTools.genentropy"><code>genentropy</code></a>.</li>
-<li>Very fast and very cheap (memory-wise) method for computing entropies of large datasets.</li>
+<li>Generalized (Renyi) entropy: <a href="../entropies/#ChaosTools.genentropy"><code>genentropy</code></a>.</li>
+<li>Permutation entropy: <a href="../entropies/#ChaosTools.permentropy"><code>permentropy</code></a>.</li>
+<li>Fast and cheap (memory-wise) method for computing entropies of large datasets.</li>
 <li>Generalized dimensions (e.g. capacity dimension, information dimension, etc.): <a href="../entropies/#ChaosTools.generalized_dim"><code>generalized_dim</code></a>.</li>
 <li>Kaplan-Yorke dimension: <a href="../entropies/#ChaosTools.kaplanyorke_dim"><code>kaplanyorke_dim</code></a>.</li>
 <li>Automated detection of best algorithmic parameters for calculating attractor dimensions.</li>
@@ -643,6 +644,7 @@
 <ol>
 <li>Flexible and abstracted <a href="../nlts/#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a> interface, that creates the delay-coordinates reconstruction of a timeseries efficiently.</li>
 <li>Methods for estimating good <a href="../nlts/#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a> parameters.</li>
+<li>Broomhead-King coordinates: <a href="../nlts/#ChaosTools.broomhead_king"><code>broomhead_king</code></a>.</li>
 <li>
 <p>Four different algorithms for numerically determining the maximum Lyapunov exponent of a (e.g. experimentally) measured timeseries: <a href="../nlts/#ChaosTools.numericallyapunov"><code>numericallyapunov</code></a>.</p>
 <ul>
@@ -748,7 +750,7 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application.ed2cc613.js"></script>
+      <script src="../../assets/javascripts/application.f041762f.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
       

@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.5.1">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.5.3">
     
     
       
@@ -78,7 +78,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
     <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
     
-      <a href="#general-functions" tabindex="1" class="md-skip">
+      <a href="#definition-table" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -275,6 +275,13 @@
   
     <label class="md-nav__title" for="toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#definition-table" title="Definition Table" class="md-nav__link">
+    Definition Table
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#general-functions" title="General Functions" class="md-nav__link">
@@ -508,6 +515,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#definition-table" title="Definition Table" class="md-nav__link">
+    Definition Table
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#general-functions" title="General Functions" class="md-nav__link">
     General Functions
   </a>
@@ -533,15 +547,60 @@
                 
                   <h1>General Remarks</h1>
                 
-                <p>For <strong>DynamicalSystems.jl</strong> a "system" is simple a structure that contains the system's state, the equations of motion and the Jacobian. The last two are <em>functions</em> that take as an input a state. It is highly advised to create a <code>DynamicalSystem</code> using Functors (see below).</p>
-<p>The above of course stand for systems where one already <em>knows</em> the equations of motion. if instead, your "system" is in the form of <a href="../definition/dataset">numerical data</a>, then see the appropriate section.</p>
-<p>All core definitions in <strong>DynamicalSystems.jl</strong> are contained in the <a href="https://github.com/JuliaDynamics/DynamicalSystemsBase.jl">DynamicalSystemsBase.jl</a> Julia package and are necessarily required in every other package of this ecosystem. All system <code>sturct</code>s are also a subtype of the abstract type <code>DynamicalSystem</code>.</p>
+                <p>All core definitions for <strong>DynamicalSystems.jl</strong> are contained in the <a href="https://github.com/JuliaDynamics/DynamicalSystemsBase.jl">DynamicalSystemsBase.jl</a> Julia.</p>
+<p>For <strong>DynamicalSystems.jl</strong> a "dynamical system" is a simple structure with three fundamental parts:</p>
+<ol>
+<li>The state,</li>
+<li>The equations of motion and</li>
+<li>The Jacobian function.</li>
+</ol>
+<p>The last two are <em>functions</em> that take as an input a state as well as the parameters of the model. Depending on the type, some dynamical system types may also have other fields that are necessary for smooth integration in the ecosystem.</p>
+<p>The above "definition" of course stands for systems where one already <em>knows</em> the equations of motion. if instead, your "system" is in the form of <a href="../definition/dataset">numerical data</a>, then see the appropriate section.</p>
 <div class="admonition info">
 <p class="admonition-title">Trajectory and Timeseries</p>
 <p>The word "timeseries" can be very confusing, because it can mean a univariate (also called scalar or one-dimensional) timeseries or a multivariate (also called multi-dimensional) timeseries. To resolve this confusion, in <strong>DynamicalSystems.jl</strong> we have the following convention: <strong>"timeseries"</strong> always refers to a one-dimensional vector of numbers, which exists with respect to some other one-dimensional vector of numbers that corresponds to a time-vector. On the other hand, the word <strong>"trajectory"</strong> is used to refer to a <em>multi-dimensional</em> timeseries, which is of course simply a group/set of one-dimensional timeseries.</p>
 <p>Note that the data representation of a "trajectory" in Julia may vary: from a 2D Matrix to independent Vectors. In our package, a trajectory is always represented using a <a href="../dataset/#DynamicalSystemsBase.Dataset"><code>Dataset</code></a>, which is a <code>Vector</code> of <code>SVector</code>s, and each <code>SVector</code> represents a data-point (the values of the variables at a given time-point).</p>
 </div>
 <hr />
+<p><a id='Definition-Table-1'></a></p>
+<h2 id="definition-table">Definition Table</h2>
+<p>Here is a handy table that summarizes in what form should be the functions required for the equations of motion and the Jacobian, for each system type:</p>
+<table>
+<thead>
+<tr>
+<th align="center">System Type</th>
+<th align="center">Equations of Motion</th>
+<th align="center">Jacobian</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><code>ContinuousDS</code></td>
+<td align="center"><code>eom!(du, u, p, t)</code></td>
+<td align="center"><code>jacob!(J, u, p, t)</code></td>
+</tr>
+<tr>
+<td align="center"><code>BigDiscreteDS</code></td>
+<td align="center"><code>eom!(xnew, x, p)</code></td>
+<td align="center"><code>jacob!(J, x, p)</code></td>
+</tr>
+<tr>
+<td align="center"><code>DiscreteDS</code></td>
+<td align="center"><code>eom(x, p) -&gt; SVector</code></td>
+<td align="center"><code>jacob(x, p) -&gt; SMatrix</code></td>
+</tr>
+<tr>
+<td align="center"><code>DiscreteDS1D</code></td>
+<td align="center"><code>eom(x, p) -&gt; Number</code></td>
+<td align="center"><code>deriv(x, p) -&gt; Number</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Use mutable containers for the parameters</p>
+<p>It is highly suggested to use a subtype of <code>Array</code> or <a href="https://github.com/JuliaDiffEq/LabelledArrays.jl"><code>LMArray</code></a> for the container of the model's parameters. Some functions offered by <strong>DynamicalSystems.jl</strong>, like e.g. <a href="../../chaos/orbitdiagram/#ChaosTools.orbitdiagram"><code>orbitdiagram</code></a>, assume that the parameters can be first accessed by <code>p[x]</code> with <code>x</code> some qualifier as well as that this value can be set by <code>p[x] = newvalue</code>.</p>
+<p>The <a href="https://github.com/JuliaDiffEq/LabelledArrays.jl">Labelled Arrays</a> package offers <code>Array</code> implementations that can be accessed both by index as well as by some name.</p>
+</div>
 <p><a id='General-Functions-1'></a></p>
 <h2 id="general-functions">General Functions</h2>
 <p>The following functions are defined for convenience for any dynamical system:</p>
@@ -551,8 +610,8 @@
 </pre></div>
 
 
-<p>Return the dimension of the system</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/ca4a2405590072e3fe38099586666fe5f6d3e0ec/src/discrete.jl#L129-L132' class='documenter-source'>source</a><br></p>
+<p>Return the dimension of the system.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/69abc031d145a7541a98e48163be4e951efa4709/src/discrete.jl#L75-L78' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.state' href='#DynamicalSystemsBase.state'>#</a>
 <strong><code>DynamicalSystemsBase.state</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>state(ds::DynamicalSystem) -&gt; u
@@ -560,16 +619,23 @@
 
 
 <p>Return the state of the system.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/ca4a2405590072e3fe38099586666fe5f6d3e0ec/src/discrete.jl#L146-L149' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/69abc031d145a7541a98e48163be4e951efa4709/src/discrete.jl#L83-L86' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.jacobian' href='#DynamicalSystemsBase.jacobian'>#</a>
 <strong><code>DynamicalSystemsBase.jacobian</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>jacobian(ds::DynamicalSystem, t = 0) -&gt; J
+<div class="codehilite"><pre><span></span>jacobian(ds::DynamicalSystem) -&gt; J
 </pre></div>
 
 
-<p>Return the Jacobian matrix of the equations of motion at the system's state.</p>
-<p>The argument <code>t</code> is valid only for continuous systems.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/ca4a2405590072e3fe38099586666fe5f6d3e0ec/src/discrete.jl#L137-L142' class='documenter-source'>source</a><br></p>
+<p>Return the Jacobian matrix of the equations of motion at the system's current state and parameters.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/69abc031d145a7541a98e48163be4e951efa4709/src/discrete.jl#L194-L198' class='documenter-source'>source</a><br></p>
+<p><a id='DynamicalSystemsBase.set_state!' href='#DynamicalSystemsBase.set_state!'>#</a>
+<strong><code>DynamicalSystemsBase.set_state!</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>set_state!(ds::DynamicalSystem, newstate)
+</pre></div>
+
+
+<p>Set the state of the system to <code>newstate</code>.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/69abc031d145a7541a98e48163be4e951efa4709/src/discrete.jl#L69-L72' class='documenter-source'>source</a><br></p>
                 
                   
                 
@@ -647,7 +713,7 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application.ed2cc613.js"></script>
+      <script src="../../assets/javascripts/application.f041762f.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
       
