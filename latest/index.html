@@ -279,6 +279,19 @@
     Installation
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#low-dependency-usage" title="Low Dependency usage" class="md-nav__link">
+    Low Dependency usage
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -351,8 +364,32 @@
 
 
   <li class="md-nav__item">
-    <a href="definition/general/" title="Dynamical Systems" class="md-nav__link">
-      Dynamical Systems
+    <a href="definition/general/" title="General Remarks" class="md-nav__link">
+      General Remarks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="definition/continuous/" title="Continuous Systems" class="md-nav__link">
+      Continuous Systems
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="definition/discrete/" title="Discrete Systems" class="md-nav__link">
+      Discrete Systems
     </a>
   </li>
 
@@ -524,32 +561,8 @@
 
 
   <li class="md-nav__item">
-    <a href="advanced/" title="Advanced Documentation" class="md-nav__link">
-      Advanced Documentation
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
     <a href="contributors_guide/" title="Contributor Guide" class="md-nav__link">
       Contributor Guide
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="news/" title="News" class="md-nav__link">
-      News
     </a>
   </li>
 
@@ -585,6 +598,19 @@
   <a href="#installation" title="Installation" class="md-nav__link">
     Installation
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#low-dependency-usage" title="Low Dependency usage" class="md-nav__link">
+    Low Dependency usage
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -657,11 +683,9 @@
 </pre></div>
 
 
-<p>See the <a href="./news">News</a> page for recent updates!</p>
 <p><a id='Our-Goals-1'></a></p>
 <h2 id="our-goals">Our Goals</h2>
-<p>The ultimate goal for <strong>DynamicalSystems.jl</strong> is to be a useful <em>library</em> for scientists working on chaos, nonlinear dynamics and in general dynamical systems. We don't want to have "just code", but also detailed descriptions and references for as many methods as possible.</p>
-<p>With <strong>DynamicalSystems.jl</strong> we try to</p>
+<p>Our aim is for the <strong>DynamicalSystems.jl</strong> to be a useful and powerful companion for students and scientists working on chaos and nonlinear dynamics, by accomplishing the following three points:</p>
 <ol>
 <li>Be concise, intuitive, and general. All functions we offer work just as well with any system, whether it is a simple continuous chaotic system, like the <a href="./definition/predefined/#DynamicalSystemsBase.Systems.lorenz">Lorenz attractor</a>, or a high dimensional discrete map like <a href="./definition/predefined/#DynamicalSystemsBase.Systems.coupledstandardmaps">coupled standard maps</a>.</li>
 <li>Be accurate, reliable and performant.</li>
@@ -676,23 +700,22 @@
 <p><a id='Installation-1'></a></p>
 <h2 id="installation">Installation</h2>
 <p>Simply use <code>Pkg.add("DynamicalSystems")</code> to install <em>everything</em>.</p>
+<p><a id='Low-Dependency-usage-1'></a></p>
+<h3 id="low-dependency-usage">Low Dependency usage</h3>
+<p>By running <code>Pkg.add("DynamicalSystems")</code> you install all packages of the ecosystem. That is not necessary however, since <strong>DynamicalSystems.jl</strong> is a bridging package that exports everything and hosts the documentation.</p>
+<p>For example, if you only need the features of <a href="./chaos/overview">ChaosTools.jl</a> then you can get away by doing only <code>Pkg.add("ChaosTools")</code> and all other dependencies will be resolved accordingly.</p>
 <p><a id='Contents-1'></a></p>
 <h2 id="contents">Contents</h2>
 <p><a id='<a href="definition/general">DynamicalSystemsBase.jl</a>-1'></a></p>
 <h3 id="dynamicalsystemsbasejl"><a href="./definition/general">DynamicalSystemsBase.jl</a></h3>
 <ol>
-<li>
-<p>Intuitive, consistent APIs for the definition of general <a href="./definition/general">dynamical systems</a>, both maps and flows. In fact we have implementations for 8 possible dynamical systems:</p>
-<ul>
-<li>Continuous or Discrete.</li>
-<li>In-place or out-of-place (large versus small systems).</li>
-<li>Auto-differentiated or not (for the Jacobian function).</li>
-<li>Dedicated interface for <a href="./definition/dataset">numerical data</a>.</li>
+<li>Intuitive, consistent APIs for the definition of general dynamical systems.</li>
+<li><a href="./definition/discrete">Discrete Maps</a></li>
+<li><a href="./definition/continuous">Continuous Flows</a></li>
+<li>Dedicated interface for <a href="./definition/dataset">Numerical Data</a></li>
 <li>Automatic "completion" of the dynamics of the system with numerically computed Jacobians, in case they are not provided by the user.</li>
-<li>Robust implementations of all kinds of integrators, that evolve the system, many states of the system, or even deviation vectors. See the <a href="./advanced">advanced documentation</a> for this.</li>
+<li>Well-defined functions for (numerically) evolving dynamical systems.</li>
 <li>Library of <a href="./definition/predefined">predefined well-known dynamical systems</a> that have been used extensively in scientific research.</li>
-</ul>
-</li>
 </ol>
 <p><a id='<a href="chaos/overview">ChaosTools.jl</a>-1'></a></p>
 <h3 id="chaostoolsjl"><a href="./chaos/overview">ChaosTools.jl</a></h3>
@@ -734,13 +757,13 @@
       <nav class="md-footer-nav__inner md-grid">
         
         
-          <a href="definition/general/" title="Dynamical Systems" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="definition/general/" title="General Remarks" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Dynamical Systems
+                General Remarks
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

@@ -274,8 +274,32 @@
 
 
   <li class="md-nav__item">
-    <a href="../general/" title="Dynamical Systems" class="md-nav__link">
-      Dynamical Systems
+    <a href="../general/" title="General Remarks" class="md-nav__link">
+      General Remarks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../continuous/" title="Continuous Systems" class="md-nav__link">
+      Continuous Systems
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../discrete/" title="Discrete Systems" class="md-nav__link">
+      Discrete Systems
     </a>
   </li>
 
@@ -485,32 +509,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../advanced/" title="Advanced Documentation" class="md-nav__link">
-      Advanced Documentation
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
     <a href="../../contributors_guide/" title="Contributor Guide" class="md-nav__link">
       Contributor Guide
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../../news/" title="News" class="md-nav__link">
-      News
     </a>
   </li>
 
@@ -563,28 +563,17 @@
                 
                 <p><a id='Time-Evolution-of-Systems-1'></a></p>
 <h1 id="time-evolution-of-systems">Time Evolution of Systems</h1>
-<div class="admonition info">
-<p class="admonition-title">Trajectory and Timeseries</p>
-<p>The word "timeseries" can be confusing, because it can mean a univariate (also called scalar or one-dimensional) timeseries or a multivariate (also called multi-dimensional) timeseries. To resolve this confusion, in <strong>DynamicalSystems.jl</strong> we have the following convention: <strong>"timeseries"</strong> always refers to a one-dimensional vector of numbers, which exists with respect to some other one-dimensional vector of numbers that corresponds to a time-vector. On the other hand, the word <strong>"trajectory"</strong> is used to refer to a <em>multi-dimensional</em> timeseries, which is of course simply a group/set of one-dimensional timeseries.</p>
-<p>Note that the data representation of a "trajectory" in Julia may vary: from a 2D Matrix to independent Vectors. In our package, a trajectory is always represented using a <a href="../dataset/#DynamicalSystemsBase.Dataset"><code>Dataset</code></a>, which is a <code>Vector</code> of <code>SVector</code>s, and each <code>SVector</code> represents a data-point (the values of the variables at a given time-point).</p>
-</div>
-<p><strong>DynamicalSystems.jl</strong> provides a convenient function for getting a trajectory of a system at equally spaced time points:</p>
-<p><a id='DynamicalSystemsBase.trajectory' href='#DynamicalSystemsBase.trajectory'>#</a>
-<strong><code>DynamicalSystemsBase.trajectory</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="nt">trajectory</span><span class="o">(</span><span class="nt">ds</span><span class="p">::</span><span class="nd">DynamicalSystem</span><span class="o">,</span> <span class="nt">T</span> <span class="cp">[</span><span class="p">,</span> <span class="nx">u</span><span class="cp">]</span><span class="o">;</span> <span class="nt">kwargs</span><span class="o">...)</span> <span class="nt">-</span><span class="o">&gt;</span> <span class="nt">dataset</span>
+<p><strong>DynamicalSystems.jl</strong> provides convenient interfaces for the evolution of systems.</p>
+<div class="codehilite"><pre><span></span>evolve
+evolve!
+trajectory
+get_sol
+ODEProblem
 </pre></div>
 
 
-<p>Return a dataset what will contain the trajectory of the sytem, after evolving it for total time <code>T</code>, optionally starting from state <code>u</code>. See <a href="../dataset/#DynamicalSystemsBase.Dataset"><code>Dataset</code></a> for info on how to manipulate this object.</p>
-<p>For the discrete case, <code>T</code> is an integer and a <code>T×D</code> dataset is returned (<code>D</code> is the system dimensionality). For the continuous case, a <code>W×D</code> dataset is returned, with <code>W = length(t0:dt:T)</code> with <code>t0:dt:T</code> representing the time vector (<em>not</em> returned).</p>
-<p><strong>Keyword Arguments</strong></p>
-<ul>
-<li><code>dt</code> :  Time step of value output during the solving of the continuous system. For discrete systems it must be an integer. Defaults to <code>0.01</code> for continuous and <code>1</code> for discrete.</li>
-<li><code>diff_eq_kwargs</code> : (only for continuous) A dictionary <code>Dict{Symbol, ANY}</code> of keyword arguments passed into the solvers of the <a href="http://docs.juliadiffeq.org/latest/basics/common_solver_opts.html">DifferentialEquations.jl</a> package, for example <code>Dict(:abstol =&gt; 1e-9)</code>. If you want to specify a solver, do so by using the symbol <code>:solver</code>, e.g.: <code>Dict(:solver =&gt; DP5(), :maxiters =&gt; 1e9)</code>. This requires you to have been first <code>using OrdinaryDiffEq</code> to access the solvers. Defaults to <code>Dict(:solver =&gt; Vern9(), :abstol =&gt; 1e-9, :reltol =&gt; 1e-9)</code>.</li>
-</ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6a015f7af674daa0c44aadf0b93ef42ed6549274/src/dynamicalsystem/dynamicalsystem.jl#L384-L409' class='documenter-source'>source</a><br></p>
 <hr />
-<p>Notice that if you want to do repeated evolutions of different states of a continuous system, you should use the <a href="../../advanced/#DynamicalSystemsBase.integrator"><code>integrator</code></a> interface instead.</p>
+<p>Notice that if you want to do repeated evolutions of different states of a continuous system, you should use the <code>DiffEqBase.ODEIntegrator</code> in conjunction with <code>DiffEqBase.reinit!(integrator, newstate)</code> to avoid the intermediate initializations of the integrator each time.</p>
 <p><a id='Solution-precision-for-continuous-systems-1'></a></p>
 <h2 id="solution-precision-for-continuous-systems">Solution precision for continuous systems</h2>
 <p>A numerical solution of an ODE is not the "true" solution, uniquely defined by a (well-defined) ODE and an initial condition. Especially for chaotic systems, where deviations are amplified exponentially, one is left worried if the numerical solutions truly are part of the system and can truly give insight in understanding the system.</p>
@@ -613,7 +602,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../general/" title="Dynamical Systems" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../discrete/" title="Discrete Systems" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -622,7 +611,7 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Dynamical Systems
+                Discrete Systems
               </span>
             </div>
           </a>

@@ -272,8 +272,32 @@
 
 
   <li class="md-nav__item">
-    <a href="../definition/general/" title="Dynamical Systems" class="md-nav__link">
-      Dynamical Systems
+    <a href="../definition/general/" title="General Remarks" class="md-nav__link">
+      General Remarks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../definition/continuous/" title="Continuous Systems" class="md-nav__link">
+      Continuous Systems
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../definition/discrete/" title="Discrete Systems" class="md-nav__link">
+      Discrete Systems
     </a>
   </li>
 
@@ -443,18 +467,6 @@
       
       
 
-
-  <li class="md-nav__item">
-    <a href="../advanced/" title="Advanced Documentation" class="md-nav__link">
-      Advanced Documentation
-    </a>
-  </li>
-
-    
-      
-      
-      
-
   
 
 
@@ -484,8 +496,29 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#contributing-code" title="Contributing Code" class="md-nav__link">
-    Contributing Code
+  <a href="#reporting-bugs-and-other-issues" title="Reporting Bugs and other Issues" class="md-nav__link">
+    Reporting Bugs and other Issues
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing-new-methods-and-algorithms" title="Contributing New Methods and Algorithms" class="md-nav__link">
+    Contributing New Methods and Algorithms
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples-of-new-things-you-could-contribute" title="Examples of new things you could contribute" class="md-nav__link">
+    Examples of new things you could contribute
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-you-should-contribute-code" title="How you should contribute code" class="md-nav__link">
+    How you should contribute code
   </a>
   
 </li>
@@ -498,18 +531,6 @@
   
 </nav>
     
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../news/" title="News" class="md-nav__link">
-      News
-    </a>
   </li>
 
     
@@ -534,8 +555,29 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#contributing-code" title="Contributing Code" class="md-nav__link">
-    Contributing Code
+  <a href="#reporting-bugs-and-other-issues" title="Reporting Bugs and other Issues" class="md-nav__link">
+    Reporting Bugs and other Issues
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing-new-methods-and-algorithms" title="Contributing New Methods and Algorithms" class="md-nav__link">
+    Contributing New Methods and Algorithms
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples-of-new-things-you-could-contribute" title="Examples of new things you could contribute" class="md-nav__link">
+    Examples of new things you could contribute
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-you-should-contribute-code" title="How you should contribute code" class="md-nav__link">
+    How you should contribute code
   </a>
   
 </li>
@@ -561,24 +603,42 @@
                 
                 <p><a id='Contributor-Guide-1'></a></p>
 <h1 id="contributor-guide">Contributor Guide</h1>
-<p>The ultimate goal for <strong>DynamicalSystems.jl</strong> is to be a useful <em>library</em> for scientists working on chaos, nonlinear dynamics and in general dynamical systems. We don't want to have "just code", but also detailed descriptions and references for as many methods as possible.</p>
-<p>For this to be achieved, many of us should try to work together to improve the library!</p>
-<p>If you want to help the cause, there are many ways to contribute to the <strong>DynamicalSystems.jl</strong> suite:</p>
+<p><em>You can contribute to this package even if you not are very good with coding with Julia.</em></p>
+<p><a id='Reporting-Bugs-and-other-Issues-1'></a></p>
+<h2 id="reporting-bugs-and-other-issues">Reporting Bugs and other Issues</h2>
+<p>The easiest and most common way to improve this package is simply by <em>using it</em> and reporting any unexpected behavior! You can use the <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/issues">DynamicalSystems.jl Issues</a> page or, if you think it is something minor not worth opening an issue, just come over to our <a href="../(https://gitter.im/JuliaDynamics/Lobby)">gitter chatroom</a> and let us know what the problem is.</p>
+<p><a id='Contributing-New-Methods-and-Algorithms-1'></a></p>
+<h2 id="contributing-new-methods-and-algorithms">Contributing New Methods and Algorithms</h2>
+<p>The ultimate goal for DynamicalSystems.jl is to be a useful tool for scientists working on chaos, nonlinear dynamics and in general dynamical systems.</p>
+<p>For such a feat to be accomplished, many different methods across this interdisciplinary field have to be not only implemented but suggested in the first place!</p>
+<p>For a something to be implemented in this package, the following steps have to happen:</p>
 <ol>
-<li>Just <em>use it</em>. If you encountered unexpected behavior simply report it either on our <a href="https://gitter.im/JuliaDynamics/Lobby">gitter chatroom</a> or using the <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/issues">DynamicalSystems.jl Issues</a> page.</li>
-<li>Suggest methods that you think should be included in our library. This should be done by opening a new issue that describes the method, gives referencens to papers using the method and also justifies why the method should be included.</li>
-<li>Contribute code by solving issues. Visit the GitHub pages of the individual packages to see a list of open issues, like for example for <a href="https://github.com/JuliaDynamics/ChaosTools.jl">ChaosTools</a>.</li>
-<li>Contribute code by implementing new methods! That is the most <strong>awesome</strong> way to contribute!</li>
-<li>Contribute code by defining a new pre-defined dynamical system that you found useful.</li>
+<li><em>A suggestion that a method should be included</em> has to be brought upon notice of the developers. Since the current amount of developers actively maintaining the package is small, so is the amount of knowledge of important methods.</li>
+<li>An algorithm that describes how the method will be implemented has to be formulated. This algorithm most probably already exist in the papers that first introduce the method, however it may not be trivial to transform this algorithm from a mathematical abstraction to something realistic and applicable in a computational manner.</li>
+<li>The source code for the above has to be implemented in Julia. In general, the speed of the implementation is important, but not as important as the <strong>reliability of the implementation</strong>.</li>
 </ol>
-<p><a id='Contributing-Code-1'></a></p>
-<h2 id="contributing-code">Contributing Code</h2>
-<p>When contributing code, you should keep these things in mind:</p>
+<p>It is clear that one can contribute to <code>DynamicalSystems.jl</code> by contributing in steps (1) and (2). Neither of those require any hardcore coding knowledge with Julia.</p>
+<p>For step (1), you can open a new issue at the <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/issues">DynamicalSystems.jl Issues</a> page. All issues that refer methods that we would want to have in our package are labeled as "wanted_feature". You can view the current wanted features <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/issues?utf8=%E2%9C%93&amp;q=is%3Aissue%20is%3Aopen%20label%3Awanted_feature">here</a> and see for yourself if you can contribute to some of them!</p>
+<p>If you have any idea about how to improve this package please do not hesitate to <a href="https://gitter.im/JuliaDynamics/Lobby">join our chatroom</a> and share your ideas!</p>
+<p><a id='Examples-of-new-things-you-could-contribute-1'></a></p>
+<h2 id="examples-of-new-things-you-could-contribute">Examples of new things you could contribute</h2>
 <ul>
-<li>In general, the speed of the implementation is important, but not as important as the <strong>reliability of the implementation</strong>. One of cornerstones of all of <strong>DynamicalSystems.jl</strong> is to have clear and readable source code. Fortunately, Julia allows you to have perfectly readable code but also super fast ;)</li>
+<li>Any method that calculates a quantity that has been used in at least one scientific (and peer-reviewed) journal.</li>
+<li>Any kind of new <strong>Type</strong> of Dynamical system, provided it is also used in research. If you do want to make something like this, please make it a subtype of <code>DynamicalSystem</code>. I have created the discrete and continuous general types, but more specialized types would allow for specialized methods.</li>
+<li>Any kind of existing discrete or continuous system that have been used in published literature at least once and you find it useful (put this in the <code>famous_systems.jl</code> file).</li>
+</ul>
+<p>Notice that the above are not conclusive, but only examples!</p>
+<p><a id='How-you-should-contribute-**code**-1'></a></p>
+<h2 id="how-you-should-contribute-code">How you should contribute <strong>code</strong></h2>
+<p>Code should be contributed to the appropriate repository, e.g. <a href="https://github.com/JuliaDynamics/DynamicalSystemsBase.jl">DynamicalSystemsBase.jl</a>, <a href="https://github.com/JuliaDynamics/ChaosTools.jl">ChaosTools.jl</a> etc.. Recall that the repository of DynamicalSystems.jl is mainly a documentation host.</p>
+<ul>
 <li>For new methods and systems please follow the convention of the documentation strings (do e.g. <code>?lyapunov</code> to see how they are structured).</li>
 <li>Have enough comments in your code so that somebody that knows the method, can also understand the code immediately.</li>
-<li>Always have a reference to the original work that introduces the method or the system that you are using. You should put this reference to the main function's documentation string. See the existing documentation strings and do it in an identical manner.</li>
+<li>Always have a reference to the original work that first introduces the method or the system that you are using. You should put this reference to the main function's documentation string. See the existing documentation strings and do it in an identical manner.</li>
+</ul>
+<p>When enhancing already existing code, make sure to:</p>
+<ul>
+<li>Have enough comments at parts that are not easily understood, so that somebody else may continue your work in the future.</li>
 </ul>
                 
                   
@@ -598,7 +658,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../advanced/" title="Advanced Documentation" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../chaos/visualization/" title="Visualization" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -607,25 +667,11 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Advanced Documentation
+                Visualization
               </span>
             </div>
           </a>
         
-        
-          <a href="../news/" title="News" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                News
-              </span>
-            </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
-          </a>
         
       </nav>
     </div>

@@ -18,6 +18,18 @@
     </url>
         
     <url>
+     <loc>/definition/continuous/</loc>
+     <lastmod>2018-02-20</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/definition/discrete/</loc>
+     <lastmod>2018-02-20</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
      <loc>/definition/evolve/</loc>
      <lastmod>2018-02-20</lastmod>
      <changefreq>daily</changefreq>
@@ -91,23 +103,7 @@
 
     
     <url>
-     <loc>/advanced/</loc>
-     <lastmod>2018-02-20</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    
-
-    
-    <url>
      <loc>/contributors_guide/</loc>
-     <lastmod>2018-02-20</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    
-
-    
-    <url>
-     <loc>/news/</loc>
      <lastmod>2018-02-20</lastmod>
      <changefreq>daily</changefreq>
     </url>

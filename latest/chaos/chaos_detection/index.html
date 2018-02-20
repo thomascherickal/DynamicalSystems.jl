@@ -272,8 +272,32 @@
 
 
   <li class="md-nav__item">
-    <a href="../../definition/general/" title="Dynamical Systems" class="md-nav__link">
-      Dynamical Systems
+    <a href="../../definition/general/" title="General Remarks" class="md-nav__link">
+      General Remarks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../definition/continuous/" title="Continuous Systems" class="md-nav__link">
+      Continuous Systems
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../definition/discrete/" title="Discrete Systems" class="md-nav__link">
+      Discrete Systems
     </a>
   </li>
 
@@ -512,32 +536,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../advanced/" title="Advanced Documentation" class="md-nav__link">
-      Advanced Documentation
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
     <a href="../../contributors_guide/" title="Contributor Guide" class="md-nav__link">
       Contributor Guide
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../../news/" title="News" class="md-nav__link">
-      News
     </a>
   </li>
 
@@ -673,7 +673,7 @@
 <p>Traditionally, if <span><span class="MathJax_Preview">\text{GALI}_k(t)</span><script type="math/tex">\text{GALI}_k(t)</script></span> does not become less than the <code>threshold</code> until <code>tmax</code> the given orbit is said to be chaotic, otherwise it is regular.</p>
 <p>Our implementation is not based on the original paper, but rather in the method described in [2], which uses the product of the singular values of <span><span class="MathJax_Preview">A</span><script type="math/tex">A</script></span>, a matrix that has as <em>columns</em> the deviation vectors.</p>
 <p><strong>Performance Notes</strong></p>
-<p>This function uses a <a href="../../advanced/#DynamicalSystemsBase.tangent_integrator"><code>tangent_integrator</code></a>. For loops over initial conditions and/or parameter values one should use the lower level methods that accept an integrator, and <code>reinit!</code> it to new initial conditions.</p>
+<p>This function uses a <a href="../@ref"><code>tangent_integrator</code></a>. For loops over initial conditions and/or parameter values one should use the lower level methods that accept an integrator, and <code>reinit!</code> it to new initial conditions.</p>
 <p>See the "advanced documentation" for info on the integrator object and use <code>@which ...</code> to go to the source code for the low-level call signature.</p>
 <p><strong>References</strong></p>
 <p>[1] : Skokos, C. H. <em>et al.</em>, Physica D <strong>231</strong>, pp 30–54 (2007)</p>
@@ -743,7 +743,7 @@
 <h3 id="continuous-example">Continuous Example</h3>
 <p>As an example of a continuous system, let's see the <a href="../system_definition/#DynamicalSystems.Systems.henonhelies"><code>henonhelies</code></a>:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
-<span class="k">using</span> <span class="n">PyPlot</span><span class="p">,</span> <span class="n">OrdinaryDiffEq</span>
+<span class="k">using</span> <span class="n">PyPlot</span>
 <span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
 <span class="n">sp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">295456</span><span class="p">,</span> <span class="o">.</span><span class="mi">407308431</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="c">#stable periodic orbit: 1D torus</span>
 <span class="n">qp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">483000</span><span class="p">,</span> <span class="o">.</span><span class="mi">278980390</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="c">#quasiperiodic orbit: 2D torus</span>
@@ -811,35 +811,25 @@
 <p><img alt="GALI Continuous" src="https://i.imgur.com/VJE6MpC.png" /> As you can see, the results of both discrete and continuous match very well the theory described in <a href="./#ChaosTools.gali"><code>gali</code></a>.</p>
 <p><a id='Using-GALI-1'></a></p>
 <h3 id="using-gali">Using GALI</h3>
-<p>No-one in their right mind would try to fit power-laws in order to distinguish between chaotic and regular behavior, like the above examples. These were just demonstrations and proofs that the method works as expected in all cases.</p>
+<p>No-one in their right mind would try to fit power-laws in order to distinguish between chaotic and regular behavior, like the above examples. These were just demonstrations.</p>
 <p>The most common usage of <span><span class="MathJax_Preview">\text{GALI}_k</span><script type="math/tex">\text{GALI}_k</script></span> is to define a (sufficiently) small amount of time and a (sufficiently) small threshold and see whether <span><span class="MathJax_Preview">\text{GALI}_k</span><script type="math/tex">\text{GALI}_k</script></span> stays below it, for a (sufficiently) big <span><span class="MathJax_Preview">k</span><script type="math/tex">k</script></span>.</p>
-<p>The following is an example of <a href="../advanced">advanced usage</a>:</p>
+<p>For example one could do</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
-<span class="k">using</span> <span class="n">PyPlot</span><span class="p">,</span> <span class="n">StaticArrays</span>
+<span class="k">using</span> <span class="n">PyPlot</span>
+
+<span class="n">chaoticness</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span> <span class="o">=</span> <span class="n">gali</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">500.0</span><span class="p">)[</span><span class="mi">2</span><span class="p">][</span><span class="k">end</span><span class="p">]</span>
 
 <span class="k">function</span> <span class="n">main</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 
-    <span class="c"># Measure of chaoticity: final time of gali_2</span>
     <span class="n">dens</span> <span class="o">=</span> <span class="mi">201</span>
-    <span class="n">chaoticity</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="kt">Int</span><span class="p">,</span> <span class="n">dens</span><span class="p">,</span> <span class="n">dens</span><span class="p">)</span>
-
+    <span class="n">chaoticity</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">dens</span><span class="p">,</span><span class="n">dens</span><span class="p">)</span>
     <span class="n">θs</span> <span class="o">=</span> <span class="n">ps</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="nb">π</span><span class="p">,</span> <span class="n">dens</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">standardmap</span><span class="p">(</span><span class="n">k</span> <span class="o">=</span> <span class="n">k</span><span class="p">)</span>
 
-    <span class="n">tinteg</span> <span class="o">=</span> <span class="n">tangent_integrator</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-
     <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">θ</span><span class="p">)</span> <span class="o">∈</span> <span class="n">enumerate</span><span class="p">(</span><span class="n">θs</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="n">dens</span><span class="p">])</span>
-        <span class="n">println</span><span class="p">(</span><span class="s">&quot;i = </span><span class="si">$</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="s">&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="o">∈</span> <span class="n">enumerate</span><span class="p">(</span><span class="n">ps</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="n">dens</span><span class="p">])</span>
-
-            <span class="c"># new initial state is the system initial state</span>
-            <span class="c"># and 2 random orthonormal deviation vectors:</span>
-            <span class="n">u0</span> <span class="o">=</span> <span class="n">hcat</span><span class="p">(</span><span class="n">SVector</span><span class="p">{</span><span class="mi">2</span><span class="p">}(</span><span class="n">θ</span><span class="p">,</span> <span class="n">p</span><span class="p">),</span> <span class="n">orthonormal</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
-            <span class="n">reinit!</span><span class="p">(</span><span class="n">tinteg</span><span class="p">,</span> <span class="n">u0</span><span class="p">)</span>
-
-            <span class="c"># Low-level call signature of gali:</span>
-            <span class="c">#  _gali(tinteg, tmax, dt, threshold)</span>
-            <span class="n">chaoticity</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">ChaosTools</span><span class="o">.</span><span class="n">_gali</span><span class="p">(</span><span class="n">tinteg</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1e-12</span><span class="p">)[</span><span class="mi">2</span><span class="p">][</span><span class="k">end</span><span class="p">]</span>
+            <span class="n">ds</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">SVector</span><span class="p">{</span><span class="mi">2</span><span class="p">}(</span><span class="n">θ</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+            <span class="n">chaoticity</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">chaoticness</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
         <span class="k">end</span>
     <span class="k">end</span>
 
@@ -853,7 +843,7 @@
 </pre></div>
 
 
-<p>and after about a minute you will get: <img alt="Chaos detection" src="https://i.imgur.com/z85KBRh.png" /></p>
+<p>and after about two minutes you will get: <img alt="Chaos detection" src="https://i.imgur.com/z85KBRh.png" /></p>
                 
                   
                 
