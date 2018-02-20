@@ -40,7 +40,7 @@
     
     
       
-        <title>Contributor Guide - DynamicalSystems.jl</title>
+        <title>News - DynamicalSystems.jl</title>
       
     
     
@@ -98,7 +98,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
     <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
     
-      <a href="#contributor-guide" tabindex="1" class="md-skip">
+      <a href="#news" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -124,7 +124,7 @@
                 DynamicalSystems.jl
               </span>
               <span class="md-header-nav__topic">
-                Contributor Guide
+                News
               </span>
             
           
@@ -455,6 +455,18 @@
       
       
 
+
+  <li class="md-nav__item">
+    <a href="../contributors_guide/" title="Contributor Guide" class="md-nav__link">
+      Contributor Guide
+    </a>
+  </li>
+
+    
+      
+      
+      
+
   
 
 
@@ -466,11 +478,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="toc">
-        Contributor Guide
+        News
       </label>
     
-    <a href="./" title="Contributor Guide" class="md-nav__link md-nav__link--active">
-      Contributor Guide
+    <a href="./" title="News" class="md-nav__link md-nav__link--active">
+      News
     </a>
     
       
@@ -484,9 +496,43 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#contributing-code" title="Contributing Code" class="md-nav__link">
-    Contributing Code
+  <a href="#release-v0110" title="Release v0.11.0" class="md-nav__link">
+    Release v0.11.0
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#syntax-changes" title="Syntax changes" class="md-nav__link">
+    Syntax changes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-changes-prospects" title="Internal changes &amp; Prospects" class="md-nav__link">
+    Internal changes &amp; Prospects
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gains" title="Gains" class="md-nav__link">
+    Gains
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#still-need-to-be-done" title="Still need to be done" class="md-nav__link">
+    Still need to be done
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -498,18 +544,6 @@
   
 </nav>
     
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../news/" title="News" class="md-nav__link">
-      News
-    </a>
   </li>
 
     
@@ -534,9 +568,43 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#contributing-code" title="Contributing Code" class="md-nav__link">
-    Contributing Code
+  <a href="#release-v0110" title="Release v0.11.0" class="md-nav__link">
+    Release v0.11.0
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#syntax-changes" title="Syntax changes" class="md-nav__link">
+    Syntax changes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-changes-prospects" title="Internal changes &amp; Prospects" class="md-nav__link">
+    Internal changes &amp; Prospects
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gains" title="Gains" class="md-nav__link">
+    Gains
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#still-need-to-be-done" title="Still need to be done" class="md-nav__link">
+    Still need to be done
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -556,30 +624,103 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/edit/master/docs/contributors_guide.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/edit/master/docs/news.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <p><a id='Contributor-Guide-1'></a></p>
-<h1 id="contributor-guide">Contributor Guide</h1>
-<p>The ultimate goal for <strong>DynamicalSystems.jl</strong> is to be a useful <em>library</em> for scientists working on chaos, nonlinear dynamics and in general dynamical systems. We don't want to have "just code", but also detailed descriptions and references for as many methods as possible.</p>
-<p>For this to be achieved, many of us should try to work together to improve the library!</p>
-<p>If you want to help the cause, there are many ways to contribute to the <strong>DynamicalSystems.jl</strong> suite:</p>
-<ol>
-<li>Just <em>use it</em>. If you encountered unexpected behavior simply report it either on our <a href="https://gitter.im/JuliaDynamics/Lobby">gitter chatroom</a> or using the <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/issues">DynamicalSystems.jl Issues</a> page.</li>
-<li>Suggest methods that you think should be included in our library. This should be done by opening a new issue that describes the method, gives referencens to papers using the method and also justifies why the method should be included.</li>
-<li>Contribute code by solving issues. Visit the GitHub pages of the individual packages to see a list of open issues, like for example for <a href="https://github.com/JuliaDynamics/ChaosTools.jl">ChaosTools</a>.</li>
-<li>Contribute code by implementing new methods! That is the most <strong>awesome</strong> way to contribute!</li>
-<li>Contribute code by defining a new pre-defined dynamical system that you found useful.</li>
-</ol>
-<p><a id='Contributing-Code-1'></a></p>
-<h2 id="contributing-code">Contributing Code</h2>
-<p>When contributing code, you should keep these things in mind:</p>
+                <p><a id='News-1'></a></p>
+<h1 id="news">News</h1>
+<p><a id='Release-v0.11.0-1'></a></p>
+<h2 id="release-v0110">Release v0.11.0</h2>
+<p>With new version v0.11.0 for <strong>DynamicalSytems.jl</strong> (<code>DynamicalSystemsBase</code> and <code>ChaosTools</code> at version 0.6) we have some major improvements of the library all around. Here I list the syntactic changes, the internal changes, the prospect for other developers and the gains we have from making all these changes!</p>
+<p><a id='Syntax-changes-1'></a></p>
+<h3 id="syntax-changes">Syntax changes</h3>
+<p>There are no syntax changes (or <em>any</em> changes) to functions that handle numerical data (<code>Dataset</code> and the likes).</p>
+<p>The syntax for both discrete and continuous systems has changed to</p>
+<div class="codehilite"><pre><span></span><span class="n">DiscreteDynamicalSystem</span><span class="p">(</span><span class="n">eom</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">p</span> <span class="p">[,</span> <span class="n">jacobian</span> <span class="p">[,</span> <span class="n">J0</span><span class="p">]];</span> <span class="n">t0</span><span class="o">::</span><span class="kt">Int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">ContinuousDynamicalSystem</span><span class="p">(</span><span class="n">eom</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">p</span> <span class="p">[,</span> <span class="n">jacobian</span> <span class="p">[,</span> <span class="n">J0</span><span class="p">]];</span> <span class="n">t0</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The equations of motion function <code>eom</code> can be one of two forms:</p>
 <ul>
-<li>In general, the speed of the implementation is important, but not as important as the <strong>reliability of the implementation</strong>. One of cornerstones of all of <strong>DynamicalSystems.jl</strong> is to have clear and readable source code. Fortunately, Julia allows you to have perfectly readable code but also super fast ;)</li>
-<li>For new methods and systems please follow the convention of the documentation strings (do e.g. <code>?lyapunov</code> to see how they are structured).</li>
-<li>Have enough comments in your code so that somebody that knows the method, can also understand the code immediately.</li>
-<li>Always have a reference to the original work that introduces the method or the system that you are using. You should put this reference to the main function's documentation string. See the existing documentation strings and do it in an identical manner.</li>
+<li><strong>iip</strong> : The <code>eom</code> <strong>must</strong> be in the form <code>eom(x, p, t) -&gt; SVector</code> which means that given a state <code>x::SVector</code> and some parameter container <code>p</code> it returns an <a href="http://juliaarrays.github.io/StaticArrays.jl/stable/pages/api.html#SVector-1"><code>SVector</code></a> containing the next state.</li>
+<li><strong>oop</strong> : The <code>eom</code> <strong>must</strong> be in the form <code>eom!(xnew, x, p, t)</code> which means that given a state <code>x::Vector</code> and some parameter container <code>p</code>, it writes in-place the new state in <code>xnew</code>.</li>
 </ul>
+<p>There is no constructor that takes an <code>ODEProblem</code> anymore.</p>
+<p>In addition, <code>DynamicalSystem</code> and subtypes are now <strong>immutable</strong>. One cannot set their state in place, or anything like that. Instead, all high-level functions allow you to choose an initial state.</p>
+<p>In summary:</p>
+<ul>
+<li>All discrete systems are now simply <code>DiscreteDynamicalSystem</code>.</li>
+<li>Continuous systems have been renamed to <code>ContinuousDynamicalSystem</code>.</li>
+<li>Don't use <code>set_state!</code>, etc. Instead use the keyword argument <code>u0</code> of methods like e.g. <code>gali</code>.</li>
+</ul>
+<p>There are some syntax changes to high-level functions from <code>ChaosTools</code> as well. For example, <code>lyapunovs</code> now has call signature</p>
+<div class="codehilite"><pre><span></span><span class="n">lyapunovs</span><span class="p">(</span><span class="n">ds</span><span class="o">::</span><span class="n">DynamicalSystem</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">k</span><span class="o">::</span><span class="kt">Int</span> <span class="o">|</span> <span class="n">Q0</span><span class="p">;</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">λs</span>
+</pre></div>
+
+
+<p>It is advised to first look the documentation string of a function you want to use before usage!</p>
+<p><a id='Internal-changes-and-Prospects-1'></a></p>
+<h3 id="internal-changes-prospects">Internal changes &amp; Prospects</h3>
+<p>The internals of <code>DynamicalSystemsBase</code> have been completely re-worked from the ground up. Here are the highlights:</p>
+<ul>
+<li>All <a href="../definition/general/#DynamicalSystemsBase.DynamicalSystem"><code>DynamicalSystem</code></a> objects are immutable, and contain a problem <code>prob</code> the jacobian function and an initialized Jacobian matrix.</li>
+<li>All functions that use a <code>DynamicalSystem</code> have changed behavior. The way the functions work now is that when given a <code>DynamicalSystem</code> the create an appropriate <em>integrator</em> from it. Then we use <code>step!(integrator, dt)</code> and use the integrator state to perform calculations.</li>
+<li>
+<p>Eight possible system types are now available:</p>
+<ul>
+<li>Continuous or Discrete.</li>
+<li>In-place or out-of-place (large versus small systems).</li>
+<li>Auto-differentiated or not (for the Jacobian function).</li>
+<li>This is only possible due to the strictness of defining the <code>eom</code> function.</li>
+<li>Robust multiple dispatch on all 8 types (again, only possible due to the strictness of the <code>eom</code> function).</li>
+<li>
+<p>Three low-lever integrator constructing functions are available, that only need a <code>DynamicalSystem</code> and (optionally) an initial state:</p>
+</li>
+<li>
+<p><a href="../advanced/#DynamicalSystemsBase.integrator"><code>integrator</code></a> for "normal" integration of a system.</p>
+</li>
+<li><a href="../advanced/#DynamicalSystemsBase.tangent_integrator"><code>tangent_integrator</code></a> for integration of a state and deviation vectors (that live on the tangent space).</li>
+<li><a href="../advanced/#DynamicalSystemsBase.parallel_integrator"><code>parallel_integrator</code></a> for integrating in "parallel" a number of states. Notice that the states are integrated at <em>exact</em> same times, even for continuous systems.</li>
+</ul>
+</li>
+<li>
+<p>All three of the above integrators work perfectly fine for all eight combinations of systems and also have performant implementations.</p>
+</li>
+<li>Simple internal implementation for Discrete system integrator that is tailored to the needs of <strong>DynamicalSystems.jl</strong>. It follows the high-level syntax of DifferentialEquations.jl: there is an implementation of a minimal discrete problem, as well as a minimal discrete integrator that steps via <code>step!(integrator, dt)</code>.</li>
+<li><code>DynamicalSystem</code> is type-parameterized in such a way that allows for easy multiple dispatch and clear source code.</li>
+</ul>
+<p>Because the resulting behavior is very robust and efficient, it allows <code>DynamicalSystemsBase</code> to also be a library used by other developers that want to develop techniques/functions for dynamical systems.</p>
+<p>In addition, there is absolutely no drawback in having a <code>ContinuousDynamicalSystem</code> instead of an <code>ODEProblem</code>, since the field <code>.prob</code> of the system is exactly this <code>ODEProblem</code>, and can be passed directly to things like <code>solve</code> from DifferentialEquations.jl.</p>
+<p><a id='Gains-1'></a></p>
+<h3 id="gains">Gains</h3>
+<ul>
+<li>Out-of-place continuous systems are now possible!</li>
+<li>Auto-differentiated methods compute the vector field only once.</li>
+<li>Safe, robust implementations due to the immutability of the central structure <code>DynamicalSystem</code>.</li>
+<li>No problems with parallelization/threading/etc.</li>
+<li>Even clearer source code! Most <code>ChaosTools</code> functions are now composed of a set-up part and an implementation part, both of which are clear to read and understand.     * Also clarity on discrete systems, since they are all fused into one structure.     * Low-level functions can be used easily by users that want performance for loops.</li>
+<li>Lyapunov exponent calculating functions now have full flexibility in all aspects (initial deviation vectors/transient times/pretty much anything).</li>
+<li>
+<p>Big performance gains all around, and especially in methods that propagate tangent space. For example, the function that calculates the Lyapunov spectrum of the towel map, needs:</p>
+<p><code>julia
+using DynamicalSystems
+ds = Systems.towel()
+l = lyapunovs(ds, 1000)</code></p>
+<p><code>Float64[3]
+0.42883526635723973
+0.36501911701374234
+-3.2835393321781092</code></p>
+<p><code>julia
+using BenchmarkTools
+@btime lyapunovs($ds, 1000);
+228.265 μs (176 allocations: 11.28 KiB)</code></p>
+</li>
+</ul>
+<p><a id='Still-need-to-be-done-1'></a></p>
+<h3 id="still-need-to-be-done">Still need to be done</h3>
+<p>We still need to create higher level functions like <code>set_state!</code> or <code>set_deviations!</code> that set the state or deviation vectors on the integrator. These functions will use multiple dispatch and thus work for all 24 combinations.</p>
+<p>At the moment a "sloppy" implementation for everything is present in the source code of <code>ChaosTools</code>, but this can be massively reduced into well-thought functions and multiple dispatch usage.</p>
                 
                   
                 
@@ -598,7 +739,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../advanced/" title="Advanced Documentation" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../contributors_guide/" title="Contributor Guide" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -607,25 +748,11 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Advanced Documentation
+                Contributor Guide
               </span>
             </div>
           </a>
         
-        
-          <a href="../news/" title="News" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                News
-              </span>
-            </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
-          </a>
         
       </nav>
     </div>

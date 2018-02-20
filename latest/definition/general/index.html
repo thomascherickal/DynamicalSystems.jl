@@ -40,7 +40,7 @@
     
     
       
-        <title>General Remarks - DynamicalSystems.jl</title>
+        <title>Dynamical Systems - DynamicalSystems.jl</title>
       
     
     
@@ -98,7 +98,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
     <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
     
-      <a href="#definition-table" tabindex="1" class="md-skip">
+      <a href="#creating-a-dynamical-system" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -124,7 +124,7 @@
                 DynamicalSystems.jl
               </span>
               <span class="md-header-nav__topic">
-                General Remarks
+                Dynamical Systems
               </span>
             
           
@@ -281,11 +281,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="toc">
-        General Remarks
+        Dynamical Systems
       </label>
     
-    <a href="./" title="General Remarks" class="md-nav__link md-nav__link--active">
-      General Remarks
+    <a href="./" title="Dynamical Systems" class="md-nav__link md-nav__link--active">
+      Dynamical Systems
     </a>
     
       
@@ -295,6 +295,13 @@
   
     <label class="md-nav__title" for="toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-dynamical-system" title="Creating a Dynamical System" class="md-nav__link">
+    Creating a Dynamical System
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#definition-table" title="Definition Table" class="md-nav__link">
@@ -310,6 +317,40 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#examples" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#continuous-out-of-place" title="Continuous, out-of-place" class="md-nav__link">
+    Continuous, out-of-place
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#discrete-in-place" title="Discrete, in-place" class="md-nav__link">
+    Discrete, in-place
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complex-example" title="Complex Example" class="md-nav__link">
+    Complex Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -318,30 +359,6 @@
   
 </nav>
     
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../continuous/" title="Continuous Systems" class="md-nav__link">
-      Continuous Systems
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../discrete/" title="Discrete Systems" class="md-nav__link">
-      Discrete Systems
-    </a>
   </li>
 
         
@@ -512,8 +529,32 @@
 
 
   <li class="md-nav__item">
+    <a href="../../advanced/" title="Advanced Documentation" class="md-nav__link">
+      Advanced Documentation
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../../contributors_guide/" title="Contributor Guide" class="md-nav__link">
       Contributor Guide
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../news/" title="News" class="md-nav__link">
+      News
     </a>
   </li>
 
@@ -537,6 +578,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#creating-a-dynamical-system" title="Creating a Dynamical System" class="md-nav__link">
+    Creating a Dynamical System
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#definition-table" title="Definition Table" class="md-nav__link">
     Definition Table
   </a>
@@ -547,6 +595,40 @@
   <a href="#general-functions" title="General Functions" class="md-nav__link">
     General Functions
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" title="Examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#continuous-out-of-place" title="Continuous, out-of-place" class="md-nav__link">
+    Continuous, out-of-place
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#discrete-in-place" title="Discrete, in-place" class="md-nav__link">
+    Discrete, in-place
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complex-example" title="Complex Example" class="md-nav__link">
+    Complex Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -569,22 +651,48 @@
                   <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/edit/master/docs/definition/general.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>General Remarks</h1>
+                  <h1>Dynamical Systems</h1>
                 
-                <p>All core definitions for <strong>DynamicalSystems.jl</strong> are contained in <a href="https://github.com/JuliaDynamics/DynamicalSystemsBase.jl">DynamicalSystemsBase.jl</a>.</p>
-<p>For <strong>DynamicalSystems.jl</strong> a "dynamical system" is a simple structure with three fundamental parts:</p>
-<ol>
-<li>The state,</li>
-<li>The equations of motion function and</li>
-<li>The Jacobian function.</li>
-</ol>
-<p>The last two are <em>functions</em> that take as an input a state as well as the parameters of the model. Depending on the type, some dynamical system types may also have some other fields that are of minor importance.</p>
-<p>The above "definition" of course stands for systems where one already <em>knows</em> the equations of motion. if instead, your "system" is in the form of <a href="../definition/dataset">numerical data</a>, then see the appropriate section.</p>
-<div class="admonition info">
-<p class="admonition-title">Trajectory and Timeseries</p>
-<p>The word "timeseries" can be very confusing, because it can mean a univariate (also called scalar or one-dimensional) timeseries or a multivariate (also called multi-dimensional) timeseries. To resolve this confusion, in <strong>DynamicalSystems.jl</strong> we have the following convention: <strong>"timeseries"</strong> always refers to a one-dimensional vector of numbers, which exists with respect to some other one-dimensional vector of numbers that corresponds to a time-vector. On the other hand, the word <strong>"trajectory"</strong> is used to refer to a <em>multi-dimensional</em> timeseries, which is of course simply a group/set of one-dimensional timeseries.</p>
-<p>Note that the data representation of a "trajectory" in Julia may vary: from a 2D Matrix to independent Vectors. In our package, a trajectory is always represented using a <a href="../dataset/#DynamicalSystemsBase.Dataset"><code>Dataset</code></a>, which is a <code>Vector</code> of <code>SVector</code>s, and each <code>SVector</code> represents a data-point (the values of the variables at a given time-point).</p>
-</div>
+                <p><a id='Creating-a-Dynamical-System-1'></a></p>
+<h2 id="creating-a-dynamical-system">Creating a Dynamical System</h2>
+<p><a id='DynamicalSystemsBase.DynamicalSystem' href='#DynamicalSystemsBase.DynamicalSystem'>#</a>
+<strong><code>DynamicalSystemsBase.DynamicalSystem</code></strong> &mdash; <em>Type</em>.</p>
+<div class="codehilite"><pre><span></span>DynamicalSystem
+</pre></div>
+
+
+<p>The central structure of <strong>DynamicalSystems.jl</strong>. All functions of the suite that handle systems "analytically" (in the sense that they can use known equations of motion) expect an instance of this type.</p>
+<p>Contains a problem defining the system (field <code>prob</code>), the jacobian function (field <code>jacobian</code>) and the initialized Jacobian matrix (field <code>J</code>).</p>
+<p><strong>Constructing a <code>DynamicalSystem</code></strong></p>
+<div class="codehilite"><pre><span></span><span class="n">DiscreteDynamicalSystem</span><span class="p">(</span><span class="n">eom</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">p</span> <span class="p">[,</span> <span class="n">jacobian</span> <span class="p">[,</span> <span class="n">J0</span><span class="p">]];</span> <span class="n">t0</span><span class="o">::</span><span class="kt">Int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">ContinuousDynamicalSystem</span><span class="p">(</span><span class="n">eom</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">p</span> <span class="p">[,</span> <span class="n">jacobian</span> <span class="p">[,</span> <span class="n">J0</span><span class="p">]];</span> <span class="n">t0</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span>
+</pre></div>
+
+
+<p>with <code>eom</code> the equations of motion function. <code>p</code> is a parameter container, which we highly suggest to use a mutable object like <code>Array</code>, <a href="https://github.com/JuliaDiffEq/LabelledArrays.jl"><code>LMArray</code></a> or a dictionary. Pass <code>nothing</code> in the place of <code>p</code> if your system does not have parameters. With these constructors you also do not need to provide some final time, since it is not used by <strong>DynamicalSystems.jl</strong> in any manner.</p>
+<p><code>t0</code>, <code>J0</code> allow you to choose the initial time and provide an initialized Jacobian matrix.</p>
+<p>The discrete constructor creates an internal implementation of a discrete system, which is very efficient. The continuous uses <a href="http://docs.juliadiffeq.org/latest/"><strong>DifferentialEquations.jl</strong></a>, see <a href="../evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> for default arguments.</p>
+<p><strong>Equations of motion</strong></p>
+<p>The are two "versions" for <code>DynamicalSystem</code>, depending on whether the equations of motion (<code>eom</code>) are in-place (iip) or out-of-place (oop). Here is how to define them:</p>
+<ul>
+<li><strong>iip</strong> : The <code>eom</code> <strong>must</strong> be in the form <code>eom(x, p, t) -&gt; SVector</code> which means that given a state <code>x::SVector</code> and some parameter container <code>p</code> it returns an <a href="http://juliaarrays.github.io/StaticArrays.jl/stable/pages/api.html#SVector-1"><code>SVector</code></a> containing the next state.</li>
+<li><strong>oop</strong> : The <code>eom</code> <strong>must</strong> be in the form <code>eom!(xnew, x, p, t)</code> which means that given a state <code>x::Vector</code> and some parameter container <code>p</code>, it writes in-place the new state in <code>xnew</code>.</li>
+</ul>
+<p><code>t</code> stands for time (integer for discrete systems). iip is suggested for big systems, whereas oop is suggested for small systems. The break-even point at around 100 dimensions, and for using functions that use the tangent space (like e.g. <a href="../@ref"><code>lyapunovs</code></a> or <a href="../@ref"><code>gali</code></a>, the break-even point is at around 10 dimensions.</p>
+<p>The constructor deduces automatically whether <code>eom</code> is iip or oop. It is not possible however to deduce whether the system is continuous or discrete just from the equations of motion, hence the 2 constructors.</p>
+<p><strong>Jacobian</strong></p>
+<p>The final optional argument (<code>jacobian</code>) for the constructors is a <em>function</em> and (if given) must also be of the same form as the <code>eom</code>, <code>jacobian(x, p, n) -&gt; [SMatrix](http://juliaarrays.github.io/StaticArrays.jl/stable/pages/api.html#SMatrix-1)</code> for the out-of-place version and <code>jacobian!(xnew, x, p, n)</code> for the in-place version.</p>
+<p>If <code>jacobian</code> is not given, it is constructed automatically using the module <a href="http://www.juliadiff.org/ForwardDiff.jl/stable/"><code>ForwardDiff</code></a>.</p>
+<p><strong>Getting a <code>Solution</code> struct</strong></p>
+<p>The continuous constructor creates a standard <a href="http://docs.juliadiffeq.org/latest/types/ode_types.html">ODEProblem</a> from <a href="http://docs.juliadiffeq.org/latest/"><strong>DifferentialEquations.jl</strong></a>. You can <em>always</em> take advantage of the full capabilities of the <code>Solution</code> struct of by doing:</p>
+<div class="codehilite"><pre><span></span><span class="n">sol</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">prob</span><span class="p">,</span> <span class="n">alg</span><span class="p">;</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
+<span class="c"># do stuff with sol</span>
+</pre></div>
+
+
+<p><strong>Relevant Functions</strong></p>
+<p><a href="../@ref"><code>state</code></a>, <a href="../evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a>, <a href="./#DynamicalSystemsBase.jacobian"><code>jacobian</code></a>, <a href="./#DynamicalSystemsBase.dimension"><code>dimension</code></a>, <a href="./#DynamicalSystemsBase.set_parameter!"><code>set_parameter!</code></a>.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6a015f7af674daa0c44aadf0b93ef42ed6549274/src/dynamicalsystem/dynamicalsystem.jl#L14-L90' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Definition-Table-1'></a></p>
 <h2 id="definition-table">Definition Table</h2>
@@ -593,46 +701,248 @@
 <thead>
 <tr>
 <th align="center">System Type</th>
-<th align="center">Equations of Motion</th>
+<th align="center">equations of motion</th>
 <th align="center">Jacobian</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><code>ContinuousDS</code></td>
+<td align="center">in-place (big systems)</td>
 <td align="center"><code>eom!(du, u, p, t)</code></td>
-<td align="center"><code>jacob!(J, u, p, t)</code></td>
+<td align="center"><code>jacobian!(J, u, p, t)</code></td>
 </tr>
 <tr>
-<td align="center"><code>BigDiscreteDS</code></td>
-<td align="center"><code>eom!(xnew, x, p)</code></td>
-<td align="center"><code>jacob!(J, x, p)</code></td>
-</tr>
-<tr>
-<td align="center"><code>DiscreteDS</code></td>
-<td align="center"><code>eom(x, p) -&gt; SVector</code></td>
-<td align="center"><code>jacob(x, p) -&gt; SMatrix</code></td>
-</tr>
-<tr>
-<td align="center"><code>DiscreteDS1D</code></td>
-<td align="center"><code>eom(x, p) -&gt; Number</code></td>
-<td align="center"><code>deriv(x, p) -&gt; Number</code></td>
+<td align="center">out-of-place (small systems)</td>
+<td align="center"><code>eom(u, p, t) -&gt; SVector</code></td>
+<td align="center"><code>jacobian(u, p, t) -&gt; SMatrix</code></td>
 </tr>
 </tbody>
 </table>
 <div class="admonition tip">
 <p class="admonition-title">Use mutable containers for the parameters</p>
-<p>It is highly suggested to use a subtype of <code>Array</code> or <a href="https://github.com/JuliaDiffEq/LabelledArrays.jl"><code>LMArray</code></a> for the container of the model's parameters. Some functions offered by <strong>DynamicalSystems.jl</strong>, like e.g. <a href="../../chaos/orbitdiagram/#ChaosTools.orbitdiagram"><code>orbitdiagram</code></a>, assume that the parameters can be first accessed by <code>p[x]</code> with <code>x</code> some qualifier as well as that this value can be set by <code>p[x] = newvalue</code>.</p>
+<p>It is highly suggested to use a subtype of <code>Array</code>,  <a href="https://github.com/JuliaDiffEq/LabelledArrays.jl"><code>LMArray</code></a> or a dictionary for the container of the model's parameters. Some functions offered by <strong>DynamicalSystems.jl</strong>, like e.g. <a href="../../chaos/orbitdiagram/#ChaosTools.orbitdiagram"><code>orbitdiagram</code></a>, assume that the parameters can be first accessed by <code>p[x]</code> with <code>x</code> some qualifier as well as that this value can be set by <code>p[x] = newvalue</code>.</p>
 <p>The <a href="https://github.com/JuliaDiffEq/LabelledArrays.jl">Labelled Arrays</a> package offers <code>Array</code> implementations that can be accessed both by index as well as by some name.</p>
 </div>
 <p><a id='General-Functions-1'></a></p>
 <h2 id="general-functions">General Functions</h2>
 <p>The following functions are defined for convenience for any dynamical system:</p>
-<div class="codehilite"><pre><span></span>dimension
-state
-jacobian
-set_state!
+<p><a id='DynamicalSystemsBase.dimension' href='#DynamicalSystemsBase.dimension'>#</a>
+<strong><code>DynamicalSystemsBase.dimension</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>dimension(thing) -&gt; D
 </pre></div>
+
+
+<p>Return the dimension of the <code>thing</code>, in the sense of state-space dimensionality.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6a015f7af674daa0c44aadf0b93ef42ed6549274/src/dynamicalsystem/dynamicalsystem.jl#L115-L118' class='documenter-source'>source</a><br></p>
+<p><a id='DynamicalSystemsBase.jacobian' href='#DynamicalSystemsBase.jacobian'>#</a>
+<strong><code>DynamicalSystemsBase.jacobian</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>jacobian(ds::DynamicalSystem, u = ds.prob.u0)
+</pre></div>
+
+
+<p>Return the jacobian of the system at <code>u</code> (at initial time).</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6a015f7af674daa0c44aadf0b93ef42ed6549274/src/dynamicalsystem/dynamicalsystem.jl#L205-L208' class='documenter-source'>source</a><br></p>
+<p><a id='DynamicalSystemsBase.set_parameter!' href='#DynamicalSystemsBase.set_parameter!'>#</a>
+<strong><code>DynamicalSystemsBase.set_parameter!</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>set_parameter!(ds::DynamicalSystem, index, value)
+set_parameter!(ds::DynamicalSystem, values)
+</pre></div>
+
+
+<p>Change one or many parameters of the system by setting <code>p[index] = value</code> in the first case and <code>p .= values</code> in the second.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6a015f7af674daa0c44aadf0b93ef42ed6549274/src/dynamicalsystem/dynamicalsystem.jl#L124-L130' class='documenter-source'>source</a><br></p>
+<p><a id='Examples-1'></a></p>
+<h2 id="examples">Examples</h2>
+<p><a id='Continuous,-out-of-place-1'></a></p>
+<h3 id="continuous-out-of-place">Continuous, out-of-place</h3>
+<p>Let's see an example for a small system, which is a case where out-of-place equations of motion are preferred.</p>
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span><span class="p">,</span> <span class="n">StaticArrays</span>
+<span class="c"># Lorenz system</span>
+<span class="c"># Equations of motion:</span>
+<span class="nd">@inline</span> <span class="nd">@inbounds</span> <span class="k">function</span> <span class="n">loop</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+    <span class="n">σ</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">ρ</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="n">β</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">du1</span> <span class="o">=</span> <span class="n">σ</span><span class="o">*</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">du2</span> <span class="o">=</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">ρ</span><span class="o">-</span><span class="n">u</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">-</span> <span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">du3</span> <span class="o">=</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">β</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">SVector</span><span class="p">{</span><span class="mi">3</span><span class="p">}(</span><span class="n">du1</span><span class="p">,</span> <span class="n">du2</span><span class="p">,</span> <span class="n">du3</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="c"># Jacobian:</span>
+<span class="nd">@inline</span> <span class="nd">@inbounds</span> <span class="k">function</span> <span class="n">loop_jac</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+    <span class="n">σ</span><span class="p">,</span> <span class="n">ρ</span><span class="p">,</span> <span class="n">β</span> <span class="o">=</span> <span class="n">p</span>
+    <span class="n">J</span> <span class="o">=</span> <span class="nd">@SMatrix</span> <span class="p">[</span><span class="o">-</span><span class="n">σ</span>  <span class="n">σ</span>  <span class="mi">0</span><span class="p">;</span>
+    <span class="n">ρ</span> <span class="o">-</span> <span class="n">u</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>  <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="p">(</span><span class="o">-</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>   <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="o">-</span><span class="n">β</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">J</span>
+<span class="k">end</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ContinuousDynamicalSystem</span><span class="p">(</span><span class="n">loop</span><span class="p">,</span> <span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="p">[</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">28.0</span><span class="p">,</span> <span class="mi">8</span><span class="o">/</span><span class="mi">3</span><span class="p">],</span> <span class="n">loop_jac</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>3-dimensional continuous dynamical system
+ state:     [0.068248, 0.828095, 0.0743729]
+ e.o.m.:    loop
+ in-place?  false
+ jacobian:  loop_jac
+</pre></div>
+
+
+<p><a id='Discrete,-in-place-1'></a></p>
+<h3 id="discrete-in-place">Discrete, in-place</h3>
+<p>The following example is only 2-dimensional, and thus once again it is "correct" to use out-of-place version with <code>SVector</code>. For the sake of example though, we use the in-place version.</p>
+<div class="codehilite"><pre><span></span><span class="c"># Henon map.</span>
+<span class="c"># equations of motion:</span>
+<span class="k">function</span> <span class="n">hiip</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">dx</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">dx</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span>
+<span class="k">end</span>
+<span class="c"># Jacobian:</span>
+<span class="k">function</span> <span class="n">hiip_jac</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">J</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">J</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">J</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">J</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">return</span>
+<span class="k">end</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">DiscreteDynamicalSystem</span><span class="p">(</span><span class="n">hiip</span><span class="p">,</span> <span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="p">[</span><span class="mf">1.4</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">],</span> <span class="n">hiip_jac</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>2-dimensional discrete dynamical system
+ state:     [0.0, 0.0]
+ e.o.m.:    hiip
+ in-place?  true
+ jacobian:  hiip_jac
+</pre></div>
+
+
+<p>Or, if you don't want to write a Jacobian and want to use the auto-differentiation capabilities of <strong>DynamicalSystems.jl</strong>:</p>
+<div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">DiscreteDynamicalSystem</span><span class="p">(</span><span class="n">hiip</span><span class="p">,</span> <span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="p">[</span><span class="mf">1.4</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">])</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>2-dimensional discrete dynamical system
+ state:     [0.0, 0.0]
+ e.o.m.:    hiip
+ in-place?  true
+ jacobian:  ForwardDiff
+</pre></div>
+
+
+<p><a id='Complex-Example-1'></a></p>
+<h3 id="complex-example">Complex Example</h3>
+<p>In this example we will go through the implementation of the coupled standard maps from our <a href="../predefined/#DynamicalSystemsBase.Systems.coupledstandardmaps">Predefined Systems</a>. It is the most complex implementation and takes full advantage of the flexibility of the constructors.</p>
+<p>Coupled standard maps is a big mapping that can have arbitrary number of equations of motion, since you can couple <code>N</code> <a href="../predefined/#DynamicalSystemsBase.Systems.standardmap">standard maps</a> which are 2D maps, like:</p>
+<div>
+<div class="MathJax_Preview">
+\theta_{i}' = \theta_i + p_{i}' \\
+p_{i}' = p_i + k_i\sin(\theta_i) - \Gamma \left[\sin(\theta_{i+1} - \theta_{i}) + \sin(\theta_{i-1} - \theta_{i}) \right]
+</div>
+<script type="math/tex; mode=display">
+\theta_{i}' = \theta_i + p_{i}' \\
+p_{i}' = p_i + k_i\sin(\theta_i) - \Gamma \left[\sin(\theta_{i+1} - \theta_{i}) + \sin(\theta_{i-1} - \theta_{i}) \right]
+</script>
+</div>
+<p>To model this, we will make a dedicated <code>struct</code>, which is parameterized on the number of coupled maps:</p>
+<div class="codehilite"><pre><span></span><span class="n">struct</span> <span class="n">CoupledStandardMaps</span><span class="p">{</span><span class="n">N</span><span class="p">}</span>
+    <span class="n">idxs</span><span class="o">::</span><span class="n">SVector</span><span class="p">{</span><span class="n">N</span><span class="p">,</span> <span class="kt">Int</span><span class="p">}</span>
+    <span class="n">idxsm1</span><span class="o">::</span><span class="n">SVector</span><span class="p">{</span><span class="n">N</span><span class="p">,</span> <span class="kt">Int</span><span class="p">}</span>
+    <span class="n">idxsp1</span><span class="o">::</span><span class="n">SVector</span><span class="p">{</span><span class="n">N</span><span class="p">,</span> <span class="kt">Int</span><span class="p">}</span>
+<span class="k">end</span>
+</pre></div>
+
+
+<p>(what these fields are will become apparent later)</p>
+<p>We initialize the struct with the amount of standard maps we want to couple, and we also define appropriate parameters:</p>
+<div class="codehilite"><pre><span></span><span class="n">M</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c"># couple number</span>
+<span class="n">u0</span> <span class="o">=</span> <span class="mf">0.001</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="n">M</span><span class="p">)</span> <span class="c">#initial state</span>
+<span class="n">ks</span> <span class="o">=</span> <span class="mf">0.9</span><span class="n">ones</span><span class="p">(</span><span class="n">M</span><span class="p">)</span> <span class="c"># nonlinearity parameters</span>
+<span class="n">Γ</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="c"># coupling strength</span>
+<span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="n">ks</span><span class="p">,</span> <span class="n">Γ</span><span class="p">)</span> <span class="c"># parameter container</span>
+
+<span class="c"># Create struct:</span>
+<span class="n">SV</span> <span class="o">=</span> <span class="n">SVector</span><span class="p">{</span><span class="n">M</span><span class="p">,</span> <span class="kt">Int</span><span class="p">}</span>
+<span class="n">idxs</span> <span class="o">=</span> <span class="n">SV</span><span class="p">(</span><span class="mi">1</span><span class="o">:</span><span class="n">M</span><span class="o">...</span><span class="p">)</span> <span class="c"># indexes of thetas</span>
+<span class="n">idxsm1</span> <span class="o">=</span> <span class="n">SV</span><span class="p">(</span><span class="n">circshift</span><span class="p">(</span><span class="n">idxs</span><span class="p">,</span> <span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">...</span><span class="p">)</span>  <span class="c">#indexes of thetas - 1</span>
+<span class="n">idxsp1</span> <span class="o">=</span> <span class="n">SV</span><span class="p">(</span><span class="n">circshift</span><span class="p">(</span><span class="n">idxs</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">...</span><span class="p">)</span>  <span class="c">#indexes of thetas + 1</span>
+<span class="c"># So that:</span>
+<span class="c"># x[i] ≡ θᵢ</span>
+<span class="c"># x[[idxsp1[i]]] ≡ θᵢ+₁</span>
+<span class="c"># x[[idxsm1[i]]] ≡ θᵢ-₁</span>
+<span class="n">csm</span> <span class="o">=</span> <span class="n">CoupledStandardMaps</span><span class="p">{</span><span class="n">M</span><span class="p">}(</span><span class="n">idxs</span><span class="p">,</span> <span class="n">idxsm1</span><span class="p">,</span> <span class="n">idxsp1</span><span class="p">);</span>
+</pre></div>
+
+
+<p>We will now use this struct to define a <a href="https://docs.julialang.org/en/stable/manual/methods/#Function-like-objects-1">functor</a>, a Type that also acts as a function.</p>
+<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="p">(</span><span class="n">f</span><span class="o">::</span><span class="n">CoupledStandardMaps</span><span class="p">{</span><span class="n">N</span><span class="p">})(</span><span class="n">xnew</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="n">where</span> <span class="p">{</span><span class="n">N</span><span class="p">}</span>
+    <span class="n">ks</span><span class="p">,</span> <span class="n">Γ</span> <span class="o">=</span> <span class="n">p</span>
+    <span class="nd">@inbounds</span> <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="n">f</span><span class="o">.</span><span class="n">idxs</span>
+
+        <span class="n">xnew</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">N</span><span class="p">]</span> <span class="o">=</span> <span class="n">mod2pi</span><span class="p">(</span>
+            <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">N</span><span class="p">]</span> <span class="o">+</span> <span class="n">ks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span>
+            <span class="n">Γ</span><span class="o">*</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">idxsp1</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">idxsm1</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+        <span class="p">)</span>
+
+        <span class="n">xnew</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">mod2pi</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">xnew</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">N</span><span class="p">])</span>
+    <span class="k">end</span>
+    <span class="k">return</span> <span class="nb">nothing</span>
+<span class="k">end</span>
+</pre></div>
+
+
+<p>We will use <em>the same</em> <code>struct</code> to create a function for the Jacobian:</p>
+<div class="codehilite"><pre><span></span><span class="k">function</span> <span class="p">(</span><span class="n">f</span><span class="o">::</span><span class="n">CoupledStandardMaps</span><span class="p">{</span><span class="n">M</span><span class="p">})(</span>
+    <span class="n">J</span><span class="o">::</span><span class="kt">AbstractMatrix</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="n">where</span> <span class="p">{</span><span class="n">M</span><span class="p">}</span>
+
+    <span class="n">ks</span><span class="p">,</span> <span class="n">Γ</span> <span class="o">=</span> <span class="n">p</span>
+    <span class="c"># x[i] ≡ θᵢ</span>
+    <span class="c"># x[[idxsp1[i]]] ≡ θᵢ+₁</span>
+    <span class="c"># x[[idxsm1[i]]] ≡ θᵢ-₁</span>
+    <span class="nd">@inbounds</span> <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="n">f</span><span class="o">.</span><span class="n">idxs</span>
+        <span class="n">cosθ</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">cosθp</span><span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">idxsp1</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">cosθm</span><span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">idxsm1</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">J</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">M</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">cosθ</span> <span class="o">+</span> <span class="n">Γ</span><span class="o">*</span><span class="p">(</span><span class="n">cosθp</span> <span class="o">+</span> <span class="n">cosθm</span><span class="p">)</span>
+        <span class="n">J</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">M</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">idxsm1</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="o">-</span> <span class="n">Γ</span><span class="o">*</span><span class="n">cosθm</span>
+        <span class="n">J</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">M</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">idxsp1</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="o">-</span> <span class="n">Γ</span><span class="o">*</span><span class="n">cosθp</span>
+        <span class="n">J</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">J</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">M</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
+        <span class="n">J</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">idxsm1</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">J</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">M</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">idxsm1</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+        <span class="n">J</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">idxsp1</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">J</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">M</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">idxsp1</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+    <span class="k">end</span>
+    <span class="k">return</span> <span class="nb">nothing</span>
+<span class="k">end</span>
+</pre></div>
+
+
+<p>The only reason that this is possible, is because the <code>eom</code> always takes a <code>AbstractVector</code> as first argument, while the Jacobian always takes an <code>AbstractMatrix</code>. Therefore we can take advantage of multiple dispatch!</p>
+<p>Notice in addition, that the Jacobian function accesses <em>only half the elements of the matrix</em>. This is intentional, and takes advantage of the fact that the other half is constant.</p>
+<p>Because the <code>DynamicalSystem</code> constructors allow us to give in a pre-initialized Jacobian matrix, we take advantage of that and create:</p>
+<div class="codehilite"><pre><span></span><span class="n">J</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">eltype</span><span class="p">(</span><span class="n">u0</span><span class="p">),</span> <span class="mi">2</span><span class="n">M</span><span class="p">,</span> <span class="mi">2</span><span class="n">M</span><span class="p">)</span>
+<span class="c"># Set ∂/∂p entries (they are eye(M,M))</span>
+<span class="c"># And they dont change they are constants</span>
+<span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="n">idxs</span>
+    <span class="n">J</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="n">M</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">J</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">M</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="n">M</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">end</span>
+<span class="n">csm</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">u0</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c"># apply Jacobian to initial state</span>
+</pre></div>
+
+
+<p>And finally, we are ready to create our dynamical system:</p>
+<div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">DiscreteDynamicalSystem</span><span class="p">(</span><span class="n">csm</span><span class="p">,</span> <span class="n">u0</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">csm</span><span class="p">,</span> <span class="n">J</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>10-dimensional discrete dynamical system
+ state:     [5.88772e-6, 0.000539993, 0.000178981, 0.000607429, 0.000927426, 0.000246537, 0.00094118, 0.000703942, 0.000130421, 0.000332372]
+ e.o.m.:    CoupledStandardMaps{5}([1, 2, 3, 4, 5], [5, 1, 2, 3, 4], [2, 3, 4, 5, 1])
+ in-place?  true
+ jacobian:  CoupledStandardMaps{5}([1, 2, 3, 4, 5], [5, 1, 2, 3, 4], [2, 3, 4, 5, 1])
+</pre></div>
+
+
+<p>which unfortunately is kind of a mess to read, but what can you do!</p>
                 
                   
                 
@@ -666,13 +976,13 @@ set_state!
           </a>
         
         
-          <a href="../continuous/" title="Continuous Systems" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../evolve/" title="Time Evolution" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Continuous Systems
+                Time Evolution
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
