@@ -272,32 +272,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../definition/general/" title="General Remarks" class="md-nav__link">
-      General Remarks
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../definition/continuous/" title="Continuous Systems" class="md-nav__link">
-      Continuous Systems
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../definition/discrete/" title="Discrete Systems" class="md-nav__link">
-      Discrete Systems
+    <a href="../../definition/general/" title="Dynamical Systems" class="md-nav__link">
+      Dynamical Systems
     </a>
   </li>
 
@@ -516,8 +492,32 @@
 
 
   <li class="md-nav__item">
+    <a href="../../advanced/" title="Advanced Documentation" class="md-nav__link">
+      Advanced Documentation
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../../contributors_guide/" title="Contributor Guide" class="md-nav__link">
       Contributor Guide
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../news/" title="News" class="md-nav__link">
+      News
     </a>
   </li>
 
@@ -599,7 +599,7 @@
 <p><strong>Description</strong></p>
 <p>The method we employ is "H2" of [2], originally stated in [3]. The vectors defining a <code>D</code>-dimensional parallepiped are evolved using the tangent dynamics of the system. A QR-decomposition at each step yields the local growth rate for each dimension of the parallepiped. The growth rates are then averaged over <code>N</code> successive steps, yielding the lyapunov exponent spectrum.</p>
 <p><strong>Performance Notes</strong></p>
-<p>This function uses a <a href="../@ref"><code>tangent_integrator</code></a>. For loops over initial conditions and/or parameter values one should use the lower level methods that accept an integrator, and <code>reinit!</code> it to new initial conditions.</p>
+<p>This function uses a <a href="../../advanced/#DynamicalSystemsBase.tangent_integrator"><code>tangent_integrator</code></a>. For loops over initial conditions and/or parameter values one should use the lower level methods that accept an integrator, and <code>reinit!</code> it to new initial conditions.</p>
 <p>See the "advanced documentation" for info on the integrator object and use <code>@which ...</code> to go to the source code for the low-level call signature.</p>
 <p><strong>References</strong></p>
 <p>[1] : A. M. Lyapunov, <em>The General Problem of the Stability of Motion</em>, Taylor &amp; Francis (1992)</p>
@@ -615,7 +615,7 @@
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="p">[</span><span class="mf">0.432253</span><span class="p">,</span> <span class="mf">0.371617</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.29632</span><span class="p">]</span>
+<div class="codehilite"><pre><span></span><span class="p">[</span><span class="mf">0.432535</span><span class="p">,</span> <span class="mf">0.372184</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.29683</span><span class="p">]</span>
 </pre></div>
 
 
@@ -629,9 +629,20 @@
 </pre></div>
 
 
+<p><code>lyapunovs</code> is also very fast:</p>
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">BenchmarkTools</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">towel</span><span class="p">()</span>
+<span class="nd">@btime</span> <span class="n">lyapunovs</span><span class="p">(</span><span class="o">$</span><span class="n">ds</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>  239.349 μs (178 allocations: 11.34 KiB)
+</pre></div>
+
+
 <p><a id='Maximum-Lyapunov-Exponent-1'></a></p>
 <h2 id="maximum-lyapunov-exponent">Maximum Lyapunov Exponent</h2>
-<p>The function <code>lyapunov</code> calculates the maximum lyapunov exponent of a system, much more efficiently than getting the first result of <code>lyapunovs</code>:</p>
+<p>The function <code>lyapunov</code> calculates the maximum lyapunov exponent of a system, more efficiently than getting the first result of <code>lyapunovs</code>:</p>
 <p><a id='ChaosTools.lyapunov' href='#ChaosTools.lyapunov'>#</a>
 <strong><code>ChaosTools.lyapunov</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="nt">lyapunov</span><span class="o">(</span><span class="nt">ds</span><span class="p">::</span><span class="nd">DynamicalSystem</span><span class="o">,</span> <span class="err">Τ</span><span class="o">;</span> <span class="nt">kwargs</span><span class="o">...)</span>
@@ -671,9 +682,8 @@
 <hr />
 <p>For example:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
-
 <span class="n">henon</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">()</span>
-<span class="n">λ</span> <span class="o">=</span> <span class="n">lyapunov</span><span class="p">(</span><span class="n">henon</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="n">d0</span> <span class="o">=</span> <span class="mf">1e-7</span><span class="p">,</span> <span class="n">threshold</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">,</span> <span class="n">Ttr</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">λ</span> <span class="o">=</span> <span class="n">lyapunov</span><span class="p">(</span><span class="n">henon</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="n">d0</span> <span class="o">=</span> <span class="mf">1e-7</span><span class="p">,</span> <span class="n">upper_threshold</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">,</span> <span class="n">Ttr</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
 </pre></div>
 
 
@@ -682,9 +692,7 @@
 
 
 <p>The same is done for continuous systems:</p>
-<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span><span class="p">,</span> <span class="n">OrdinaryDiffEq</span>
-
-<span class="n">ross</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">roessler</span><span class="p">(</span><span class="n">a</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mf">14.0</span><span class="p">)</span> <span class="c">#not original parameters</span>
+<div class="codehilite"><pre><span></span><span class="n">ross</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">roessler</span><span class="p">(</span><span class="n">a</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mf">14.0</span><span class="p">)</span> <span class="c">#not original parameters</span>
 <span class="n">λ</span> <span class="o">=</span> <span class="n">lyapunov</span><span class="p">(</span><span class="n">ross</span><span class="p">,</span> <span class="mi">100000</span><span class="p">,</span> <span class="n">dt</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">,</span> <span class="n">Ttr</span> <span class="o">=</span> <span class="mf">100.0</span><span class="p">)</span>
 </pre></div>
 
