@@ -674,15 +674,15 @@
 <li>Auto-differentiated or not (for the Jacobian function).</li>
 <li>This is only possible due to the strictness of defining the <code>eom</code> function.</li>
 <li>Robust multiple dispatch on all 8 types (again, only possible due to the strictness of the <code>eom</code> function).</li>
+</ul>
+</li>
 <li>
 <p>Three low-lever integrator constructing functions are available, that only need a <code>DynamicalSystem</code> and (optionally) an initial state:</p>
-</li>
-<li>
-<p><a href="../advanced/#DynamicalSystemsBase.integrator"><code>integrator</code></a> for "normal" integration of a system.</p>
-</li>
+<ol>
+<li><a href="../advanced/#DynamicalSystemsBase.integrator"><code>integrator</code></a> for "normal" integration of a system.</li>
 <li><a href="../advanced/#DynamicalSystemsBase.tangent_integrator"><code>tangent_integrator</code></a> for integration of a state and deviation vectors (that live on the tangent space).</li>
 <li><a href="../advanced/#DynamicalSystemsBase.parallel_integrator"><code>parallel_integrator</code></a> for integrating in "parallel" a number of states. Notice that the states are integrated at <em>exact</em> same times, even for continuous systems.</li>
-</ul>
+</ol>
 </li>
 <li>
 <p>All three of the above integrators work perfectly fine for all eight combinations of systems and also have performant implementations.</p>
