@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.0">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.3">
     
     
       
@@ -44,9 +44,9 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.aa3de92b.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.9b572555.css">
       
-        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.6079476c.css">
       
     
     
@@ -436,6 +436,8 @@
       
       
       
+      
+      
     </ul>
   
 </nav>
@@ -556,6 +558,8 @@
       
       
       
+      
+      
     </ul>
   
 </nav>
@@ -580,25 +584,28 @@
 <p>The function <code>lyapunovs</code> calculates the entire spectrum of the Lyapunov exponents of a system:</p>
 <p><a id='ChaosTools.lyapunovs' href='#ChaosTools.lyapunovs'>#</a>
 <strong><code>ChaosTools.lyapunovs</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="n">lyapunovs</span><span class="p">(</span><span class="n">ds</span><span class="o">::</span><span class="n">DynamicalSystem</span><span class="p">,</span> <span class="n">N</span><span class="p">;</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">λ1</span><span class="p">,</span> <span class="n">λ2</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="n">λD</span><span class="p">]</span>
+<div class="codehilite"><pre><span></span><span class="nt">lyapunovs</span><span class="o">(</span><span class="nt">ds</span><span class="p">::</span><span class="nd">DynamicalSystem</span><span class="o">,</span> <span class="nt">N</span><span class="o">,</span> <span class="nt">k</span><span class="p">::</span><span class="nd">Int</span> <span class="o">|</span> <span class="nt">Q0</span><span class="o">;</span> <span class="nt">kwargs</span><span class="o">...)</span> <span class="nt">-</span><span class="o">&gt;</span> <span class="err">λ</span><span class="nt">s</span>
 </pre></div>
 
 
 <p>Calculate the spectrum of Lyapunov exponents [1] of <code>ds</code> by applying a QR-decomposition on the parallelepiped matrix <code>N</code> times. Return the spectrum sorted from maximum to minimum.</p>
+<p>The third argument <code>k</code> is optional, and dictates how many lyapunov exponents to calculate (defaults to <code>dimension(ds)</code>). Instead of passing an integer <code>k</code> you can pass a pre-initialized matrix <code>Q0</code> whose columns are initial deviation vectors (then <code>k = size(Q0)[2]</code>).</p>
 <p><strong>Keyword Arguments</strong></p>
 <ul>
-<li><code>Ttr = 0</code> : Extra "transient" time to evolve the system before application of the algorithm. Should be <code>Int</code> for discrete systems.</li>
-<li><code>dt = 1.0</code> : (only for continuous) Time of individual evolutions between successive orthonormalization steps.</li>
+<li><code>Ttr = 0</code> : Extra "transient" time to evolve the system before application of the algorithm. Should be <code>Int</code> for discrete systems. Both the system and the deviation vectors are evolved for this time.</li>
+<li><code>dt</code> : Time of individual evolutions between successive orthonormalization steps. Defaults to <code>1</code>. For continuous systems this is approximate.</li>
 <li><code>diff_eq_kwargs = Dict()</code> : (only for continuous) Keyword arguments passed into the solvers of the <code>DifferentialEquations</code> package (see <a href="../../definition/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> for more info).</li>
 </ul>
 <p><strong>Description</strong></p>
-<p>The method we employ is "H2" of [2], originally stated in [3]. The vectors defining a <code>D</code>-dimensional parallepiped are evolved using the tangent dynamics (known also as variational equations) of the system. A QR-decomposition at each step yields the local growth rate for each dimension of the parallepiped. The growth rates are then averaged over <code>N</code> successive steps, yielding the lyapunov exponent spectrum.</p>
-<p>For discrete systems the QR-decomposition is performed at <em>every</em> step <code>i ∈ 1:N</code>.</p>
+<p>The method we employ is "H2" of [2], originally stated in [3]. The vectors defining a <code>D</code>-dimensional parallepiped are evolved using the tangent dynamics of the system. A QR-decomposition at each step yields the local growth rate for each dimension of the parallepiped. The growth rates are then averaged over <code>N</code> successive steps, yielding the lyapunov exponent spectrum.</p>
+<p><strong>Performance Notes</strong></p>
+<p>This function uses a <a href="../@ref"><code>tangent_integrator</code></a>. For loops over initial conditions and/or parameter values one should use the lower level methods that accept an integrator, and <code>reinit!</code> it to new initial conditions.</p>
+<p>See the "advanced documentation" for info on the integrator object and use <code>@which ...</code> to go to the source code for the low-level call signature.</p>
 <p><strong>References</strong></p>
 <p>[1] : A. M. Lyapunov, <em>The General Problem of the Stability of Motion</em>, Taylor &amp; Francis (1992)</p>
 <p>[2] : K. Geist <em>et al.</em>, Progr. Theor. Phys. <strong>83</strong>, pp 875 (1990)</p>
 <p>[3] : G. Benettin <em>et al.</em>, Meccanica <strong>15</strong>, pp 9-20 &amp; 21-30 (1980)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/bcbc4a693cbf738161ea3801bc13344187b529ae/src/lyapunovs.jl#L7-L42' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/c72dc5a9bc08a0e78071fd93593efac571da6d47/src/lyapunovs.jl#L10-L60' class='documenter-source'>source</a><br></p>
 <hr />
 <p>As you can see, the documentation string is detailed and self-contained. For example, the lyapunov spectrum of the <a href="http://www.scholarpedia.org/article/Hyperchaos">folded towel map</a> is calculated as:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -627,22 +634,23 @@
 <p>The function <code>lyapunov</code> calculates the maximum lyapunov exponent of a system, much more efficiently than getting the first result of <code>lyapunovs</code>:</p>
 <p><a id='ChaosTools.lyapunov' href='#ChaosTools.lyapunov'>#</a>
 <strong><code>ChaosTools.lyapunov</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="n">lyapunov</span><span class="p">(</span><span class="n">ds</span><span class="o">::</span><span class="n">DynamicalSystem</span><span class="p">,</span> <span class="n">Τ</span><span class="p">;</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="nt">lyapunov</span><span class="o">(</span><span class="nt">ds</span><span class="p">::</span><span class="nd">DynamicalSystem</span><span class="o">,</span> <span class="err">Τ</span><span class="o">;</span> <span class="nt">kwargs</span><span class="o">...)</span>
 </pre></div>
 
 
 <p>Calculate the maximum Lyapunov exponent <code>λ</code> using a method due to Benettin [1], which simply evolves two neighboring trajectories (one called "given" and one called "test") while constantly rescaling the test one. <code>T</code>  denotes the total time of evolution (should be <code>Int</code> for discrete systems).</p>
 <p><strong>Keyword Arguments</strong></p>
 <ul>
-<li><code>Ttr = 0</code> : Extra "transient" time to evolve the system before application of the algorithm. Should be <code>Int</code> for discrete systems.</li>
+<li><code>Ttr = 0</code> : Extra "transient" time to evolve the trajectories before starting to measure the expontent. Should be <code>Int</code> for discrete systems.</li>
 <li><code>d0 = 1e-9</code> : Initial &amp; rescaling distance between the two neighboring trajectories.</li>
-<li><code>threshold = 1e-5</code> : Distance threshold for rescaling.</li>
+<li><code>upper_threshold = 1e-6</code> : Upper distance threshold for rescaling.</li>
+<li><code>lower_threshold = 1e-12</code> : Lower distance threshold for rescaling (in order to  be able to detect negative exponents).</li>
 <li><code>diff_eq_kwargs = Dict(:abstol=&gt;d0, :reltol=&gt;d0)</code> : (only for continuous) Keyword arguments passed into the solvers of the <code>DifferentialEquations</code> package (see <a href="../../definition/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> for more info).</li>
-<li><code>dt = 0.1</code> : (only for continuous) Time of evolution between each check of distance exceeding the <code>threshold</code>.</li>
+<li><code>dt = 1</code> : Time of evolution between each check of distance exceeding the thresholds.</li>
 <li><code>inittest = (st1, d0) -&gt; st1 .+ d0/sqrt(D)</code> : A function that given <code>(st1, d0)</code> initializes the test state with distance <code>d0</code> from the given state <code>st1</code> (<code>D</code> is the dimension of the system). This function can be used when you want to avoid the test state appearing in a region of the phase-space where it would have e.g. different energy or escape to infinity.</li>
 </ul>
 <p><strong>Description</strong></p>
-<p>Two neighboring trajectories with initial distance <code>d0</code> are evolved in time. At time <span><span class="MathJax_Preview">d(t_i)</span><script type="math/tex">d(t_i)</script></span> their distance exceeds the <code>threshold</code>, which initializes a rescaling of the test trajectory back to having distance <code>d0</code> from the given one, while the rescaling keeps the distance vector along the maximal expansion direction.</p>
+<p>Two neighboring trajectories with initial distance <code>d0</code> are evolved in time. At time <span><span class="MathJax_Preview">d(t_i)</span><script type="math/tex">d(t_i)</script></span> their distance either exceeds the <code>upper_threshold</code>, or is lower than <code>lower_threshold</code>, which initializes a rescaling of the test trajectory back to having distance <code>d0</code> from the given one, while the rescaling keeps the difference vector along the maximal expansion/contraction direction.</p>
 <p>The maximum Lyapunov exponent is the average of the time-local Lyapunov exponents</p>
 <div>
 <div class="MathJax_Preview">
@@ -655,11 +663,11 @@
 </script>
 </div>
 <p><strong>Performance Notes</strong></p>
-<p>For the continuous case, the algorithm becomes faster with increasing <code>dt</code>, since integration is interrupted less frequenty. For the fastest performance you want to fine-tune <code>dt, d0, threshold</code> such that you have the minimum amount of rescalings <em>while still being well within the linearized dynamics region</em>.</p>
-<p>You can easily modify the source code to return the convergence timeseries of the exponent, if need be.</p>
+<p>This function uses a <code>parallel_integrator</code>. For loops over initial conditions and/or parameter values one should use the lower level methods that accept an integrator, and <code>reinit!</code> it to new initial conditions.</p>
+<p>See the "advanced documentation" for info on the integrator object and use <code>@which ...</code> to go to the source code for the low-level call signature.</p>
 <p><strong>References</strong></p>
 <p>[1] : G. Benettin <em>et al.</em>, Phys. Rev. A <strong>14</strong>, pp 2338 (1976)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/bcbc4a693cbf738161ea3801bc13344187b529ae/src/lyapunovs.jl#L94-L149' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/c72dc5a9bc08a0e78071fd93593efac571da6d47/src/lyapunovs.jl#L154-L210' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -760,7 +768,7 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application.9fb73e57.js"></script>
+      <script src="../../assets/javascripts/application.abd7b172.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
       

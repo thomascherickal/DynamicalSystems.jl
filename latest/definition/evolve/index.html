@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.0">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.3">
     
     
       
@@ -44,9 +44,9 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.aa3de92b.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.9b572555.css">
       
-        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.6079476c.css">
       
     
     
@@ -345,6 +345,8 @@
       
       
       
+      
+      
     </ul>
   
 </nav>
@@ -542,6 +544,8 @@
       
       
       
+      
+      
     </ul>
   
 </nav>
@@ -560,58 +564,14 @@
                 <p><a id='Time-Evolution-of-Systems-1'></a></p>
 <h1 id="time-evolution-of-systems">Time Evolution of Systems</h1>
 <p><strong>DynamicalSystems.jl</strong> provides convenient interfaces for the evolution of systems.</p>
-<p><a id='DynamicalSystemsBase.evolve' href='#DynamicalSystemsBase.evolve'>#</a>
-<strong><code>DynamicalSystemsBase.evolve</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="nt">evolve</span><span class="o">(</span><span class="nt">ds</span><span class="p">::</span><span class="nd">DynamicalSystem</span><span class="o">,</span> <span class="nt">T</span> <span class="cp">[</span><span class="p">,</span> <span class="nx">u0</span><span class="cp">]</span><span class="o">;</span> <span class="nt">diff_eq_kwargs</span> <span class="o">=</span> <span class="nt">Dict</span><span class="o">())</span>
+<div class="codehilite"><pre><span></span>evolve
+evolve!
+trajectory
+get_sol
+ODEProblem
 </pre></div>
 
 
-<p>Evolve the <code>state(ds)</code> (or <code>u0</code> if given) for total time <code>T</code> and return the <code>final_state</code>. For discrete systems <code>T</code> corresponds to steps and thus it must be integer. For continuous systems <code>T</code> can also be a tuple (for <code>tspan</code>).</p>
-<p><code>evolve</code> <em>does not store</em> any information about intermediate steps. Use <a href="./#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> if you want to produce a trajectory of the system.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/69abc031d145a7541a98e48163be4e951efa4709/src/discrete.jl#L204-L212' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalSystemsBase.evolve!' href='#DynamicalSystemsBase.evolve!'>#</a>
-<strong><code>DynamicalSystemsBase.evolve!</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="nt">evolve</span><span class="o">!(</span><span class="nt">ds</span><span class="p">::</span><span class="nd">DynamicalSystem</span><span class="o">,</span> <span class="nt">T</span><span class="o">;</span> <span class="nt">diff_eq_kwargs</span> <span class="o">=</span> <span class="nt">Dict</span><span class="o">())</span>
-</pre></div>
-
-
-<p>Same as <a href="./#DynamicalSystemsBase.evolve"><code>evolve</code></a> but updates the system's state (in-place) with the final state.</p>
-<p>Notice that for continuous systems <code>ds.prob.u0</code> is a <em>reference</em> to a vector. Modifying it modifies all other references to this vector, including the state of other <code>ContinuousDS</code> that share the same reference.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/69abc031d145a7541a98e48163be4e951efa4709/src/discrete.jl#L228-L236' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalSystemsBase.trajectory' href='#DynamicalSystemsBase.trajectory'>#</a>
-<strong><code>DynamicalSystemsBase.trajectory</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="o">::</span><span class="n">DynamicalSystem</span><span class="p">,</span> <span class="n">T</span><span class="p">;</span> <span class="n">kwargs</span><span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">dataset</span>
-</pre></div>
-
-
-<p>Return a dataset what will contain the trajectory of the sytem, after evolving it for time <code>T</code>. See <a href="../dataset/#DynamicalSystemsBase.Dataset"><code>Dataset</code></a> for info on how to manipulate this object.</p>
-<p>For the discrete case, <code>T</code> is an integer and a <code>T×D</code> dataset is returned (<code>D</code> is the system dimensionality). For the continuous case, a <code>W×D</code> dataset is returned, with <code>W = length(0:dt:T)</code> with <code>0:dt:T</code> representing the time vector (<em>not</em> returned).</p>
-<p><strong>Keyword Arguments</strong></p>
-<ul>
-<li><code>dt = 0.05</code> : (only for continuous) Time step of value output during the solving of the continuous system.</li>
-<li><code>diff_eq_kwargs = Dict()</code> : (only for continuous) A dictionary <code>Dict{Symbol, ANY}</code> of keyword arguments passed into the <code>solve</code> of the <code>DifferentialEquations.jl</code> package, for example <code>Dict(:abstol =&gt; 1e-9)</code>. If you want to specify a solver, do so by using the symbol <code>:solver</code>, e.g.: <code>Dict(:solver =&gt; DP5(), :maxiters =&gt; 1e9)</code>. This requires you to have been first <code>using OrdinaryDiffEq</code> to access the solvers.</li>
-</ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/69abc031d145a7541a98e48163be4e951efa4709/src/discrete.jl#L240-L262' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalSystemsBase.get_sol' href='#DynamicalSystemsBase.get_sol'>#</a>
-<strong><code>DynamicalSystemsBase.get_sol</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>get_sol(prob::ODEProblem [, diff_eq_kwargs::Dict, extra_kwargs::Dict])
-</pre></div>
-
-
-<p>Solve the <code>prob</code> using <code>solve</code> and return the solutions vector as well as the time vector. Always uses the keyword argument <code>save_everystep=false</code>.</p>
-<p>The second and third arguments are optional <em>position</em> arguments, passed to <code>solve</code> as keyword arguments. They both have to be dictionaries of <code>Symbol</code> keys. Only the second argument may contain a solver via the <code>:solver</code> key.</p>
-<p><code>get_sol</code> correctly uses <code>tstops</code> if necessary (e.g. in the presence of <code>DiscreteCallback</code>s).</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/69abc031d145a7541a98e48163be4e951efa4709/src/continuous.jl#L304-L316' class='documenter-source'>source</a><br></p>
-<p><a id='DiffEqBase.ODEProblem' href='#DiffEqBase.ODEProblem'>#</a>
-<strong><code>DiffEqBase.ODEProblem</code></strong> &mdash; <em>Type</em>.</p>
-<div class="codehilite"><pre><span></span><span class="nt">ODEProblem</span><span class="o">(</span><span class="nt">ds</span><span class="p">::</span><span class="nd">ContinuousDS</span><span class="o">;</span> <span class="nt">kwargs</span><span class="o">...)</span>
-</pre></div>
-
-
-<p>Create a new <code>ODEProblem</code> for the given dynamical system by optionally changing specific aspects of the existing <code>ODEProblem</code>.</p>
-<p>Keyword arguments: <code>state, t, parameters, callback, mass_matrix, tspan</code>. If <code>callback</code> is given and a callback also exists already in <code>ds.prob</code> (i.e. <code>ds.prob.cb ≠ nothing</code>) then the two callbacks are merged into a <code>CallbackSet</code>.</p>
-<p>If <code>t</code> is given, a <code>tspan</code> is created with initial time assumed zero. If <code>tspan</code> is given directly, the keyword <code>t</code> is disregarded.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/69abc031d145a7541a98e48163be4e951efa4709/src/continuous.jl#L163-L174' class='documenter-source'>source</a><br></p>
 <hr />
 <p>Notice that if you want to do repeated evolutions of different states of a continuous system, you should use the <code>DiffEqBase.ODEIntegrator</code> in conjunction with <code>DiffEqBase.reinit!(integrator, newstate)</code> to avoid the intermediate initializations of the integrator each time.</p>
 <p><a id='Solution-precision-for-continuous-systems-1'></a></p>
@@ -701,7 +661,7 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application.9fb73e57.js"></script>
+      <script src="../../assets/javascripts/application.abd7b172.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
       

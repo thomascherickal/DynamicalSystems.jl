@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.0">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.3">
     
     
       
@@ -44,9 +44,9 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.aa3de92b.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.9b572555.css">
       
-        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.6079476c.css">
       
     
     
@@ -328,6 +328,8 @@
       
       
       
+      
+      
     </ul>
   
 </nav>
@@ -556,6 +558,8 @@
       
       
       
+      
+      
     </ul>
   
 </nav>
@@ -583,38 +587,10 @@
 </script>
 </div>
 <p>are defined using the <code>ContinuousDS</code> structure:</p>
-<p><a id='DynamicalSystemsBase.ContinuousDS' href='#DynamicalSystemsBase.ContinuousDS'>#</a>
-<strong><code>DynamicalSystemsBase.ContinuousDS</code></strong> &mdash; <em>Type</em>.</p>
-<div class="codehilite"><pre><span></span>ContinuousDS &lt;: DynamicalSystem
+<div class="codehilite"><pre><span></span>ContinuousDS
 </pre></div>
 
 
-<p><code>D</code>-dimensional continuous dynamical system.</p>
-<p><strong>Fields</strong></p>
-<ul>
-<li><code>prob::ODEProblem</code> : The fundamental structure used to describe a continuous dynamical system and also used in the <a href="http://docs.juliadiffeq.org/latest/index.html">DifferentialEquations.jl</a> suite. Contains the system's state (<code>prob.u0</code>), the equations of motion (<code>prob.f</code>), the parameters of the equations of motion (<code>prob.p</code>) and optionally other information like e.g. <a href="http://docs.juliadiffeq.org/latest/features/callback_functions.html#Event-Handling-and-Callback-Functions-1">callbacks</a>.</li>
-<li><code>jacob!</code> (function) : The function that represents the Jacobian of the system, given in the format: <code>jacob!(J, u, p, t)</code> which means given a state <code>u</code>, a parameter container <code>p</code> and a time <code>t</code>, it writes the system's Jacobian in-place in <code>J</code>.</li>
-<li><code>J::Matrix{T}</code> : Initialized Jacobian matrix.</li>
-</ul>
-<p>The equations of motion function is contained in <code>prob.f</code>, the state is contained in <code>prob.u0</code> and the parameters are contained in <code>prob.p</code>.</p>
-<p><strong>Creating a <code>ContinuousDS</code></strong></p>
-<p>The equations of motion function <strong>must be</strong> in the form <code>eom!(du, u, p, t)</code>, as requested by DifferentialEquations.jl. They are <strong>in-place</strong> with the mutated argument <code>du</code> being first. <code>p</code> stands for the parameters of the model and <code>t</code> stands for the time variable (independent variable). Actually using <code>p</code> and <code>t</code> inside <code>eom!</code> is completely optional, however <em>both must be used in the definition of the function</em>! Both <code>u, du</code> <strong>must be</strong> <code>Vector</code>s.</p>
-<p>If you have the <code>eom!</code> function, and optionally a function for the Jacobian, you can use the constructor</p>
-<div class="codehilite"><pre><span></span><span class="n">ContinuousDS</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">eom!</span> <span class="p">[,</span> <span class="n">jacob!</span> <span class="p">[,</span> <span class="n">J</span><span class="p">]];</span>
-             <span class="n">tspan</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">),</span> <span class="n">parameters</span> <span class="o">=</span> <span class="nb">nothing</span><span class="p">)</span>
-</pre></div>
-
-
-<p>with <code>state</code> the initial condition of the system. <code>parameters</code> is a keyword corresponding to the initial parameters of the model, and if not given it is assumed to be <code>nothing</code> (which of course means that the model does not have any parameters).</p>
-<p>If instead you already have an <code>ODEProblem</code> because you also want to take advantage of the callback functionality of DifferentialEquations.jl, you may use the constructor</p>
-<div class="codehilite"><pre><span></span><span class="n">ContinuousDS</span><span class="p">(</span><span class="n">odeproblem</span> <span class="p">[,</span> <span class="n">jacob!</span> <span class="p">[,</span> <span class="n">J</span><span class="p">]])</span>
-</pre></div>
-
-
-<p>If the <code>jacob!</code> is not provided by the user, it is created automatically using the module <a href="http://www.juliadiff.org/ForwardDiff.jl/stable/"><code>ForwardDiff</code></a>, which always passes <code>p = odeproblem.p, t=0</code> at the <code>eom!</code> (this interaction is well-behavied for all functions exported by the DynamicalSystems.jl suite because the parameter container is passed by reference and thus mutations in parameters propagate correctly).</p>
-<p><code>ContinuousDS</code> by default are evolved using solver <code>Vern9()</code> and tolerances <code>:abstol =&gt; 1e-9, :reltol =&gt; 1e-9</code>.</p>
-<p>See also <a href="../general/#DynamicalSystemsBase.set_state!"><code>set_state!</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/69abc031d145a7541a98e48163be4e951efa4709/src/continuous.jl#L14-L70' class='documenter-source'>source</a><br></p>
 <hr />
 <p>In the following examples we will demonstrate how one can use both constructors.</p>
 <p><a id='Defining-a-ContinuousDS-using-eom!-1'></a></p>
@@ -822,7 +798,7 @@ e.o.m.: DynamicalSystemsBase.Systems.roessler_eom
       
     </div>
     
-      <script src="../../assets/javascripts/application.9fb73e57.js"></script>
+      <script src="../../assets/javascripts/application.abd7b172.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
       

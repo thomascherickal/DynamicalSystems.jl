@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.0">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.3">
     
     
       
@@ -44,9 +44,9 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.aa3de92b.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.9b572555.css">
       
-        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.6079476c.css">
       
     
     
@@ -347,6 +347,8 @@
       
       
       
+      
+      
     </ul>
   
 </nav>
@@ -570,6 +572,8 @@
       
       
       
+      
+      
     </ul>
   
 </nav>
@@ -605,62 +609,20 @@
 <p><a id='High-Dimensional-1'></a></p>
 <h2 id="high-dimensional">High-Dimensional</h2>
 <p>At around <code>D=10</code> dimensions, Static Arrays start to become less efficient than Julia's base Arrays, provided that the latter use in-place operations. For cases of discrete systems with much high dimensionality, we offer a type called <code>BigDiscreteDS</code>:</p>
-<p><a id='DynamicalSystemsBase.BigDiscreteDS' href='#DynamicalSystemsBase.BigDiscreteDS'>#</a>
-<strong><code>DynamicalSystemsBase.BigDiscreteDS</code></strong> &mdash; <em>Type</em>.</p>
-<div class="codehilite"><pre><span></span>BigDiscreteDS &lt;: DynamicalSystem
+<div class="codehilite"><pre><span></span>BigDiscreteDS
 </pre></div>
 
 
-<p><code>D</code>-dimensional discrete dynamical system (used for big <code>D</code>). The equations for this system perform all operations <em>in-place</em>.</p>
-<p><strong>Fields:</strong></p>
-<ul>
-<li><code>state::Vector{T}</code> : Current state-vector of the system. Do <code>state(ds) .= u</code> to change the state.</li>
-<li><code>eom!</code> (function) : The function that represents the system's equations of motion (also called vector field). The function is of the format: <code>eom!(xnew, x, p)</code> which means that given a state <code>Vector</code> <code>x</code> and some parameter container <code>p</code>, it writes in-place the new state in <code>xnew</code>.</li>
-<li><code>jacob!</code> (function) : A function that calculates the system's jacobian matrix, based on the format: <code>jacob!(J, x, p)</code> which means that given a state <code>Vector</code> <code>x</code> it writes in-place the Jacobian in <code>J</code>.</li>
-<li><code>J::Matrix{T}</code> : Initialized Jacobian matrix (optional).</li>
-<li><code>p</code> : Some kind of container of (initial) parameters. Highly suggested to use a subtype of <code>Array</code> or <a href="https://github.com/JuliaDiffEq/LabelledArrays.jl"><code>LMArray</code></a>.</li>
-<li><code>dummystate::Vector{T}</code> : Dummy vector, which most of the time fills the role of the previous state in e.g. <a href="../evolve/#DynamicalSystemsBase.evolve"><code>evolve</code></a>.</li>
-</ul>
-<p>It is not necessary that <code>p</code> is used inside the functions (e.g. a model without parameters), however the functions <strong>must be</strong> declared in this format.</p>
-<p>Use <a href="../general/#DynamicalSystemsBase.set_state!"><code>set_state!</code></a> to change the system's state.</p>
-<p><strong>Constructor</strong></p>
-<div class="codehilite"><pre><span></span><span class="n">BigDiscreteDS</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">eom!</span> <span class="p">[,</span> <span class="n">jacob!</span> <span class="p">[,</span> <span class="n">J</span><span class="p">]];</span> <span class="n">parameters</span> <span class="o">=</span> <span class="nb">nothing</span><span class="p">)</span>
-</pre></div>
-
-
-<p>If the <code>jacob</code> is not provided by the user, it is created automatically using the module <a href="http://www.juliadiff.org/ForwardDiff.jl/stable/"><code>ForwardDiff</code></a>. Notice that if your model has parameters, you <em>must</em> give them via the keyword argument <code>parameters</code>.</p>
-<p><em>Automatic differentiation and parameter changes works only if the container <code>p</code> is changed in-place!</em></p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/69abc031d145a7541a98e48163be4e951efa4709/src/discrete.jl#L123-L161' class='documenter-source'>source</a><br></p>
 <hr />
 <p>The source code of the pre-defined <a href="../predefined/#DynamicalSystemsBase.Systems.coupledstandardmaps">coupled standard maps</a> can serve as an example of a <code>BigDiscreteDS</code> definition <em>(we do not show it here because it is very large and very complicated</em>).</p>
 <p>Just keep in mind that the equations of motion for <code>BigDiscreteDS</code> are of the form <code>eom!(xnew, x, p)</code>!</p>
 <p><a id='Low-dimensional-1'></a></p>
 <h2 id="low-dimensional">Low-dimensional</h2>
 <p>The definition of low-dimensional discrete systems differs fundamentally from high dimensional ones, because everything is <em>much</em> more efficiently done with statically sized vectors. The <code>struct</code> representing such systems is called <code>DiscreteDS</code>:</p>
-<p><a id='DynamicalSystemsBase.DiscreteDS' href='#DynamicalSystemsBase.DiscreteDS'>#</a>
-<strong><code>DynamicalSystemsBase.DiscreteDS</code></strong> &mdash; <em>Type</em>.</p>
-<div class="codehilite"><pre><span></span>DiscreteDS &lt;: DynamicalSystem
+<div class="codehilite"><pre><span></span>DiscreteDS
 </pre></div>
 
 
-<p><code>D</code>-dimensional discrete dynamical system.</p>
-<p><strong>Fields</strong></p>
-<ul>
-<li><code>state::SVector{D}</code> : Current state-vector of the system, stored in the data format of <code>StaticArray</code>'s <code>SVector</code>.</li>
-<li><code>eom</code> (function) : The function that represents the system's equations of motion (also called vector field). It <strong>must</strong> be in the form <code>eom(x, p) -&gt; SVector</code> which means that given a state <code>x::SVector</code> and some parameter container <code>p</code> it returns an <code>SVector</code> containing the next state.</li>
-<li><code>jacob</code> (function) : A function that calculates the system's jacobian matrix. It <strong>must be</strong> in the form <code>jacob(x, p) -&gt; SMatrix</code> which means that given a state <code>x::Svector</code> and a parameter container <code>p</code> it returns an <code>SMatrix</code> containing the Jacobian at that state.</li>
-<li><code>p</code> : Some kind of container of (initial) parameters. Highly suggested to use a subtype of <code>Array</code> or <a href="https://github.com/JuliaDiffEq/LabelledArrays.jl"><code>LMArray</code></a>.</li>
-</ul>
-<p>It is not necessary that <code>p</code> is used inside the functions (e.g. a model without parameters), however the functions <strong>must be</strong> declared in this format.</p>
-<p>Use <a href="../general/#DynamicalSystemsBase.set_state!"><code>set_state!</code></a> to change the system's state.</p>
-<p><strong>Constructor</strong></p>
-<div class="codehilite"><pre><span></span><span class="n">DiscreteDS</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">eom</span> <span class="p">[,</span> <span class="n">jacob</span><span class="p">];</span> <span class="n">parameters</span> <span class="o">=</span> <span class="nb">nothing</span><span class="p">)</span>
-</pre></div>
-
-
-<p>If the <code>jacob</code> is not provided by the user, it is created automatically using the module <a href="http://www.juliadiff.org/ForwardDiff.jl/stable/"><code>ForwardDiff</code></a>. Notice that if your model has parameters, you <em>must</em> give them via the keyword argument <code>parameters</code>.</p>
-<p><em>Automatic differentiation and parameter changes works only if the container <code>p</code> is changed in-place!</em></p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/69abc031d145a7541a98e48163be4e951efa4709/src/discrete.jl#L12-L46' class='documenter-source'>source</a><br></p>
 <hr />
 <div class="admonition note">
 <p class="admonition-title">Return form of the <code>eom</code> function</p>
@@ -766,7 +728,7 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application.9fb73e57.js"></script>
+      <script src="../../assets/javascripts/application.abd7b172.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
       

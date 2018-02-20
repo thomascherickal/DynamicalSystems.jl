@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.0">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.3">
     
     
       
@@ -44,9 +44,9 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.aa3de92b.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.9b572555.css">
       
-        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.6079476c.css">
       
     
     
@@ -504,6 +504,8 @@
       
       
       
+      
+      
     </ul>
   
 </nav>
@@ -596,6 +598,8 @@
       
       
       
+      
+      
     </ul>
   
 </nav>
@@ -620,17 +624,18 @@
 <p>"GALI" for sort, is a method that relies on the fact that initially orthogonal deviation vectors tend to align towards the direction of the maximum Lyapunov exponent for chaotic motion. It is one of the most recent and cheapest methods for distinguishing chaos, introduced first in 2007 by Skokos, Bountis &amp; Antonopoulos.</p>
 <p><a id='ChaosTools.gali' href='#ChaosTools.gali'>#</a>
 <strong><code>ChaosTools.gali</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="nt">gali</span><span class="o">(</span><span class="nt">ds</span><span class="p">::</span><span class="nd">DynamicalSystem</span><span class="o">,</span> <span class="nt">k</span><span class="p">::</span><span class="nd">Int</span><span class="o">,</span> <span class="nt">tmax</span> <span class="cp">[</span><span class="p">,</span> <span class="nx">ws</span><span class="cp">]</span><span class="o">;</span> <span class="nt">kwargs</span><span class="o">...)</span> <span class="nt">-</span><span class="o">&gt;</span> <span class="nt">GALI_k</span><span class="o">,</span> <span class="nt">t</span>
+<div class="codehilite"><pre><span></span><span class="nt">gali</span><span class="o">(</span><span class="nt">ds</span><span class="p">::</span><span class="nd">DynamicalSystem</span><span class="o">,</span> <span class="nt">tmax</span><span class="o">,</span> <span class="nt">k</span><span class="p">::</span><span class="nd">Int</span><span class="o">;</span> <span class="nt">kwargs</span><span class="o">...)</span> <span class="nt">-</span><span class="o">&gt;</span> <span class="nt">GALI_k</span><span class="o">,</span> <span class="nt">t</span>
 </pre></div>
 
 
 <p>Compute <span><span class="MathJax_Preview">\text{GALI}_k</span><script type="math/tex">\text{GALI}_k</script></span> [1] for a given <code>k</code> up to time <code>tmax</code>. Return <span><span class="MathJax_Preview">\text{GALI}_k(t)</span><script type="math/tex">\text{GALI}_k(t)</script></span> and time vector <span><span class="MathJax_Preview">t</span><script type="math/tex">t</script></span>.</p>
-<p><code>ws</code> is an optional argument containing the deviation vectors <span><span class="MathJax_Preview">w_i</span><script type="math/tex">w_i</script></span> for <span><span class="MathJax_Preview">i \in [1,k]</span><script type="math/tex">i \in [1,k]</script></span>, expected either as a matrix with each column a deviation vector, or as a vector of vectors. If not given, random orthonormal vectors are chosen.</p>
 <p><strong>Keyword Arguments</strong></p>
 <ul>
-<li><code>threshold</code> : If <code>GALI_k</code> falls below the <code>threshold</code> iteration is terminated. Default value is <code>1e-12</code>.</li>
-<li><code>dt=1.0</code> : Time step between variational vector normalizations for continuous systems.</li>
+<li><code>threshold = 1e-12</code> : If <code>GALI_k</code> falls below the <code>threshold</code> iteration is terminated.</li>
+<li><code>dt = 1</code> : Time-step between variational vector normalizations. Must be integer for discrete systems.</li>
 <li><code>diff_eq_kwargs</code> : See <a href="../../definition/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a>.</li>
+<li><code>u0</code> : Initial state for the system. Defaults to <code>state(ds)</code>.</li>
+<li><code>w0</code> : Initial orthonormal vectors (in matrix form). Defaults to <code>orthonormal(dimension(ds), k)</code>, i.e. <code>k</code> random orthonormal vectors.</li>
 </ul>
 <p><strong>Description</strong></p>
 <p>The Generalized Alignment Index, <span><span class="MathJax_Preview">\text{GALI}_k</span><script type="math/tex">\text{GALI}_k</script></span>, is an efficient (and very fast) indicator of chaotic or regular behavior type in <span><span class="MathJax_Preview">D</span><script type="math/tex">D</script></span>-dimensional Hamiltonian systems (<span><span class="MathJax_Preview">D</span><script type="math/tex">D</script></span> is number of variables). The <em>asymptotic</em> behavior of <span><span class="MathJax_Preview">\text{GALI}_k(t)</span><script type="math/tex">\text{GALI}_k(t)</script></span> depends critically of the type of orbit resulting from the initial condition <code>state(ds)</code>. If it is a chaotic orbit, then</p>
@@ -666,18 +671,14 @@
 </script>
 </div>
 <p>Traditionally, if <span><span class="MathJax_Preview">\text{GALI}_k(t)</span><script type="math/tex">\text{GALI}_k(t)</script></span> does not become less than the <code>threshold</code> until <code>tmax</code> the given orbit is said to be chaotic, otherwise it is regular.</p>
-<p>The entirety of our implementation is not based on the original paper, but rather in the method described in [2], which uses the product of the singular values of <span><span class="MathJax_Preview">A</span><script type="math/tex">A</script></span>, a matrix that has as <em>columns</em> the deviation vectors.</p>
+<p>Our implementation is not based on the original paper, but rather in the method described in [2], which uses the product of the singular values of <span><span class="MathJax_Preview">A</span><script type="math/tex">A</script></span>, a matrix that has as <em>columns</em> the deviation vectors.</p>
 <p><strong>Performance Notes</strong></p>
-<p>If you want to do repeated evaluations of <code>gali</code> for many initial conditions and for continuous systems, you can take advantage of the function:</p>
-<div class="codehilite"><pre><span></span>gali(integrator, k, W, tmax, dt, threshold)
-</pre></div>
-
-
-<p>in conjuction with <code>reinit!(integrator, W)</code> for various <code>W=cat(2, state, ws)</code>. See the source code on how to set-up the <code>integrator</code> and <code>W</code> for the first time.</p>
+<p>This function uses a <a href="../@ref"><code>tangent_integrator</code></a>. For loops over initial conditions and/or parameter values one should use the lower level methods that accept an integrator, and <code>reinit!</code> it to new initial conditions.</p>
+<p>See the "advanced documentation" for info on the integrator object and use <code>@which ...</code> to go to the source code for the low-level call signature.</p>
 <p><strong>References</strong></p>
 <p>[1] : Skokos, C. H. <em>et al.</em>, Physica D <strong>231</strong>, pp 30–54 (2007)</p>
 <p>[2] : Skokos, C. H. <em>et al.</em>, <em>Chaos Detection and Predictability</em> - Chapter 5 (section 5.3.1 and ref. [85] therein), Lecture Notes in Physics <strong>915</strong>, Springer (2016)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/bcbc4a693cbf738161ea3801bc13344187b529ae/src/chaos_detection.jl#L6-L75' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/c72dc5a9bc08a0e78071fd93593efac571da6d47/src/chaos_detection.jl#L6-L70' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Discrete-Example-1'></a></p>
 <h3 id="discrete-example">Discrete Example</h3>
@@ -920,7 +921,7 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application.9fb73e57.js"></script>
+      <script src="../../assets/javascripts/application.abd7b172.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
       

@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.0">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.3">
     
     
       
@@ -44,9 +44,9 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.aa3de92b.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.9b572555.css">
       
-        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.6079476c.css">
       
     
     
@@ -514,6 +514,8 @@
       
       
       
+      
+      
     </ul>
   
 </nav>
@@ -664,6 +666,8 @@
       
       
       
+      
+      
     </ul>
   
 </nav>
@@ -702,7 +706,7 @@
 
 <p><strong>References</strong></p>
 <p><code>neighborhood</code> simply interfaces the functions <code>knn</code> and <code>inrange</code> from <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a> by using the last argument, <code>method</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/bcbc4a693cbf738161ea3801bc13344187b529ae/src/delay_coords.jl#L40-L66' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/c72dc5a9bc08a0e78071fd93593efac571da6d47/src/delay_coords.jl#L40-L66' class='documenter-source'>source</a><br></p>
 <p><a id='ChaosTools.AbstractNeighborhood' href='#ChaosTools.AbstractNeighborhood'>#</a>
 <strong><code>ChaosTools.AbstractNeighborhood</code></strong> &mdash; <em>Type</em>.</p>
 <div class="codehilite"><pre><span></span>AbstractNeighborhood
@@ -717,7 +721,7 @@
 </ul>
 <p>Notice that these distances are always computed using the <code>Euclidean()</code> distance in <code>D</code>-dimensional space.</p>
 <p>See also <a href="./#ChaosTools.neighborhood"><code>neighborhood</code></a> or <a href="./#ChaosTools.numericallyapunov"><code>numericallyapunov</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/bcbc4a693cbf738161ea3801bc13344187b529ae/src/delay_coords.jl#L15-L29' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/c72dc5a9bc08a0e78071fd93593efac571da6d47/src/delay_coords.jl#L15-L29' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Delay-Coordinates-Reconstruction-1'></a></p>
 <h2 id="delay-coordinates-reconstruction">Delay Coordinates Reconstruction</h2>
@@ -755,7 +759,7 @@
 <p><strong>References</strong></p>
 <p>[1] : F. Takens, <em>Detecting Strange Attractors in Turbulence — Dynamical Systems and Turbulence</em>, Lecture Notes in Mathematics <strong>366</strong>, Springer (1981)</p>
 <p>[2] : T. Sauer <em>et al.</em>, J. Stat. Phys. <strong>65</strong>, pp 579 (1991)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/69abc031d145a7541a98e48163be4e951efa4709/src/reconstruction.jl#L8-L43' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6a015f7af674daa0c44aadf0b93ef42ed6549274/src/reconstruction.jl#L8-L43' class='documenter-source'>source</a><br></p>
 <hr />
 <p>Here are some examples of <code>Reconstruction</code>s of a 3D continuous chaotic system:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span><span class="p">,</span> <span class="n">PyPlot</span>
@@ -794,7 +798,7 @@
 
 
 <p>Estimate an optimal delay to be used in <a href="./#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a>, by performing an exponential fit to the <code>abs.(c)</code> with <code>c</code> the auto-correlation function of <code>s</code>. Return the exponential decay time <code>τ</code> rounded to an integer.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/bcbc4a693cbf738161ea3801bc13344187b529ae/src/delay_coords.jl#L296-L302' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/c72dc5a9bc08a0e78071fd93593efac571da6d47/src/delay_coords.jl#L296-L302' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Numerical-Lyapunov-Exponent-1'></a></p>
 <h2 id="numerical-lyapunov-exponent">Numerical Lyapunov Exponent</h2>
@@ -829,7 +833,7 @@ E(k) \approx \lambda\Delta t k + E(0)
 <p><strong>References</strong></p>
 <p>[1] : Skokos, C. H. <em>et al.</em>, <em>Chaos Detection and Predictability</em> - Chapter 1 (section 1.3.2), Lecture Notes in Physics <strong>915</strong>, Springer (2016)</p>
 <p>[2] : Kantz, H., Phys. Lett. A <strong>185</strong>, pp 77–87 (1994)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/bcbc4a693cbf738161ea3801bc13344187b529ae/src/delay_coords.jl#L88-L153' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/c72dc5a9bc08a0e78071fd93593efac571da6d47/src/delay_coords.jl#L88-L153' class='documenter-source'>source</a><br></p>
 <hr />
 <p>The function <code>numericallyapunov</code> has a total of 4 different approaches for the algorithmic process, by combining 2 types of distances with 2 types of neighborhoods.</p>
 <p><a id='Example-of-Numerical-Lyapunov-computation-1'></a></p>
@@ -982,7 +986,7 @@ x_{N-d+1} & x_{N-d+2} &\ldots & x_N
 <p>The columns of <span><span class="MathJax_Preview">U</span><script type="math/tex">U</script></span> can then be used as a new coordinate system, and by considering the values of the singular values <span><span class="MathJax_Preview">S</span><script type="math/tex">S</script></span> you can decide how many columns of <span><span class="MathJax_Preview">U</span><script type="math/tex">U</script></span> are "important". See the documentation page for example application.</p>
 <p><strong>References</strong></p>
 <p>[1] :  D. S. Broomhead, R. Jones and G. P. King, J. Phys. A <strong>20</strong>, 9, pp L563 (1987)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/bcbc4a693cbf738161ea3801bc13344187b529ae/src/delay_coords.jl#L340-L367' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/c72dc5a9bc08a0e78071fd93593efac571da6d47/src/delay_coords.jl#L340-L367' class='documenter-source'>source</a><br></p>
 <hr />
 <p>This alternative/improvement of the traditional delay coordinates can be a very powerful tool. An example where it shines is noisy data where there is the effect of superficial dimensions due to noise.</p>
 <p>Take the following example where we produce noisy data from a system and then use Broomhead-King coordinates as an alternative to "vanilla" delay coordinates:</p>
@@ -1091,7 +1095,7 @@ x_{N-d+1} & x_{N-d+2} &\ldots & x_N
       
     </div>
     
-      <script src="../../assets/javascripts/application.9fb73e57.js"></script>
+      <script src="../../assets/javascripts/application.abd7b172.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
       

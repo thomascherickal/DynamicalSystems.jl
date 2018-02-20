@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.0">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.3">
     
     
       
@@ -44,9 +44,9 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.aa3de92b.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.9b572555.css">
       
-        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.6079476c.css">
       
     
     
@@ -312,6 +312,8 @@
       
       
       
+      
+      
     </ul>
   
 </nav>
@@ -550,6 +552,8 @@
       
       
       
+      
+      
     </ul>
   
 </nav>
@@ -624,38 +628,11 @@
 <p><a id='General-Functions-1'></a></p>
 <h2 id="general-functions">General Functions</h2>
 <p>The following functions are defined for convenience for any dynamical system:</p>
-<p><a id='DynamicalSystemsBase.dimension' href='#DynamicalSystemsBase.dimension'>#</a>
-<strong><code>DynamicalSystemsBase.dimension</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>dimension(ds::DynamicalSystem) -&gt; D
+<div class="codehilite"><pre><span></span>dimension
+state
+jacobian
+set_state!
 </pre></div>
-
-
-<p>Return the dimension of the system.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/69abc031d145a7541a98e48163be4e951efa4709/src/discrete.jl#L75-L78' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalSystemsBase.state' href='#DynamicalSystemsBase.state'>#</a>
-<strong><code>DynamicalSystemsBase.state</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>state(ds::DynamicalSystem) -&gt; u
-</pre></div>
-
-
-<p>Return the state of the system.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/69abc031d145a7541a98e48163be4e951efa4709/src/discrete.jl#L83-L86' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalSystemsBase.jacobian' href='#DynamicalSystemsBase.jacobian'>#</a>
-<strong><code>DynamicalSystemsBase.jacobian</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>jacobian(ds::DynamicalSystem) -&gt; J
-</pre></div>
-
-
-<p>Return the Jacobian matrix of the equations of motion at the system's current state and parameters.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/69abc031d145a7541a98e48163be4e951efa4709/src/discrete.jl#L194-L198' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalSystemsBase.set_state!' href='#DynamicalSystemsBase.set_state!'>#</a>
-<strong><code>DynamicalSystemsBase.set_state!</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>set_state!(ds::DynamicalSystem, newstate)
-</pre></div>
-
-
-<p>Set the state of the system to <code>newstate</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/69abc031d145a7541a98e48163be4e951efa4709/src/discrete.jl#L69-L72' class='documenter-source'>source</a><br></p>
                 
                   
                 
@@ -733,7 +710,7 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application.9fb73e57.js"></script>
+      <script src="../../assets/javascripts/application.abd7b172.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
       
