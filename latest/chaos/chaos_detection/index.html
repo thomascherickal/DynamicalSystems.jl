@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.3">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.6">
     
     
       
@@ -44,7 +44,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.9b572555.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.78aab2dc.css">
       
         <link rel="stylesheet" href="../../assets/stylesheets/application-palette.6079476c.css">
       
@@ -53,6 +53,7 @@
       <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
     
     
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
       
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
@@ -741,7 +742,7 @@
 <p><img alt="GALI Discrete" src="https://i.imgur.com/tzoaOqV.png" /></p>
 <p><a id='Continuous-Example-1'></a></p>
 <h3 id="continuous-example">Continuous Example</h3>
-<p>As an example of a continuous system, let's see the <a href="../system_definition/#DynamicalSystems.Systems.henonhelies"><code>henonhelies</code></a>:</p>
+<p>As an example of a continuous system, let's see the <a href="../system_definition/#DynamicalSystems.Systems.henonheiles"><code>henonheiles</code></a>:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
 <span class="k">using</span> <span class="n">PyPlot</span><span class="p">,</span> <span class="n">OrdinaryDiffEq</span>
 <span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
@@ -751,7 +752,7 @@
 <span class="n">dt</span> <span class="o">=</span> <span class="mf">1.0</span>
 
 <span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henonhelies</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henonheiles</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span>
 <span class="n">diffeq</span> <span class="o">=</span> <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">abstol</span><span class="o">=&gt;</span><span class="mf">1e-9</span><span class="p">,</span> <span class="o">:</span><span class="n">reltol</span><span class="o">=&gt;</span><span class="mf">1e-9</span><span class="p">,</span> <span class="o">:</span><span class="n">solver</span> <span class="o">=&gt;</span> <span class="n">Tsit5</span><span class="p">())</span>
 <span class="n">tr</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mf">10000.0</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">,</span> <span class="n">diff_eq_kwargs</span> <span class="o">=</span> <span class="n">diffeq</span><span class="p">)</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">tr</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">tr</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
@@ -771,7 +772,7 @@
 <span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 
 <span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henonhelies</span><span class="p">(</span><span class="n">qp</span><span class="p">)</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henonheiles</span><span class="p">(</span><span class="n">qp</span><span class="p">)</span>
 <span class="n">diffeq</span> <span class="o">=</span> <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">abstol</span><span class="o">=&gt;</span><span class="mf">1e-9</span><span class="p">,</span> <span class="o">:</span><span class="n">reltol</span><span class="o">=&gt;</span><span class="mf">1e-9</span><span class="p">,</span> <span class="o">:</span><span class="n">solver</span> <span class="o">=&gt;</span> <span class="n">Tsit5</span><span class="p">())</span>
 <span class="n">tr</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mf">10000.0</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">,</span> <span class="n">diff_eq_kwargs</span> <span class="o">=</span> <span class="n">diffeq</span><span class="p">)</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">tr</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">tr</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
@@ -787,7 +788,7 @@
 <span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 <span class="n">tight_layout</span><span class="p">()</span>
 
-<span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henonhelies</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henonheiles</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
 <span class="n">diffeq</span> <span class="o">=</span> <span class="kt">Dict</span><span class="p">(</span><span class="o">:</span><span class="n">abstol</span><span class="o">=&gt;</span><span class="mf">1e-6</span><span class="p">,</span> <span class="o">:</span><span class="n">reltol</span><span class="o">=&gt;</span><span class="mf">1e-6</span><span class="p">,</span> <span class="o">:</span><span class="n">solver</span> <span class="o">=&gt;</span> <span class="n">Tsit5</span><span class="p">())</span>
 <span class="n">tr</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mf">50000.0</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">,</span> <span class="n">diff_eq_kwargs</span> <span class="o">=</span> <span class="n">diffeq</span><span class="p">)</span>
 <span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
@@ -931,7 +932,7 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application.abd7b172.js"></script>
+      <script src="../../assets/javascripts/application.02434462.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
       

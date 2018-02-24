@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.3">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.6">
     
     
       
@@ -44,7 +44,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.9b572555.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.78aab2dc.css">
       
         <link rel="stylesheet" href="../../assets/stylesheets/application-palette.6079476c.css">
       
@@ -53,6 +53,7 @@
       <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
     
     
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
       
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
@@ -675,13 +676,13 @@
 <p><strong>Equations of motion</strong></p>
 <p>The are two "versions" for <code>DynamicalSystem</code>, depending on whether the equations of motion (<code>eom</code>) are in-place (iip) or out-of-place (oop). Here is how to define them:</p>
 <ul>
-<li><strong>iip</strong> : The <code>eom</code> <strong>must</strong> be in the form <code>eom(x, p, t) -&gt; SVector</code> which means that given a state <code>x::SVector</code> and some parameter container <code>p</code> it returns an <a href="http://juliaarrays.github.io/StaticArrays.jl/stable/pages/api.html#SVector-1"><code>SVector</code></a> containing the next state.</li>
+<li><strong>iip</strong> : The <code>eom</code> <strong>must</strong> be in the form <code>eom(x, p, t) -&gt; SVector</code> which means that given a state <code>x::SVector</code> and some parameter container <code>p</code> it returns an <a href="http://juliaarrays.github.io/StaticArrays.jl/stable/pages/api.html#SVector-1"><code>SVector</code></a> (from the <a href="https://github.com/JuliaArrays/StaticArrays.jl">StaticArrays</a> module) containing the next state.</li>
 <li><strong>oop</strong> : The <code>eom</code> <strong>must</strong> be in the form <code>eom!(xnew, x, p, t)</code> which means that given a state <code>x::Vector</code> and some parameter container <code>p</code>, it writes in-place the new state in <code>xnew</code>.</li>
 </ul>
-<p><code>t</code> stands for time (integer for discrete systems). iip is suggested for big systems, whereas oop is suggested for small systems. The break-even point at around 100 dimensions, and for using functions that use the tangent space (like e.g. <a href="../@ref"><code>lyapunovs</code></a> or <a href="../@ref"><code>gali</code></a>, the break-even point is at around 10 dimensions.</p>
+<p><code>t</code> stands for time (integer for discrete systems). iip is suggested for big systems, whereas oop is suggested for small systems. The break-even point at around 100 dimensions, and for using functions that use the tangent space (like e.g. <code>lyapunovs</code> or <code>gali</code>), the break-even point is at around 10 dimensions.</p>
 <p>The constructor deduces automatically whether <code>eom</code> is iip or oop. It is not possible however to deduce whether the system is continuous or discrete just from the equations of motion, hence the 2 constructors.</p>
 <p><strong>Jacobian</strong></p>
-<p>The final optional argument (<code>jacobian</code>) for the constructors is a <em>function</em> and (if given) must also be of the same form as the <code>eom</code>, <code>jacobian(x, p, n) -&gt; [SMatrix](http://juliaarrays.github.io/StaticArrays.jl/stable/pages/api.html#SMatrix-1)</code> for the out-of-place version and <code>jacobian!(xnew, x, p, n)</code> for the in-place version.</p>
+<p>The optional argument <code>jacobian</code> for the constructors is a <em>function</em> and (if given) must also be of the same form as the <code>eom</code>, <code>jacobian(x, p, n) -&gt; SMatrix</code> for the out-of-place version and <code>jacobian!(xnew, x, p, n)</code> for the in-place version.</p>
 <p>If <code>jacobian</code> is not given, it is constructed automatically using the module <a href="http://www.juliadiff.org/ForwardDiff.jl/stable/"><code>ForwardDiff</code></a>.</p>
 <p><strong>Getting a <code>Solution</code> struct</strong></p>
 <p>The continuous constructor creates a standard <a href="http://docs.juliadiffeq.org/latest/types/ode_types.html">ODEProblem</a> from <a href="http://docs.juliadiffeq.org/latest/"><strong>DifferentialEquations.jl</strong></a>. You can <em>always</em> take advantage of the full capabilities of the <code>Solution</code> struct of by doing:</p>
@@ -691,8 +692,8 @@
 
 
 <p><strong>Relevant Functions</strong></p>
-<p><a href="../@ref"><code>state</code></a>, <a href="../evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a>, <a href="./#DynamicalSystemsBase.jacobian"><code>jacobian</code></a>, <a href="./#DynamicalSystemsBase.dimension"><code>dimension</code></a>, <a href="./#DynamicalSystemsBase.set_parameter!"><code>set_parameter!</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6a015f7af674daa0c44aadf0b93ef42ed6549274/src/dynamicalsystem/dynamicalsystem.jl#L14-L90' class='documenter-source'>source</a><br></p>
+<p><a href="../evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a>, <a href="./#DynamicalSystemsBase.jacobian"><code>jacobian</code></a>, <a href="./#DynamicalSystemsBase.dimension"><code>dimension</code></a>, <a href="./#DynamicalSystemsBase.set_parameter!"><code>set_parameter!</code></a>.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/329b50eb8a92b17de0777be5e6d6a967ebc1e86f/src/dynamicalsystem/dynamicalsystem.jl#L14-L91' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Definition-Table-1'></a></p>
 <h2 id="definition-table">Definition Table</h2>
@@ -733,7 +734,7 @@
 
 
 <p>Return the dimension of the <code>thing</code>, in the sense of state-space dimensionality.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6a015f7af674daa0c44aadf0b93ef42ed6549274/src/dynamicalsystem/dynamicalsystem.jl#L115-L118' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/329b50eb8a92b17de0777be5e6d6a967ebc1e86f/src/dynamicalsystem/dynamicalsystem.jl#L116-L119' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.jacobian' href='#DynamicalSystemsBase.jacobian'>#</a>
 <strong><code>DynamicalSystemsBase.jacobian</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>jacobian(ds::DynamicalSystem, u = ds.prob.u0)
@@ -741,7 +742,7 @@
 
 
 <p>Return the jacobian of the system at <code>u</code> (at initial time).</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6a015f7af674daa0c44aadf0b93ef42ed6549274/src/dynamicalsystem/dynamicalsystem.jl#L205-L208' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/329b50eb8a92b17de0777be5e6d6a967ebc1e86f/src/dynamicalsystem/dynamicalsystem.jl#L206-L209' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.set_parameter!' href='#DynamicalSystemsBase.set_parameter!'>#</a>
 <strong><code>DynamicalSystemsBase.set_parameter!</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>set_parameter!(ds::DynamicalSystem, index, value)
@@ -750,7 +751,7 @@ set_parameter!(ds::DynamicalSystem, values)
 
 
 <p>Change one or many parameters of the system by setting <code>p[index] = value</code> in the first case and <code>p .= values</code> in the second.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6a015f7af674daa0c44aadf0b93ef42ed6549274/src/dynamicalsystem/dynamicalsystem.jl#L124-L130' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/329b50eb8a92b17de0777be5e6d6a967ebc1e86f/src/dynamicalsystem/dynamicalsystem.jl#L125-L131' class='documenter-source'>source</a><br></p>
 <p><a id='Examples-1'></a></p>
 <h2 id="examples">Examples</h2>
 <p><a id='Continuous,-out-of-place-1'></a></p>
@@ -1020,7 +1021,7 @@ p_{i}' = p_i + k_i\sin(\theta_i) - \Gamma \left[\sin(\theta_{i+1} - \theta_{i}) 
       
     </div>
     
-      <script src="../../assets/javascripts/application.abd7b172.js"></script>
+      <script src="../../assets/javascripts/application.02434462.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
       

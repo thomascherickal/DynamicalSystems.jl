@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.3">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.6">
     
     
       
@@ -44,7 +44,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.9b572555.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.78aab2dc.css">
       
         <link rel="stylesheet" href="../../assets/stylesheets/application-palette.6079476c.css">
       
@@ -53,6 +53,7 @@
       <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
     
     
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
       
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
@@ -582,7 +583,7 @@
 <li><code>dt</code> :  Time step of value output during the solving of the continuous system. For discrete systems it must be an integer. Defaults to <code>0.01</code> for continuous and <code>1</code> for discrete.</li>
 <li><code>diff_eq_kwargs</code> : (only for continuous) A dictionary <code>Dict{Symbol, ANY}</code> of keyword arguments passed into the solvers of the <a href="http://docs.juliadiffeq.org/latest/basics/common_solver_opts.html">DifferentialEquations.jl</a> package, for example <code>Dict(:abstol =&gt; 1e-9)</code>. If you want to specify a solver, do so by using the symbol <code>:solver</code>, e.g.: <code>Dict(:solver =&gt; DP5(), :maxiters =&gt; 1e9)</code>. This requires you to have been first <code>using OrdinaryDiffEq</code> to access the solvers. Defaults to <code>Dict(:solver =&gt; Vern9(), :abstol =&gt; 1e-9, :reltol =&gt; 1e-9)</code>.</li>
 </ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6a015f7af674daa0c44aadf0b93ef42ed6549274/src/dynamicalsystem/dynamicalsystem.jl#L384-L409' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/329b50eb8a92b17de0777be5e6d6a967ebc1e86f/src/dynamicalsystem/dynamicalsystem.jl#L385-L410' class='documenter-source'>source</a><br></p>
 <hr />
 <p>Notice that if you want to do repeated evolutions of different states of a continuous system, you should use the <a href="../../advanced/#DynamicalSystemsBase.integrator"><code>integrator</code></a> interface instead.</p>
 <p><a id='Solution-precision-for-continuous-systems-1'></a></p>
@@ -672,7 +673,7 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application.abd7b172.js"></script>
+      <script src="../../assets/javascripts/application.02434462.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
       

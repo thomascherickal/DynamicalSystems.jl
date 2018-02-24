@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.3">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.6">
     
     
       
@@ -44,7 +44,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.9b572555.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.78aab2dc.css">
       
         <link rel="stylesheet" href="../../assets/stylesheets/application-palette.6079476c.css">
       
@@ -53,6 +53,7 @@
       <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
     
     
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
       
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
@@ -597,7 +598,7 @@
 
 <p>Use <code>Matrix(dataset)</code> or <code>reinterpret(Matrix, dataset)</code> to create a <code>Matrix</code> from a <code>dataset</code>, the first method returning a matrix where each column is a a timeseries while the second returning a matrix where each column is a datapoint. Similarly, use <code>Dataset(matrix)</code> or <code>reinterpret(Dataset, matrix)</code> to create a <code>Dataset</code> from a <code>matrix</code> that has structure as noted by the <code>Matrix</code> methods.</p>
 <p>If you have various timeseries vectors <code>x, y, z, ...</code> pass them like <code>Dataset(x, y, z, ...)</code>. You can use <code>columns(dataset)</code> to obtain the reverse, i.e. all columns of the dataset in a tuple.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6a015f7af674daa0c44aadf0b93ef42ed6549274/src/dataset.jl#L68-L100' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/329b50eb8a92b17de0777be5e6d6a967ebc1e86f/src/dataset.jl#L68-L100' class='documenter-source'>source</a><br></p>
 <hr />
 <p>In essence a <code>Dataset</code> is simply a container for a <code>Vector</code> of <code>SVector</code>s. However, it is visually represented as a matrix, similarly to how numerical data would be printed on a spreadsheet (with time being the <em>column</em> direction). It also offers a lot more functionality than just pretty-printing. Besides the examples in the documentation string, you can also do:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -621,7 +622,7 @@
 
 
 <p>Return an <code>SVector</code> that contains the minimum elements of each timeseries of the dataset.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6a015f7af674daa0c44aadf0b93ef42ed6549274/src/dataset.jl#L217-L221' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/329b50eb8a92b17de0777be5e6d6a967ebc1e86f/src/dataset.jl#L217-L221' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.maxima' href='#DynamicalSystemsBase.maxima'>#</a>
 <strong><code>DynamicalSystemsBase.maxima</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>maxima(dataset)
@@ -629,7 +630,7 @@
 
 
 <p>Return an <code>SVector</code> that contains the maximum elements of each timeseries of the dataset.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6a015f7af674daa0c44aadf0b93ef42ed6549274/src/dataset.jl#L234-L238' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/329b50eb8a92b17de0777be5e6d6a967ebc1e86f/src/dataset.jl#L234-L238' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.minmaxima' href='#DynamicalSystemsBase.minmaxima'>#</a>
 <strong><code>DynamicalSystemsBase.minmaxima</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>minmaxima(dataset)
@@ -637,7 +638,7 @@
 
 
 <p>Return <code>minima(dataset), maxima(dataset)</code> without doing the computation twice.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6a015f7af674daa0c44aadf0b93ef42ed6549274/src/dataset.jl#L251-L254' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/329b50eb8a92b17de0777be5e6d6a967ebc1e86f/src/dataset.jl#L251-L254' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.columns' href='#DynamicalSystemsBase.columns'>#</a>
 <strong><code>DynamicalSystemsBase.columns</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>columns(dataset) -&gt; x, y, z, ...
@@ -645,7 +646,7 @@
 
 
 <p>Return the individual columns of the dataset.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6a015f7af674daa0c44aadf0b93ef42ed6549274/src/dataset.jl#L45-L48' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/329b50eb8a92b17de0777be5e6d6a967ebc1e86f/src/dataset.jl#L45-L48' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Dataset-IO-1'></a></p>
 <h2 id="dataset-io">Dataset IO</h2>
@@ -658,7 +659,7 @@
 
 <p>Read a <code>delim</code>-delimited text file directly into a dataset of dimension <code>D</code> with numbers of type <code>T</code>.</p>
 <p>Optionally skip the first <code>skipstart</code> rows of the file (that may e.g. contain headers).</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6a015f7af674daa0c44aadf0b93ef42ed6549274/src/dataset.jl#L290-L297' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/329b50eb8a92b17de0777be5e6d6a967ebc1e86f/src/dataset.jl#L290-L297' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.write_dataset' href='#DynamicalSystemsBase.write_dataset'>#</a>
 <strong><code>DynamicalSystemsBase.write_dataset</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="nt">write_dataset</span><span class="o">(</span><span class="nt">file</span><span class="o">,</span> <span class="nt">dataset</span><span class="p">::</span><span class="nd">AbstractDataset</span><span class="o">,</span> <span class="nt">delim</span><span class="p">::</span><span class="nd">Char</span> <span class="o">=</span> <span class="s1">&#39;   &#39;</span><span class="o">;</span> <span class="nt">opts</span><span class="o">...)</span>
@@ -667,7 +668,7 @@
 
 <p>Write a <code>dataset</code> in a <code>delim</code>-delimited text file.</p>
 <p><code>opts</code> are keyword arguments passed into <code>writedlm</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/6a015f7af674daa0c44aadf0b93ef42ed6549274/src/dataset.jl#L313-L318' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/329b50eb8a92b17de0777be5e6d6a967ebc1e86f/src/dataset.jl#L313-L318' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -757,7 +758,7 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application.abd7b172.js"></script>
+      <script src="../../assets/javascripts/application.02434462.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
       
