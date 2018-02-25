@@ -639,6 +639,16 @@
 
 <span class="n">A</span> <span class="o">=</span> <span class="n">Size</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">3</span><span class="p">)(</span><span class="n">a</span><span class="p">)</span> <span class="c"># create array with the size as Type information</span>
 <span class="n">R</span> <span class="o">=</span> <span class="n">Reconstruction</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c">#aaaall good</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">towel</span><span class="p">();</span> <span class="n">tr</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">Reconstruction</span><span class="p">(</span><span class="n">tr</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c"># Dataset size is also known by Type!</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>(D=6, τ=2) - delay coordinates Reconstruction
+ 0.085     -0.121       0.075     0.76827   -0.038933    0.672094
+ 0.285813  -0.0675286   0.238038  0.681871   0.0508933   0.825263
+ ⋮                                                       ⋮       
 </pre></div>
 
 
