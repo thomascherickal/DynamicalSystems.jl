@@ -580,6 +580,7 @@
 
 <p><code>D</code>-dimensional delay-coordinates reconstruction object with delay <code>τ</code>, created from a timeseries <code>s</code> with <code>T</code> type numbers.</p>
 <p>Use <code>Reconstruction(s::AbstractVector{T}, D, τ)</code> to create an instance.</p>
+<p>Use <code>Reconstruction(s::SizedAray{S1, S2}, D, τ)</code> to create a reconstruction using a multi-dimensional timeseries. Note that a reconstruction created this way will have <code>S2*D</code> total dimensions and <em>not</em> <code>D</code>, as a result of each dimension of  <code>s</code> having <code>D</code> delayed dimensions.</p>
 <p><strong>Description</strong></p>
 <p>The <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>th row of a <code>Reconstruction</code> is the <code>D</code>-dimensional vector</p>
 <div>
@@ -604,7 +605,7 @@
 <p><strong>References</strong></p>
 <p>[1] : F. Takens, <em>Detecting Strange Attractors in Turbulence — Dynamical Systems and Turbulence</em>, Lecture Notes in Mathematics <strong>366</strong>, Springer (1981)</p>
 <p>[2] : T. Sauer <em>et al.</em>, J. Stat. Phys. <strong>65</strong>, pp 579 (1991)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/329b50eb8a92b17de0777be5e6d6a967ebc1e86f/src/reconstruction.jl#L8-L43' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/11b787a673673db23d8540fd314b1653f782f1cf/src/reconstruction.jl#L8-L48' class='documenter-source'>source</a><br></p>
 <hr />
 <p>Here are some examples of <code>Reconstruction</code>s of a 3D continuous chaotic system:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span><span class="p">,</span> <span class="n">PyPlot</span>
@@ -662,7 +663,7 @@
 
 
 <p>Estimate an optimal delay to be used in <a href="./#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a>, by performing an exponential fit to the <code>abs.(c)</code> with <code>c</code> the auto-correlation function of <code>s</code>. Return the exponential decay time <code>τ</code> rounded to an integer.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/c72dc5a9bc08a0e78071fd93593efac571da6d47/src/delay_coords.jl#L296-L302' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/01d9e10c0cdc801e9b9fcea570aa4f24a06df218/src/delay_coords.jl#L298-L304' class='documenter-source'>source</a><br></p>
 <hr />
                 
                   
