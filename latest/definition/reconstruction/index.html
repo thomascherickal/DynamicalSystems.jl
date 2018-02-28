@@ -574,15 +574,19 @@
 <p>This is done through the <code>Reconstruction</code> interface:</p>
 <p><a id='DynamicalSystemsBase.Reconstruction' href='#DynamicalSystemsBase.Reconstruction'>#</a>
 <strong><code>DynamicalSystemsBase.Reconstruction</code></strong> &mdash; <em>Type</em>.</p>
-<div class="codehilite"><pre><span></span>Reconstruction{D, T, τ} &lt;: AbstractDataset{D, T}
+<div class="codehilite"><pre><span></span>Reconstruction(s::AbstractVector{T}, D, τ) &lt;: AbstractDataset{D, T}
 </pre></div>
 
 
 <p><code>D</code>-dimensional delay-coordinates reconstruction object with delay <code>τ</code>, created from a timeseries <code>s</code> with <code>T</code> type numbers.</p>
-<p>Use <code>Reconstruction(s::AbstractVector{T}, D, τ)</code> to create an instance.</p>
-<p>Use <code>Reconstruction(s::SizedAray{S1, S2}, D, τ)</code> to create a reconstruction using a multi-dimensional timeseries. Note that a reconstruction created this way will have <code>S2*D</code> total dimensions and <em>not</em> <code>D</code>, as a result of each dimension of  <code>s</code> having <code>D</code> delayed dimensions.</p>
+<div class="codehilite"><pre><span></span><span class="n">Reconstruction</span><span class="p">(</span><span class="n">tr</span><span class="o">::</span><span class="n">SizedAray</span><span class="p">{</span><span class="n">S1</span><span class="p">,</span> <span class="n">S2</span><span class="p">},</span> <span class="n">D</span><span class="p">,</span> <span class="n">τ</span><span class="p">)</span>
+<span class="n">Reconstruction</span><span class="p">(</span><span class="n">tr</span><span class="o">::</span><span class="n">AbstractDataset</span><span class="p">{</span><span class="n">S2</span><span class="p">},</span> <span class="n">D</span><span class="p">,</span> <span class="n">τ</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Create a reconstruction using a trajectory (i.e. multi-dimensional timeseries). Note that a reconstruction created this way will have <code>S2*D</code> total dimensions and <em>not</em> <code>D</code>, as a result of each dimension of <code>s</code> having <code>D</code> delayed dimensions.</p>
 <p><strong>Description</strong></p>
-<p>The <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>th row of a <code>Reconstruction</code> is the <code>D</code>-dimensional vector</p>
+<p>In the case of reconstrucing a timeseries, the <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>th row of a <code>Reconstruction</code> is the <code>D</code>-dimensional vector</p>
 <div>
 <div class="MathJax_Preview">
 (s(n), s(n+\tau), s(n+2\tau), \dots, s(n+(D-1)\tau))
@@ -591,21 +595,22 @@
 (s(n), s(n+\tau), s(n+2\tau), \dots, s(n+(D-1)\tau))
 </script>
 </div>
+<p>For the case of reconstructing a trajectory <span><span class="MathJax_Preview">(x, y)</span><script type="math/tex">(x, y)</script></span>, similar thing applies</p>
+<div>
+<div class="MathJax_Preview">
+(x(n), y(n), x(n+\tau), y(n+\tau), \dots, x(n+(D-1)\tau), y(n+(D-1)\tau))
+</div>
+<script type="math/tex; mode=display">
+(x(n), y(n), x(n+\tau), y(n+\tau), \dots, x(n+(D-1)\tau), y(n+(D-1)\tau))
+</script>
+</div>
 <p>The reconstruction object <code>R</code> can have same invariant quantities (like e.g. lyapunov exponents) with the original system that the timeseries were recorded from, for proper <code>D</code> and <code>τ</code> [1, 2].</p>
-<p><code>R</code> can be accessed similarly to a <a href="../dataset/#DynamicalSystemsBase.Dataset"><code>Dataset</code></a>:</p>
-<div class="codehilite"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="mf">1e6</span><span class="p">)</span>
-<span class="n">R</span> <span class="o">=</span> <span class="n">Reconstruction</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c"># dimension 4 and delay 1</span>
-<span class="n">R</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="c"># third point of reconstruction, ≡ (s[3], s[4], s[5], s[6])</span>
-<span class="n">R</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="c"># Second element of first point of reconstruction, ≡ s[2]</span>
-</pre></div>
-
-
-<p>and can also be given to all functions that accept a <code>Dataset</code> (like e.g. <code>generalized_dim</code> from module <code>ChaosTools</code>).</p>
-<p>The functions <code>dimension(R)</code> and <code>delay(R)</code> return <code>D</code> and <code>τ</code> respectively.</p>
+<p><code>R</code> can be accessed similarly to a <a href="../dataset/#DynamicalSystemsBase.Dataset"><code>Dataset</code></a> and can also be given to all functions that accept a <code>Dataset</code> (like e.g. <code>generalized_dim</code> from module <code>ChaosTools</code>).</p>
+<p>Use <code>delay(R)</code> to get <code>τ</code>.</p>
 <p><strong>References</strong></p>
 <p>[1] : F. Takens, <em>Detecting Strange Attractors in Turbulence — Dynamical Systems and Turbulence</em>, Lecture Notes in Mathematics <strong>366</strong>, Springer (1981)</p>
 <p>[2] : T. Sauer <em>et al.</em>, J. Stat. Phys. <strong>65</strong>, pp 579 (1991)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/11b787a673673db23d8540fd314b1653f782f1cf/src/reconstruction.jl#L8-L48' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/4e7dc0c92505d16bd631c504ffbf91d07cc5e5a0/src/reconstruction.jl#L8-L48' class='documenter-source'>source</a><br></p>
 <hr />
 <p>Here are some examples of <code>Reconstruction</code>s of a 3D continuous chaotic system:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span><span class="p">,</span> <span class="n">PyPlot</span>
