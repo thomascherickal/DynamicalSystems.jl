@@ -661,40 +661,11 @@
 <p><a id='Neighborhoods-in-a-Dataset-1'></a></p>
 <h2 id="neighborhoods-in-a-dataset">Neighborhoods in a Dataset</h2>
 <p>Combining the excellent performance of <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a> with the <code>AbstractDataset</code> allows us to define a function that calculates a "neighborhood" of a given point, i.e. finds other points near it. The different "types" of the neighborhoods are subtypes of <code>AbstractNeighborhood</code>.</p>
-<p><a id='ChaosTools.neighborhood' href='#ChaosTools.neighborhood'>#</a>
-<strong><code>ChaosTools.neighborhood</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>neighborhood(n, point, tree::KDTree, method::AbstractNeighborhood)
+<div class="codehilite"><pre><span></span>neighborhood
+AbstractNeighborhood
 </pre></div>
 
 
-<p>Return a vector of indices which are the neighborhood of <code>point</code>, whose index in the original data is <code>n</code>.</p>
-<p>If the original data is <code>data &lt;: AbstractDataset</code>, then use <code>tree = KDTree(data)</code> to obtain the <code>tree</code> instance (which also contains a copy of the data). Both <code>point</code> and <code>n</code> must be provided because the <code>tree</code> has indices in different sorting.</p>
-<p>The <code>method</code> can be a subtype of <a href="./#ChaosTools.AbstractNeighborhood"><code>AbstractNeighborhood</code></a>.</p>
-<p><code>neighborhood</code> works for <em>any</em> subtype of <code>AbstractDataset</code>, for example</p>
-<div class="codehilite"><pre><span></span><span class="n">R</span> <span class="o">=</span> <span class="n">some_dataset</span>
-<span class="n">tree</span> <span class="o">=</span> <span class="n">KDTree</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
-<span class="n">neigh</span> <span class="o">=</span> <span class="n">neighborhood</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">R</span><span class="p">[</span><span class="n">n</span><span class="p">],</span> <span class="n">tree</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
-</pre></div>
-
-
-<p><strong>References</strong></p>
-<p><code>neighborhood</code> simply interfaces the functions <code>knn</code> and <code>inrange</code> from <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a> by using the last argument, <code>method</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/01d9e10c0cdc801e9b9fcea570aa4f24a06df218/src/delay_coords.jl#L40-L66' class='documenter-source'>source</a><br></p>
-<p><a id='ChaosTools.AbstractNeighborhood' href='#ChaosTools.AbstractNeighborhood'>#</a>
-<strong><code>ChaosTools.AbstractNeighborhood</code></strong> &mdash; <em>Type</em>.</p>
-<div class="codehilite"><pre><span></span>AbstractNeighborhood
-</pre></div>
-
-
-<p>Supertype of methods for deciding the neighborhood of points for a given point.</p>
-<p>Concrete subtypes:</p>
-<ul>
-<li><code>FixedMassNeighborhood(K::Int)</code>  : The neighborhood of a point consists of the <code>K</code> nearest neighbors of the point.</li>
-<li><code>FixedSizeNeighborhood(ε::Real)</code> : The neighborhood of a point consists of all neighbors that have distance &lt; <code>ε</code> from the point.</li>
-</ul>
-<p>Notice that these distances are always computed using the <code>Euclidean()</code> distance in <code>D</code>-dimensional space.</p>
-<p>See also <a href="./#ChaosTools.neighborhood"><code>neighborhood</code></a> or <a href="./#ChaosTools.numericallyapunov"><code>numericallyapunov</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/01d9e10c0cdc801e9b9fcea570aa4f24a06df218/src/delay_coords.jl#L15-L29' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Numerical-Lyapunov-Exponent-1'></a></p>
 <h2 id="numerical-lyapunov-exponent">Numerical Lyapunov Exponent</h2>
@@ -710,7 +681,7 @@
 <ul>
 <li><code>refstates::AbstractVector{Int} = 1:(length(R) - ks[end])</code> : Vector of indices that notes which states of the reconstruction should be used as "reference states", which means that the algorithm is applied for all state indices contained in <code>refstates</code>.</li>
 <li><code>w::Int = τ</code> : The Theiler window, which determines whether points are separated enough in time to be considered separate trajectories (see [1]). Defaults to the  delay time.</li>
-<li><code>method::AbstractNeighborhood = FixedMassNeighborhood(1)</code> : The method to be used when evaluating the neighborhood of each reference state. See <a href="./#ChaosTools.AbstractNeighborhood"><code>AbstractNeighborhood</code></a> or <a href="./#ChaosTools.neighborhood"><code>neighborhood</code></a> for more info.</li>
+<li><code>method::AbstractNeighborhood = FixedMassNeighborhood(1)</code> : The method to be used when evaluating the neighborhood of each reference state. See <a href="../@ref"><code>AbstractNeighborhood</code></a> or <a href="../@ref"><code>neighborhood</code></a> for more info.</li>
 <li><code>distance::Metric = Cityblock()</code> : The distance function used in the logarithmic distance of nearby states. The allowed distances are <code>Cityblock()</code> and <code>Euclidean()</code>. See below for more info.</li>
 </ul>
 <p><strong>Description</strong></p>
