@@ -99,7 +99,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
     <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
     
-      <a href="#estimating-reconstruction-parameters" tabindex="1" class="md-skip">
+      <a href="#ulti-dimensional-reconstruction" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -334,6 +334,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#ulti-dimensional-reconstruction" title="Μulti-dimensional Reconstruction" class="md-nav__link">
+    Μulti-dimensional Reconstruction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#estimating-reconstruction-parameters" title="Estimating Reconstruction Parameters" class="md-nav__link">
     Estimating Reconstruction Parameters
   </a>
@@ -543,6 +550,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#ulti-dimensional-reconstruction" title="Μulti-dimensional Reconstruction" class="md-nav__link">
+    Μulti-dimensional Reconstruction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#estimating-reconstruction-parameters" title="Estimating Reconstruction Parameters" class="md-nav__link">
     Estimating Reconstruction Parameters
   </a>
@@ -610,13 +624,13 @@
 <p><strong>References</strong></p>
 <p>[1] : F. Takens, <em>Detecting Strange Attractors in Turbulence — Dynamical Systems and Turbulence</em>, Lecture Notes in Mathematics <strong>366</strong>, Springer (1981)</p>
 <p>[2] : T. Sauer <em>et al.</em>, J. Stat. Phys. <strong>65</strong>, pp 579 (1991)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/4e7dc0c92505d16bd631c504ffbf91d07cc5e5a0/src/reconstruction.jl#L8-L48' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/97e0f83f598281b8986a88986f958b87984769d6/src/reconstruction.jl#L8-L48' class='documenter-source'>source</a><br></p>
 <hr />
 <p>Here are some examples of <code>Reconstruction</code>s of a 3D continuous chaotic system:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span><span class="p">,</span> <span class="n">PyPlot</span>
 
 <span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">gissinger</span><span class="p">()</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">,</span> <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">)</span>
 
 <span class="n">xyz</span> <span class="o">=</span> <span class="n">columns</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
@@ -639,6 +653,12 @@
 
 
 <p><img alt="Example reconstructions" src="https://i.imgur.com/OZDBvu5.png" /></p>
+<div class="admonition note">
+<p class="admonition-title"><code>τ</code> and <code>dt</code></p>
+<p>Keep in mind that whether a value of <code>τ</code> is "reasonable" for continuous systems depends on <code>dt</code>. In the above example the value <code>τ=30</code> is good, <em>only</em> for the case of using <code>dt = 0.05</code>. For shorter/longer <code>dt</code> one has to adjust properly <code>τ</code> so that their product <code>τ*dt</code> is the same.</p>
+</div>
+<p><a id='Μulti-dimensional-Reconstruction-1'></a></p>
+<h2 id="ulti-dimensional-reconstruction">Μulti-dimensional Reconstruction</h2>
 <p>A <code>Reconstruction</code> can also be made from a trajectory (i.e. multidimensional timeseries). For this to be possible, the number of timeseries must be known by Type:</p>
 <div class="codehilite"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c"># my trajectory</span>
 <span class="n">R</span> <span class="o">=</span> <span class="n">Reconstruction</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c"># errorino</span>
@@ -651,13 +671,14 @@
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>(D=6, τ=2) - delay coordinates Reconstruction
+<div class="codehilite"><pre><span></span>(B=3, D=2, τ=2) - delay coordinates multi-dimensional Reconstruction
  0.085     -0.121       0.075     0.76827   -0.038933    0.672094
  0.285813  -0.0675286   0.238038  0.681871   0.0508933   0.825263
  ⋮                                                       ⋮       
 </pre></div>
 
 
+<p>Here the parameter <code>B</code> shows the number of base timeseries that were used for the multi-dimensional reconstruction.</p>
 <p><a id='Estimating-Reconstruction-Parameters-1'></a></p>
 <h2 id="estimating-reconstruction-parameters">Estimating Reconstruction Parameters</h2>
 <p>The following functions can (sometimes) estimate good values that can be used in <a href="./#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a>. There are no guarantees though!</p>

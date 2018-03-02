@@ -890,7 +890,7 @@ x_{N-d+1} & x_{N-d+2} &\ldots & x_N
 <span class="k">using</span> <span class="n">Distributions</span> <span class="c"># for random numbers</span>
 
 <span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">gissinger</span><span class="p">()</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">,</span> <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 
 <span class="n">L</span> <span class="o">=</span> <span class="n">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -914,7 +914,7 @@ x_{N-d+1} & x_{N-d+2} &\ldots & x_N
 
 
 <p><img alt="Broomhead-King example" src="https://i.imgur.com/xVWDjuh.png" /></p>
-<p>we have used the same system as in the <a href="../../definition/reconstruction">delay coordinates reconstruction</a> example, and picked the optimal delay time of <code>τ = 30</code>. Regardless, the vanilla delay coordinates fail spectacularly when compared with the Broomhead-King coordinates.</p>
+<p>we have used the same system as in the <a href="../../definition/reconstruction">delay coordinates reconstruction</a> example, and picked the optimal delay time of <code>τ = 30</code> (for same <code>dt = 0.05</code>). Regardless, the vanilla delay coordinates fail spectacularly when compared with the Broomhead-King coordinates.</p>
                 
                   
                 
