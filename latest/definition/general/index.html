@@ -675,22 +675,22 @@
 <p>Currently a system in <strong>DynamicalSystems.jl</strong> can be either continuous</p>
 <div>
 <div class="MathJax_Preview">
-\dot{\vec{u}} = \vec{f}(\vec{u}, t),
+\frac{d\vec{u}}{dt} = \vec{f}(\vec{u}, t),
 </div>
 <script type="math/tex; mode=display">
-\dot{\vec{u}} = \vec{f}(\vec{u}, t),
+\frac{d\vec{u}}{dt} = \vec{f}(\vec{u}, t),
 </script>
 </div>
 <p>or discrete</p>
 <div>
 <div class="MathJax_Preview">
-\vec{u}_{n+1} = \vec{f}(\vec{u}_n, t).
+\vec{u}_{n+1} = \vec{f}(\vec{u}_n, n).
 </div>
 <script type="math/tex; mode=display">
-\vec{u}_{n+1} = \vec{f}(\vec{u}_n, t).
+\vec{u}_{n+1} = \vec{f}(\vec{u}_n, n).
 </script>
 </div>
-<p>Keep in mind that almost all functions of <strong>DynamicalSystems.jl</strong> assume that <span><span class="MathJax_Preview">f</span><script type="math/tex">f</script></span> is differentiable!</p>
+<p>Keep in mind that almost all functions of <strong>DynamicalSystems.jl</strong> assume that <span><span class="MathJax_Preview">\vec{f}</span><script type="math/tex">\vec{f}</script></span> is differentiable!</p>
 <p><a id='Creating-a-Dynamical-System-1'></a></p>
 <h2 id="creating-a-dynamical-system">Creating a Dynamical System</h2>
 <p><a id='DynamicalSystemsBase.DynamicalSystem' href='#DynamicalSystemsBase.DynamicalSystem'>#</a>
