@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.6">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.7.0">
     
     
       
@@ -734,7 +734,7 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p[i]^\alpha
 <p><strong>References</strong></p>
 <p>[1] : A. Rényi, <em>Proceedings of the fourth Berkeley Symposium on Mathematics, Statistics and Probability</em>, pp 547 (1960)</p>
 <p>[2] : C. E. Shannon, Bell Systems Technical Journal <strong>27</strong>, pp 379 (1948)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/01d9e10c0cdc801e9b9fcea570aa4f24a06df218/src/dimensions/entropies.jl#L50-L87' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/a0b9291018ff89e1407790baea99d060431bb170/src/dimensions/entropies.jl#L50-L87' class='documenter-source'>source</a><br></p>
 <hr />
 <p>Basically, given a <a href="../system_definition/#numerical-data">dataset</a> you can partition it into boxes to calculate an entropy.</p>
 <div class="admonition tip">
@@ -753,7 +753,7 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p[i]^\alpha
 <p><strong>Performances Notes</strong></p>
 <p>This method is effecient in both memory and speed, because it uses a dictionary to collect the information of bins with elements, while it completely disregards empty bins. This allows computation of entropies of high-dimensional datasets and with small box sizes <code>ε</code> without memory overflow.</p>
 <p>Use e.g. <code>fit(Histogram, ...)</code> from <a href="http://juliastats.github.io/StatsBase.jl/stable/"><code>StatsBase</code></a> if you wish to keep information about the edges of the binning as well as the zero elements.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/01d9e10c0cdc801e9b9fcea570aa4f24a06df218/src/dimensions/entropies.jl#L5-L24' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/a0b9291018ff89e1407790baea99d060431bb170/src/dimensions/entropies.jl#L5-L24' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example, the Shannon entropy of a coin-flip process should be one bit, <a href="https://en.wikipedia.org/wiki/Shannon_(unit)">by definition</a>. Let's see...</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -782,7 +782,7 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p[i]^\alpha
 <p>Optionally use <code>base</code> for the logarithms.</p>
 <p><strong>References</strong></p>
 <p>[1] : C. Bandt, &amp; B. Pompe, <a href="http://doi.org/10.1103/PhysRevLett.88.174102">Phys. Rev. Lett. <strong>88</strong> (17), pp 174102 (2002)</a></p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/01d9e10c0cdc801e9b9fcea570aa4f24a06df218/src/dimensions/entropies.jl#L118-L133' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/a0b9291018ff89e1407790baea99d060431bb170/src/dimensions/entropies.jl#L118-L133' class='documenter-source'>source</a><br></p>
 <p>For example, we will compute and compare the <a href="../lyapunovs/#ChaosTools.lyapunov"><code>lyapunov</code></a> exponent of the logistic map with the order-6 permutation entropy, like in the original paper.</p>
 <div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">logistic</span><span class="p">()</span>
 <span class="n">rs</span> <span class="o">=</span> <span class="mf">3.5</span><span class="o">:</span><span class="mf">0.001</span><span class="o">:</span><span class="mi">4</span>
@@ -841,7 +841,7 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p[i]^\alpha
 <li>α = 1 : <code>information_dim</code></li>
 <li>α = 2 : <code>correlation_dim</code></li>
 </ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/01d9e10c0cdc801e9b9fcea570aa4f24a06df218/src/dimensions/dims.jl#L166-L197' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/a0b9291018ff89e1407790baea99d060431bb170/src/dimensions/dims.jl#L166-L197' class='documenter-source'>source</a><br></p>
 <hr />
 <div class="admonition danger">
 <p class="admonition-title">Be wary when using <code>generalized_dim</code></p>
@@ -856,7 +856,7 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p[i]^\alpha
 <p>Return a <code>k</code>-element <code>logspace</code> from <code>lower + w</code> to <code>upper + z</code>,</p>
 <p><code>lower</code> is the magnitude of the minimum pair-wise distance between datapoints while <code>upper</code> is the magnitude of the maximum difference between greatest and smallest number among each timeseries.</p>
 <p>"Magnitude" here stands for order of magnitude, i.e. <code>round(log10(x))</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/01d9e10c0cdc801e9b9fcea570aa4f24a06df218/src/dimensions/dims.jl#L129-L139' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/a0b9291018ff89e1407790baea99d060431bb170/src/dimensions/dims.jl#L129-L139' class='documenter-source'>source</a><br></p>
 <p><a id='ChaosTools.linear_regions' href='#ChaosTools.linear_regions'>#</a>
 <strong><code>ChaosTools.linear_regions</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>linear_regions(x, y; dxi::Int = 1, tol = 0.2) -&gt; (lrs, tangents)
@@ -867,7 +867,7 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p[i]^\alpha
 <p>If the slope (calculated using <code>LsqFit</code>) of a region of width <code>dxi</code> is approximatelly equal to that of the previous region, within tolerance <code>tol</code>, then these two regions belong to the same linear region.</p>
 <p>Return the indices of <code>x</code> that correspond to linear regions, <code>lrs</code>, and the approximated <code>tangents</code> at each region. <code>lrs</code> is a vector of <code>Int</code>.</p>
 <p>A function <code>plot_linear_regions</code> visualizes the result of using this <code>linear_regions</code> (requires <code>PyPlot</code>).</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/01d9e10c0cdc801e9b9fcea570aa4f24a06df218/src/dimensions/dims.jl#L62-L78' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/a0b9291018ff89e1407790baea99d060431bb170/src/dimensions/dims.jl#L62-L78' class='documenter-source'>source</a><br></p>
 <p><a id='ChaosTools.linear_region' href='#ChaosTools.linear_region'>#</a>
 <strong><code>ChaosTools.linear_region</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>linear_region(x, y; dxi::Int = 1, tol = 0.2) -&gt; ([ind1, ind2], slope)
@@ -875,7 +875,7 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p[i]^\alpha
 
 
 <p>Call <a href="./#ChaosTools.linear_regions"><code>linear_regions</code></a>, identify the largest linear region and approximate the slope of the entire region using least squares fit. Return the indices where the region starts and stops (<code>x[ind1:ind2]</code>) as well as the approximated slope.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/01d9e10c0cdc801e9b9fcea570aa4f24a06df218/src/dimensions/dims.jl#L23-L29' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/a0b9291018ff89e1407790baea99d060431bb170/src/dimensions/dims.jl#L23-L29' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Example-1'></a></p>
 <h4 id="example">Example</h4>
@@ -907,7 +907,7 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p[i]^\alpha
 <p>Useful in combination with <a href="../lyapunovs/#ChaosTools.lyapunovs"><code>lyapunovs</code></a>.</p>
 <p><strong>References</strong></p>
 <p>[1] :  J. Kaplan &amp; J. Yorke, <em>Chaotic behavior of multidimensional difference equations</em>, Lecture Notes in Mathematics vol. <strong>730</strong>, Springer (1979)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/01d9e10c0cdc801e9b9fcea570aa4f24a06df218/src/dimensions/dims.jl#L218-L235' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/a0b9291018ff89e1407790baea99d060431bb170/src/dimensions/dims.jl#L218-L235' class='documenter-source'>source</a><br></p>
 <hr />
 <p>Notice that calling this function requires you to pass the Lyapunov exponents in an ordered vector form (largest to smallest). Example:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -916,7 +916,7 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p[i]^\alpha
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>1.2587058888299303
+<div class="codehilite"><pre><span></span>1.2586958591565252
 </pre></div>
                 
                   
@@ -995,7 +995,7 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p[i]^\alpha
       
     </div>
     
-      <script src="../../assets/javascripts/application.02434462.js"></script>
+      <script src="../../assets/javascripts/application.8eb9be28.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
       

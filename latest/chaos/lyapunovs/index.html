@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.6">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.7.0">
     
     
       
@@ -618,7 +618,7 @@
 <p>[1] : A. M. Lyapunov, <em>The General Problem of the Stability of Motion</em>, Taylor &amp; Francis (1992)</p>
 <p>[2] : K. Geist <em>et al.</em>, Progr. Theor. Phys. <strong>83</strong>, pp 875 (1990)</p>
 <p>[3] : G. Benettin <em>et al.</em>, Meccanica <strong>15</strong>, pp 9-20 &amp; 21-30 (1980)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/01d9e10c0cdc801e9b9fcea570aa4f24a06df218/src/lyapunovs.jl#L10-L60' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/a0b9291018ff89e1407790baea99d060431bb170/src/lyapunovs.jl#L10-L60' class='documenter-source'>source</a><br></p>
 <hr />
 <p>As you can see, the documentation string is detailed and self-contained. For example, the lyapunov spectrum of the <a href="http://www.scholarpedia.org/article/Hyperchaos">folded towel map</a> is calculated as:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -658,7 +658,7 @@
 <p>The function <code>lyapunov</code> calculates the maximum lyapunov exponent of a system, more efficiently than getting the first result of <code>lyapunovs</code>:</p>
 <p><a id='ChaosTools.lyapunov' href='#ChaosTools.lyapunov'>#</a>
 <strong><code>ChaosTools.lyapunov</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="nt">lyapunov</span><span class="o">(</span><span class="nt">ds</span><span class="p">::</span><span class="nd">DynamicalSystem</span><span class="o">,</span> <span class="err">Τ</span><span class="o">;</span> <span class="nt">kwargs</span><span class="o">...)</span>
+<div class="codehilite"><pre><span></span><span class="nt">lyapunov</span><span class="o">(</span><span class="nt">ds</span><span class="p">::</span><span class="nd">DynamicalSystem</span><span class="o">,</span> <span class="err">Τ</span><span class="o">;</span> <span class="nt">kwargs</span><span class="o">...)</span> <span class="nt">-</span><span class="o">&gt;</span> <span class="err">λ</span>
 </pre></div>
 
 
@@ -671,10 +671,10 @@
 <li><code>lower_threshold = 1e-12</code> : Lower distance threshold for rescaling (in order to  be able to detect negative exponents).</li>
 <li><code>diff_eq_kwargs = Dict(:abstol=&gt;d0, :reltol=&gt;d0)</code> : (only for continuous) Keyword arguments passed into the solvers of the <code>DifferentialEquations</code> package (see <a href="../../definition/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> for more info).</li>
 <li><code>dt = 1</code> : Time of evolution between each check of distance exceeding the thresholds.</li>
-<li><code>inittest = (st1, d0) -&gt; st1 .+ d0/sqrt(D)</code> : A function that given <code>(st1, d0)</code> initializes the test state with distance <code>d0</code> from the given state <code>st1</code> (<code>D</code> is the dimension of the system). This function can be used when you want to avoid the test state appearing in a region of the phase-space where it would have e.g. different energy or escape to infinity.</li>
+<li><code>inittest = (u1, d0) -&gt; u1 .+ d0/sqrt(D)</code> : A function that given <code>(u1, d0)</code> initializes the test state with distance <code>d0</code> from the given state <code>u1</code> (<code>D</code> is the dimension of the system). This function can be used when you want to avoid the test state appearing in a region of the phase-space where it would have e.g. different energy or escape to infinity.</li>
 </ul>
 <p><strong>Description</strong></p>
-<p>Two neighboring trajectories with initial distance <code>d0</code> are evolved in time. At time <span><span class="MathJax_Preview">d(t_i)</span><script type="math/tex">d(t_i)</script></span> their distance either exceeds the <code>upper_threshold</code>, or is lower than <code>lower_threshold</code>, which initializes a rescaling of the test trajectory back to having distance <code>d0</code> from the given one, while the rescaling keeps the difference vector along the maximal expansion/contraction direction.</p>
+<p>Two neighboring trajectories with initial distance <code>d0</code> are evolved in time. At time <span><span class="MathJax_Preview">t_i</span><script type="math/tex">t_i</script></span> their distance <span><span class="MathJax_Preview">d(t_i)</span><script type="math/tex">d(t_i)</script></span> either exceeds the <code>upper_threshold</code>, or is lower than <code>lower_threshold</code>, which initializes a rescaling of the test trajectory back to having distance <code>d0</code> from the given one, while the rescaling keeps the difference vector along the maximal expansion/contraction direction: <span><span class="MathJax_Preview">u_2 \to u_1+(u_2−u_1)/(d(t_i)/d_0)</span><script type="math/tex">u_2 \to u_1+(u_2−u_1)/(d(t_i)/d_0)</script></span>.</p>
 <p>The maximum Lyapunov exponent is the average of the time-local Lyapunov exponents</p>
 <div>
 <div class="MathJax_Preview">
@@ -691,7 +691,7 @@
 <p>See the "advanced documentation" for info on the integrator object and use <code>@which ...</code> to go to the source code for the low-level call signature.</p>
 <p><strong>References</strong></p>
 <p>[1] : G. Benettin <em>et al.</em>, Phys. Rev. A <strong>14</strong>, pp 2338 (1976)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/01d9e10c0cdc801e9b9fcea570aa4f24a06df218/src/lyapunovs.jl#L154-L210' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/a0b9291018ff89e1407790baea99d060431bb170/src/lyapunovs.jl#L158-L214' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -789,7 +789,7 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application.02434462.js"></script>
+      <script src="../../assets/javascripts/application.8eb9be28.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
       

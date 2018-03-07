@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.6">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.7.0">
     
     
       
@@ -661,11 +661,34 @@
 <p><a id='Neighborhoods-in-a-Dataset-1'></a></p>
 <h2 id="neighborhoods-in-a-dataset">Neighborhoods in a Dataset</h2>
 <p>Combining the excellent performance of <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a> with the <code>AbstractDataset</code> allows us to define a function that calculates a "neighborhood" of a given point, i.e. finds other points near it. The different "types" of the neighborhoods are subtypes of <code>AbstractNeighborhood</code>.</p>
-<div class="codehilite"><pre><span></span>neighborhood
-AbstractNeighborhood
+<p><a id='DynamicalSystemsBase.neighborhood' href='#DynamicalSystemsBase.neighborhood'>#</a>
+<strong><code>DynamicalSystemsBase.neighborhood</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>neighborhood([n,] point, tree::KDTree, method::AbstractNeighborhood)
 </pre></div>
 
 
+<p>Return a vector of indices which are the neighborhood of <code>point</code>. <code>n</code> is the index of the <code>point</code> in the original dataset. Do not pass any index if the <code>point</code> is not part of the dataset.</p>
+<p>If the original dataset is <code>data &lt;: AbstractDataset</code>, then use <code>tree = KDTree(data)</code> to obtain the <code>tree</code> instance (which also contains a copy of the data).</p>
+<p>The <code>method</code> can be a subtype of <a href="./#DynamicalSystemsBase.AbstractNeighborhood"><code>AbstractNeighborhood</code></a>.</p>
+<p><code>neighborhood</code> works for <em>any</em> subtype of <code>AbstractDataset</code>.</p>
+<p><strong>References</strong></p>
+<p><code>neighborhood</code> simply interfaces the functions <code>knn</code> and <code>inrange</code> from <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a> by using the last argument, <code>method</code>.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/eeb5ffc807286561e78fd59849f23a656adef34f/src/neighborhoods.jl#L37-L57' class='documenter-source'>source</a><br></p>
+<p><a id='DynamicalSystemsBase.AbstractNeighborhood' href='#DynamicalSystemsBase.AbstractNeighborhood'>#</a>
+<strong><code>DynamicalSystemsBase.AbstractNeighborhood</code></strong> &mdash; <em>Type</em>.</p>
+<div class="codehilite"><pre><span></span>AbstractNeighborhood
+</pre></div>
+
+
+<p>Supertype of methods for deciding the neighborhood of points for a given point.</p>
+<p>Concrete subtypes:</p>
+<ul>
+<li><code>FixedMassNeighborhood(K::Int)</code>  : The neighborhood of a point consists of the <code>K</code> nearest neighbors of the point.</li>
+<li><code>FixedSizeNeighborhood(ε::Real)</code> : The neighborhood of a point consists of all neighbors that have distance &lt; <code>ε</code> from the point.</li>
+</ul>
+<p>Notice that these distances are always computed using the Euclidean distance in <code>D</code>-dimensional space.</p>
+<p>See also <a href="./#DynamicalSystemsBase.neighborhood"><code>neighborhood</code></a> or <a href="../@ref"><code>numericallyapunov</code></a>.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/eeb5ffc807286561e78fd59849f23a656adef34f/src/neighborhoods.jl#L12-L26' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Numerical-Lyapunov-Exponent-1'></a></p>
 <h2 id="numerical-lyapunov-exponent">Numerical Lyapunov Exponent</h2>
@@ -679,9 +702,9 @@ AbstractNeighborhood
 <p>Return <code>E = [E(k) for k ∈ ks]</code>, where <code>E(k)</code> is the average logarithmic distance for nearby states that are evolved in time for <code>k</code> steps (<code>k</code> must be integer).</p>
 <p><strong>Keyword Arguments</strong></p>
 <ul>
-<li><code>refstates::AbstractVector{Int} = 1:(length(R) - ks[end])</code> : Vector of indices that notes which states of the reconstruction should be used as "reference states", which means that the algorithm is applied for all state indices contained in <code>refstates</code>.</li>
-<li><code>w::Int = τ</code> : The Theiler window, which determines whether points are separated enough in time to be considered separate trajectories (see [1]). Defaults to the  delay time.</li>
-<li><code>method::AbstractNeighborhood = FixedMassNeighborhood(1)</code> : The method to be used when evaluating the neighborhood of each reference state. See <a href="../@ref"><code>AbstractNeighborhood</code></a> or <a href="../@ref"><code>neighborhood</code></a> for more info.</li>
+<li><code>refstates = 1:(length(R) - ks[end])</code> : Vector of indices that notes which states of the reconstruction should be used as "reference states", which means that the algorithm is applied for all state indices contained in <code>refstates</code>.</li>
+<li><code>w::Int = round(Int, mean(R.delay))</code> : The Theiler window, which determines whether points are separated enough in time to be considered separate trajectories (see [1]). Defaults to the mean delay time.</li>
+<li><code>method::AbstractNeighborhood = FixedMassNeighborhood(1)</code> : The method to be used when evaluating the neighborhood of each reference state. See <a href="./#DynamicalSystemsBase.AbstractNeighborhood"><code>AbstractNeighborhood</code></a> or <a href="./#DynamicalSystemsBase.neighborhood"><code>neighborhood</code></a> for more info.</li>
 <li><code>distance::Metric = Cityblock()</code> : The distance function used in the logarithmic distance of nearby states. The allowed distances are <code>Cityblock()</code> and <code>Euclidean()</code>. See below for more info.</li>
 </ul>
 <p><strong>Description</strong></p>
@@ -696,11 +719,11 @@ E(k) \approx \lambda\Delta t k + E(0)
 </div>
 <p>for a <em>well defined region</em> in the <code>k</code> axis, where <span><span class="MathJax_Preview">\lambda</span><script type="math/tex">\lambda</script></span> is the approximated maximum Lyapunov exponent. <span><span class="MathJax_Preview">\Delta t</span><script type="math/tex">\Delta t</script></span> is the time between samples in the original timeseries. You can use <a href="../entropies/#ChaosTools.linear_region"><code>linear_region</code></a> with arguments <code>(ks .* Δt, E)</code> to identify the slope (= <span><span class="MathJax_Preview">\lambda</span><script type="math/tex">\lambda</script></span>) immediatelly, assuming you have choosen sufficiently good <code>ks</code> such that the linear scaling region is bigger than the saturated region.</p>
 <p>The algorithm used in this function is due to Parlitz [1], which itself expands upon Kantz [2]. In sort, for each reference state a neighborhood is evaluated. Then, for each point in this neighborhood, the logarithmic distance between reference state and neighborhood state is calculated as the "time" index <code>k</code> increases. The average of the above over all neighborhood states over all reference states is the returned result.</p>
-<p>If the <code>Metric</code> is <code>Euclidean()</code> then use the Euclidean distance of the full <code>D</code>-dimensional points (distance <span><span class="MathJax_Preview">d_E</span><script type="math/tex">d_E</script></span> in ref. [1]). If however the <code>Metric</code> is <code>Cityblock()</code>, calculate the absolute distance of <em>only the first elements</em> of the <code>m+k</code> and <code>n+k</code> points of the reconstruction <code>R</code>(distance <span><span class="MathJax_Preview">d_F</span><script type="math/tex">d_F</script></span> in ref. [1]). Notice that the distances used are defined in the package <a href="https://github.com/JuliaStats/Distances.jl">Distances.jl</a>, but are re-exported here for ease-of-use.</p>
+<p>If the <code>Metric</code> is <code>Euclidean()</code> then use the Euclidean distance of the full <code>D</code>-dimensional points (distance <span><span class="MathJax_Preview">d_E</span><script type="math/tex">d_E</script></span> in ref. [1]). If however the <code>Metric</code> is <code>Cityblock()</code>, calculate the absolute distance of <em>only the first elements</em> of the <code>m+k</code> and <code>n+k</code> points of the reconstruction <code>R</code>(distance <span><span class="MathJax_Preview">d_F</span><script type="math/tex">d_F</script></span> in ref. [1]).</p>
 <p><strong>References</strong></p>
 <p>[1] : Skokos, C. H. <em>et al.</em>, <em>Chaos Detection and Predictability</em> - Chapter 1 (section 1.3.2), Lecture Notes in Physics <strong>915</strong>, Springer (2016)</p>
 <p>[2] : Kantz, H., Phys. Lett. A <strong>185</strong>, pp 77–87 (1994)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/01d9e10c0cdc801e9b9fcea570aa4f24a06df218/src/delay_coords.jl#L88-L153' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/a0b9291018ff89e1407790baea99d060431bb170/src/nlts.jl#L14-L75' class='documenter-source'>source</a><br></p>
 <hr />
 <p>The function <code>numericallyapunov</code> has a total of 4 different approaches for the algorithmic process, by combining 2 types of distances with 2 types of neighborhoods.</p>
 <p><a id='Example-of-Numerical-Lyapunov-computation-1'></a></p>
@@ -780,8 +803,6 @@ E(k) \approx \lambda\Delta t k + E(0)
 <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.05</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">;</span> <span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span><span class="p">)[</span><span class="o">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 
-<span class="n">τ1</span> <span class="o">=</span> <span class="n">estimate_delay</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c">#gives 7</span>
-
 <span class="c"># Reconstruct it</span>
 <span class="n">figure</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">D</span> <span class="kp">in</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="n">τ</span> <span class="kp">in</span> <span class="p">[</span><span class="n">τ1</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span>
@@ -850,10 +871,10 @@ x_{N-d+1} & x_{N-d+2} &\ldots & x_N
 \right) = U\cdot S \cdot V^{tr}.
 </script>
 </div>
-<p>where <span><span class="MathJax_Preview">x := s - \bar{s}</span><script type="math/tex">x := s - \bar{s}</script></span>.  The columns of <span><span class="MathJax_Preview">U</span><script type="math/tex">U</script></span> can then be used as a new coordinate system, and by considering the values of the singular values <span><span class="MathJax_Preview">S</span><script type="math/tex">S</script></span> you can decide how many columns of <span><span class="MathJax_Preview">U</span><script type="math/tex">U</script></span> are "important". See the documentation page for example application.</p>
+<p>where <span><span class="MathJax_Preview">x := s - \bar{s}</span><script type="math/tex">x := s - \bar{s}</script></span>. The columns of <span><span class="MathJax_Preview">U</span><script type="math/tex">U</script></span> can then be used as a new coordinate system, and by considering the values of the singular values <span><span class="MathJax_Preview">S</span><script type="math/tex">S</script></span> you can decide how many columns of <span><span class="MathJax_Preview">U</span><script type="math/tex">U</script></span> are "important". See the documentation page for example application.</p>
 <p><strong>References</strong></p>
 <p>[1] :  D. S. Broomhead, R. Jones and G. P. King, J. Phys. A <strong>20</strong>, 9, pp L563 (1987)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/01d9e10c0cdc801e9b9fcea570aa4f24a06df218/src/delay_coords.jl#L342-L370' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/a0b9291018ff89e1407790baea99d060431bb170/src/nlts.jl#L180-L208' class='documenter-source'>source</a><br></p>
 <hr />
 <p>This alternative/improvement of the traditional delay coordinates can be a very powerful tool. An example where it shines is noisy data where there is the effect of superficial dimensions due to noise.</p>
 <p>Take the following example where we produce noisy data from a system and then use Broomhead-King coordinates as an alternative to "vanilla" delay coordinates:</p>
@@ -963,7 +984,7 @@ x_{N-d+1} & x_{N-d+2} &\ldots & x_N
       
     </div>
     
-      <script src="../../assets/javascripts/application.02434462.js"></script>
+      <script src="../../assets/javascripts/application.8eb9be28.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
       

@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.6.6">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.7.0">
     
     
       
@@ -595,7 +595,7 @@
 <li><code>dt</code> :  Time step of value output during the solving of the continuous system. For discrete systems it must be an integer. Defaults to <code>0.01</code> for continuous and <code>1</code> for discrete.</li>
 <li><code>diff_eq_kwargs</code> : (only for continuous) A dictionary <code>Dict{Symbol, ANY}</code> of keyword arguments passed into the solvers of the <a href="http://docs.juliadiffeq.org/latest/basics/common_solver_opts.html">DifferentialEquations.jl</a> package, for example <code>Dict(:abstol =&gt; 1e-9)</code>. If you want to specify a solver, do so by using the symbol <code>:solver</code>, e.g.: <code>Dict(:solver =&gt; DP5(), :maxiters =&gt; 1e9)</code>. This requires you to have been first <code>using OrdinaryDiffEq</code> to access the solvers. Defaults to <code>Dict(:solver =&gt; Vern9(), :abstol =&gt; 1e-9, :reltol =&gt; 1e-9)</code>, i.e. a 9th order Verner algorithm.</li>
 </ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/2320fbc1fc03f5d04c77e2974cec12c51d23f4d3/src/dynamicalsystem/dynamicalsystem.jl#L390-L414' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/eeb5ffc807286561e78fd59849f23a656adef34f/src/dynamicalsystem/dynamicalsystem.jl#L391-L415' class='documenter-source'>source</a><br></p>
 <hr />
 <p>Notice that if you want to do repeated evolutions of different states of a continuous system, you should use the <a href="../../advanced/#DynamicalSystemsBase.integrator"><code>integrator</code></a> interface instead.</p>
 <p><a id='Solution-precision-for-continuous-systems-1'></a></p>
@@ -685,7 +685,7 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application.02434462.js"></script>
+      <script src="../../assets/javascripts/application.8eb9be28.js"></script>
       
       <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
       
