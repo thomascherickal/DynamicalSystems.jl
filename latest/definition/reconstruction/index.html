@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.7.0">
+      <meta name="generator" content="mkdocs-0.17.3, mkdocs-material-2.7.0">
     
     
       
@@ -631,7 +631,7 @@
 <p>[1] : F. Takens, <em>Detecting Strange Attractors in Turbulence — Dynamical Systems and Turbulence</em>, Lecture Notes in Mathematics <strong>366</strong>, Springer (1981)</p>
 <p>[2] : T. Sauer <em>et al.</em>, J. Stat. Phys. <strong>65</strong>, pp 579 (1991)</p>
 <p>[3] : K. Judd &amp; A. Mees, <a href="https://www.sciencedirect.com/science/article/pii/S0167278997001188">Physica D <strong>120</strong>, pp 273 (1998)</a></p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/eeb5ffc807286561e78fd59849f23a656adef34f/src/reconstruction.jl#L9-L63' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/29b2ac5d83737d699b5d090978f15cb0c84e56c4/src/reconstruction.jl#L9-L63' class='documenter-source'>source</a><br></p>
 <hr />
 <p>Here are some examples of <code>Reconstruction</code>s of a 3D continuous chaotic system:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span><span class="p">,</span> <span class="n">PyPlot</span>
@@ -689,12 +689,18 @@
 <p>The following functions can (sometimes) estimate good values that can be used in <a href="./#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a>. There are no guarantees though!</p>
 <p><a id='DynamicalSystemsBase.estimate_delay' href='#DynamicalSystemsBase.estimate_delay'>#</a>
 <strong><code>DynamicalSystemsBase.estimate_delay</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>estimate_delay(s) -&gt; τ
+<div class="codehilite"><pre><span></span>estimate_delay(s, method::String) -&gt; τ
 </pre></div>
 
 
-<p>Estimate an optimal delay to be used in <a href="./#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a>, by performing an exponential fit to the <code>abs.(c)</code> with <code>c</code> the auto-correlation function of <code>s</code>. Return the exponential decay time <code>τ</code> rounded to an integer.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/eeb5ffc807286561e78fd59849f23a656adef34f/src/reconstruction.jl#L270-L276' class='documenter-source'>source</a><br></p>
+<p>Estimate an optimal delay to be used in <a href="./#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a>.</p>
+<p>The <code>method</code> can be one of the following:</p>
+<ul>
+<li><code>first_zero</code> : find first delay at which the auto-correlation function becomes 0.</li>
+<li><code>first_min</code> : return delay of first minimum of the auto-correlation function.</li>
+<li><code>exp_decay</code> : perform an exponential fit to the <code>abs.(c)</code> with <code>c</code> the auto-correlation function of <code>s</code>. Return the exponential decay time <code>τ</code> rounded to an integer.</li>
+</ul>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/29b2ac5d83737d699b5d090978f15cb0c84e56c4/src/reconstruction.jl#L270-L281' class='documenter-source'>source</a><br></p>
 <hr />
                 
                   
@@ -775,7 +781,7 @@
     
       <script src="../../assets/javascripts/application.8eb9be28.js"></script>
       
-      <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
+      <script>app.initialize({version:"0.17.3",url:{base:"../.."}})</script>
       
         <script src="../../assets\mathjaxhelper.js"></script>
       
