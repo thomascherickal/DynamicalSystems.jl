@@ -855,7 +855,7 @@ set_parameter!(ds::DynamicalSystem, values)
 </pre></div>
 
 
-<p>Or, if you don't want to write a Jacobian and want to use the auto-differentiation capabilities of <strong>DynamicalSystems.jl</strong>:</p>
+<p>Or, if you don't want to write a Jacobian and want to use the auto-differentiation capabilities of <strong>DynamicalSystems.jl</strong>, which use the module <a href="http://www.juliadiff.org/ForwardDiff.jl/stable/index.html"><code>ForwardDiff</code></a>:</p>
 <div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">DiscreteDynamicalSystem</span><span class="p">(</span><span class="n">hiip</span><span class="p">,</span> <span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="p">[</span><span class="mf">1.4</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">])</span>
 </pre></div>
 
