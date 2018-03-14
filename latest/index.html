@@ -310,15 +310,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#contacting" title="Contacting" class="md-nav__link">
-    Contacting
+  <a href="#citing" title="Citing" class="md-nav__link">
+    Citing
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#wanted-features" title="Wanted Features" class="md-nav__link">
-    Wanted Features
+  <a href="#contacting" title="Contacting" class="md-nav__link">
+    Contacting
   </a>
   
 </li>
@@ -636,15 +636,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#contacting" title="Contacting" class="md-nav__link">
-    Contacting
+  <a href="#citing" title="Citing" class="md-nav__link">
+    Citing
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#wanted-features" title="Wanted Features" class="md-nav__link">
-    Wanted Features
+  <a href="#contacting" title="Contacting" class="md-nav__link">
+    Contacting
   </a>
   
 </li>
@@ -679,6 +679,16 @@
 
 
 <p>See the <a href="./news">News</a> page for recent updates!</p>
+<div class="admonition info">
+<p class="admonition-title">Introductory textbooks</p>
+<p>Our library assumes basic some basic knowledge of nonlinear dynamics and complex systems.</p>
+<p>If you are new to the field but want to learn more, we can suggest the following textbooks as introductions:</p>
+<ul>
+<li>Nonlinear Dynamics And Chaos - S. Strogatz</li>
+<li>An Exploration of Dynamical Systems and Chaos - J. Argyris <em>et al.</em></li>
+<li>Chaos in Dynamical Systems - E. Ott</li>
+</ul>
+</div>
 <p><a id='Contents-1'></a></p>
 <h2 id="contents">Contents</h2>
 <p><a id='<a href="definition/general">Fundamentals</a>-1'></a></p>
@@ -687,7 +697,7 @@
 <li>
 <p>Intuitive, consistent APIs for the definition of general <a href="./definition/general">dynamical systems</a>, both maps and flows. The following combinations are possible:</p>
 <ul>
-<li>Continuous or Discrete systems.</li>
+<li>Continuous or Discrete systems. Continuous systems use <a href="http://docs.juliadiffeq.org/latest/"><code>DifferentialEquations.jl</code></a> for solving the ODE problem.</li>
 <li>In-place or out-of-place (large versus small systems).</li>
 <li>Auto-differentiated or not (for the Jacobian function).</li>
 </ul>
@@ -714,37 +724,42 @@
 </ul>
 <p><a id='Our-Goals-1'></a></p>
 <h2 id="our-goals">Our Goals</h2>
-<p>The ultimate goal for <strong>DynamicalSystems.jl</strong> is to be a useful <em>library</em> for scientists working on chaos, nonlinear dynamics and in general dynamical systems. We don't want to have "just code", but also detailed descriptions and references for as many methods as possible.</p>
+<p>The ultimate goal for <strong>DynamicalSystems.jl</strong> is to be a useful <em>library</em> for students and scientists working on chaos, nonlinear dynamics and in general dynamical systems. We don't want to have "just code", but also detailed descriptions and references for as many methods as possible.</p>
 <p>With <strong>DynamicalSystems.jl</strong> we try to</p>
 <ol>
 <li>Be concise, intuitive, and general. All functions we offer work just as well with any system, whether it is a simple continuous chaotic system, like the <a href="./definition/predefined/#DynamicalSystemsBase.Systems.lorenz">Lorenz attractor</a>, or a high dimensional discrete map like <a href="./definition/predefined/#DynamicalSystemsBase.Systems.coupledstandardmaps">coupled standard maps</a>.</li>
 <li>Be accurate, reliable and performant.</li>
 <li>Be transparent with respect to what is happening "under the hood", i.e. be clear about exactly what each function call does. We take care of this aspect in many ways; by being well-documented, giving references to scientific papers and having clear source code.</li>
 </ol>
-<p>For example, provided you have first defined a <a href="./definition/general"><code>DynamicalSystem</code></a> (which simply reduces to writing a function for the equations of motion), you should be able to e.g. calculate the Lyapunov spectrum for it in a single line:</p>
-<div class="codehilite"><pre><span></span><span class="n">lyapunovs</span><span class="p">(</span><span class="n">system</span><span class="p">,</span> <span class="n">times_to_do_QR</span><span class="p">;</span> <span class="n">keywords</span><span class="o">...</span><span class="p">)</span>
-</pre></div>
-
-
-<p>The same function call works with any system, no discriminations here!</p>
 <p><a id='Installation-1'></a></p>
 <h2 id="installation">Installation</h2>
 <p>Simply use <code>Pkg.add("DynamicalSystems")</code> to install <em>everything</em>.</p>
+<p><a id='Citing-1'></a></p>
+<h2 id="citing">Citing</h2>
+<p>There is a (very small) paper associated with <strong>DynamicalSystems.jl</strong>. If we have helped you in research that led to a publication, please be kind enough to cite it, using the DOI <code>10.21105/joss.00598</code> or the following BiBTeX entry:</p>
+<div class="codehilite"><pre><span></span>@article{Datseris2018,
+  doi = {10.21105/joss.00598},
+  url = {https://doi.org/10.21105/joss.00598},
+  year  = {2018},
+  month = {mar},
+  volume = {3},
+  number = {23},
+  pages = {598},
+  author = {George Datseris},
+  title = {{DynamicalSystems}.jl: A Julia software library for chaos and nonlinear dynamics},
+  journal = {Journal of Open Source Software}
+}
+</pre></div>
+
+
 <p><a id='Contacting-1'></a></p>
 <h2 id="contacting">Contacting</h2>
-<p>You can <a href="https://gitter.im/JuliaDynamics/Lobby">join our chatroom</a> for discussions related to dynamical systems and Julia as well as for asking questions about the packages of the JuliaDynamics organization!</p>
+<p>You can <a href="https://gitter.im/JuliaDynamics/Lobby">join our chatroom</a> for discussions and/or questions about the packages of the JuliaDynamics organization!</p>
 <p>Be sure to visit the <a href="./contributors_guide">Contributor Guide</a> page, because you can help make this package better without having to write a single line of code! Also, if you find this package helpful please consider staring it on <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl">GitHub</a>! This gives us an accurate lower bound of users that this package has already helped!</p>
 <div class="admonition tip">
 <p class="admonition-title">Use latest documentation</p>
 <p>We highly suggest our users to read the  <a href="https://JuliaDynamics.github.io/DynamicalSystems.jl/latest">latest</a> documentation   and not the <a href="https://JuliaDynamics.github.io/DynamicalSystems.jl/stable">stable</a> one.</p>
 </div>
-<p><a id='Wanted-Features-1'></a></p>
-<h2 id="wanted-features">Wanted Features</h2>
-<p>The following lists state features that are wanted by the <strong>DynamicalSystems.jl</strong> ecosystem and are open to contributors. These are structured in the form of GitHub Issues, with the label <code>wanted_feature</code>:</p>
-<ul>
-<li><a href="https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/issues?q=is%3Aissue+is%3Aopen+label%3Awanted_feature">DynamicalSystemsBase.jl wanted features</a></li>
-<li><a href="https://github.com/JuliaDynamics/ChaosTools.jl/issues?q=is%3Aissue+is%3Aopen+label%3Awanted_feature">ChaosTools.jl wanted features</a></li>
-</ul>
                 
                   
                 
