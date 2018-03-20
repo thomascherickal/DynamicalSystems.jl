@@ -457,6 +457,42 @@
       
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      TimeseriesPrediction
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        TimeseriesPrediction
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../tsprediction/localmodels/" title="Local Modeling" class="md-nav__link">
+      Local Modeling
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
   <li class="md-nav__item">
     <a href="../advanced/" title="Advanced Documentation" class="md-nav__link">
       Advanced Documentation
@@ -507,6 +543,20 @@
   
     <label class="md-nav__title" for="toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#timeseries-prediction" title="Timeseries Prediction" class="md-nav__link">
+    Timeseries Prediction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caos-method" title="Cao's Method" class="md-nav__link">
+    Cao's Method
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#multi-time-multi-diensional-reconstructions" title="Multi-time, Multi-Diensional Reconstructions" class="md-nav__link">
@@ -588,6 +638,20 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#timeseries-prediction" title="Timeseries Prediction" class="md-nav__link">
+    Timeseries Prediction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caos-method" title="Cao's Method" class="md-nav__link">
+    Cao's Method
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#multi-time-multi-diensional-reconstructions" title="Multi-time, Multi-Diensional Reconstructions" class="md-nav__link">
     Multi-time, Multi-Diensional Reconstructions
   </a>
@@ -656,6 +720,13 @@
                 
                 <p><a id='News-1'></a></p>
 <h1 id="news">News</h1>
+<p><a id='Timeseries-Prediction-1'></a></p>
+<h2 id="timeseries-prediction">Timeseries Prediction</h2>
+<p>A new module has been added to <strong>DynamicalSystems.jl</strong>: <code>TimeseriesPrediction</code> (version <code>v0.2.0</code>), which tries to predict timeseries using methods from nonlinear dynamics and chaos!</p>
+<p>The first available method is <code>localmodel_tsp</code> that uses local averages! See the new documentation page for more!</p>
+<p><a id='Cao's-Method-1'></a></p>
+<h2 id="caos-method">Cao's Method</h2>
+<p>With <code>ChaosTools v0.8.0</code>, the well-known method for estimating dimension for a <a href="../definition/reconstruction/#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a> is now implemented and exported!</p>
 <p><a id='Multi-time,-Multi-Diensional-Reconstructions-1'></a></p>
 <h2 id="multi-time-multi-diensional-reconstructions">Multi-time, Multi-Diensional Reconstructions</h2>
 <p>With the latest version of <code>DynamicalSystemsBase v0.8.0</code> we now have the possibility for both multi-time and multi-dimensional delay reconstructions! The new documentation string for <a href="../definition/reconstruction/#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a> has all the relevant information.</p>

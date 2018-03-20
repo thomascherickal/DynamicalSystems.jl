@@ -333,8 +333,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#dataset-io" title="Dataset IO" class="md-nav__link">
-    Dataset IO
+  <a href="#dataset-io" title="Dataset I/O" class="md-nav__link">
+    Dataset I/O
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#neighborhoods-in-a-dataset" title="Neighborhoods in a Dataset" class="md-nav__link">
+    Neighborhoods in a Dataset
   </a>
   
 </li>
@@ -504,6 +511,42 @@
       
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      TimeseriesPrediction
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        TimeseriesPrediction
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tsprediction/localmodels/" title="Local Modeling" class="md-nav__link">
+      Local Modeling
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
   <li class="md-nav__item">
     <a href="../../advanced/" title="Advanced Documentation" class="md-nav__link">
       Advanced Documentation
@@ -563,8 +606,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#dataset-io" title="Dataset IO" class="md-nav__link">
-    Dataset IO
+  <a href="#dataset-io" title="Dataset I/O" class="md-nav__link">
+    Dataset I/O
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#neighborhoods-in-a-dataset" title="Neighborhoods in a Dataset" class="md-nav__link">
+    Neighborhoods in a Dataset
   </a>
   
 </li>
@@ -609,7 +659,7 @@
 
 <p>Use <code>Matrix(dataset)</code> or <code>reinterpret(Matrix, dataset)</code> and <code>Dataset(matrix)</code> or <code>reinterpret(Dataset, matrix)</code> to convert. The <code>reinterpret</code> methods are cheaper but assume that each variable/timeseries is a <em>row</em> and not column of the <code>matrix</code>.</p>
 <p>If you have various timeseries vectors <code>x, y, z, ...</code> pass them like <code>Dataset(x, y, z, ...)</code>. You can use <code>columns(dataset)</code> to obtain the reverse, i.e. all columns of the dataset in a tuple.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/29b2ac5d83737d699b5d090978f15cb0c84e56c4/src/dataset.jl#L93-L118' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/5c65cd44e5019ea17ad48326e1349fc91d07dcd4/src/dataset.jl#L93-L118' class='documenter-source'>source</a><br></p>
 <hr />
 <p>In essence a <code>Dataset</code> is simply a container for a <code>Vector</code> of <code>SVector</code>s. However, it is visually represented as a matrix, similarly to how numerical data would be printed on a spreadsheet (with time being the <em>column</em> direction). It also offers a lot more functionality than just pretty-printing. Besides the examples in the documentation string, you can also do:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -621,7 +671,7 @@
 </pre></div>
 
 
-<p>All functions from <strong>DynamicalSystems.jl</strong> that manipulate and use data are expecting an <code>AbstractDataset</code> subtype. This allows us to define efficient methods that coordinate well with other packages, like e.g. <a href="../../chaos/nlts/#DynamicalSystemsBase.neighborhood"><code>neighborhood</code></a>.</p>
+<p>All functions from <strong>DynamicalSystems.jl</strong> that manipulate and use data are expecting an <code>AbstractDataset</code> subtype. This allows us to define efficient methods that coordinate well with other packages, like e.g. <a href="./#DynamicalSystemsBase.neighborhood"><code>neighborhood</code></a>.</p>
 <p>If given a matrix, we first convert to <code>Dataset</code>. This means that you should <em>first convert</em> your data to a <code>Dataset</code> if you want to call functions more than once, to avoid constantly converting.</p>
 <p><a id='Dataset-Functions-1'></a></p>
 <h2 id="dataset-functions">Dataset Functions</h2>
@@ -633,7 +683,7 @@
 
 
 <p>Return an <code>SVector</code> that contains the minimum elements of each timeseries of the dataset.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/29b2ac5d83737d699b5d090978f15cb0c84e56c4/src/dataset.jl#L235-L239' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/5c65cd44e5019ea17ad48326e1349fc91d07dcd4/src/dataset.jl#L235-L239' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.maxima' href='#DynamicalSystemsBase.maxima'>#</a>
 <strong><code>DynamicalSystemsBase.maxima</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>maxima(dataset)
@@ -641,7 +691,7 @@
 
 
 <p>Return an <code>SVector</code> that contains the maximum elements of each timeseries of the dataset.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/29b2ac5d83737d699b5d090978f15cb0c84e56c4/src/dataset.jl#L252-L256' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/5c65cd44e5019ea17ad48326e1349fc91d07dcd4/src/dataset.jl#L252-L256' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.minmaxima' href='#DynamicalSystemsBase.minmaxima'>#</a>
 <strong><code>DynamicalSystemsBase.minmaxima</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>minmaxima(dataset)
@@ -649,7 +699,7 @@
 
 
 <p>Return <code>minima(dataset), maxima(dataset)</code> without doing the computation twice.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/29b2ac5d83737d699b5d090978f15cb0c84e56c4/src/dataset.jl#L269-L272' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/5c65cd44e5019ea17ad48326e1349fc91d07dcd4/src/dataset.jl#L269-L272' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.columns' href='#DynamicalSystemsBase.columns'>#</a>
 <strong><code>DynamicalSystemsBase.columns</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>columns(dataset) -&gt; x, y, z, ...
@@ -657,42 +707,54 @@
 
 
 <p>Return the individual columns of the dataset.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/29b2ac5d83737d699b5d090978f15cb0c84e56c4/src/dataset.jl#L70-L73' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/5c65cd44e5019ea17ad48326e1349fc91d07dcd4/src/dataset.jl#L70-L73' class='documenter-source'>source</a><br></p>
 <hr />
-<p><a id='Dataset-IO-1'></a></p>
-<h2 id="dataset-io">Dataset IO</h2>
-<p>In addition to the above, we also offer (very basic) functions that read/write a <code>Dataset</code> from/to a delimited text file:</p>
-<p><a id='DynamicalSystemsBase.read_dataset' href='#DynamicalSystemsBase.read_dataset'>#</a>
-<strong><code>DynamicalSystemsBase.read_dataset</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="nt">read_dataset</span><span class="o">(</span><span class="nt">file</span><span class="o">,</span> <span class="p">::</span><span class="nd">Type</span><span class="p">{</span><span class="err">&lt;:Dataset</span><span class="p">}</span><span class="o">,</span> <span class="nt">delim</span><span class="p">::</span><span class="nd">Char</span> <span class="o">=</span> <span class="s1">&#39;   &#39;</span><span class="o">;</span> <span class="nt">skipstart</span> <span class="o">=</span> <span class="nt">0</span><span class="o">)</span>
+<p><a id='Dataset-I/O-1'></a></p>
+<h2 id="dataset-io">Dataset I/O</h2>
+<p>Input/output functionality for an <code>AbstractDataset</code> is already achieved using base Julia, specifically <code>writedlm</code> and <code>readdlm</code>.</p>
+<p>The thing to note is that all data of an <code>AbstractDataset</code> is contained within its field <code>data</code>.</p>
+<p>To write and read a dataset, simply do:</p>
+<div class="codehilite"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="c"># I will write and read using delimiter &#39;,&#39;</span>
+<span class="n">writedlm</span><span class="p">(</span><span class="s">&quot;data.txt&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="sc">&#39;,&#39;</span><span class="p">)</span>
+
+<span class="c"># Don&#39;t forget to convert the matrix to a Dataset when reading</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">readdlm</span><span class="p">(</span><span class="s">&quot;data.txt&quot;</span><span class="p">,</span> <span class="sc">&#39;,&#39;</span><span class="p">,</span> <span class="kt">Float64</span><span class="p">))</span>
 </pre></div>
 
 
-<p>Read a <code>delim</code>-delimited text file directly into a dataset of dimension <code>D</code> with numbers of type <code>T</code>.</p>
-<p>Optionally skip the first <code>skipstart</code> rows of the file (that may e.g. contain headers).</p>
-<p>Call like <code>read_dataset("file.txt", Dataset{3, Float64})</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/29b2ac5d83737d699b5d090978f15cb0c84e56c4/src/dataset.jl#L308-L317' class='documenter-source'>source</a><br></p>
-<p><a id='DynamicalSystemsBase.write_dataset' href='#DynamicalSystemsBase.write_dataset'>#</a>
-<strong><code>DynamicalSystemsBase.write_dataset</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="nt">write_dataset</span><span class="o">(</span><span class="nt">file</span><span class="o">,</span> <span class="nt">dataset</span><span class="p">::</span><span class="nd">AbstractDataset</span><span class="o">,</span> <span class="nt">delim</span><span class="p">::</span><span class="nd">Char</span> <span class="o">=</span> <span class="s1">&#39;   &#39;</span><span class="o">;</span> <span class="nt">opts</span><span class="o">...)</span>
-</pre></div>
-
-
-<p>Write a <code>dataset</code> in a <code>delim</code>-delimited text file.</p>
-<p><code>opts</code> are keyword arguments passed into <code>writedlm</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/29b2ac5d83737d699b5d090978f15cb0c84e56c4/src/dataset.jl#L333-L338' class='documenter-source'>source</a><br></p>
 <hr />
-<p>For example</p>
-<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
-
-<span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">towel</span><span class="p">()</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
-
-<span class="c"># Write comma-delimited file:</span>
-<span class="n">write_dataset</span><span class="p">(</span><span class="s">&quot;test.csv&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="sc">&#39;,&#39;</span><span class="p">)</span>
-<span class="c"># Read comma-delimited file:</span>
-<span class="n">read_dataset</span><span class="p">(</span><span class="s">&quot;test.csv&quot;</span><span class="p">,</span> <span class="n">Dataset</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="kt">Float64</span><span class="p">},</span> <span class="sc">&#39;,&#39;</span><span class="p">)</span>
+<p><a id='Neighborhoods-in-a-Dataset-1'></a></p>
+<h2 id="neighborhoods-in-a-dataset">Neighborhoods in a Dataset</h2>
+<p>Combining the excellent performance of <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a> with the <code>AbstractDataset</code> allows us to define a function that calculates a "neighborhood" of a given point, i.e. finds other points near it. The different "types" of the neighborhoods are subtypes of <code>AbstractNeighborhood</code>.</p>
+<p><a id='DynamicalSystemsBase.neighborhood' href='#DynamicalSystemsBase.neighborhood'>#</a>
+<strong><code>DynamicalSystemsBase.neighborhood</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>neighborhood(point, tree, ntype)
+neighborhood(point, tree, ntype, n::Int, w::Int = 1)
 </pre></div>
+
+
+<p>Return a vector of indices which are the neighborhood of <code>point</code> in some <code>data</code>, where the <code>tree</code> was created using <code>tree = KDTree(data [, metric])</code>. The <code>ntype</code> is the type of neighborhood and can be any subtype of <a href="./#DynamicalSystemsBase.AbstractNeighborhood"><code>AbstractNeighborhood</code></a>.</p>
+<p>Use the second method when the <code>point</code> belongs in the data, i.e. <code>point = data[n]</code>. Then <code>w</code> stands for the Theiler window (positive integer). Only points that have index <code>abs(i - n) ≥ w</code> are returned as a neighborhood, to exclude close temporal neighbors. The default <code>w=1</code> is the case of exluding the <code>point</code> itself.</p>
+<p><strong>References</strong></p>
+<p><code>neighborhood</code> simply interfaces the functions <code>knn</code> and <code>inrange</code> from <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a> by using the argument <code>ntype</code>.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/5c65cd44e5019ea17ad48326e1349fc91d07dcd4/src/neighborhoods.jl#L38-L59' class='documenter-source'>source</a><br></p>
+<p><a id='DynamicalSystemsBase.AbstractNeighborhood' href='#DynamicalSystemsBase.AbstractNeighborhood'>#</a>
+<strong><code>DynamicalSystemsBase.AbstractNeighborhood</code></strong> &mdash; <em>Type</em>.</p>
+<div class="codehilite"><pre><span></span>AbstractNeighborhood
+</pre></div>
+
+
+<p>Supertype of methods for deciding the neighborhood of points for a given point.</p>
+<p>Concrete subtypes:</p>
+<ul>
+<li><code>FixedMassNeighborhood(K::Int)</code> : The neighborhood of a point consists of the <code>K</code> nearest neighbors of the point.</li>
+<li><code>FixedSizeNeighborhood(ε::Real)</code> : The neighborhood of a point consists of all neighbors that have distance &lt; <code>ε</code> from the point.</li>
+</ul>
+<p>See <a href="./#DynamicalSystemsBase.neighborhood"><code>neighborhood</code></a> for more.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/5c65cd44e5019ea17ad48326e1349fc91d07dcd4/src/neighborhoods.jl#L12-L25' class='documenter-source'>source</a><br></p>
+<hr />
                 
                   
                 

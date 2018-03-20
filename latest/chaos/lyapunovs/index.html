@@ -504,6 +504,42 @@
       
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      TimeseriesPrediction
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        TimeseriesPrediction
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tsprediction/localmodels/" title="Local Modeling" class="md-nav__link">
+      Local Modeling
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
   <li class="md-nav__item">
     <a href="../../advanced/" title="Advanced Documentation" class="md-nav__link">
       Advanced Documentation
@@ -618,7 +654,7 @@
 <p>[1] : A. M. Lyapunov, <em>The General Problem of the Stability of Motion</em>, Taylor &amp; Francis (1992)</p>
 <p>[2] : K. Geist <em>et al.</em>, Progr. Theor. Phys. <strong>83</strong>, pp 875 (1990)</p>
 <p>[3] : G. Benettin <em>et al.</em>, Meccanica <strong>15</strong>, pp 9-20 &amp; 21-30 (1980)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/a0b9291018ff89e1407790baea99d060431bb170/src/lyapunovs.jl#L10-L60' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/c52a3a46ebac35d08aefaf32354650f415f06a39/src/lyapunovs.jl#L10-L60' class='documenter-source'>source</a><br></p>
 <hr />
 <p>As you can see, the documentation string is detailed and self-contained. For example, the lyapunov spectrum of the <a href="http://www.scholarpedia.org/article/Hyperchaos">folded towel map</a> is calculated as:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -670,7 +706,7 @@
 <li><code>upper_threshold = 1e-6</code> : Upper distance threshold for rescaling.</li>
 <li><code>lower_threshold = 1e-12</code> : Lower distance threshold for rescaling (in order to  be able to detect negative exponents).</li>
 <li><code>diff_eq_kwargs = Dict(:abstol=&gt;d0, :reltol=&gt;d0)</code> : (only for continuous) Keyword arguments passed into the solvers of the <code>DifferentialEquations</code> package (see <a href="../../definition/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> for more info).</li>
-<li><code>dt = 1</code> : Time of evolution between each check of distance exceeding the thresholds.</li>
+<li><code>dt = 1</code> : Time of evolution between each check of distance exceeding the thresholds. For continuous systems this is approximate.</li>
 <li><code>inittest = (u1, d0) -&gt; u1 .+ d0/sqrt(D)</code> : A function that given <code>(u1, d0)</code> initializes the test state with distance <code>d0</code> from the given state <code>u1</code> (<code>D</code> is the dimension of the system). This function can be used when you want to avoid the test state appearing in a region of the phase-space where it would have e.g. different energy or escape to infinity.</li>
 </ul>
 <p><strong>Description</strong></p>
@@ -691,7 +727,7 @@
 <p>See the "advanced documentation" for info on the integrator object and use <code>@which ...</code> to go to the source code for the low-level call signature.</p>
 <p><strong>References</strong></p>
 <p>[1] : G. Benettin <em>et al.</em>, Phys. Rev. A <strong>14</strong>, pp 2338 (1976)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/a0b9291018ff89e1407790baea99d060431bb170/src/lyapunovs.jl#L158-L214' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/c52a3a46ebac35d08aefaf32354650f415f06a39/src/lyapunovs.jl#L158-L215' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>

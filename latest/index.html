@@ -290,6 +290,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#timeseriesprediction" title="TimeseriesPrediction" class="md-nav__link">
+    TimeseriesPrediction
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -543,6 +550,42 @@
       
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      TimeseriesPrediction
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        TimeseriesPrediction
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="tsprediction/localmodels/" title="Local Modeling" class="md-nav__link">
+      Local Modeling
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
   <li class="md-nav__item">
     <a href="advanced/" title="Advanced Documentation" class="md-nav__link">
       Advanced Documentation
@@ -616,6 +659,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#timeseriesprediction" title="TimeseriesPrediction" class="md-nav__link">
+    TimeseriesPrediction
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -673,8 +723,8 @@
 <h1 id="introduction">Introduction</h1>
 <p><strong>DynamicalSystems.jl</strong> is a Julia software library for the exploration of chaos and nonlinear dynamics.</p>
 <p>The current documentation was built with the following versions</p>
-<div class="codehilite"><pre><span></span> - DynamicalSystemsBase          0.8.2
- - ChaosTools                    0.7.0
+<div class="codehilite"><pre><span></span> - DynamicalSystemsBase          0.9.0
+ - ChaosTools                    0.8.0
 </pre></div>
 
 
@@ -703,12 +753,18 @@
 </ul>
 </li>
 <li>
-<p>Dedicated interface for <a href="./definition/dataset">numerical data</a>.</p>
+<p>Automatic "completion" of the dynamics of the system with numerically computed Jacobians, in case they are not provided by the user.</p>
 </li>
-<li>Automatic "completion" of the dynamics of the system with numerically computed Jacobians, in case they are not provided by the user.</li>
 <li>Robust implementations of all kinds of integrators, that evolve the system, many states of the system, or even deviation vectors. See the <a href="./advanced">advanced documentation</a> for this.</li>
-<li>Delay Coordinates Embedding.</li>
+<li>Dedicated interface for <a href="./definition/dataset">numerical data</a>.</li>
+<li>Efficient <a href="definition/dataset/#DynamicalSystemsBase.neighborhood"><code>neighborhood</code></a> estimation by interfacing <a href="https://github.com/KristofferC/NearestNeighbors.jl"><code>NearestNeighbors</code></a>.</li>
+<li>
+<p>Delay Coordinates Embedding: flexible and abstracted <a href="definition/reconstruction/#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a> interface, that creates the delay-coordinates reconstruction of a timeseries efficiently.</p>
+<ul>
+<li>Supports multiple dimensions and multiple timescales.</li>
 <li>Library of <a href="./definition/predefined">predefined well-known dynamical systems</a> that have been used extensively in scientific research.</li>
+</ul>
+</li>
 </ol>
 <p><a id='<a href="chaos/overview">ChaosTools</a>-1'></a></p>
 <h3 id="chaostools"><a href="./chaos/overview">ChaosTools</a></h3>
@@ -717,10 +773,15 @@
 <li>Poincare S.O.S. and orbit diagrams</li>
 <li>Lyapunov Exponents</li>
 <li>Entropies and Dimensions</li>
-<li>Neighborhood estimation</li>
+<li>Estimation of Reconstruction parameters</li>
 <li>Lyapunov exponent of a timeseries</li>
 <li>Finding Fixed Points of Maps</li>
 <li>Detecting Chaos</li>
+</ul>
+<p><a id='<a href="tsprediction/localmodels">TimeseriesPrediction</a>-1'></a></p>
+<h3 id="timeseriesprediction"><a href="./tsprediction/localmodels">TimeseriesPrediction</a></h3>
+<ul>
+<li>Predicting the future of one or multiple timeseries using average local models.</li>
 </ul>
 <p><a id='Our-Goals-1'></a></p>
 <h2 id="our-goals">Our Goals</h2>
