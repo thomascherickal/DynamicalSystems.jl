@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.3, mkdocs-material-2.7.0">
+      <meta name="generator" content="mkdocs-0.17.3, mkdocs-material-2.7.1">
     
     
       
@@ -95,8 +95,8 @@
         
       </defs>
     </svg>
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
     
       <a href="#orbit-diagrams-of-maps" tabindex="1" class="md-skip">
@@ -682,7 +682,7 @@
 <p>The parameter change is done as <code>p[p_index] = ...</code> and thus you must use a parameter container that supports this (either <code>Array</code>, <code>LMArray</code>, dictionary or other).</p>
 <p>The returned <code>output</code> is a vector of vectors. <code>output[j]</code> are the orbit points of the <code>i</code>-th variable of the system, at parameter value <code>pvalues[j]</code>.</p>
 <p>See also <a href="./#ChaosTools.poincaresos"><code>poincaresos</code></a> and <a href="./#ChaosTools.produce_orbitdiagram"><code>produce_orbitdiagram</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/c52a3a46ebac35d08aefaf32354650f415f06a39/src/orbitdiagram.jl#L4-L31' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/3b95f8fd9ef42875bd8df6786a7883e15e424ef7/src/orbitdiagram.jl#L4-L31' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example, let's compute the famous orbit diagram of the logistic map:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -750,7 +750,7 @@
 <p>[1] : H. Poincaré, <em>Les Methods Nouvelles de la Mécanique Celeste</em>, Paris: Gauthier-Villars (1892)</p>
 <p>[2] : M. Tabor, <em>Chaos and Integrability in Nonlinear Dynamics: An Introduction</em>, §4.1, in pp. 118-126, New York: Wiley (1989)</p>
 <p>See also <a href="./#ChaosTools.orbitdiagram"><code>orbitdiagram</code></a>, <a href="./#ChaosTools.produce_orbitdiagram"><code>produce_orbitdiagram</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/c52a3a46ebac35d08aefaf32354650f415f06a39/src/orbitdiagram.jl#L69-L97' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/3b95f8fd9ef42875bd8df6786a7883e15e424ef7/src/orbitdiagram.jl#L69-L97' class='documenter-source'>source</a><br></p>
 <hr />
 <p>An example of the <a href="../../definition/predefined/#DynamicalSystemsBase.Systems.henonheiles">Henon-Heiles</a> system using a quasi-periodic solution</p>
 <div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henonheiles</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.</span><span class="p">])</span>
@@ -802,7 +802,7 @@
 <p><strong>Performance Notes</strong></p>
 <p>The total amount of PSOS produced will be <code>length(ics)*length(pvalues)</code>.</p>
 <p>See also <a href="./#ChaosTools.poincaresos"><code>poincaresos</code></a>, <a href="./#ChaosTools.orbitdiagram"><code>orbitdiagram</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/c52a3a46ebac35d08aefaf32354650f415f06a39/src/orbitdiagram.jl#L140-L173' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/3b95f8fd9ef42875bd8df6786a7883e15e424ef7/src/orbitdiagram.jl#L140-L173' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example, we will calculate the orbit diagram of the Shinriki oscillator, a continuous system that undergoes a period doubling route to chaos, much like the logistic map!</p>
 <div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">shinriki</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
@@ -832,6 +832,8 @@
               
               
                 
+
+
               
             </article>
           </div>

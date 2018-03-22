@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.3, mkdocs-material-2.7.0">
+      <meta name="generator" content="mkdocs-0.17.3, mkdocs-material-2.7.1">
     
     
       
@@ -95,8 +95,8 @@
         
       </defs>
     </svg>
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
     
       <a href="#advanced-documentation" tabindex="1" class="md-skip">
@@ -690,7 +690,7 @@
 <p>Return an integrator object that can be used to evolve a system interactively using <code>step!(integ [, Δt])</code>. Optionally specify an initial state <code>u0</code>.</p>
 <p>The state of this integrator is a vector.</p>
 <p>See <a href="../definition/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> for <code>diff_eq_kwargs</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/5c65cd44e5019ea17ad48326e1349fc91d07dcd4/src/dynamicalsystem/dynamicalsystem.jl#L327-L335' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/58c3f2c3b9658b059a73a53c7ccbc8b7cc2509fe/src/dynamicalsystem/dynamicalsystem.jl#L335-L343' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.parallel_integrator' href='#DynamicalSystemsBase.parallel_integrator'>#</a>
 <strong><code>DynamicalSystemsBase.parallel_integrator</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="nt">parallel_integrator</span><span class="o">(</span><span class="nt">ds</span><span class="p">::</span><span class="nd">DynamicalSystem</span><span class="o">,</span> <span class="nt">states</span><span class="o">;</span> <span class="nt">diff_eq_kwargs</span><span class="o">)</span> <span class="nt">-</span><span class="o">&gt;</span> <span class="nt">integ</span>
@@ -700,7 +700,7 @@
 <p>Return an integrator object that can be used to evolve many <code>states</code> of a system in parallel interactively using <code>step!(integ [, Δt])</code>.</p>
 <p>The states of this integrator are a vector of vectors, each one being an actual state of the dynamical system. Only for the case of in-place continuous systems, the integrator propagates a matrix with each column being a state, because at the moment DifferentialEquations.jl does not support <code>Vector[Vector]</code> as state.</p>
 <p>See <a href="../definition/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> for <code>diff_eq_kwargs</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/5c65cd44e5019ea17ad48326e1349fc91d07dcd4/src/dynamicalsystem/dynamicalsystem.jl#L376-L388' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/58c3f2c3b9658b059a73a53c7ccbc8b7cc2509fe/src/dynamicalsystem/dynamicalsystem.jl#L384-L396' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.tangent_integrator' href='#DynamicalSystemsBase.tangent_integrator'>#</a>
 <strong><code>DynamicalSystemsBase.tangent_integrator</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="nt">tangent_integrator</span><span class="o">(</span><span class="nt">ds</span><span class="p">::</span><span class="nd">DynamicalSystem</span><span class="o">,</span> <span class="nt">Q0</span> <span class="o">|</span> <span class="nt">k</span><span class="p">::</span><span class="nd">Int</span><span class="o">;</span> <span class="nt">u0</span><span class="o">,</span> <span class="nt">t0</span><span class="o">,</span> <span class="nt">diff_eq_kwargs</span><span class="o">)</span>
@@ -731,7 +731,7 @@
 <p>with <span><span class="MathJax_Preview">f</span><script type="math/tex">f</script></span> being the equations of motion and <span><span class="MathJax_Preview">u</span><script type="math/tex">u</script></span> the system state. Similar equations hold for the discrete case.</p>
 <p>Internally the integrator propagates a matrix, with the first column being the state and each subsequent one being a deviation vector.</p>
 <p>See <a href="../definition/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> for <code>diff_eq_kwargs</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/5c65cd44e5019ea17ad48326e1349fc91d07dcd4/src/dynamicalsystem/dynamicalsystem.jl#L338-L373' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/58c3f2c3b9658b059a73a53c7ccbc8b7cc2509fe/src/dynamicalsystem/dynamicalsystem.jl#L346-L381' class='documenter-source'>source</a><br></p>
 <hr />
 <p>Notice that the state type <code>integrator.u</code> of each integrator is quite different and <em>does change</em> between the possible versions of a <a href="../definition/general/#DynamicalSystemsBase.DynamicalSystem"><code>DynamicalSystem</code></a>!</p>
 <p>If you want to use <code>reinit!</code> (see below), first check the state type of the <code>integrator.u</code>.</p>
@@ -788,6 +788,8 @@
               
               
                 
+
+
               
             </article>
           </div>
