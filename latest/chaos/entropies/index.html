@@ -794,7 +794,7 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p[i]^\alpha
 <p>For example, the Shannon entropy of a coin-flip process should be one bit, <a href="https://en.wikipedia.org/wiki/Shannon_(unit)">by definition</a>. Let's see...</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
 <span class="n">y</span> <span class="o">=</span> <span class="kt">Float64</span><span class="o">.</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="kt">Bool</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">))</span> <span class="c"># just some coin tosses</span>
-<span class="n">sh</span> <span class="o">=</span> <span class="n">shannon</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>  <span class="c"># ≡ genentropy(1, 0.0, y)</span>
+<span class="n">sh</span> <span class="o">=</span> <span class="n">genentropy</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>  <span class="c"># this is the shannon entropy</span>
 <span class="n">isapprox</span><span class="p">(</span><span class="n">sh</span><span class="p">,</span> <span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>  <span class="n">rtol</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">)</span>
 </pre></div>
 
@@ -952,7 +952,7 @@ R_\alpha(p) = \frac{1}{1-\alpha}\sum_i p[i]^\alpha
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>1.258701840217668
+<div class="codehilite"><pre><span></span>1.2587069406149498
 </pre></div>
                 
                   
