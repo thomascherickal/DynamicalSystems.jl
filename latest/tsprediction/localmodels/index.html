@@ -681,8 +681,8 @@
 <p>Given a query point, the function finds its neighbors using neighborhood <code>ntype</code>. Then, the neighbors <code>xnn</code> and their images <code>ynn</code> are used to make a prediction for the future of the query point, using the provided <code>method</code>. The images <code>ynn</code> are the points <code>xnn</code> shifted by <code>stepsize</code> into the future.</p>
 <p>The algorithm is applied iteratively until a prediction of length <code>p</code> has been created, starting with the query point to be the last point of the timeseries.</p>
 <p><strong>References</strong></p>
-<p>[1] : Eds. B. Schelter <em>et al.</em>, <em>Handbook of Time Series Analysis</em>, VCH-Wiley, pp 39-65 (2006)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/eebc0ff586af0e12edf49cf6cc673fdb433d6cce/src/localmodeling.jl#L272-L305' class='documenter-source'>source</a><br></p>
+<p>[1] : D. Engster &amp; U. Parlitz, <em>Handbook of Time Series Analysis</em> Ch. 1, VCH-Wiley (2006)</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/1c62179a293a82ccda7ddd3dcb51b9c7a13ddd02/src/localmodeling.jl#L274-L307' class='documenter-source'>source</a><br></p>
 <p><a id='TimeseriesPrediction.AbstractLocalModel' href='#TimeseriesPrediction.AbstractLocalModel'>#</a>
 <strong><code>TimeseriesPrediction.AbstractLocalModel</code></strong> &mdash; <em>Type</em>.</p>
 <div class="codehilite"><pre><span></span>AbstractLocalModel
@@ -713,12 +713,12 @@
 <div>
 <div class="MathJax_Preview">
 \begin{aligned}
-y_{pred} = \frac{\sum{ω_i^2 y_{nn,i}}}{\sum{ω_i^2}}
+y_{pred} = \frac{\sum{\omega_i^2 y_{nn,i}}}{\sum{\omega_i^2}}
 \end{aligned}
 </div>
 <script type="math/tex; mode=display">
 \begin{aligned}
-y_{pred} = \frac{\sum{ω_i^2 y_{nn,i}}}{\sum{ω_i^2}}
+y_{pred} = \frac{\sum{\omega_i^2 y_{nn,i}}}{\sum{\omega_i^2}}
 \end{aligned}
 </script>
 </div>
@@ -736,33 +736,33 @@ LinearLocalModel(n::Int, s_min::Real, s_max::Real)
 <p>
 <script type="math/tex; mode=display">
 \begin{aligned}
-f(σ) = \frac{σ^2}{μ^2 + σ^2}
+f(\sigma) = \frac{\sigma^2}{\mu^2 + \sigma^2}
 \end{aligned}
 </script>
   * <code>s_min</code>, <code>s_max</code> : Soft Threshold</p>
 <div>
 <div class="MathJax_Preview">
 \begin{aligned}
-f(σ) = \begin{cases} 0, &amp;σ &lt; s_{min}\\
-\left(1 - \left( \frac{s_{max}-σ}{s_{max}-s_{min}}\right)^2 \right)^2, &amp;s_{min} \leq
-σ \leq s_{max} \\
-1, &amp;σ &gt; s_{max}\end{cases}
+f(\sigma) = \begin{cases} 0, &amp; \sigma &lt; s_{min}\\
+\left(1 - \left( \frac{s_{max}-\sigma}{s_{max}-s_{min}}\right)^2 \right)^2,
+&amp;s_{min} \leq \sigma \leq s_{max} \\
+1, &amp; \sigma &gt; s_{max}\end{cases}
 \end{aligned}
 </div>
 <script type="math/tex; mode=display">
 \begin{aligned}
-f(σ) = \begin{cases} 0, &σ < s_{min}\\
-\left(1 - \left( \frac{s_{max}-σ}{s_{max}-s_{min}}\right)^2 \right)^2, &s_{min} \leq
-σ \leq s_{max} \\
-1, &σ > s_{max}\end{cases}
+f(\sigma) = \begin{cases} 0, & \sigma < s_{min}\\
+\left(1 - \left( \frac{s_{max}-\sigma}{s_{max}-s_{min}}\right)^2 \right)^2,
+&s_{min} \leq \sigma \leq s_{max} \\
+1, & \sigma > s_{max}\end{cases}
 \end{aligned}
 </script>
 </div>
 </li>
 </ul>
 <p><strong>References</strong></p>
-<p>[1] : Eds. B. Schelter <em>et al.</em>, <em>Handbook of Time Series Analysis</em>, VCH-Wiley, pp 39-65 (2006)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/eebc0ff586af0e12edf49cf6cc673fdb433d6cce/src/localmodeling.jl#L9-L62' class='documenter-source'>source</a><br></p>
+<p>[1] : D. Engster &amp; U. Parlitz, <em>Handbook of Time Series Analysis</em> Ch. 1, VCH-Wiley (2006)</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/1c62179a293a82ccda7ddd3dcb51b9c7a13ddd02/src/localmodeling.jl#L9-L63' class='documenter-source'>source</a><br></p>
 <p><a id='D-Example-1'></a></p>
 <h2 id="1d-example">1D Example</h2>
 <p>We will predict the future of a (relatively simple) timeseries:</p>
@@ -861,23 +861,25 @@ f(σ) = \begin{cases} 0, &σ < s_{min}\\
 
 <p>Compute mean squared error of iterated predictions of length <code>p</code> using test set <code>R_test</code>.</p>
 <p><strong>Description</strong></p>
-<p>This error measure takes in a prediction model consisting of <code>R</code>,  <code>method</code>, <code>ntype</code> and <code>stepsize</code> and evaluates its performance. The test set <code>R_test</code> is a delay reconstruction with the same delay <code>τ</code> and dimension <code>D</code> as <code>R</code>. For each subset of <code>R_test</code> with length <code>p</code> it calls <code>localmodel_tsp</code>. The model error is then defined as</p>
+<p>This error measure takes in a prediction model consisting of <code>R</code>, <code>method</code>, <code>ntype</code> and <code>stepsize</code> and evaluates its performance. The test set <code>R_test</code> is a delay reconstruction with the same delay <code>τ</code> and dimension <code>D</code> as <code>R</code>. For each subset of <code>R_test</code> with length <code>p</code> it calls <code>localmodel_tsp</code>. The model error is then defined as</p>
 <div>
 <div class="MathJax_Preview">
 \begin{aligned}
-MSE_p = \frac{1}{p|T_{ref}|}\sum_{t\in T_{ref}}\sum_{i=1}^{p} \left(y_{t+i} - y_{pred,t+i} \right)^2
+MSE_p = \frac{1}{p|T_{ref}|}\sum_{t\in T_{ref}}\sum_{i=1}^{p} \left(y_{t+i}
+- y_{pred,t+i} \right)^2
 \end{aligned}
 </div>
 <script type="math/tex; mode=display">
 \begin{aligned}
-MSE_p = \frac{1}{p|T_{ref}|}\sum_{t\in T_{ref}}\sum_{i=1}^{p} \left(y_{t+i} - y_{pred,t+i} \right)^2
+MSE_p = \frac{1}{p|T_{ref}|}\sum_{t\in T_{ref}}\sum_{i=1}^{p} \left(y_{t+i}
+- y_{pred,t+i} \right)^2
 \end{aligned}
 </script>
 </div>
 <p>where <span><span class="MathJax_Preview">|T_{ref}|</span><script type="math/tex">|T_{ref}|</script></span> is the number of subsets of <code>R_test</code> used.</p>
 <p><strong>References</strong></p>
 <p>See <a href="./#TimeseriesPrediction.localmodel_tsp"><code>localmodel_tsp</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/eebc0ff586af0e12edf49cf6cc673fdb433d6cce/src/localmodeling.jl#L353-L372' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/1c62179a293a82ccda7ddd3dcb51b9c7a13ddd02/src/localmodeling.jl#L357-L379' class='documenter-source'>source</a><br></p>
 <p>Here is an example function that employs <code>MSEp</code> to find good parameters. It takes in a timeseries <code>s</code> and ranges for the dimensions, delays, number of nearest neighbors, and weighting degrees to try. Keyword arguments are <code>valid_len</code>, which is the number of prediction steps, and <code>num_tries</code> the number of different starting points to choose.</p>
 <p>It then calculates <code>MSEp</code> for all parameter combinations and returns the best parameter set.</p>
 <div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">estimate_param</span><span class="p">(</span><span class="n">s</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">,</span>
