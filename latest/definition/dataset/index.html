@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.3, mkdocs-material-2.7.2">
+      <meta name="generator" content="mkdocs-0.17.3, mkdocs-material-2.7.3">
     
     
       
@@ -647,27 +647,40 @@
 </pre></div>
 
 
-<p>A dedicated interface for datasets, i.e. vectors of vectors. It contains <em>equally-sized datapoints</em> of length <code>D</code>, represented by <code>SVector{D, T}</code>.</p>
-<p>It can be used exactly like a matrix that has each of the columns be the timeseries of each of the dynamic variables. <a href="../evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> always returns a <code>Dataset</code>. For example,</p>
-<div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">towel</span><span class="p">()</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span> <span class="c">#this returns a dataset</span>
-<span class="n">data</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="c"># this is the second variable timeseries</span>
-<span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">:</span><span class="p">]</span> <span class="c"># this is the first datapoint (D-dimensional)</span>
-<span class="n">data</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="c"># value of the third variable, at the 5th timepoint</span>
-</pre></div>
+<p>A dedicated interface for datasets. It contains <em>equally-sized datapoints</em> of length <code>D</code>, represented by <code>SVector{D, T}</code>.</p>
+<p>When indexed with 1 index, a <code>dataset</code> is like a vector of datapoints.</p>
+<p>When indexed with 2 indices it behaves like a matrix that has each of the columns be the timeseries of each of the dynamic variables.</p>
+<p><strong>Description of indexing</strong></p>
+<p>In the following let <code>i, j</code> be integers,  <code>typeof(data) &lt;: AbstractDataset</code> and <code>v1, v2</code> be <code>&lt;: AbstractVector{Int}</code> (<code>v1, v2</code> could also be ranges).</p>
+<ul>
+<li><code>data[i]</code> gives the <code>i</code>th datapoint (returns an <code>SVector</code>)</li>
+<li><code>data[v1]</code> will return a vector of datapoints</li>
+<li><code>data[v1, :]</code> using a <code>Colon</code> as a second index will return a <code>Dataset</code> of these points</li>
+<li><code>data[:, j]</code> gives the <code>j</code>th<code>variable timeseries, as</code>Vector`</li>
+<li><code>data[v1, v2]</code> returns a <code>Dataset</code> with the appropriate entries (first indices being "time"/point index, while second being dynamic variables)</li>
+<li><code>data[i, j]</code> value of the <code>j</code>th variable, at the <code>i</code>th timepoint</li>
+</ul>
+<div class="codehilite"><pre><span></span>Use `Matrix(dataset)` or `reinterpret(Matrix, dataset)` and `Dataset(matrix)` or `reinterpret(Dataset, matrix)` to convert. The `reinterpret` methods are cheaper but assume that each variable/timeseries is a *row* and not column of the `matrix`.
+
+If you have various timeseries vectors `x, y, z, ...` pass them like `Dataset(x, y, z, ...)`. You can use `columns(dataset)` to obtain the reverse, i.e. all columns of the dataset in a tuple.
 
 
-<p>Use <code>Matrix(dataset)</code> or <code>reinterpret(Matrix, dataset)</code> and <code>Dataset(matrix)</code> or <code>reinterpret(Dataset, matrix)</code> to convert. The <code>reinterpret</code> methods are cheaper but assume that each variable/timeseries is a <em>row</em> and not column of the <code>matrix</code>.</p>
-<p>If you have various timeseries vectors <code>x, y, z, ...</code> pass them like <code>Dataset(x, y, z, ...)</code>. You can use <code>columns(dataset)</code> to obtain the reverse, i.e. all columns of the dataset in a tuple.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/58c3f2c3b9658b059a73a53c7ccbc8b7cc2509fe/src/dataset.jl#L93-L118' class='documenter-source'>source</a><br></p>
-<hr />
-<p>In essence a <code>Dataset</code> is simply a container for a <code>Vector</code> of <code>SVector</code>s. However, it is visually represented as a matrix, similarly to how numerical data would be printed on a spreadsheet (with time being the <em>column</em> direction). It also offers a lot more functionality than just pretty-printing. Besides the examples in the documentation string, you can also do:</p>
-<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
-<span class="n">hen</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">()</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">hen</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span> <span class="c"># this returns a dataset</span>
-<span class="k">for</span> <span class="n">point</span> <span class="kp">in</span> <span class="n">data</span>
-<span class="c"># do stuff with each datapoint (vector with as many elements as system dimension)</span>
-<span class="k">end</span>
+<span class="nt">&lt;a</span> <span class="na">target=</span><span class="s">&#39;_blank&#39;</span> <span class="na">href=</span><span class="s">&#39;https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/d707d26a58b23a0b69f50794e777d19cf7b8a2d7/src/dataset.jl#L95-L127&#39;</span> <span class="na">class=</span><span class="s">&#39;documenter-source&#39;</span><span class="nt">&gt;</span>source<span class="nt">&lt;/a&gt;&lt;br&gt;</span>
+
+
+---
+
+
+In essence a `Dataset` is simply a container for a `Vector` of `SVector`s. However, it is visually represented as a matrix, similarly to how numerical data would be printed on a spreadsheet (with time being the *column* direction). It also offers a lot more functionality than just pretty-printing. Besides the examples in the documentation string, you can also do:
+
+
+```julia
+using DynamicalSystems
+hen = Systems.henon()
+data = trajectory(hen, 10000) # this returns a dataset
+for point in data
+# do stuff with each datapoint (vector with as many elements as system dimension)
+end
 </pre></div>
 
 
@@ -683,7 +696,7 @@
 
 
 <p>Return an <code>SVector</code> that contains the minimum elements of each timeseries of the dataset.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/58c3f2c3b9658b059a73a53c7ccbc8b7cc2509fe/src/dataset.jl#L235-L239' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/d707d26a58b23a0b69f50794e777d19cf7b8a2d7/src/dataset.jl#L243-L247' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.maxima' href='#DynamicalSystemsBase.maxima'>#</a>
 <strong><code>DynamicalSystemsBase.maxima</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>maxima(dataset)
@@ -691,7 +704,7 @@
 
 
 <p>Return an <code>SVector</code> that contains the maximum elements of each timeseries of the dataset.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/58c3f2c3b9658b059a73a53c7ccbc8b7cc2509fe/src/dataset.jl#L252-L256' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/d707d26a58b23a0b69f50794e777d19cf7b8a2d7/src/dataset.jl#L260-L264' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.minmaxima' href='#DynamicalSystemsBase.minmaxima'>#</a>
 <strong><code>DynamicalSystemsBase.minmaxima</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>minmaxima(dataset)
@@ -699,7 +712,7 @@
 
 
 <p>Return <code>minima(dataset), maxima(dataset)</code> without doing the computation twice.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/58c3f2c3b9658b059a73a53c7ccbc8b7cc2509fe/src/dataset.jl#L269-L272' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/d707d26a58b23a0b69f50794e777d19cf7b8a2d7/src/dataset.jl#L277-L280' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.columns' href='#DynamicalSystemsBase.columns'>#</a>
 <strong><code>DynamicalSystemsBase.columns</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>columns(dataset) -&gt; x, y, z, ...
@@ -707,7 +720,7 @@
 
 
 <p>Return the individual columns of the dataset.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/58c3f2c3b9658b059a73a53c7ccbc8b7cc2509fe/src/dataset.jl#L70-L73' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/d707d26a58b23a0b69f50794e777d19cf7b8a2d7/src/dataset.jl#L72-L75' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Dataset-I/O-1'></a></p>
 <h2 id="dataset-io">Dataset I/O</h2>
@@ -739,7 +752,7 @@ neighborhood(point, tree, ntype, n::Int, w::Int = 1)
 <p>Use the second method when the <code>point</code> belongs in the data, i.e. <code>point = data[n]</code>. Then <code>w</code> stands for the Theiler window (positive integer). Only points that have index <code>abs(i - n) ≥ w</code> are returned as a neighborhood, to exclude close temporal neighbors. The default <code>w=1</code> is the case of excluding the <code>point</code> itself.</p>
 <p><strong>References</strong></p>
 <p><code>neighborhood</code> simply interfaces the functions <code>knn</code> and <code>inrange</code> from <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a> by using the argument <code>ntype</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/58c3f2c3b9658b059a73a53c7ccbc8b7cc2509fe/src/neighborhoods.jl#L38-L59' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/d707d26a58b23a0b69f50794e777d19cf7b8a2d7/src/neighborhoods.jl#L38-L59' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.AbstractNeighborhood' href='#DynamicalSystemsBase.AbstractNeighborhood'>#</a>
 <strong><code>DynamicalSystemsBase.AbstractNeighborhood</code></strong> &mdash; <em>Type</em>.</p>
 <div class="codehilite"><pre><span></span>AbstractNeighborhood
@@ -753,7 +766,7 @@ neighborhood(point, tree, ntype, n::Int, w::Int = 1)
 <li><code>FixedSizeNeighborhood(ε::Real)</code> : The neighborhood of a point consists of all neighbors that have distance &lt; <code>ε</code> from the point.</li>
 </ul>
 <p>See <a href="./#DynamicalSystemsBase.neighborhood"><code>neighborhood</code></a> for more.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/58c3f2c3b9658b059a73a53c7ccbc8b7cc2509fe/src/neighborhoods.jl#L12-L25' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/d707d26a58b23a0b69f50794e777d19cf7b8a2d7/src/neighborhoods.jl#L12-L25' class='documenter-source'>source</a><br></p>
 <hr />
                 
                   
