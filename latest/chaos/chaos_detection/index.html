@@ -882,9 +882,8 @@
         <span class="k">for</span> <span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="o">∈</span> <span class="n">enumerate</span><span class="p">(</span><span class="n">ps</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="n">dens</span><span class="p">])</span>
 
             <span class="c"># new initial state is the system initial state</span>
-            <span class="c"># and 2 random orthonormal deviation vectors:</span>
-            <span class="n">u0</span> <span class="o">=</span> <span class="n">hcat</span><span class="p">(</span><span class="n">SVector</span><span class="p">{</span><span class="mi">2</span><span class="p">}(</span><span class="n">θ</span><span class="p">,</span> <span class="n">p</span><span class="p">),</span> <span class="n">orthonormal</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
-            <span class="n">reinit!</span><span class="p">(</span><span class="n">tinteg</span><span class="p">,</span> <span class="n">u0</span><span class="p">)</span>
+            <span class="n">u0</span> <span class="o">=</span> <span class="n">SVector</span><span class="p">{</span><span class="mi">2</span><span class="p">}(</span><span class="n">θ</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+            <span class="n">reinit!</span><span class="p">(</span><span class="n">tinteg</span><span class="p">,</span> <span class="n">u0</span><span class="p">;</span> <span class="n">Q0</span> <span class="o">=</span> <span class="n">orthonormal</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
 
             <span class="c"># Low-level call signature of gali:</span>
             <span class="c">#  _gali(tinteg, tmax, dt, threshold)</span>

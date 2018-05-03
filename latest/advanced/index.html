@@ -704,7 +704,7 @@
 <p>Return an integrator object that can be used to evolve a system interactively using <code>step!(integ [, Δt])</code>. Optionally specify an initial state <code>u0</code>.</p>
 <p>The state of this integrator is a vector.</p>
 <p>See <a href="../definition/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> for <code>diff_eq_kwargs</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/d707d26a58b23a0b69f50794e777d19cf7b8a2d7/src/dynamicalsystem/dynamicalsystem.jl#L336-L344' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/df798b3c613dcd15b6b4106020d7e88c45af734b/src/dynamicalsystem/dynamicalsystem.jl#L336-L344' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.parallel_integrator' href='#DynamicalSystemsBase.parallel_integrator'>#</a>
 <strong><code>DynamicalSystemsBase.parallel_integrator</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="nt">parallel_integrator</span><span class="o">(</span><span class="nt">ds</span><span class="p">::</span><span class="nd">DynamicalSystem</span><span class="o">,</span> <span class="nt">states</span><span class="o">;</span> <span class="nt">diff_eq_kwargs</span><span class="o">)</span>
@@ -714,7 +714,7 @@
 <p>Return an integrator object that can be used to evolve many <code>states</code> of a system in parallel at the <em>exact same times</em>, using <code>step!(integ [, Δt])</code>.</p>
 <p>The states of this integrator are a vector of vectors, each one being an actual state of the dynamical system. Only for the case of in-place continuous systems, the integrator propagates a matrix with each column being a state, because at the moment DifferentialEquations.jl does not support <code>Vector[Vector]</code> as state.</p>
 <p>See <a href="../definition/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> for <code>diff_eq_kwargs</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/d707d26a58b23a0b69f50794e777d19cf7b8a2d7/src/dynamicalsystem/dynamicalsystem.jl#L417-L429' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/df798b3c613dcd15b6b4106020d7e88c45af734b/src/dynamicalsystem/dynamicalsystem.jl#L417-L429' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.tangent_integrator' href='#DynamicalSystemsBase.tangent_integrator'>#</a>
 <strong><code>DynamicalSystemsBase.tangent_integrator</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="nt">tangent_integrator</span><span class="o">(</span><span class="nt">ds</span><span class="p">::</span><span class="nd">DynamicalSystem</span><span class="o">,</span> <span class="nt">Q0</span> <span class="o">|</span> <span class="nt">k</span><span class="p">::</span><span class="nd">Int</span><span class="o">;</span> <span class="nt">u0</span><span class="o">,</span> <span class="nt">t0</span><span class="o">,</span> <span class="nt">diff_eq_kwargs</span><span class="o">)</span>
@@ -742,37 +742,66 @@
 </script>
 </div>
 <p>with <span><span class="MathJax_Preview">f</span><script type="math/tex">f</script></span> being the equations of motion and <span><span class="MathJax_Preview">u</span><script type="math/tex">u</script></span> the system state. Similar equations hold for the discrete case.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/d707d26a58b23a0b69f50794e777d19cf7b8a2d7/src/dynamicalsystem/dynamicalsystem.jl#L369-L398' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/df798b3c613dcd15b6b4106020d7e88c45af734b/src/dynamicalsystem/dynamicalsystem.jl#L369-L398' class='documenter-source'>source</a><br></p>
 <hr />
 <p>Notice that the state type <code>integrator.u</code> of each integrator is quite different and <em>does change</em> between the possible versions of a <a href="../definition/general/#DynamicalSystemsBase.DynamicalSystem"><code>DynamicalSystem</code></a>!</p>
 <p><a id='Integrator-state-functions-1'></a></p>
 <h2 id="integrator-state-functions">Integrator state functions</h2>
 <p>There are four functions associated with the integrators that we export:</p>
-<div class="codehilite"><pre><span></span>get_state
-set_state!
-get_deviations
-set_deviations!
+<p><a id='DynamicalSystemsBase.get_state' href='#DynamicalSystemsBase.get_state'>#</a>
+<strong><code>DynamicalSystemsBase.get_state</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>get_state(ds::DynamicalSystem)
 </pre></div>
 
 
+<p>Return the state of <code>ds</code>.</p>
+<div class="codehilite"><pre><span></span>get_state(integ [, i::Int = 1])
+</pre></div>
+
+
+<p>Return the state of the integrator, in the sense of the state of the dynamical system.</p>
+<p>If the integrator is a <a href="./#DynamicalSystemsBase.parallel_integrator"><code>parallel_integrator</code></a>, passing <code>i</code> will return the <code>i</code>-th state. The function also correctly returns the true state of the system for tangent integrators.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/df798b3c613dcd15b6b4106020d7e88c45af734b/src/dynamicalsystem/dynamicalsystem.jl#L347-L357' class='documenter-source'>source</a><br></p>
+<p><a id='DynamicalSystemsBase.set_state!' href='#DynamicalSystemsBase.set_state!'>#</a>
+<strong><code>DynamicalSystemsBase.set_state!</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>set_state!(integ, u [, i::Int = 1])
+</pre></div>
+
+
+<p>Set the state of the integrator to <code>u</code>, in the sense of the state of the dynamical system. Works for any integrator (normal, tangent, parallel).</p>
+<p>For parallel integrator, you can choose which state to set (using <code>i</code>).</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/df798b3c613dcd15b6b4106020d7e88c45af734b/src/dynamicalsystem/dynamicalsystem.jl#L360-L366' class='documenter-source'>source</a><br></p>
+<p><a id='DynamicalSystemsBase.get_deviations' href='#DynamicalSystemsBase.get_deviations'>#</a>
+<strong><code>DynamicalSystemsBase.get_deviations</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>get_deviations(tang_integ)
+</pre></div>
+
+
+<p>Return the deviation vectors of the <a href="./#DynamicalSystemsBase.tangent_integrator"><code>tangent_integrator</code></a> in a form of a matrix with columns the vectors.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/df798b3c613dcd15b6b4106020d7e88c45af734b/src/dynamicalsystem/dynamicalsystem.jl#L401-L405' class='documenter-source'>source</a><br></p>
+<p><a id='DynamicalSystemsBase.set_deviations!' href='#DynamicalSystemsBase.set_deviations!'>#</a>
+<strong><code>DynamicalSystemsBase.set_deviations!</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>set_deviations!(tang_integ, Q)
+</pre></div>
+
+
+<p>Set the deviation vectors of the <a href="./#DynamicalSystemsBase.tangent_integrator"><code>tangent_integrator</code></a> to <code>Q</code>, which must be a matrix with each column being a deviation vector.</p>
+<p>Automatically does <code>u_modified!(tang_integ, true)</code>.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/df798b3c613dcd15b6b4106020d7e88c45af734b/src/dynamicalsystem/dynamicalsystem.jl#L408-L414' class='documenter-source'>source</a><br></p>
 <p>These functions work with <em>any</em> possible integrator and it is best to use the to change states robustly</p>
 <p><a id='Re-initializing-an-integrator-1'></a></p>
 <h2 id="re-initializing-an-integrator">Re-initializing an integrator</h2>
-<p>It is more efficient to re-initialize an integrator than to create a new one. This can be very helpful when looping over initial conditions and/or parameter values.</p>
+<p>It is more efficient to re-initialize an integrator using <code>reinit!</code> than to create a new one. This can be very helpful when looping over initial conditions and/or parameter values.</p>
 <p>All high-level functions from <code>ChaosTools</code> have a set-up part that creates an integrator, and a low-level part that does the computation.</p>
 <p>The low level part is your friend! Use it! See the <a href="../chaos/chaos_detection/#using-gali">Using <code>gali</code></a> page for an example.</p>
 <p><a id='Discrete-1'></a></p>
 <h3 id="discrete">Discrete</h3>
-<p>For discrete systems, there is no "re-initialization". Just change the state or deviation vectors on the spot using <code>set_state!</code> or <code>set_deviations!</code>. E.g.</p>
-<div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">towel</span><span class="p">()</span>
-<span class="n">integ</span> <span class="o">=</span> <span class="n">integrator</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
-<span class="n">set_state!</span><span class="p">(</span><span class="n">integ</span><span class="p">,</span> <span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
-<span class="n">tinteg</span> <span class="o">=</span> <span class="n">tangent_integrator</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="n">set_state!</span><span class="p">(</span><span class="n">tinteg</span><span class="p">,</span> <span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<p>For discrete systems, the function signature is simply</p>
+<div class="codehilite"><pre><span></span><span class="n">reinit!</span><span class="p">(</span><span class="n">integ</span><span class="p">,</span> <span class="n">u</span><span class="p">;</span> <span class="n">t0</span> <span class="o">=</span> <span class="n">integ</span><span class="o">.</span><span class="n">t0</span><span class="p">,</span> <span class="n">Q0</span> <span class="o">=</span> <span class="nb">nothing</span><span class="p">)</span>
 </pre></div>
 
 
-<p>etc, etc.</p>
+<p>which gives you the possibility to optionally re-initialize deviation vectors with <code>Q0</code> (you <em>should</em> do that!).</p>
 <p>To change parameters simply change the field <code>p</code> of an integrator.</p>
 <div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">()</span>
 <span class="n">pinteg</span> <span class="o">=</span> <span class="n">parallel_integrator</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="p">[</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">)])</span>
@@ -780,19 +809,21 @@ set_deviations!
 </pre></div>
 
 
+<p>For discrete systems there is no general reason to <code>reinit!</code> after a parameter change.</p>
 <p><a id='Continuous-1'></a></p>
 <h3 id="continuous">Continuous</h3>
-<p>For continuous systems one needs to properly re-initialize the integrator instance so that derivatives are re-computed. We still advise to use <code>set_state!</code> and <code>set_deviations!</code> though, so you do not have to deal with the fact that different integrators have different types of <code>u</code>.</p>
+<p>For continuous systems one needs to properly re-initialize the integrator instance so that derivatives are re-computed. Because it is not possible to bundle re-initialization of deviation vectors to <code>reinit!</code> of continuous integrators, we advise to use <code>set_state!</code> and <code>set_deviations!</code>. This way you also do not have to deal with the fact that different integrators have different types of <code>u</code>.</p>
 <p>You should do something like</p>
 <div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">lorenz</span><span class="p">()</span>
-<span class="n">integ</span> <span class="o">=</span> <span class="n">integrator</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+<span class="n">integ</span> <span class="o">=</span> <span class="n">tangent_integrator</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="n">set_state!</span><span class="p">(</span><span class="n">integ</span><span class="p">,</span> <span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">set_deviations!</span><span class="p">(</span><span class="n">integ</span><span class="p">,</span> <span class="n">orthonormal</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
 <span class="n">reinit!</span><span class="p">(</span><span class="n">integ</span><span class="p">,</span> <span class="n">integ</span><span class="o">.</span><span class="n">u</span><span class="p">)</span>
 </pre></div>
 
 
 <p><em>(it is important to use <code>integ.u</code> as the second argument to <code>reinit!</code>)</em></p>
-<p>The above code would work if the integrator was <code>parallel_integrator</code> or <code>tangent_integrator</code>!</p>
+<p>The above code would work if the integrator was <code>integrator</code>, <code>parallel_integrator</code> or <code>tangent_integrator</code>! (<code>set_deviations!</code> only works for tangent integrators!)</p>
 <p>The full documentation for <code>reinit!(::ODEIntegrator)</code> is <a href="http://docs.juliadiffeq.org/latest/basics/integrator.html#Reinit-1">here</a>. Although, for usage within <strong>DynamicalSystems.jl</strong> the other arguments do not matter, because steps are never saved.</p>
 <p>In the continuous case you <strong>must</strong> <code>reinit!</code> even after changing a parameter value, because the derivatives need to be re-computed.</p>
 <p><a id='Implementation-of-DynamicalSystem-1'></a></p>
