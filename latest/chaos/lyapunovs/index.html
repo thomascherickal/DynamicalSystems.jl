@@ -633,7 +633,7 @@
 <p>The function <code>lyapunovs</code> calculates the entire spectrum of the Lyapunov exponents of a system:</p>
 <p><a id='ChaosTools.lyapunovs' href='#ChaosTools.lyapunovs'>#</a>
 <strong><code>ChaosTools.lyapunovs</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="nt">lyapunovs</span><span class="o">(</span><span class="nt">ds</span><span class="p">::</span><span class="nd">DynamicalSystem</span><span class="o">,</span> <span class="nt">N</span><span class="o">,</span> <span class="nt">k</span><span class="p">::</span><span class="nd">Int</span> <span class="o">|</span> <span class="nt">Q0</span><span class="o">;</span> <span class="nt">kwargs</span><span class="o">...)</span> <span class="nt">-</span><span class="o">&gt;</span> <span class="err">λ</span><span class="nt">s</span>
+<div class="codehilite"><pre><span></span><span class="nt">lyapunovs</span><span class="o">(</span><span class="nt">ds</span><span class="p">::</span><span class="nd">DynamicalSystem</span><span class="o">,</span> <span class="nt">N</span> <span class="cp">[</span><span class="p">,</span> <span class="nx">k</span><span class="nl">::Int</span> <span class="o">|</span> <span class="nx">Q0</span><span class="cp">]</span><span class="o">;</span> <span class="nt">kwargs</span><span class="o">...)</span> <span class="nt">-</span><span class="o">&gt;</span> <span class="err">λ</span><span class="nt">s</span>
 </pre></div>
 
 
@@ -654,7 +654,7 @@
 <p>[1] : A. M. Lyapunov, <em>The General Problem of the Stability of Motion</em>, Taylor &amp; Francis (1992)</p>
 <p>[2] : K. Geist <em>et al.</em>, Progr. Theor. Phys. <strong>83</strong>, pp 875 (1990)</p>
 <p>[3] : G. Benettin <em>et al.</em>, Meccanica <strong>15</strong>, pp 9-20 &amp; 21-30 (1980)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/1a932149c2556ae0c642d6a50763f1357855431a/src/lyapunovs.jl#L10-L61' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/4662def9cb355e08863bd4d13cdb64fb010fd946/src/lyapunovs.jl#L10-L61' class='documenter-source'>source</a><br></p>
 <hr />
 <p>As you can see, the documentation string is detailed and self-contained. For example, the lyapunov spectrum of the <a href="http://www.scholarpedia.org/article/Hyperchaos">folded towel map</a> is calculated as:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -727,7 +727,7 @@
 <p>See the "advanced documentation" for info on the integrator object and use <code>@which ...</code> to go to the source code for the low-level call signature.</p>
 <p><strong>References</strong></p>
 <p>[1] : G. Benettin <em>et al.</em>, Phys. Rev. A <strong>14</strong>, pp 2338 (1976)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/1a932149c2556ae0c642d6a50763f1357855431a/src/lyapunovs.jl#L142-L199' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/4662def9cb355e08863bd4d13cdb64fb010fd946/src/lyapunovs.jl#L142-L199' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
