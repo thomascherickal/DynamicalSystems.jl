@@ -544,6 +544,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../st_prediction/" title="Spatiotemporal Timeseries" class="md-nav__link">
+      Spatiotemporal Timeseries
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -655,7 +667,7 @@
                 <p><a id='Local-Modeling-1'></a></p>
 <h1 id="local-modeling">Local Modeling</h1>
 <p>Local Modeling predicts timeseries using a delay embedded state space reconstruction. It finds the nearest neighbors of a query point within this reconstructed space and applies a local model to make a prediction. "Local" model refers to the fact that the images (future points) of the <a href="../../definition/dataset/#DynamicalSystemsBase.neighborhood"><code>neighborhood</code></a> of a point are the only component used to make a prediction.</p>
-<p>This Local Modeling is proven to be a very effective tool for timeseries of low-dimensional chaotic attractors.</p>
+<p>This Local Modeling is proven to be a very effective tool for timeseries of low-dimensional  chaotic attractors.</p>
 <div class="admonition tip">
 <p class="admonition-title">Reconstruction parameters</p>
 <p>Don't forget that <strong>DynamicalSystems.jl</strong> also has functions for estimating good parameters for a <a href="../../definition/reconstruction/#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a>: <a href="../../chaos/nlts/#ChaosTools.estimate_delay"><code>estimate_delay</code></a> and <a href="../../chaos/nlts/#ChaosTools.estimate_dimension"><code>estimate_dimension</code></a>.</p>
@@ -775,14 +787,13 @@ f(\sigma) = \begin{cases} 0, & \sigma < s_{min}\\
 <span class="n">s_train</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="n">N_train</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 <span class="n">s_test</span>  <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">N_train</span><span class="o">:</span><span class="k">end</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
 
-<span class="n">method</span> <span class="o">=</span> <span class="n">AverageLocalModel</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">ntype</span> <span class="o">=</span> <span class="n">FixedMassNeighborhood</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="n">p</span> <span class="o">=</span> <span class="mi">500</span>
-<span class="n">s_pred</span> <span class="o">=</span> <span class="n">localmodel_tsp</span><span class="p">(</span><span class="n">s_train</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="n">p</span><span class="p">;</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">ntype</span><span class="o">=</span><span class="n">ntype</span><span class="p">)</span>
+<span class="n">s_pred</span> <span class="o">=</span> <span class="n">localmodel_tsp</span><span class="p">(</span><span class="n">s_train</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="n">p</span><span class="p">;</span> <span class="n">ntype</span><span class="o">=</span><span class="n">ntype</span><span class="p">)</span>
 
 <span class="n">s_pred_10</span> <span class="o">=</span> <span class="n">localmodel_tsp</span><span class="p">(</span><span class="n">s_train</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="n">p÷10</span><span class="p">;</span>
-    <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">ntype</span><span class="o">=</span><span class="n">ntype</span><span class="p">,</span> <span class="n">stepsize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">ntype</span><span class="o">=</span><span class="n">ntype</span><span class="p">,</span> <span class="n">stepsize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
 
 <span class="k">using</span> <span class="n">PyPlot</span>
 <span class="n">figure</span><span class="p">()</span>
@@ -880,26 +891,23 @@ MSE_p = \frac{1}{p|T_{ref}|}\sum_{t\in T_{ref}}\sum_{i=1}^{p} \left(y_{t+i}
 <p><strong>References</strong></p>
 <p>See <a href="./#TimeseriesPrediction.localmodel_tsp"><code>localmodel_tsp</code></a>.</p>
 <p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/a593beaecb1dfec1405ec07fa2ab8710897d50c8/src/localmodeling.jl#L356-L378' class='documenter-source'>source</a><br></p>
-<p>Here is an example function that employs <code>MSEp</code> to find good parameters. It takes in a timeseries <code>s</code> and ranges for the dimensions, delays, number of nearest neighbors, and weighting degrees to try. Keyword arguments are <code>valid_len</code>, which is the number of prediction steps, and <code>num_tries</code> the number of different starting points to choose.</p>
+<p>Here is an example function that employs <code>MSEp</code> to find good parameters. It takes in a timeseries <code>s</code> and ranges for the dimensions, delays and number of nearest neighbors to  try. Keyword arguments are <code>valid_len</code>, which is the number of prediction steps, and <code>num_tries</code> the number of different starting points to choose.</p>
 <p>It then calculates <code>MSEp</code> for all parameter combinations and returns the best parameter set.</p>
 <div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">estimate_param</span><span class="p">(</span><span class="n">s</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">,</span>
-    <span class="n">dims</span><span class="p">,</span> <span class="n">delay</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">N</span><span class="p">;</span> <span class="n">valid_len</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">num_tries</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">dims</span><span class="p">,</span> <span class="n">delay</span><span class="p">,</span> <span class="n">K</span><span class="p">;</span> <span class="n">valid_len</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">num_tries</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
     <span class="n">Result</span> <span class="o">=</span> <span class="kt">Dict</span><span class="p">{</span><span class="n">SVector</span><span class="p">{</span><span class="mi">4</span><span class="p">,</span><span class="kt">Int</span><span class="p">},</span><span class="kt">Float64</span><span class="p">}()</span>
     <span class="n">step</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="k">for</span> <span class="n">n</span> <span class="o">∈</span> <span class="n">N</span>
-        <span class="n">method</span> <span class="o">=</span> <span class="n">LocalAverageModel</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">D</span> <span class="o">∈</span> <span class="n">dims</span><span class="p">,</span> <span class="n">τ</span> <span class="o">∈</span> <span class="n">delay</span>
-            <span class="n">s_train</span> <span class="o">=</span> <span class="nd">@view</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="k">end</span><span class="o">-</span><span class="n">D</span><span class="o">*</span><span class="n">τ</span><span class="o">-</span><span class="n">valid_len</span><span class="o">-</span><span class="n">num_tries</span><span class="o">-</span><span class="mi">50</span><span class="p">]</span>
-            <span class="n">s_test</span> <span class="o">=</span> <span class="nd">@view</span> <span class="n">s</span><span class="p">[</span><span class="k">end</span><span class="o">-</span><span class="p">(</span><span class="n">D</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">τ</span><span class="o">-</span><span class="n">valid_len</span><span class="o">-</span><span class="n">num_tries</span><span class="o">:</span><span class="k">end</span><span class="p">]</span>
-            <span class="n">R</span> <span class="o">=</span> <span class="n">Reconstruction</span><span class="p">(</span><span class="n">s_train</span><span class="p">,</span><span class="n">D</span><span class="p">,</span><span class="n">τ</span><span class="p">)</span>
-            <span class="n">R_test</span> <span class="o">=</span> <span class="n">Reconstruction</span><span class="p">(</span><span class="n">s_test</span><span class="p">,</span><span class="n">D</span><span class="p">,</span><span class="n">τ</span><span class="p">)</span>
-            <span class="n">tree</span> <span class="o">=</span> <span class="n">KDTree</span><span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="k">end</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-            <span class="k">for</span> <span class="n">k</span> <span class="o">∈</span> <span class="n">K</span>
-                <span class="n">ntype</span> <span class="o">=</span> <span class="n">FixedMassNeighborhood</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-                <span class="n">Result</span><span class="p">[</span><span class="nd">@SVector</span><span class="p">([</span><span class="n">D</span><span class="p">,</span><span class="n">τ</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">n</span><span class="p">])]</span> <span class="o">=</span>
-                <span class="n">MSEp</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">R_test</span><span class="p">,</span> <span class="n">valid_len</span><span class="p">;</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">ntype</span><span class="o">=</span><span class="n">ntype</span><span class="p">,</span>
-                    <span class="n">stepsize</span><span class="o">=</span><span class="n">stepsize</span><span class="p">)</span>
-            <span class="k">end</span>
+    <span class="k">for</span> <span class="n">D</span> <span class="o">∈</span> <span class="n">dims</span><span class="p">,</span> <span class="n">τ</span> <span class="o">∈</span> <span class="n">delay</span>
+        <span class="n">s_train</span> <span class="o">=</span> <span class="nd">@view</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="k">end</span><span class="o">-</span><span class="n">D</span><span class="o">*</span><span class="n">τ</span><span class="o">-</span><span class="n">valid_len</span><span class="o">-</span><span class="n">num_tries</span><span class="o">-</span><span class="mi">50</span><span class="p">]</span>
+        <span class="n">s_test</span> <span class="o">=</span> <span class="nd">@view</span> <span class="n">s</span><span class="p">[</span><span class="k">end</span><span class="o">-</span><span class="p">(</span><span class="n">D</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">τ</span><span class="o">-</span><span class="n">valid_len</span><span class="o">-</span><span class="n">num_tries</span><span class="o">:</span><span class="k">end</span><span class="p">]</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">Reconstruction</span><span class="p">(</span><span class="n">s_train</span><span class="p">,</span><span class="n">D</span><span class="p">,</span><span class="n">τ</span><span class="p">)</span>
+        <span class="n">R_test</span> <span class="o">=</span> <span class="n">Reconstruction</span><span class="p">(</span><span class="n">s_test</span><span class="p">,</span><span class="n">D</span><span class="p">,</span><span class="n">τ</span><span class="p">)</span>
+        <span class="n">tree</span> <span class="o">=</span> <span class="n">KDTree</span><span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="k">end</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="o">∈</span> <span class="n">K</span>
+            <span class="n">ntype</span> <span class="o">=</span> <span class="n">FixedMassNeighborhood</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+            <span class="n">Result</span><span class="p">[</span><span class="nd">@SVector</span><span class="p">([</span><span class="n">D</span><span class="p">,</span><span class="n">τ</span><span class="p">,</span><span class="n">k</span><span class="p">])]</span> <span class="o">=</span>
+            <span class="n">MSEp</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">R_test</span><span class="p">,</span> <span class="n">valid_len</span><span class="p">;</span> <span class="n">ntype</span><span class="o">=</span><span class="n">ntype</span><span class="p">,</span>
+                <span class="n">stepsize</span><span class="o">=</span><span class="n">stepsize</span><span class="p">)</span>
         <span class="k">end</span>
     <span class="k">end</span>
     <span class="n">best_param</span> <span class="o">=</span> <span class="n">collect</span><span class="p">(</span><span class="n">keys</span><span class="p">(</span><span class="n">Result</span><span class="p">))[</span><span class="n">findmin</span><span class="p">(</span><span class="n">values</span><span class="p">(</span><span class="n">Result</span><span class="p">))[</span><span class="mi">2</span><span class="p">]]</span>
@@ -941,13 +949,13 @@ MSE_p = \frac{1}{p|T_{ref}|}\sum_{t\in T_{ref}}\sum_{i=1}^{p} \left(y_{t+i}
           </a>
         
         
-          <a href="../../advanced/" title="Advanced Documentation" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../st_prediction/" title="Spatiotemporal Timeseries" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Advanced Documentation
+                Spatiotemporal Timeseries
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

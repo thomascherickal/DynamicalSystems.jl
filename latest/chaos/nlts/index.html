@@ -564,6 +564,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tsprediction/st_prediction/" title="Spatiotemporal Timeseries" class="md-nav__link">
+      Spatiotemporal Timeseries
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -725,6 +737,19 @@
 <p><strong>References</strong></p>
 <p>[1] : Liangyue Cao, <a href="https://www.sciencedirect.com/science/article/pii/S0167278997001188?via%3Dihub">Physica D, pp. 43-50 (1997)</a></p>
 <p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/4662def9cb355e08863bd4d13cdb64fb010fd946/src/estimate_reconstruction.jl#L206-L224' class='documenter-source'>source</a><br></p>
+<p><a id='ChaosTools.stochastic_indicator' href='#ChaosTools.stochastic_indicator'>#</a>
+<strong><code>ChaosTools.stochastic_indicator</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>stochastic_indicator(s::AbstractVector, τ:Int, Ds = 1:6) -&gt; E2s
+</pre></div>
+
+
+<p>Compute an estimator for apparent randomness in a reconstruction of dimensions <code>Ds</code>.</p>
+<p><strong>Description</strong></p>
+<p>Given the scalar timeseries <code>s</code> and the embedding delay <code>τ</code> compute the values of <code>E2</code> for each <code>D ∈ Ds</code>, according to Cao's Method (eq. 5 of [1]).</p>
+<p>Use this function to confirm that the input signal is not random and validate the results of <a href="./#ChaosTools.estimate_dimension"><code>estimate_dimension</code></a>. In the case of random signals, it should be <code>E2 ≈ 1 ∀ D</code>.</p>
+<p><strong>References</strong></p>
+<p>[1] : Liangyue Cao, <a href="https://www.sciencedirect.com/science/article/pii/S0167278997001188?via%3Dihub">Physica D, pp. 43-50 (1997)</a></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/4662def9cb355e08863bd4d13cdb64fb010fd946/src/estimate_reconstruction.jl#L240-L256' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Numerical-Lyapunov-Exponent-1'></a></p>
 <h2 id="numerical-lyapunov-exponent">Numerical Lyapunov Exponent</h2>
