@@ -597,7 +597,7 @@
 <p><strong>Keyword Arguments</strong></p>
 <ul>
 <li><code>boundary, weighting</code> : Passed directly to <a href="./#TimeseriesPrediction.STReconstruction"><code>STReconstruction</code></a>.</li>
-<li><code>method = AverageLocalModel(2)</code> : Subtype of <a href="../localmodels/#TimeseriesPrediction.AbstractLocalModel"><code>AbstractLocalModel</code></a>.</li>
+<li><code>method = AverageLocalModel(ω_safe)</code> : Subtype of <a href="../localmodels/#TimeseriesPrediction.AbstractLocalModel"><code>AbstractLocalModel</code></a>.</li>
 <li><code>ntype = FixedMassNeighborhood(3)</code> : Subtype of <a href="../../definition/dataset/#DynamicalSystemsBase.AbstractNeighborhood"><code>AbstractNeighborhood</code></a>.</li>
 <li><code>printprogress = true</code> : To print progress done.</li>
 </ul>
@@ -607,7 +607,7 @@
 <p>Be careful when choosing <code>B</code> as memory usage and computation time depend strongly on it.</p>
 <p><strong>References</strong></p>
 <p>[1] : U. Parlitz &amp; C. Merkwirth, <a href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.84.1890">Phys. Rev. Lett. <strong>84</strong>, pp 1890 (2000)</a></p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/a593beaecb1dfec1405ec07fa2ab8710897d50c8/src/st_prediction.jl#L9-L37' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/4820cea529cb9176564a3875a2657068a5b0eb5f/src/st_prediction.jl#L9-L37' class='documenter-source'>source</a><br></p>
 <p><a id='TimeseriesPrediction.crosspred_stts' href='#TimeseriesPrediction.crosspred_stts'>#</a>
 <strong><code>TimeseriesPrediction.crosspred_stts</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>crosspred_stts(source_train, target_train, source_pred,
@@ -621,7 +621,7 @@
 <p><strong>Keyword Arguments</strong></p>
 <ul>
 <li><code>boundary, weighting</code> : Passed directly to <a href="./#TimeseriesPrediction.STReconstruction"><code>STReconstruction</code></a>.</li>
-<li><code>method = AverageLocalModel(2)</code> : Subtype of <a href="../localmodels/#TimeseriesPrediction.AbstractLocalModel"><code>AbstractLocalModel</code></a>.</li>
+<li><code>method = AverageLocalModel(ω_safe)</code> : Subtype of <a href="../localmodels/#TimeseriesPrediction.AbstractLocalModel"><code>AbstractLocalModel</code></a>.</li>
 <li><code>ntype = FixedMassNeighborhood(3)</code> : Subtype of <a href="../../definition/dataset/#DynamicalSystemsBase.AbstractNeighborhood"><code>AbstractNeighborhood</code></a>.</li>
 <li><code>printprogress = true</code> : To print progress done.</li>
 </ul>
@@ -633,7 +633,7 @@
 <p>Be careful when choosing <code>B</code> as memory usage and computation time depend strongly on it.</p>
 <p><strong>References</strong></p>
 <p>[1] : U. Parlitz &amp; C. Merkwirth, <a href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.84.1890">Phys. Rev. Lett. <strong>84</strong>, pp 1890 (2000)</a></p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/a593beaecb1dfec1405ec07fa2ab8710897d50c8/src/st_prediction.jl#L93-L133' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/4820cea529cb9176564a3875a2657068a5b0eb5f/src/st_prediction.jl#L93-L133' class='documenter-source'>source</a><br></p>
 <p><a id='TimeseriesPrediction.STReconstruction' href='#TimeseriesPrediction.STReconstruction'>#</a>
 <strong><code>TimeseriesPrediction.STReconstruction</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>STReconstruction(U::AbstractVector{&lt;:AbstractArray}, D, τ, B, k, boundary, weighting)
@@ -666,7 +666,7 @@
 </ul>
 <p><strong>References</strong></p>
 <p>[1] : U. Parlitz &amp; C. Merkwirth, <a href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.84.1890">Phys. Rev. Lett. <strong>84</strong>, pp 1890 (2000)</a></p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/a593beaecb1dfec1405ec07fa2ab8710897d50c8/src/streconstruction.jl#L106-L142' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/4820cea529cb9176564a3875a2657068a5b0eb5f/src/streconstruction.jl#L106-L142' class='documenter-source'>source</a><br></p>
                 
                   
                 
