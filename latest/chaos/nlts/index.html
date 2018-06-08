@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.3, mkdocs-material-2.7.3">
+      <meta name="generator" content="mkdocs-0.17.4, mkdocs-material-2.7.3">
     
     
       
@@ -722,7 +722,7 @@
 <li><code>first_min</code> : return delay of first minimum of the auto-correlation function.</li>
 <li><code>exp_decay</code> : perform an exponential fit to the <code>abs.(c)</code> with <code>c</code> the auto-correlation function of <code>s</code>. Return the exponential decay time <code>τ</code> rounded to an integer.</li>
 </ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/4662def9cb355e08863bd4d13cdb64fb010fd946/src/estimate_reconstruction.jl#L123-L134' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/077a2b8530af0b80cffa82c18d31665e64dcd7fe/src/estimate_reconstruction.jl#L123-L134' class='documenter-source'>source</a><br></p>
 <p><a id='ChaosTools.estimate_dimension' href='#ChaosTools.estimate_dimension'>#</a>
 <strong><code>ChaosTools.estimate_dimension</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>estimate_dimension(s::AbstractVector, τ:Int, Ds = 1:6) -&gt; E1s
@@ -736,7 +736,7 @@
 <p><em>Note: This method does not work for datasets with perfectly periodic signals.</em></p>
 <p><strong>References</strong></p>
 <p>[1] : Liangyue Cao, <a href="https://www.sciencedirect.com/science/article/pii/S0167278997001188?via%3Dihub">Physica D, pp. 43-50 (1997)</a></p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/4662def9cb355e08863bd4d13cdb64fb010fd946/src/estimate_reconstruction.jl#L206-L224' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/077a2b8530af0b80cffa82c18d31665e64dcd7fe/src/estimate_reconstruction.jl#L206-L224' class='documenter-source'>source</a><br></p>
 <p><a id='ChaosTools.stochastic_indicator' href='#ChaosTools.stochastic_indicator'>#</a>
 <strong><code>ChaosTools.stochastic_indicator</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>stochastic_indicator(s::AbstractVector, τ:Int, Ds = 1:6) -&gt; E2s
@@ -749,7 +749,7 @@
 <p>Use this function to confirm that the input signal is not random and validate the results of <a href="./#ChaosTools.estimate_dimension"><code>estimate_dimension</code></a>. In the case of random signals, it should be <code>E2 ≈ 1 ∀ D</code>.</p>
 <p><strong>References</strong></p>
 <p>[1] : Liangyue Cao, <a href="https://www.sciencedirect.com/science/article/pii/S0167278997001188?via%3Dihub">Physica D, pp. 43-50 (1997)</a></p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/4662def9cb355e08863bd4d13cdb64fb010fd946/src/estimate_reconstruction.jl#L240-L256' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/077a2b8530af0b80cffa82c18d31665e64dcd7fe/src/estimate_reconstruction.jl#L240-L256' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Numerical-Lyapunov-Exponent-1'></a></p>
 <h2 id="numerical-lyapunov-exponent">Numerical Lyapunov Exponent</h2>
@@ -784,7 +784,7 @@ E(k) \approx \lambda\Delta t k + E(0)
 <p><strong>References</strong></p>
 <p>[1] : Skokos, C. H. <em>et al.</em>, <em>Chaos Detection and Predictability</em> - Chapter 1 (section 1.3.2), Lecture Notes in Physics <strong>915</strong>, Springer (2016)</p>
 <p>[2] : Kantz, H., Phys. Lett. A <strong>185</strong>, pp 77–87 (1994)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/4662def9cb355e08863bd4d13cdb64fb010fd946/src/nlts.jl#L14-L76' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/077a2b8530af0b80cffa82c18d31665e64dcd7fe/src/nlts.jl#L14-L76' class='documenter-source'>source</a><br></p>
 <hr />
 <p>The function <code>numericallyapunov</code> has a total of 4 different approaches for the algorithmic process, by combining 2 types of distances with 2 types of neighborhoods.</p>
 <p><a id='Example-of-Numerical-Lyapunov-computation-1'></a></p>
@@ -935,7 +935,7 @@ x_{N-d+1} & x_{N-d+2} &\ldots & x_N
 <p>where <span><span class="MathJax_Preview">x := s - \bar{s}</span><script type="math/tex">x := s - \bar{s}</script></span>. The columns of <span><span class="MathJax_Preview">U</span><script type="math/tex">U</script></span> can then be used as a new coordinate system, and by considering the values of the singular values <span><span class="MathJax_Preview">S</span><script type="math/tex">S</script></span> you can decide how many columns of <span><span class="MathJax_Preview">U</span><script type="math/tex">U</script></span> are "important". See the documentation page for example application.</p>
 <p><strong>References</strong></p>
 <p>[1] :  D. S. Broomhead, R. Jones and G. P. King, J. Phys. A <strong>20</strong>, 9, pp L563 (1987)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/4662def9cb355e08863bd4d13cdb64fb010fd946/src/nlts.jl#L180-L208' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/077a2b8530af0b80cffa82c18d31665e64dcd7fe/src/nlts.jl#L180-L208' class='documenter-source'>source</a><br></p>
 <hr />
 <p>This alternative/improvement of the traditional delay coordinates can be a very powerful tool. An example where it shines is noisy data where there is the effect of superficial dimensions due to noise.</p>
 <p>Take the following example where we produce noisy data from a system and then use Broomhead-King coordinates as an alternative to "vanilla" delay coordinates:</p>
@@ -1049,7 +1049,7 @@ x_{N-d+1} & x_{N-d+2} &\ldots & x_N
     
       <script src="../../assets/javascripts/application.b438e6c5.js"></script>
       
-      <script>app.initialize({version:"0.17.3",url:{base:"../.."}})</script>
+      <script>app.initialize({version:"0.17.4",url:{base:"../.."}})</script>
       
         <script src="../../assets\mathjaxhelper.js"></script>
       

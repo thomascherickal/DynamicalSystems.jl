@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.3, mkdocs-material-2.7.3">
+      <meta name="generator" content="mkdocs-0.17.4, mkdocs-material-2.7.3">
     
     
       
@@ -694,7 +694,7 @@
 <p>The parameter change is done as <code>p[p_index] = ...</code> and thus you must use a parameter container that supports this (either <code>Array</code>, <code>LMArray</code>, dictionary or other).</p>
 <p>The returned <code>output</code> is a vector of vectors. <code>output[j]</code> are the orbit points of the <code>i</code>-th variable of the system, at parameter value <code>pvalues[j]</code>.</p>
 <p>See also <a href="./#ChaosTools.poincaresos"><code>poincaresos</code></a> and <a href="./#ChaosTools.produce_orbitdiagram"><code>produce_orbitdiagram</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/4662def9cb355e08863bd4d13cdb64fb010fd946/src/orbitdiagram.jl#L7-L34' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/077a2b8530af0b80cffa82c18d31665e64dcd7fe/src/orbitdiagram.jl#L7-L34' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example, let's compute the famous orbit diagram of the logistic map:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -769,6 +769,7 @@ a_1u_1 + \dots + a_Du_D = \mathbf{a}\cdot\mathbf{u}=b
 <p><strong>Keyword Arguments</strong></p>
 <ul>
 <li><code>direction = 1</code> : Only crossings of the plane that have direction <code>sign(direction)</code> are considered to belong to the surface of section.</li>
+<li><code>u0 = get_state(ds)</code> : Initial state of the system.</li>
 <li><code>Ttr = 0.0</code> : Transient time to evolve the system before starting to compute the PSOS.</li>
 <li><code>diff_eq_kwargs</code> : See <a href="../../definition/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a>.</li>
 <li><code>callback_kwargs = Dict(:abstol=&gt;1e-6)</code> : Keyword arguments passed into the <code>ContinuousCallback</code> type of <code>DifferentialEquations</code>, used to find the section. The option <code>callback_kwargs[:idxs] = j</code> is enforced. Decreasing the <code>abstol</code> makes the section more accurate.</li>
@@ -779,7 +780,7 @@ a_1u_1 + \dots + a_Du_D = \mathbf{a}\cdot\mathbf{u}=b
 <p>[2] : M. Tabor, <em>Chaos and Integrability in Nonlinear Dynamics: An Introduction</em>, §4.1, in pp. 118-126, New York: Wiley (1989)</p>
 <p>[3] : This function is simply manipulating <a href="http://docs.juliadiffeq.org/latest/features/callback_functions.html"><code>ContinuousCallback</code></a> from DifferentialEquations.jl.</p>
 <p>See also <a href="./#ChaosTools.orbitdiagram"><code>orbitdiagram</code></a>, <a href="./#ChaosTools.produce_orbitdiagram"><code>produce_orbitdiagram</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/4662def9cb355e08863bd4d13cdb64fb010fd946/src/orbitdiagram.jl#L96-L141' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/077a2b8530af0b80cffa82c18d31665e64dcd7fe/src/orbitdiagram.jl#L96-L143' class='documenter-source'>source</a><br></p>
 <hr />
 <p>An example of the <a href="../../definition/predefined/#DynamicalSystemsBase.Systems.henonheiles">Henon-Heiles</a> system using a quasi-periodic solution</p>
 <div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henonheiles</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.</span><span class="p">])</span>
@@ -856,7 +857,7 @@ a_1u_1 + \dots + a_Du_D = \mathbf{a}\cdot\mathbf{u}=b
 <p><strong>Performance Notes</strong></p>
 <p>The total amount of PSOS produced will be <code>length(ics)*length(pvalues)</code>.</p>
 <p>See also <a href="./#ChaosTools.poincaresos"><code>poincaresos</code></a>, <a href="./#ChaosTools.orbitdiagram"><code>orbitdiagram</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/4662def9cb355e08863bd4d13cdb64fb010fd946/src/orbitdiagram.jl#L199-L233' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/077a2b8530af0b80cffa82c18d31665e64dcd7fe/src/orbitdiagram.jl#L201-L235' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example, we will calculate the orbit diagram of the Shinriki oscillator, a continuous system that undergoes a period doubling route to chaos, much like the logistic map!</p>
 <div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">shinriki</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
@@ -961,7 +962,7 @@ a_1u_1 + \dots + a_Du_D = \mathbf{a}\cdot\mathbf{u}=b
     
       <script src="../../assets/javascripts/application.b438e6c5.js"></script>
       
-      <script>app.initialize({version:"0.17.3",url:{base:"../.."}})</script>
+      <script>app.initialize({version:"0.17.4",url:{base:"../.."}})</script>
       
         <script src="../../assets\mathjaxhelper.js"></script>
       
