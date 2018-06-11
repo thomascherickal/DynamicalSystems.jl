@@ -486,6 +486,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#regular-orbits-in-the-henon-heiles-system" title="Regular orbits in the Henon-Heiles system" class="md-nav__link">
+    Regular orbits in the Henon-Heiles system
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -648,6 +655,13 @@
           <li class="md-nav__item">
   <a href="#using-gali" title="Using GALI" class="md-nav__link">
     Using GALI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regular-orbits-in-the-henon-heiles-system" title="Regular orbits in the Henon-Heiles system" class="md-nav__link">
+    Regular orbits in the Henon-Heiles system
   </a>
   
 </li>
@@ -913,6 +927,11 @@
 
 
 <p>and after about a minute you will get: <img alt="Chaos detection" src="https://i.imgur.com/z85KBRh.png" /></p>
+<p><a id='Regular-orbits-in-the-Henon-Heiles-system-1'></a></p>
+<h3 id="regular-orbits-in-the-henon-heiles-system">Regular orbits in the Henon-Heiles system</h3>
+<p>In this example we use the <a href="../orbitdiagram/#ChaosTools.poincaresos"><code>poincaresos</code></a> function to produce surfaces of section of the <a href="../system_definition/#DynamicalSystems.Systems.henonheiles"><code>henonheiles</code></a> system at different energies. At each energy <a href="./#ChaosTools.gali"><code>gali</code></a> is used to color-code each initial condition according to how chaotic/regular it is, i.e. how much time does it need to exceed the <code>threshold</code> of <a href="./#ChaosTools.gali"><code>gali</code></a>.</p>
+<p><img alt="crazy_gali" src="https://i.imgur.com/JgFOsoS.gif" /></p>
+<p>You can find the script that produced this animation in <code>DynamicalSystems/coolanimations/gali_psos_henonhelies.jl</code>.</p>
                 
                   
                 

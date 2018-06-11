@@ -499,9 +499,58 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Spatiotemporal Timeseries
+      </label>
+    
     <a href="./" title="Spatiotemporal Timeseries" class="md-nav__link md-nav__link--active">
       Spatiotemporal Timeseries
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#showcasing-results" title="Showcasing Results" class="md-nav__link">
+    Showcasing Results
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chaotic-barkley-model-cross-prediction" title="Chaotic Barkley Model cross-prediction" class="md-nav__link">
+    Chaotic Barkley Model cross-prediction
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#periodic-barkley-model-timeseries-prediction" title="Periodic Barkley Model timeseries prediction" class="md-nav__link">
+    Periodic Barkley Model timeseries prediction
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -564,6 +613,42 @@
     
   
   
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#showcasing-results" title="Showcasing Results" class="md-nav__link">
+    Showcasing Results
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chaotic-barkley-model-cross-prediction" title="Chaotic Barkley Model cross-prediction" class="md-nav__link">
+    Chaotic Barkley Model cross-prediction
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#periodic-barkley-model-timeseries-prediction" title="Periodic Barkley Model timeseries prediction" class="md-nav__link">
+    Periodic Barkley Model timeseries prediction
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -584,7 +669,7 @@
 <p>One of the main reasons is that it does not utilize all available information. All spatially extended physical systems posses a finite speed at which information travels. Therefore the future value of any of the variables depends solely on its past and its immediate spatial neighbors. Instead of trying to reconstruct the state of the whole system into one vector, we limit ourselves to reconstructing small neighborhoods of all points that carry enough information to predict one point one timestep into the future.</p>
 <div class="admonition tip">
 <p class="admonition-title">Examples</p>
-<p>Several example scripts can be found in <em>.julia/v0.6/TimeseriesPrediction/examples</em>.</p>
+<p>Several example scripts can be found in <code>TimeseriesPrediction/examples</code>.</p>
 </div>
 <p><a id='TimeseriesPrediction.localmodel_stts' href='#TimeseriesPrediction.localmodel_stts'>#</a>
 <strong><code>TimeseriesPrediction.localmodel_stts</code></strong> &mdash; <em>Function</em>.</p>
@@ -667,6 +752,36 @@
 <p><strong>References</strong></p>
 <p>[1] : U. Parlitz &amp; C. Merkwirth, <a href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.84.1890">Phys. Rev. Lett. <strong>84</strong>, pp 1890 (2000)</a></p>
 <p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/4820cea529cb9176564a3875a2657068a5b0eb5f/src/streconstruction.jl#L106-L142' class='documenter-source'>source</a><br></p>
+<p><a id='Showcasing-Results-1'></a></p>
+<h2 id="showcasing-results">Showcasing Results</h2>
+<p><a id='Chaotic-Barkley-Model-cross-prediction-1'></a></p>
+<h3 id="chaotic-barkley-model-cross-prediction">Chaotic Barkley Model cross-prediction</h3>
+<p>Here we cross-predicting the <span><span class="MathJax_Preview">V</span><script type="math/tex">V</script></span> field from <span><span class="MathJax_Preview">U</span><script type="math/tex">U</script></span> in the chaotic Barkley model. It is defined by:</p>
+<div>
+<div class="MathJax_Preview">
+\begin{align}
+\frac{\partial u }{\partial t} =&amp; \frac{1}{\epsilon} u (1-u)\left(u-\frac{v+b}{a}\right) +
+ \nabla^2 u \\
+\frac{\partial v }{\partial t} =&amp; u - v
+\end{align}
+</div>
+<script type="math/tex; mode=display">
+\begin{align}
+\frac{\partial u }{\partial t} =& \frac{1}{\epsilon} u (1-u)\left(u-\frac{v+b}{a}\right) +
+ \nabla^2 u \\
+\frac{\partial v }{\partial t} =& u - v
+\end{align}
+</script>
+</div>
+<p>Embedding parameters are <code>D=30</code>, <code>τ=1</code>, <code>B=0</code> and training length <code>2000</code>. The following figure shows the cross-prediction 11 frames into the "future" (i.e. after the training set)</p>
+<p><img alt="Crossprediction U-&gt;V in Barkley" src="https://i.imgur.com/Q2yKRvB.png" />.</p>
+<p>You can find the script that produced this figure in <code>DynamicalSystems/coolanimations/barkley_crosspred.jl</code>.</p>
+<p><a id='Periodic-Barkley-Model-timeseries-prediction-1'></a></p>
+<h3 id="periodic-barkley-model-timeseries-prediction">Periodic Barkley Model timeseries prediction</h3>
+<p>Using different parameters in the Barkley model can produce periodic behavior. Here is an example of timeseries prediction with embedding parameters <code>D=2</code>, <code>τ=1</code>, <code>B=2</code>, <code>k=1</code> and <code>c=200</code>.</p>
+<p>Plotting the real evolution, prediction, and error side by side with <code>Ttrain = 1000, p = 200</code> produces:</p>
+<p><img alt="Barkley prediction" src="https://i.imgur.com/ldChwOD.gif" /></p>
+<p>You can find the script that produced this animation in <code>DynamicalSystems/coolanimations/barkley_stts.jl</code>.</p>
                 
                   
                 

@@ -533,6 +533,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#z-prediction-in-the-roessler-system" title="Z Prediction in the Roessler System" class="md-nav__link">
+    Z Prediction in the Roessler System
+  </a>
+  
+</li>
+      
       
       
       
@@ -641,6 +648,13 @@
         <li class="md-nav__item">
   <a href="#error-measures" title="Error Measures" class="md-nav__link">
     Error Measures
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#z-prediction-in-the-roessler-system" title="Z Prediction in the Roessler System" class="md-nav__link">
+    Z Prediction in the Roessler System
   </a>
   
 </li>
@@ -915,6 +929,14 @@ MSE_p = \frac{1}{p|T_{ref}|}\sum_{t\in T_{ref}}\sum_{i=1}^{p} \left(y_{t+i}
     <span class="k">return</span> <span class="n">best_param</span>
 <span class="k">end</span>
 </pre></div>
+
+
+<p><a id='Z-Prediction-in-the-Roessler-System-1'></a></p>
+<h2 id="z-prediction-in-the-roessler-system">Z Prediction in the Roessler System</h2>
+<p>This is an animation of timeseries prediction of the <code>z</code> variable of the Roessler system. On the left you can see the time evolution of the whole system with the chaotic attractor indicated in gray. The right side is a plot of the <code>z</code> component of the system. The actual values are displayed in green. In red you can see the iteratively predicted version. As training set it used part of the attractor shown in gray on the left.</p>
+<video controls="controls"> <source src="https://i.imgur.com/QwYdeBy.mp4" type="video/mp4"> </video>
+
+<p>You can find the script that produced this animation in <code>DynamicalSystems/coolanimations/roessler_Z_tspred.jl</code>.</p>
                 
                   
                 
