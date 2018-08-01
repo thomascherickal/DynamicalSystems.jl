@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.4, mkdocs-material-2.8.0">
+      <meta name="generator" content="mkdocs-0.17.5, mkdocs-material-2.9.4">
     
     
       
@@ -44,9 +44,14 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.e8ff00e1.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
       
-        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.6079476c.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#7e57c2">
       
     
     
@@ -204,11 +209,11 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <span class="md-nav__button md-logo">
+    <a href="../.." title="DynamicalSystems.jl" class="md-nav__button md-logo">
       
         <i class="md-icon"></i>
       
-    </span>
+    </a>
     DynamicalSystems.jl
   </label>
   
@@ -680,11 +685,15 @@
                 
                 <p><a id='Local-Modeling-1'></a></p>
 <h1 id="local-modeling">Local Modeling</h1>
+<div class="admonition warn">
+<p class="admonition-title">Not yet on Julia 0.7</p>
+<p><code>TimeseriesPrediction</code> has not yet been updated to Julia 0.7!</p>
+</div>
 <p>Local Modeling predicts timeseries using a delay embedded state space reconstruction. It finds the nearest neighbors of a query point within this reconstructed space and applies a local model to make a prediction. "Local" model refers to the fact that the images (future points) of the <a href="../../definition/dataset/#DynamicalSystemsBase.neighborhood"><code>neighborhood</code></a> of a point are the only component used to make a prediction.</p>
 <p>This Local Modeling is proven to be a very effective tool for timeseries of low-dimensional  chaotic attractors.</p>
 <div class="admonition tip">
 <p class="admonition-title">Reconstruction parameters</p>
-<p>Don't forget that <strong>DynamicalSystems.jl</strong> also has functions for estimating good parameters for a <a href="../../definition/reconstruction/#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a>: <a href="../../chaos/nlts/#ChaosTools.estimate_delay"><code>estimate_delay</code></a> and <a href="../../chaos/nlts/#ChaosTools.estimate_dimension"><code>estimate_dimension</code></a>.</p>
+<p>Don't forget that <strong>DynamicalSystems.jl</strong> also has functions for estimating good parameters for delay embedding: <a href="../../chaos/nlts/#ChaosTools.estimate_delay"><code>estimate_delay</code></a> and <a href="../../chaos/nlts/#ChaosTools.estimate_dimension"><code>estimate_dimension</code></a>.</p>
 </div>
 <p><a id='Local-Model-Prediction-1'></a></p>
 <h2 id="local-model-prediction">Local Model Prediction</h2>
@@ -696,7 +705,7 @@
 
 
 <p>Perform a timeseries prediction for <code>p</code> points, using local weighted modeling [1]. The function always returns an object of the same type as <code>s</code>, which can be either a timeseries (vector) or an <code>AbstractDataset</code> (trajectory), and the returned data always contains the final point of <code>s</code> as starting point. This means that the returned data has length of <code>p + 1</code>.</p>
-<p>If given <code>(s, D, τ)</code>, then a <a href="../../definition/reconstruction/#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a> is performed on <code>s</code> with dimension <code>D</code> and delay <code>τ</code>. If given only <code>s</code> then no <a href="../../definition/reconstruction/#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a> is done. Keep in mind that the intented behavior of the algorithm is to work with a reconstruction, and not "raw" data.</p>
+<p>If given <code>(s, D, τ)</code>, then a <a href="../@ref"><code>Reconstruction</code></a> is performed on <code>s</code> with dimension <code>D</code> and delay <code>τ</code>. If given only <code>s</code> then no <a href="../@ref"><code>Reconstruction</code></a> is done. Keep in mind that the intented behavior of the algorithm is to work with a reconstruction, and not "raw" data.</p>
 <p><strong>Keyword Arguments</strong></p>
 <ul>
 <li><code>method = AverageLocalModel(ω_unsafe)</code> : Subtype of <a href="./#TimeseriesPrediction.AbstractLocalModel"><code>AbstractLocalModel</code></a>.</li>
@@ -708,7 +717,7 @@
 <p>The algorithm is applied iteratively until a prediction of length <code>p</code> has been created, starting with the query point to be the last point of the timeseries.</p>
 <p><strong>References</strong></p>
 <p>[1] : D. Engster &amp; U. Parlitz, <em>Handbook of Time Series Analysis</em> Ch. 1, VCH-Wiley (2006)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/4820cea529cb9176564a3875a2657068a5b0eb5f/src/localmodeling.jl#L289-L322' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/40901292921781d1af368e550d334f4ae9822163/src/localmodeling.jl#L289-L322' class='documenter-source'>source</a><br></p>
 <p><a id='TimeseriesPrediction.AbstractLocalModel' href='#TimeseriesPrediction.AbstractLocalModel'>#</a>
 <strong><code>TimeseriesPrediction.AbstractLocalModel</code></strong> &mdash; <em>Type</em>.</p>
 <div class="codehilite"><pre><span></span>AbstractLocalModel
@@ -789,7 +798,7 @@ f(\sigma) = \begin{cases} 0, & \sigma < s_{min}\\
 </ul>
 <p><strong>References</strong></p>
 <p>[1] : D. Engster &amp; U. Parlitz, <em>Handbook of Time Series Analysis</em> Ch. 1, VCH-Wiley (2006)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/4820cea529cb9176564a3875a2657068a5b0eb5f/src/localmodeling.jl#L9-L74' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/40901292921781d1af368e550d334f4ae9822163/src/localmodeling.jl#L9-L74' class='documenter-source'>source</a><br></p>
 <p><a id='D-Example-1'></a></p>
 <h2 id="1d-example">1D Example</h2>
 <p>We will predict the future of a (relatively simple) timeseries:</p>
@@ -905,7 +914,7 @@ MSE_p = \frac{1}{p|T_{ref}|}\sum_{t\in T_{ref}}\sum_{i=1}^{p} \left(y_{t+i}
 <p>where <span><span class="MathJax_Preview">|T_{ref}|</span><script type="math/tex">|T_{ref}|</script></span> is the number of subsets of <code>R_test</code> used.</p>
 <p><strong>References</strong></p>
 <p>See <a href="./#TimeseriesPrediction.localmodel_tsp"><code>localmodel_tsp</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/4820cea529cb9176564a3875a2657068a5b0eb5f/src/localmodeling.jl#L372-L394' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/40901292921781d1af368e550d334f4ae9822163/src/localmodeling.jl#L372-L394' class='documenter-source'>source</a><br></p>
 <p>Here is an example function that employs <code>MSEp</code> to find good parameters. It takes in a timeseries <code>s</code> and ranges for the dimensions, delays and number of nearest neighbors to  try. Keyword arguments are <code>valid_len</code>, which is the number of prediction steps, and <code>num_tries</code> the number of different starting points to choose.</p>
 <p>It then calculates <code>MSEp</code> for all parameter combinations and returns the best parameter set.</p>
 <div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">estimate_param</span><span class="p">(</span><span class="n">s</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">,</span>
@@ -1015,9 +1024,9 @@ MSE_p = \frac{1}{p|T_{ref}|}\sum_{t\in T_{ref}}\sum_{i=1}^{p} \left(y_{t+i}
       
     </div>
     
-      <script src="../../assets/javascripts/application.a59e2a89.js"></script>
+      <script src="../../assets/javascripts/application.30f6b8b1.js"></script>
       
-      <script>app.initialize({version:"0.17.4",url:{base:"../.."}})</script>
+      <script>app.initialize({version:"0.17.5",url:{base:"../.."}})</script>
       
         <script src="../../assets\mathjaxhelper.js"></script>
       

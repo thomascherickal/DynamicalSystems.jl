@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.4, mkdocs-material-2.8.0">
+      <meta name="generator" content="mkdocs-0.17.5, mkdocs-material-2.9.4">
     
     
       
@@ -44,9 +44,14 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.e8ff00e1.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
       
-        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.6079476c.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#7e57c2">
       
     
     
@@ -204,11 +209,11 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <span class="md-nav__button md-logo">
+    <a href="../.." title="DynamicalSystems.jl" class="md-nav__button md-logo">
       
         <i class="md-icon"></i>
       
-    </span>
+    </a>
     DynamicalSystems.jl
   </label>
   
@@ -687,12 +692,13 @@
 <li><code>printprogress = true</code> : To print progress done.</li>
 </ul>
 <p><strong>Description</strong></p>
-<p>This method works identically to <a href="../localmodels/#TimeseriesPrediction.localmodel_tsp"><code>localmodel_tsp</code></a>, by expanding the concept from vector-states to general array-states.</p>
+<p>This method works similarly to <a href="../localmodels/#TimeseriesPrediction.localmodel_tsp"><code>localmodel_tsp</code></a>, by expanding the concept of delay embedding to spatially extended systems. Instead of reconstructing complete states of the system, local states are used. This implicitely assumes a finite speed <code>c</code> at which information travels within the system as well as a sufficiently fine spatial and temporal sampling such that <span><span class="MathJax_Preview">\frac{\Delta x}{\Delta t}\sim c</span><script type="math/tex">\frac{\Delta x}{\Delta t}\sim c</script></span>. See <a href="./#TimeseriesPrediction.STReconstruction"><code>STReconstruction</code></a> for details on the embedding.</p>
+<p>Predictions are then performed frame by frame and point py point. Once all values for a new frame are found, the frame is added to the end of the timeseries and used to generate new prediction queries for the next time step.</p>
 <p><strong>Performance Notes</strong></p>
 <p>Be careful when choosing <code>B</code> as memory usage and computation time depend strongly on it.</p>
 <p><strong>References</strong></p>
 <p>[1] : U. Parlitz &amp; C. Merkwirth, <a href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.84.1890">Phys. Rev. Lett. <strong>84</strong>, pp 1890 (2000)</a></p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/4820cea529cb9176564a3875a2657068a5b0eb5f/src/st_prediction.jl#L9-L37' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/40901292921781d1af368e550d334f4ae9822163/src/st_prediction.jl#L9-L46' class='documenter-source'>source</a><br></p>
 <p><a id='TimeseriesPrediction.crosspred_stts' href='#TimeseriesPrediction.crosspred_stts'>#</a>
 <strong><code>TimeseriesPrediction.crosspred_stts</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>crosspred_stts(source_train, target_train, source_pred,
@@ -718,7 +724,7 @@
 <p>Be careful when choosing <code>B</code> as memory usage and computation time depend strongly on it.</p>
 <p><strong>References</strong></p>
 <p>[1] : U. Parlitz &amp; C. Merkwirth, <a href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.84.1890">Phys. Rev. Lett. <strong>84</strong>, pp 1890 (2000)</a></p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/4820cea529cb9176564a3875a2657068a5b0eb5f/src/st_prediction.jl#L93-L133' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/40901292921781d1af368e550d334f4ae9822163/src/st_prediction.jl#L102-L142' class='documenter-source'>source</a><br></p>
 <p><a id='TimeseriesPrediction.STReconstruction' href='#TimeseriesPrediction.STReconstruction'>#</a>
 <strong><code>TimeseriesPrediction.STReconstruction</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>STReconstruction(U::AbstractVector{&lt;:AbstractArray}, D, τ, B, k, boundary, weighting)
@@ -728,8 +734,8 @@
 
 <p>Perform spatio-temporal(ST) delay-coordinates reconstruction from a ST-timeseries <code>s</code>.</p>
 <p><strong>Description</strong></p>
-<p>An extension of <a href="../../definition/reconstruction/#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a> to support inclusion of spatial neighbors into reconstructed vectors. <code>B</code> is the number of spatial neighbors along each direction to be included. The parameter <code>k</code> indicates the spatial sampling density as described in [1].</p>
-<p>To better understand <code>B</code>, consider a system of 2 spatial dimensions, where the state is a <code>Matrix</code>, and choose a point of the matrix to reconstruct. Giving <code>B = 1</code> will choose the current point and 8 points around it, <em>not</em> 4! For <code>Φ</code> dimensions, the number of spatial points is then given by <code>(2B + 1)^Φ</code>. Temporal embedding via <code>D</code> and <code>τ</code> is treated analogous to <a href="../../definition/reconstruction/#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a>. Therefore the total embedding dimension is <code>D*(2B + 1)^Φ</code>.</p>
+<p>An extension of <a href="../@ref"><code>Reconstruction</code></a> to support inclusion of spatial neighbors into reconstructed vectors. <code>B</code> is the number of spatial neighbors along each direction to be included. The parameter <code>k</code> indicates the spatial sampling density as described in [1].</p>
+<p>To better understand <code>B</code>, consider a system of 2 spatial dimensions, where the state is a <code>Matrix</code>, and choose a point of the matrix to reconstruct. Giving <code>B = 1</code> will choose the current point and 8 points around it, <em>not</em> 4! For <code>Φ</code> dimensions, the number of spatial points is then given by <code>(2B + 1)^Φ</code>. Temporal embedding via <code>D</code> and <code>τ</code> is treated analogous to <a href="../@ref"><code>Reconstruction</code></a>. Therefore the total embedding dimension is <code>D*(2B + 1)^Φ</code>.</p>
 <p><strong>Other Parameters</strong></p>
 <ul>
 <li><code>boundary = 20</code> : Constant boundary value used for reconstruction of states close to the border. Pass <code>false</code> for periodic boundary conditions.</li>
@@ -751,7 +757,7 @@
 </ul>
 <p><strong>References</strong></p>
 <p>[1] : U. Parlitz &amp; C. Merkwirth, <a href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.84.1890">Phys. Rev. Lett. <strong>84</strong>, pp 1890 (2000)</a></p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/4820cea529cb9176564a3875a2657068a5b0eb5f/src/streconstruction.jl#L106-L142' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/40901292921781d1af368e550d334f4ae9822163/src/streconstruction.jl#L106-L142' class='documenter-source'>source</a><br></p>
 <p><a id='Showcasing-Results-1'></a></p>
 <h2 id="showcasing-results">Showcasing Results</h2>
 <p><a id='Chaotic-Barkley-Model-cross-prediction-1'></a></p>
@@ -860,9 +866,9 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application.a59e2a89.js"></script>
+      <script src="../../assets/javascripts/application.30f6b8b1.js"></script>
       
-      <script>app.initialize({version:"0.17.4",url:{base:"../.."}})</script>
+      <script>app.initialize({version:"0.17.5",url:{base:"../.."}})</script>
       
         <script src="../../assets\mathjaxhelper.js"></script>
       

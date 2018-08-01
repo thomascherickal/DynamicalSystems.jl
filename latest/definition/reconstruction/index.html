@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.4, mkdocs-material-2.8.0">
+      <meta name="generator" content="mkdocs-0.17.5, mkdocs-material-2.9.4">
     
     
       
@@ -44,9 +44,14 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.e8ff00e1.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
       
-        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.6079476c.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#7e57c2">
       
     
     
@@ -200,11 +205,11 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <span class="md-nav__button md-logo">
+    <a href="../.." title="DynamicalSystems.jl" class="md-nav__button md-logo">
       
         <i class="md-icon"></i>
       
-    </span>
+    </a>
     DynamicalSystems.jl
   </label>
   
@@ -559,70 +564,67 @@
                   <h1>Delay Coordinates</h1>
                 
                 <p>A timeseries recorded in some manner from a dynamical system can be used to gain information about the dynamics of the entire phase-space of the system. This can be done by reconstructing a new phase-space from the timeseries. One method that can do this is what is known as <a href="https://en.wikipedia.org/wiki/Takens%27_theorem">delay coordinates embedding</a> or delay coordinates <em>reconstruction</em>.</p>
-<p>This is done through the <code>Reconstruction</code> interface:</p>
-<p><a id='DynamicalSystemsBase.Reconstruction' href='#DynamicalSystemsBase.Reconstruction'>#</a>
-<strong><code>DynamicalSystemsBase.Reconstruction</code></strong> &mdash; <em>Type</em>.</p>
-<div class="codehilite"><pre><span></span>Reconstruction(s::AbstractVector, D, τ) &lt;: AbstractDataset
+<p>This is done through the <code>reconstruct</code> interface:</p>
+<p><a id='DynamicalSystemsBase.reconstruct' href='#DynamicalSystemsBase.reconstruct'>#</a>
+<strong><code>DynamicalSystemsBase.reconstruct</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>reconstruct(s, D, τ)
 </pre></div>
 
 
-<p><code>D</code>-dimensional delay-coordinates reconstruction object with delay <code>τ</code>, created from a timeseries <code>s</code>.</p>
-<p>Notice that the number of temporal neighbors is <code>D-1</code>!</p>
+<p>Reconstruct <code>s</code> using the delay coordinates embedding with <code>D</code> temporal neighbors and delay <code>τ</code> and return the result as a <a href="../dataset/#DynamicalSystemsBase.Dataset"><code>Dataset</code></a>.</p>
 <p><strong>Description</strong></p>
-<p>If <code>τ</code> is an integer, then the <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>th row of a <code>Reconstruction</code> is</p>
+<p><strong>Single Timeseries</strong></p>
+<p>If <code>τ</code> is an integer, then the <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>-th entry of the embedded space is</p>
 <div>
 <div class="MathJax_Preview">
-(s(n), s(n+\tau), s(n+2\tau), \dots, s(n+(D-1)\tau))
+(s(n), s(n+\tau), s(n+2\tau), \dots, s(n+D\tau))
 </div>
 <script type="math/tex; mode=display">
-(s(n), s(n+\tau), s(n+2\tau), \dots, s(n+(D-1)\tau))
+(s(n), s(n+\tau), s(n+2\tau), \dots, s(n+D\tau))
 </script>
 </div>
-<p>If instead <code>τ</code> is a vector of integers, so that <code>length(τ) == D</code>, then the <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>th row is</p>
+<p>If instead <code>τ</code> is a vector of integers, so that <code>length(τ) == D</code>, then the <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>-th entry is</p>
 <div>
 <div class="MathJax_Preview">
-(s(n+\tau[1]), s(n+\tau[2]), s(n+\tau[3]), \dots, s(n+\tau[D]))
+(s(n), s(n+\tau[1]), s(n+\tau[2]), \dots, s(n+\tau[D]))
 </div>
 <script type="math/tex; mode=display">
-(s(n+\tau[1]), s(n+\tau[2]), s(n+\tau[3]), \dots, s(n+\tau[D]))
+(s(n), s(n+\tau[1]), s(n+\tau[2]), \dots, s(n+\tau[D]))
 </script>
 </div>
-<p>The reconstruction object <code>R</code> can have same invariant quantities (like e.g. lyapunov exponents) with the original system that the timeseries were recorded from, for proper <code>D</code> and <code>τ</code> [1, 2].</p>
-<p>The case of different delay times allows reconstructing systems with many time scales, see [3].</p>
-<p><strong>Multi-dimensional <code>Reconstruction</code></strong></p>
-<p>To make a reconstruction out of a multi-dimensional timeseries (i.e. trajectory) use</p>
-<div class="codehilite"><pre><span></span><span class="n">Reconstruction</span><span class="p">(</span><span class="n">tr</span><span class="o">::</span><span class="n">SizedAray</span><span class="p">{</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">},</span> <span class="n">D</span><span class="p">,</span> <span class="n">τ</span><span class="p">)</span>
-<span class="n">Reconstruction</span><span class="p">(</span><span class="n">tr</span><span class="o">::</span><span class="n">AbstractDataset</span><span class="p">{</span><span class="n">B</span><span class="p">},</span> <span class="n">D</span><span class="p">,</span> <span class="n">τ</span><span class="p">)</span>
-</pre></div>
-
-
-<p>with <code>B</code> the "base" dimensions.</p>
-<p>If the trajectory is for example <span><span class="MathJax_Preview">(x, y)</span><script type="math/tex">(x, y)</script></span>, then the <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>th row is</p>
+<p>The reconstructed dataset can have same invariant quantities (like e.g. lyapunov exponents) with the original system that the timeseries were recorded from, for proper <code>D</code> and <code>τ</code> [1, 2]. The case of different delay times allows reconstructing systems with many time scales, see [3].</p>
+<p><em>Notice</em> - The dimension of the returned dataset is <code>D+1</code>!</p>
+<p><strong>Multiple Timeseries</strong></p>
+<p>To make a reconstruction out of a multiple timeseries (i.e. trajectory) the number of timeseries must be known by type, so <code>s</code> can be either:</p>
+<ul>
+<li><code>s::AbstractDataset{B}</code></li>
+<li><code>s::SizedAray{A, B}</code></li>
+</ul>
+<p>If the trajectory is for example <span><span class="MathJax_Preview">(x, y)</span><script type="math/tex">(x, y)</script></span> and <code>τ</code> is integer, then the <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>-th entry of the embedded space is</p>
 <div>
 <div class="MathJax_Preview">
-(x(n), y(n), x(n+\tau), y(n+\tau), \dots, x(n+(D-1)\tau), y(n+(D-1)\tau))
+(x(n), y(n), x(n+\tau), y(n+\tau), \dots, x(n+D\tau), y(n+D\tau))
 </div>
 <script type="math/tex; mode=display">
-(x(n), y(n), x(n+\tau), y(n+\tau), \dots, x(n+(D-1)\tau), y(n+(D-1)\tau))
+(x(n), y(n), x(n+\tau), y(n+\tau), \dots, x(n+D\tau), y(n+D\tau))
 </script>
 </div>
-<p>for integer <code>τ</code> and if <code>τ</code> is an <code>AbstractMatrix{Int}</code>, so that <code>size(τ) == (D, B)</code>, then the <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>th row is</p>
+<p>If <code>τ</code> is an <code>AbstractMatrix{Int}</code>, so that <code>size(τ) == (D, B)</code>, then we have</p>
 <div>
 <div class="MathJax_Preview">
-(x(n+\tau[1, 1]), y(n+\tau[1, 2]), \dots, x(n+\tau[D, 1]), y(n+\tau[D, 2]))
+(x(n), y(n), x(n+\tau[1, 1]), y(n+\tau[1, 2]), \dots, x(n+\tau[D, 1]), y(n+\tau[D, 2]))
 </div>
 <script type="math/tex; mode=display">
-(x(n+\tau[1, 1]), y(n+\tau[1, 2]), \dots, x(n+\tau[D, 1]), y(n+\tau[D, 2]))
+(x(n), y(n), x(n+\tau[1, 1]), y(n+\tau[1, 2]), \dots, x(n+\tau[D, 1]), y(n+\tau[D, 2]))
 </script>
 </div>
-<p>Note that a reconstruction created this way will have <code>B*D</code> total dimensions and <em>not</em> <code>D</code>, as a result of each dimension of <code>s</code> having <code>D</code> delayed dimensions.</p>
+<p><em>Notice</em> - The dimension of the returned dataset is <code>(D+1)*B</code>!</p>
 <p><strong>References</strong></p>
 <p>[1] : F. Takens, <em>Detecting Strange Attractors in Turbulence — Dynamical Systems and Turbulence</em>, Lecture Notes in Mathematics <strong>366</strong>, Springer (1981)</p>
 <p>[2] : T. Sauer <em>et al.</em>, J. Stat. Phys. <strong>65</strong>, pp 579 (1991)</p>
 <p>[3] : K. Judd &amp; A. Mees, <a href="https://www.sciencedirect.com/science/article/pii/S0167278997001188">Physica D <strong>120</strong>, pp 273 (1998)</a></p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/afb83cd7ac335b8fbca4a070c0f01b66fa7d6412/src/reconstruction.jl#L9-L65' class='documenter-source'>source</a><br></p>
 <hr />
-<p>Here are some examples of <code>Reconstruction</code>s of a 3D continuous chaotic system:</p>
+<p>Here are some examples of <code>reconstruct</code>ing a 3D continuous chaotic system:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span><span class="p">,</span> <span class="n">PyPlot</span>
 
 <span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">gissinger</span><span class="p">()</span>
@@ -634,7 +636,7 @@
 <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="mi">3</span>
     <span class="k">for</span> <span class="n">τ</span> <span class="kp">in</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
-        <span class="n">R</span> <span class="o">=</span> <span class="n">Reconstruction</span><span class="p">(</span><span class="n">xyz</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">2</span><span class="p">,</span> <span class="n">τ</span><span class="p">)</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">reconstruct</span><span class="p">(</span><span class="n">xyz</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">τ</span><span class="p">)</span>
         <span class="n">ax</span> <span class="o">=</span> <span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">k</span><span class="p">)</span>
         <span class="n">plot</span><span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">R</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&quot;C</span><span class="si">$</span><span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">)</span>
         <span class="n">title</span><span class="p">(</span><span class="s">&quot;var = </span><span class="si">$i</span><span class="s">, τ = </span><span class="si">$τ</span><span class="s">&quot;</span><span class="p">)</span>
@@ -643,36 +645,56 @@
 <span class="k">end</span>
 
 <span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">suptitle</span><span class="p">(</span><span class="s">&quot;2D Reconstructions&quot;</span><span class="p">)</span>
+<span class="n">suptitle</span><span class="p">(</span><span class="s">&quot;2D reconstructed space&quot;</span><span class="p">)</span>
 <span class="n">subplots_adjust</span><span class="p">(</span><span class="n">top</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
 </pre></div>
 
 
-<p><img alt="Example reconstructions" src="https://i.imgur.com/OZDBvu5.png" /></p>
+<div class="codehilite"><pre><span></span>┌ Warning: Deprecated syntax `implicit assignment to global variable `k``.
+│ Use `global k` instead.
+└ @ none:0
+</pre></div>
+
+
+<p><img alt="" src="../simple_reconstruction.png" /></p>
 <div class="admonition note">
 <p class="admonition-title"><code>τ</code> and <code>dt</code></p>
 <p>Keep in mind that whether a value of <code>τ</code> is "reasonable" for continuous systems depends on <code>dt</code>. In the above example the value <code>τ=30</code> is good, <em>only</em> for the case of using <code>dt = 0.05</code>. For shorter/longer <code>dt</code> one has to adjust properly <code>τ</code> so that their product <code>τ*dt</code> is the same.</p>
 </div>
-<p>A <code>Reconstruction</code> can also be made from a trajectory (i.e. multidimensional timeseries). For this to be possible, the number of timeseries must be known by Type:</p>
-<div class="codehilite"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c"># my trajectory</span>
-<span class="n">R</span> <span class="o">=</span> <span class="n">Reconstruction</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c"># errorino</span>
+<p><code>reconstruct</code> can also be made given a trajectory (i.e. multidimensional timeseries). For this to be possible, the number of timeseries must be known by Type:</p>
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">StaticArrays</span><span class="o">:</span> <span class="n">Size</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c"># my trajectory</span>
 
 <span class="n">A</span> <span class="o">=</span> <span class="n">Size</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">3</span><span class="p">)(</span><span class="n">a</span><span class="p">)</span> <span class="c"># create array with the size as Type information</span>
-<span class="n">R</span> <span class="o">=</span> <span class="n">Reconstruction</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c">#aaaall good</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">reconstruct</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c">#aaaall good</span>
 
 <span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">towel</span><span class="p">();</span> <span class="n">tr</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
-<span class="n">R</span> <span class="o">=</span> <span class="n">Reconstruction</span><span class="p">(</span><span class="n">tr</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c"># Dataset size is also known by Type!</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">reconstruct</span><span class="p">(</span><span class="n">tr</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c"># Dataset size is also known by Type!</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>(B=3, D=2, τ=2) - delay coordinates multi-dimensional Reconstruction
- 0.085     -0.121       0.075     0.76827   -0.038933    0.672094
- 0.285813  -0.0675286   0.238038  0.681871   0.0508933   0.825263
- ⋮                                                       ⋮       
+<div class="codehilite"><pre><span></span>9-dimensional Dataset{Float64} with 9997 points
+ 0.085     -0.121       0.075     …  0.837347   0.0372633   0.555269
+ 0.285813  -0.0675286   0.238038     0.51969    0.0616256   0.940906
+ 0.76827   -0.038933    0.672094     0.966676  -0.00171595  0.2225
+ 0.681871   0.0508933   0.825263     0.112748   0.0674955   0.653573
+ 0.837347   0.0372633   0.555269     0.386547  -0.0886542   0.869349
+ 0.51969    0.0616256   0.940906  …  0.910741  -0.0316828   0.411607
+ 0.966676  -0.00171595  0.2225       0.306095   0.0689305   0.909129
+ 0.112748   0.0674955   0.653573     0.824263  -0.056185    0.326064
+ 0.386547  -0.0886542   0.869349     0.545332   0.0508239   0.819404
+ 0.910741  -0.0316828   0.411607     0.954994   0.00453815  0.569534
+ ⋮                                ⋱
+ 0.914702  -0.0315439   0.294266     0.90246    0.0242141   0.539502
+ 0.289932   0.0641239   0.778698     0.335976   0.0735803   0.943945
+ 0.793854  -0.0552801   0.664223     0.86657   -0.0497658   0.214728
+ 0.62671    0.0557527   0.832001     0.430816   0.0535742   0.62743
+ 0.90246    0.0242141   0.539502  …  0.936955  -0.0200112   0.894333
+ 0.335976   0.0735803   0.943945     0.237481   0.0983265   0.353212
+ 0.86657   -0.0497658   0.214728     0.681538  -0.0476555   0.883219
+ 0.430816   0.0535742   0.62743      0.836353   0.0363264   0.380351
+ 0.936955  -0.0200112   0.894333     0.515471   0.0534613   0.898152
 </pre></div>
-
-
-<p>Here the parameter <code>B</code> shows the number of base timeseries that were used for the multi-dimensional reconstruction.</p>
                 
                   
                 
@@ -751,9 +773,9 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application.a59e2a89.js"></script>
+      <script src="../../assets/javascripts/application.30f6b8b1.js"></script>
       
-      <script>app.initialize({version:"0.17.4",url:{base:"../.."}})</script>
+      <script>app.initialize({version:"0.17.5",url:{base:"../.."}})</script>
       
         <script src="../../assets\mathjaxhelper.js"></script>
       

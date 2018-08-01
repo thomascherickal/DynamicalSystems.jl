@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="./assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.4, mkdocs-material-2.8.0">
+      <meta name="generator" content="mkdocs-0.17.5, mkdocs-material-2.9.4">
     
     
       
@@ -44,9 +44,14 @@
       
     
     
-      <link rel="stylesheet" href="./assets/stylesheets/application.e8ff00e1.css">
+      <link rel="stylesheet" href="./assets/stylesheets/application.451f80e5.css">
       
-        <link rel="stylesheet" href="./assets/stylesheets/application-palette.6079476c.css">
+        <link rel="stylesheet" href="./assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#7e57c2">
       
     
     
@@ -204,11 +209,11 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <span class="md-nav__button md-logo">
+    <a href="." title="DynamicalSystems.jl" class="md-nav__button md-logo">
       
         <i class="md-icon"></i>
       
-    </span>
+    </a>
     DynamicalSystems.jl
   </label>
   
@@ -269,8 +274,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#upcoming-tutorial" title="Upcoming Tutorial" class="md-nav__link">
-    Upcoming Tutorial
+  <a href="#video-tutorial" title="Video tutorial" class="md-nav__link">
+    Video tutorial
   </a>
   
 </li>
@@ -657,8 +662,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#upcoming-tutorial" title="Upcoming Tutorial" class="md-nav__link">
-    Upcoming Tutorial
+  <a href="#video-tutorial" title="Video tutorial" class="md-nav__link">
+    Video tutorial
   </a>
   
 </li>
@@ -749,13 +754,13 @@
 <h1 id="introduction">Introduction</h1>
 <p><strong>DynamicalSystems.jl</strong> is a Julia software library for the exploration of chaos and nonlinear dynamics.</p>
 <p>The current documentation was built with the following versions</p>
-<div class="codehilite"><pre><span></span> - DynamicalSystemsBase          0.10.3
- - ChaosTools                    0.11.1
- - TimeseriesPrediction          0.4.0
+<div class="codehilite"><pre><span></span> * DynamicalSystemsBase ...... 0.11.1
+ * ChaosTools ................ 0.11.1+
+ * TimeseriesPrediction ...... 0.4.0+
 </pre></div>
 
 
-<p>See the <a href="./news">News</a> page for recent updates!</p>
+<p>See the <a href="./news">News</a> page for recent updates. The latest one is the Julia 0.7 version support!</p>
 <div class="admonition info">
 <p class="admonition-title">Introductory textbooks</p>
 <p>Our library assumes basic some basic knowledge of nonlinear dynamics and complex systems.</p>
@@ -768,12 +773,12 @@
 </div>
 <div class="admonition example">
 <p class="admonition-title">Jupyter Notebooks / Tutorials</p>
-<p>The repository <a href="https://github.com/JuliaDynamics/tutorials">JuliaDynamics/tutorials</a> contains various Jupyter notebooks that have been used as introductory tutorials for <strong>DynamicalSystems.jl</strong>!</p>
+<p><a href="https://github.com/JuliaDynamics/Tutorials-and-Resources/tree/master/Youtube_JuliaLang_tutorial">In this repository</a> you can find various Jupyter notebooks that have been used as introductory tutorials for <strong>DynamicalSystems.jl</strong>!</p>
 </div>
-<p><a id='Upcoming-Tutorial-1'></a></p>
-<h2 id="upcoming-tutorial">Upcoming Tutorial</h2>
-<p><img alt="DynamicalSystems Ad" src="https://i.imgur.com/AnbjO0b.gif" /></p>
-<p>Ad made by <a href="https://github.com/cormullion"><code>@cormullion</code></a> using <a href="https://github.com/JuliaGraphics/Luxor.jl">Luxor.jl</a>!</p>
+<p><a id='Video-tutorial-1'></a></p>
+<h2 id="video-tutorial">Video tutorial</h2>
+<p>The below tutorial is hosted on the Julia channel. <em>Be careful though!</em> It is using an older version of both <strong>DynamicalSystems.jl</strong> as well as Julia! Fortunately, from the side of <strong>DynamicalSystems.jl</strong> there have been very few breaking changes. See the <a href="./news">News</a> for more.</p>
+<p><a href="http://www.youtube.com/watch?v=13hqE_1a158"><img alt="Youtube tutorial" src="http://img.youtube.com/vi/13hqE_1a158/0.jpg" /></a></p>
 <p><a id='Contents-1'></a></p>
 <h2 id="contents">Contents</h2>
 <p><a id='<a href="definition/general">Fundamentals</a>-1'></a></p>
@@ -794,7 +799,7 @@
 <li>Dedicated interface for <a href="./definition/dataset">numerical data</a>.</li>
 <li>Efficient <a href="definition/dataset/#DynamicalSystemsBase.neighborhood"><code>neighborhood</code></a> estimation by interfacing <a href="https://github.com/KristofferC/NearestNeighbors.jl"><code>NearestNeighbors</code></a>.</li>
 <li>
-<p>Delay Coordinates Embedding: flexible and abstracted <a href="definition/reconstruction/#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a> interface, that creates the delay-coordinates reconstruction of a timeseries efficiently.</p>
+<p>Delay Coordinates Embedding: flexible and abstracted <a href="definition/reconstruction/#DynamicalSystemsBase.reconstruct"><code>reconstruct</code></a> interface, that creates the delay-coordinates reconstruction of a timeseries efficiently.</p>
 <ul>
 <li>Supports multiple dimensions and multiple timescales.</li>
 </ul>
@@ -819,6 +824,7 @@
 <h3 id="timeseriesprediction"><a href="./tsprediction/localmodels">TimeseriesPrediction</a></h3>
 <ul>
 <li>Predicting the future of one or multiple timeseries using average local models.</li>
+<li>Spatio-temporal timeseries prediction and cross-prediction.</li>
 </ul>
 <p><a id='Our-Goals-1'></a></p>
 <h2 id="our-goals">Our Goals</h2>
@@ -922,9 +928,9 @@
       
     </div>
     
-      <script src="./assets/javascripts/application.a59e2a89.js"></script>
+      <script src="./assets/javascripts/application.30f6b8b1.js"></script>
       
-      <script>app.initialize({version:"0.17.4",url:{base:"."}})</script>
+      <script>app.initialize({version:"0.17.5",url:{base:"."}})</script>
       
         <script src="./assets\mathjaxhelper.js"></script>
       

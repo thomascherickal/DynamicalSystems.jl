@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.4, mkdocs-material-2.8.0">
+      <meta name="generator" content="mkdocs-0.17.5, mkdocs-material-2.9.4">
     
     
       
@@ -44,9 +44,14 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.e8ff00e1.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
       
-        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.6079476c.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#7e57c2">
       
     
     
@@ -204,11 +209,11 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <span class="md-nav__button md-logo">
+    <a href="../.." title="DynamicalSystems.jl" class="md-nav__button md-logo">
       
         <i class="md-icon"></i>
       
-    </span>
+    </a>
     DynamicalSystems.jl
   </label>
   
@@ -708,55 +713,63 @@
 <h1 id="nonlinear-timeseries-analysis">Nonlinear Timeseries Analysis</h1>
 <p><a id='Estimating-Reconstruction-Parameters-1'></a></p>
 <h2 id="estimating-reconstruction-parameters">Estimating Reconstruction Parameters</h2>
-<p>The following functions can estimate good values that can be used in <a href="../../definition/reconstruction/#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a> for either the delay time or the dimension.</p>
+<p>The following functions can estimate good values that can be used in <a href="../../definition/reconstruction/#DynamicalSystemsBase.reconstruct"><code>reconstruct</code></a> for either the delay time or the dimension.</p>
 <p><a id='ChaosTools.estimate_delay' href='#ChaosTools.estimate_delay'>#</a>
 <strong><code>ChaosTools.estimate_delay</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>estimate_delay(s, method::String) -&gt; τ
 </pre></div>
 
 
-<p>Estimate an optimal delay to be used in <a href="../../definition/reconstruction/#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a>.</p>
+<p>Estimate an optimal delay to be used in <a href="../../definition/reconstruction/#DynamicalSystemsBase.reconstruct"><code>reconstruct</code></a>. Return the exponential decay time <code>τ</code> rounded to an integer.</p>
 <p>The <code>method</code> can be one of the following:</p>
 <ul>
-<li><code>first_zero</code> : find first delay at which the auto-correlation function becomes 0.</li>
-<li><code>first_min</code> : return delay of first minimum of the auto-correlation function.</li>
-<li><code>exp_decay</code> : perform an exponential fit to the <code>abs.(c)</code> with <code>c</code> the auto-correlation function of <code>s</code>. Return the exponential decay time <code>τ</code> rounded to an integer.</li>
+<li><code>"first_zero"</code> : find first delay at which the auto-correlation function becomes 0.</li>
+<li><code>"first_min"</code> : return delay of first minimum of the auto-correlation function.</li>
+<li><code>"exp_decay"</code> : perform an exponential fit to the <code>abs.(c)</code> with <code>c</code> the auto-correlation function of <code>s</code>. Return the exponential decay time rounded to an integer.</li>
+<li>
+<p><code>"mutual_inf"</code> : return the first minimum of the mutual information function (see <a href="../@ref"><code>mutinfo_delaycurve</code></a>). This option also has the following keyword arguments:</p>
+<ul>
+<li><code>maxtau::Integer=100</code> : stops the delay calculations after the given <code>maxtau</code>.</li>
+<li><code>k::Integer=1</code> : the number of nearest-neighbors to include.</li>
 </ul>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/077a2b8530af0b80cffa82c18d31665e64dcd7fe/src/estimate_reconstruction.jl#L123-L134' class='documenter-source'>source</a><br></p>
+</li>
+</ul>
+<p><em>WARNING</em> - <code>"mutual_inf"</code> fails spectacularly with data from maps. In addition it is much slower than the other alternatives.</p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/1d36e58b8646fe6cfa4e58d3a7a150f718225dda/src/estimate_reconstruction.jl#L154-L175' class='documenter-source'>source</a><br></p>
 <p><a id='ChaosTools.estimate_dimension' href='#ChaosTools.estimate_dimension'>#</a>
 <strong><code>ChaosTools.estimate_dimension</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>estimate_dimension(s::AbstractVector, τ:Int, Ds = 1:6) -&gt; E1s
+<div class="codehilite"><pre><span></span>estimate_dimension(s::AbstractVector, τ:Int, Ds = 1:5) -&gt; E₁s
 </pre></div>
 
 
-<p>Compute a quantity that can estimate an optimal embedding dimension to be used in <a href="../../definition/reconstruction/#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a>.</p>
+<p>Compute a quantity that can estimate an optimal amount of temporal neighbors <code>D</code> to be used in <a href="../../definition/reconstruction/#DynamicalSystemsBase.reconstruct"><code>reconstruct</code></a>.</p>
 <p><strong>Description</strong></p>
-<p>Given the scalar timeseries <code>s</code> and the embedding delay <code>τ</code> compute the values of <code>E1</code> for each <code>D ∈ Ds</code>, according to Cao's Method (eq. 3 of [1]).</p>
-<p>Return the vector of all computed <code>E1</code>s. To estimate a dimension from this, find the dimension for which the value <code>E1</code> saturates, at some value around 1.</p>
+<p>Given the scalar timeseries <code>s</code> and the embedding delay <code>τ</code> compute the values of <code>E₁</code> for each <code>D ∈ Ds</code>, according to Cao's Method (eq. 3 of [1]). Please be aware that in <strong>DynamicalSystems.jl</strong> <code>D</code> stands for the amount of temporal neighbors, <em>not</em> the dimension as in [1]. The dimension is <code>D+1</code>.</p>
+<p>Return the vector of all computed <code>E₁</code>s. To estimate a good value for <code>D</code> from this, find <code>D</code> for which the value <code>E₁</code> saturates at some value around 1.</p>
 <p><em>Note: This method does not work for datasets with perfectly periodic signals.</em></p>
 <p><strong>References</strong></p>
 <p>[1] : Liangyue Cao, <a href="https://www.sciencedirect.com/science/article/pii/S0167278997001188?via%3Dihub">Physica D, pp. 43-50 (1997)</a></p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/077a2b8530af0b80cffa82c18d31665e64dcd7fe/src/estimate_reconstruction.jl#L206-L224' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/1d36e58b8646fe6cfa4e58d3a7a150f718225dda/src/estimate_reconstruction.jl#L222-L242' class='documenter-source'>source</a><br></p>
 <p><a id='ChaosTools.stochastic_indicator' href='#ChaosTools.stochastic_indicator'>#</a>
 <strong><code>ChaosTools.stochastic_indicator</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>stochastic_indicator(s::AbstractVector, τ:Int, Ds = 1:6) -&gt; E2s
+<div class="codehilite"><pre><span></span>stochastic_indicator(s::AbstractVector, τ:Int, Ds = 1:4) -&gt; E₂s
 </pre></div>
 
 
-<p>Compute an estimator for apparent randomness in a reconstruction of dimensions <code>Ds</code>.</p>
+<p>Compute an estimator for apparent randomness in a reconstruction <code>Ds</code> temporal neighbors.</p>
 <p><strong>Description</strong></p>
-<p>Given the scalar timeseries <code>s</code> and the embedding delay <code>τ</code> compute the values of <code>E2</code> for each <code>D ∈ Ds</code>, according to Cao's Method (eq. 5 of [1]).</p>
-<p>Use this function to confirm that the input signal is not random and validate the results of <a href="./#ChaosTools.estimate_dimension"><code>estimate_dimension</code></a>. In the case of random signals, it should be <code>E2 ≈ 1 ∀ D</code>.</p>
+<p>Given the scalar timeseries <code>s</code> and the embedding delay <code>τ</code> compute the values of <code>E₂</code> for each <code>D ∈ Ds</code>, according to Cao's Method (eq. 5 of [1]).</p>
+<p>Use this function to confirm that the input signal is not random and validate the results of <a href="./#ChaosTools.estimate_dimension"><code>estimate_dimension</code></a>. In the case of random signals, it should be <code>E₂ ≈ 1 ∀ D</code>.</p>
 <p><strong>References</strong></p>
 <p>[1] : Liangyue Cao, <a href="https://www.sciencedirect.com/science/article/pii/S0167278997001188?via%3Dihub">Physica D, pp. 43-50 (1997)</a></p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/077a2b8530af0b80cffa82c18d31665e64dcd7fe/src/estimate_reconstruction.jl#L240-L256' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/1d36e58b8646fe6cfa4e58d3a7a150f718225dda/src/estimate_reconstruction.jl#L280-L297' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Numerical-Lyapunov-Exponent-1'></a></p>
 <h2 id="numerical-lyapunov-exponent">Numerical Lyapunov Exponent</h2>
-<p>Given any timeseries, one can first obtain a <a href="../../definition/reconstruction/#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a> from it using delay coordinates, and then calculate a maximum Lyapunov exponent for it. This is done with</p>
+<p>Given any timeseries, one can first <a href="../../definition/reconstruction/#DynamicalSystemsBase.reconstruct"><code>reconstruct</code></a> it using delay coordinates, and then calculate a maximum Lyapunov exponent for it. This is done with</p>
 <p><a id='ChaosTools.numericallyapunov' href='#ChaosTools.numericallyapunov'>#</a>
 <strong><code>ChaosTools.numericallyapunov</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="nt">numericallyapunov</span><span class="o">(</span><span class="nt">R</span><span class="p">::</span><span class="nd">AbstractDataset</span><span class="o">,</span> <span class="nt">ks</span><span class="o">;</span>  <span class="nt">refstates</span><span class="o">,</span> <span class="nt">w</span><span class="o">,</span> <span class="nt">distance</span><span class="o">,</span> <span class="nt">ntype</span><span class="o">)</span>
+<div class="codehilite"><pre><span></span><span class="nt">numericallyapunov</span><span class="o">(</span><span class="nt">R</span><span class="p">::</span><span class="nd">Dataset</span><span class="o">,</span> <span class="nt">ks</span><span class="o">;</span>  <span class="nt">refstates</span><span class="o">,</span> <span class="nt">w</span><span class="o">,</span> <span class="nt">distance</span><span class="o">,</span> <span class="nt">ntype</span><span class="o">)</span>
 </pre></div>
 
 
@@ -764,7 +777,7 @@
 <p><strong>Keyword Arguments</strong></p>
 <ul>
 <li><code>refstates = 1:(length(R) - ks[end])</code> : Vector of indices that notes which states of the reconstruction should be used as "reference states", which means that the algorithm is applied for all state indices contained in <code>refstates</code>.</li>
-<li><code>w::Int = round(Int, mean(R.delay))</code> : The Theiler window, which determines whether points are separated enough in time to be considered separate trajectories (see [1]). Defaults to the mean delay time. If you give a <code>Dataset</code> instead of a <code>Reconstruction</code> in the place of <code>R</code>, you <em>must</em> provide the Theiler window (you can give <code>w=typemax(Int)</code> if it does not apply to your case).</li>
+<li><code>w::Int = 1</code> : The Theiler window, which determines whether points are separated enough in time to be considered separate trajectories (see [1] and <a href="../../definition/dataset/#DynamicalSystemsBase.neighborhood"><code>neighborhood</code></a>).</li>
 <li><code>ntype::AbstractNeighborhood = FixedMassNeighborhood(1)</code> : The method to be used when evaluating the neighborhood of each reference state. See <a href="../../definition/dataset/#DynamicalSystemsBase.AbstractNeighborhood"><code>AbstractNeighborhood</code></a> or <a href="../../definition/dataset/#DynamicalSystemsBase.neighborhood"><code>neighborhood</code></a> for more info.</li>
 <li><code>distance::Metric = Cityblock()</code> : The distance function used in the logarithmic distance of nearby states. The allowed distances are <code>Cityblock()</code> and <code>Euclidean()</code>. See below for more info.</li>
 </ul>
@@ -780,11 +793,11 @@ E(k) \approx \lambda\Delta t k + E(0)
 </div>
 <p>for a <em>well defined region</em> in the <code>k</code> axis, where <span><span class="MathJax_Preview">\lambda</span><script type="math/tex">\lambda</script></span> is the approximated maximum Lyapunov exponent. <span><span class="MathJax_Preview">\Delta t</span><script type="math/tex">\Delta t</script></span> is the time between samples in the original timeseries. You can use <a href="../entropies/#ChaosTools.linear_region"><code>linear_region</code></a> with arguments <code>(ks .* Δt, E)</code> to identify the slope (= <span><span class="MathJax_Preview">\lambda</span><script type="math/tex">\lambda</script></span>) immediatelly, assuming you have choosen sufficiently good <code>ks</code> such that the linear scaling region is bigger than the saturated region.</p>
 <p>The algorithm used in this function is due to Parlitz [1], which itself expands upon Kantz [2]. In sort, for each reference state a neighborhood is evaluated. Then, for each point in this neighborhood, the logarithmic distance between reference state and neighborhood state is calculated as the "time" index <code>k</code> increases. The average of the above over all neighborhood states over all reference states is the returned result.</p>
-<p>If the <code>Metric</code> is <code>Euclidean()</code> then use the Euclidean distance of the full <code>D</code>-dimensional points (distance <span><span class="MathJax_Preview">d_E</span><script type="math/tex">d_E</script></span> in ref. [1]). If however the <code>Metric</code> is <code>Cityblock()</code>, calculate the absolute distance of <em>only the first elements</em> of the <code>m+k</code> and <code>n+k</code> points of the reconstruction <code>R</code>(distance <span><span class="MathJax_Preview">d_F</span><script type="math/tex">d_F</script></span> in ref. [1]).</p>
+<p>If the <code>Metric</code> is <code>Euclidean()</code> then use the Euclidean distance of the full <code>D</code>-dimensional points (distance <span><span class="MathJax_Preview">d_E</span><script type="math/tex">d_E</script></span> in ref. [1]). If however the <code>Metric</code> is <code>Cityblock()</code>, calculate the absolute distance of <em>only the first elements</em> of the <code>m+k</code> and <code>n+k</code> points of the reconstruction <code>R</code> (distance <span><span class="MathJax_Preview">d_F</span><script type="math/tex">d_F</script></span> in ref. [1]).</p>
 <p><strong>References</strong></p>
 <p>[1] : Skokos, C. H. <em>et al.</em>, <em>Chaos Detection and Predictability</em> - Chapter 1 (section 1.3.2), Lecture Notes in Physics <strong>915</strong>, Springer (2016)</p>
 <p>[2] : Kantz, H., Phys. Lett. A <strong>185</strong>, pp 77–87 (1994)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/077a2b8530af0b80cffa82c18d31665e64dcd7fe/src/nlts.jl#L14-L76' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/1d36e58b8646fe6cfa4e58d3a7a150f718225dda/src/nlts.jl#L13-L73' class='documenter-source'>source</a><br></p>
 <hr />
 <p>The function <code>numericallyapunov</code> has a total of 4 different approaches for the algorithmic process, by combining 2 types of distances with 2 types of neighborhoods.</p>
 <p><a id='Example-of-Numerical-Lyapunov-computation-1'></a></p>
@@ -798,33 +811,36 @@ E(k) \approx \lambda\Delta t k + E(0)
 <span class="n">ks</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="mi">20</span>
 <span class="n">ℜ</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="mi">10000</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
 
 <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">di</span><span class="p">)</span> <span class="kp">in</span> <span class="n">enumerate</span><span class="p">([</span><span class="n">Euclidean</span><span class="p">(),</span> <span class="n">Cityblock</span><span class="p">()])</span>
-  <span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
-  <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
-  <span class="n">method</span> <span class="o">=</span> <span class="n">FixedMassNeighborhood</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-
-  <span class="n">title</span><span class="p">(</span><span class="s">&quot;Distance: </span><span class="si">$</span><span class="p">(</span><span class="n">di</span><span class="p">)</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">18</span><span class="p">)</span>
-  <span class="k">for</span> <span class="n">D</span> <span class="kp">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
-    <span class="n">R</span> <span class="o">=</span> <span class="n">Reconstruction</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">E</span> <span class="o">=</span> <span class="n">numericallyapunov</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">ks</span><span class="p">;</span>
-    <span class="n">refstates</span> <span class="o">=</span> <span class="n">ℜ</span><span class="p">,</span> <span class="n">distance</span> <span class="o">=</span> <span class="n">di</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">method</span><span class="p">)</span>
-    <span class="c"># The following operation:</span>
-    <span class="n">Δt</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">λ</span> <span class="o">=</span> <span class="n">linear_region</span><span class="p">(</span><span class="n">ks</span><span class="o">.*</span><span class="n">Δt</span><span class="p">,</span> <span class="n">E</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
-    <span class="c"># gives the linear slope, i.e. the Lyapunov exponent</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">ks</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">E</span><span class="o">-</span><span class="n">E</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="s">&quot;D=</span><span class="si">$D</span><span class="s">, λ=</span><span class="si">$</span><span class="p">(</span><span class="n">round</span><span class="p">(</span><span class="n">λ</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span><span class="s">&quot;</span><span class="p">)</span>
-    <span class="n">legend</span><span class="p">()</span>
-    <span class="n">tight_layout</span><span class="p">()</span>
-  <span class="k">end</span>
-
-
+    <span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">ntype</span> <span class="o">=</span> <span class="n">FixedMassNeighborhood</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">title</span><span class="p">(</span><span class="s">&quot;Distance: </span><span class="si">$</span><span class="p">(</span><span class="n">di</span><span class="p">)</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">18</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">D</span> <span class="kp">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">reconstruct</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">E</span> <span class="o">=</span> <span class="n">numericallyapunov</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">ks</span><span class="p">;</span>
+        <span class="n">refstates</span> <span class="o">=</span> <span class="n">ℜ</span><span class="p">,</span> <span class="n">distance</span> <span class="o">=</span> <span class="n">di</span><span class="p">,</span> <span class="n">ntype</span> <span class="o">=</span> <span class="n">ntype</span><span class="p">)</span>
+        <span class="n">Δt</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">λ</span> <span class="o">=</span> <span class="n">linear_region</span><span class="p">(</span><span class="n">ks</span><span class="o">.*</span><span class="n">Δt</span><span class="p">,</span> <span class="n">E</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="c"># gives the linear slope, i.e. the Lyapunov exponent</span>
+        <span class="n">plot</span><span class="p">(</span><span class="n">ks</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">E</span><span class="o">-</span><span class="n">E</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="s">&quot;D=</span><span class="si">$D</span><span class="s">, λ=</span><span class="si">$</span><span class="p">(</span><span class="n">round</span><span class="p">(</span><span class="n">λ</span><span class="p">,</span> <span class="n">digits</span> <span class="o">=</span> <span class="mi">3</span><span class="p">))</span><span class="s">&quot;</span><span class="p">)</span>
+        <span class="n">legend</span><span class="p">()</span>
+        <span class="n">tight_layout</span><span class="p">()</span>
+    <span class="k">end</span>
 <span class="k">end</span>
 </pre></div>
 
 
-<p>which gives the result <img alt="Lyapunov exponent of a timeseries" src="https://i.imgur.com/vbKo1vV.png" /></p>
+<div class="codehilite"><pre><span></span>┌ Warning: `a::AbstractArray - b::Number` is deprecated, use `a .- b` instead.
+│   caller = top-level scope at none:13 [inlined]
+└ @ Core ./none:13
+┌ Warning: `a::AbstractArray - b::Number` is deprecated, use `a .- b` instead.
+│   caller = top-level scope at none:13 [inlined]
+└ @ Core ./none:13
+</pre></div>
+
+
+<p><img alt="" src="../numerlyap.png" /></p>
 <p><a id='Bad-Time-axis-(ks)-length-1'></a></p>
 <h3 id="bad-time-axis-ks-length">Bad Time-axis (<code>ks</code>) length</h3>
 <div class="admonition danger">
@@ -835,58 +851,103 @@ E(k) \approx \lambda\Delta t k + E(0)
 <div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">()</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 
 
-<p>The timeseries of length 100000 could be considered big. A time length of 100 seems very small. Yet it turns out it is way too big! The following</p>
+<div class="codehilite"><pre><span></span>100001
+</pre></div>
+
+
+<p>The timeseries of such length could be considered big. A time length of 100 seems very small. Yet it turns out it is way too big! The following</p>
 <div class="codehilite"><pre><span></span><span class="n">ks</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="mi">100</span>
-<span class="n">R</span> <span class="o">=</span> <span class="n">Reconstruction</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">E</span> <span class="o">=</span> <span class="n">numericallyapunov</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">ks</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">FixedMassNeighborhood</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">reconstruct</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">E</span> <span class="o">=</span> <span class="n">numericallyapunov</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">ks</span><span class="p">,</span> <span class="n">ntype</span> <span class="o">=</span> <span class="n">FixedMassNeighborhood</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
 <span class="n">figure</span><span class="p">()</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">ks</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">E</span><span class="o">-</span><span class="n">E</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">println</span><span class="p">(</span><span class="s">&quot;Lyappunov: &quot;</span><span class="p">,</span> <span class="n">linear_region</span><span class="p">(</span><span class="n">ks</span><span class="p">,</span> <span class="n">E</span><span class="p">)[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">title</span><span class="p">(</span><span class="s">&quot;Lyappunov: </span><span class="si">$</span><span class="p">(</span><span class="n">linear_region</span><span class="p">(</span><span class="n">ks</span><span class="p">,</span> <span class="n">E</span><span class="p">)[</span><span class="mi">2</span><span class="p">])</span><span class="s">&quot;</span><span class="p">)</span>
 </pre></div>
 
 
-<p>gives this plot: <img alt="Bad time-vector example" src="https://i.imgur.com/wbpuBis.png" /> and prints</p>
-<div class="codehilite"><pre><span></span><span class="n">Lyapunov</span><span class="o">:</span> <span class="mf">0.4161</span><span class="o">...</span>
+<div class="codehilite"><pre><span></span>┌ Warning: `a::AbstractArray - b::Number` is deprecated, use `a .- b` instead.
+│   caller = top-level scope at none:0
+└ @ Core none:0
+┌ Warning: `a::AbstractArray - b::Number` is deprecated, use `a .- b` instead.
+│   caller = top-level scope at none:0
+└ @ Core none:0
 </pre></div>
 
 
+<p><img alt="" src="../badlyap.png" /></p>
 <p>Notice that even though this value for the Lyapunov exponent is correct, it happened to be correct simply due to the jitter of the saturated region. Since the saturated region is much bigger than the linear scaling region, if it wasn't that jittery the function <a href="../entropies/#ChaosTools.linear_region"><code>linear_region</code></a> would not give the scaling of the linear region, but instead a slope near 0! (or if you were to give bigger tolerance as a keyword argument)</p>
 <p><a id='Case-of-a-Continuous-system-1'></a></p>
 <h3 id="case-of-a-continuous-system">Case of a Continuous system</h3>
-<p>The process for continuous systems works identically with discrete, but one must be a bit more thoughtful when choosing parameters. The following example has comments to help the users get familiar with the process:</p>
+<p>The process for continuous systems works identically with discrete, but one must be a bit more thoughtful when choosing parameters. The following example helps the users get familiar with the process:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span><span class="p">,</span> <span class="n">PyPlot</span>
 
-<span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">lorenz</span><span class="p">()</span> <span class="c"># Max lyapunov is around 0.90</span>
+<span class="n">ntype</span> <span class="o">=</span> <span class="n">FixedMassNeighborhood</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c">#5 nearest neighbors of each state</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">lorenz</span><span class="p">()</span>
 <span class="c"># create a timeseries of 1 dimension</span>
 <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.05</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">;</span> <span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span><span class="p">)[</span><span class="o">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</pre></div>
 
-<span class="c"># Reconstruct it</span>
-<span class="n">figure</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">D</span> <span class="kp">in</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="n">τ</span> <span class="kp">in</span> <span class="p">[</span><span class="n">τ1</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span>
-    <span class="n">R</span> <span class="o">=</span> <span class="n">Reconstruction</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">τ</span><span class="p">)</span>
 
-    <span class="c"># I now know that I have to use much bigger ks than 1:20, because this is a</span>
-    <span class="c"># continuous case! (See reference given in `numericallyapunovs`)</span>
-    <span class="n">ks1</span> <span class="o">=</span> <span class="mi">0</span><span class="o">:</span><span class="mi">200</span>
-    <span class="c"># I also know that I do not need that dense computations, since 1 increment</span>
-    <span class="c"># in k means increment of 0.05 real time</span>
-    <span class="n">ks2</span> <span class="o">=</span> <span class="mi">0</span><span class="o">:</span><span class="mi">4</span><span class="o">:</span><span class="mi">200</span>
+<div class="codehilite"><pre><span></span>20001-element Array{Float64,1}:
+   0.0
+   4.2851781460746485
+   8.924780658227977
+  15.012201310538227
+  20.055334268425767
+  18.062349973396024
+   9.898347024647947
+   2.199117951343057
+  -2.6729672045414565
+  -5.338119599140166
+   ⋮
+  -0.8905147174586189
+  -1.373574144205633
+  -2.158130921849464
+  -3.438812939927904
+  -5.506736057626345
+  -8.692055339138237
+ -12.948237211268406
+ -16.702715747104076
+ -16.62936107940933
+</pre></div>
 
-    <span class="c"># Calculate lyapunovs:</span>
-    <span class="n">method</span> <span class="o">=</span> <span class="n">FixedMassNeighborhood</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c">#5 nearest neighbors of each state</span>
 
-    <span class="c"># E1 = numericallyapunov(R, ks1; method = method)</span>
+<p>We know that we have to use much bigger <code>ks</code> than <code>1:20</code>, because this is a continuous case! (See reference given in <code>numericallyapunovs</code>)</p>
+<div class="codehilite"><pre><span></span><span class="n">ks1</span> <span class="o">=</span> <span class="mi">0</span><span class="o">:</span><span class="mi">200</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="mi">0</span><span class="o">:</span><span class="mi">200</span>
+</pre></div>
+
+
+<p>and in fact it is even better to not increment the <code>ks</code> one by one but instead do</p>
+<div class="codehilite"><pre><span></span><span class="n">ks2</span> <span class="o">=</span> <span class="mi">0</span><span class="o">:</span><span class="mi">4</span><span class="o">:</span><span class="mi">200</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="mi">0</span><span class="o">:</span><span class="mi">4</span><span class="o">:</span><span class="mi">200</span>
+</pre></div>
+
+
+<p>Now we plot some example computations</p>
+<div class="codehilite"><pre><span></span><span class="n">figure</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">D</span> <span class="kp">in</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="n">τ</span> <span class="kp">in</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">reconstruct</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">τ</span><span class="p">)</span>
+
+    <span class="c"># E1 = numericallyapunov(R, ks1; ntype = ntype)</span>
     <span class="c"># λ1 = linear_region(ks1 .* dt, E1)[2]</span>
-    <span class="n">E2</span> <span class="o">=</span> <span class="n">numericallyapunov</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">ks2</span><span class="p">;</span> <span class="n">method</span> <span class="o">=</span> <span class="n">method</span><span class="p">)</span>
+    <span class="n">E2</span> <span class="o">=</span> <span class="n">numericallyapunov</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">ks2</span><span class="p">;</span> <span class="n">ntype</span> <span class="o">=</span> <span class="n">ntype</span><span class="p">)</span>
     <span class="n">λ2</span> <span class="o">=</span> <span class="n">linear_region</span><span class="p">(</span><span class="n">ks2</span> <span class="o">.*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">E2</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
 
-
     <span class="c"># plot(ks1,E1.-E1[1], label = &quot;dense, D=$(D), τ=$(τ), λ=$(round(λ1, 3))&quot;)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">ks2</span><span class="p">,</span><span class="n">E2</span><span class="o">.-</span><span class="n">E2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="s">&quot;D=</span><span class="si">$</span><span class="p">(</span><span class="n">D</span><span class="p">)</span><span class="s">, τ=</span><span class="si">$</span><span class="p">(</span><span class="n">τ</span><span class="p">)</span><span class="s">, λ=</span><span class="si">$</span><span class="p">(</span><span class="n">round</span><span class="p">(</span><span class="n">λ2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span><span class="s">&quot;</span><span class="p">)</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">ks2</span><span class="p">,</span><span class="n">E2</span><span class="o">.-</span><span class="n">E2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="s">&quot;D=</span><span class="si">$</span><span class="p">(</span><span class="n">D</span><span class="p">)</span><span class="s">, τ=</span><span class="si">$</span><span class="p">(</span><span class="n">τ</span><span class="p">)</span><span class="s">, λ=</span><span class="si">$</span><span class="p">(</span><span class="n">round</span><span class="p">(</span><span class="n">λ2</span><span class="p">,</span> <span class="n">digits</span> <span class="o">=</span> <span class="mi">3</span><span class="p">))</span><span class="s">&quot;</span><span class="p">)</span>
 <span class="k">end</span>
 
 <span class="n">legend</span><span class="p">()</span>
@@ -897,7 +958,14 @@ E(k) \approx \lambda\Delta t k + E(0)
 </pre></div>
 
 
-<p>which produces: <img alt="Continuous Reconstruction exaple" src="https://i.imgur.com/lgyGLDv.png" /> As you can see, using <code>τ = 15</code> makes almost no sense! The estimates with <code>τ = 7</code> though are very good (the actual value is around <code>λ ≈ 0.89...</code>).</p>
+<div class="codehilite"><pre><span></span>┌ Warning: Deprecated syntax `implicit assignment to global variable `R``.
+│ Use `global R` instead.
+└ @ none:0
+</pre></div>
+
+
+<p><img alt="" src="../continuousnumlyap.png" /></p>
+<p>As you can see, using <code>τ = 15</code> is not a great choice! The estimates with <code>τ = 7</code> though are very good (the actual value is around <code>λ ≈ 0.89...</code>).</p>
 <p><a id='Broomhead-King-Coordinates-1'></a></p>
 <h2 id="broomhead-king-coordinates">Broomhead-King Coordinates</h2>
 <p><a id='ChaosTools.broomhead_king' href='#ChaosTools.broomhead_king'>#</a>
@@ -935,39 +1003,43 @@ x_{N-d+1} & x_{N-d+2} &\ldots & x_N
 <p>where <span><span class="MathJax_Preview">x := s - \bar{s}</span><script type="math/tex">x := s - \bar{s}</script></span>. The columns of <span><span class="MathJax_Preview">U</span><script type="math/tex">U</script></span> can then be used as a new coordinate system, and by considering the values of the singular values <span><span class="MathJax_Preview">S</span><script type="math/tex">S</script></span> you can decide how many columns of <span><span class="MathJax_Preview">U</span><script type="math/tex">U</script></span> are "important". See the documentation page for example application.</p>
 <p><strong>References</strong></p>
 <p>[1] :  D. S. Broomhead, R. Jones and G. P. King, J. Phys. A <strong>20</strong>, 9, pp L563 (1987)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/077a2b8530af0b80cffa82c18d31665e64dcd7fe/src/nlts.jl#L180-L208' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/1d36e58b8646fe6cfa4e58d3a7a150f718225dda/src/nlts.jl#L165-L193' class='documenter-source'>source</a><br></p>
 <hr />
 <p>This alternative/improvement of the traditional delay coordinates can be a very powerful tool. An example where it shines is noisy data where there is the effect of superficial dimensions due to noise.</p>
 <p>Take the following example where we produce noisy data from a system and then use Broomhead-King coordinates as an alternative to "vanilla" delay coordinates:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span><span class="p">,</span> <span class="n">PyPlot</span>
-<span class="k">using</span> <span class="n">Distributions</span> <span class="c"># for random numbers</span>
 
 <span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">gissinger</span><span class="p">()</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">,</span> <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 
 <span class="n">L</span> <span class="o">=</span> <span class="n">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">distrib</span> <span class="o">=</span> <span class="n">Normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
-<span class="n">s</span> <span class="o">=</span> <span class="n">x</span> <span class="o">.+</span> <span class="n">rand</span><span class="p">(</span><span class="n">distrib</span><span class="p">,</span> <span class="n">L</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">x</span> <span class="o">.+</span> <span class="mf">0.5</span><span class="n">rand</span><span class="p">(</span><span class="n">L</span><span class="p">)</span> <span class="c">#add noise</span>
 
 <span class="n">U</span><span class="p">,</span> <span class="n">S</span> <span class="o">=</span> <span class="n">broomhead_king</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+</pre></div>
 
-<span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+
+<div class="codehilite"><pre><span></span>([0.00263528 0.0453646 … -0.00341434 0.00264748; 0.00328774 0.0431474 … 0.00777118 0.0116734; … ; -0.00669796 2.84783e-5 … 0.00734828 -0.00123086; -0.00667898 -0.000389555 … 0.00365413 -0.00162374], [6.53823, 1.28809, 0.541682, 0.206271, 0.157085, 0.148332, 0.147852, 0.146338, 0.146279, 0.145509  …  0.141857, 0.141833, 0.141825, 0.141435, 0.141341, 0.141037, 0.140853, 0.140592, 0.140526, 0.140174], [-0.153197 -0.153875 … -0.153969 -0.153314; 0.232327 0.228675 … -0.224633 -0.227789; … ; -0.105917 -0.203298 … -0.232124 -0.120538; 0.270208 -0.340427 … 0.363067 -0.283603])
+</pre></div>
+
+
+<p>Now let's simply compare the above result with the one you get from doing a "standard" call to <a href="../../definition/reconstruction/#DynamicalSystemsBase.reconstruct"><code>reconstruct</code></a>:</p>
+<div class="codehilite"><pre><span></span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 <span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">U</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">U</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
 <span class="n">title</span><span class="p">(</span><span class="s">&quot;Broomhead-King of s&quot;</span><span class="p">)</span>
 
 <span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">R</span> <span class="o">=</span> <span class="n">Reconstruction</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">reconstruct</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">columns</span><span class="p">(</span><span class="n">R</span><span class="p">)</span><span class="o">...</span><span class="p">;</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&quot;C3&quot;</span><span class="p">)</span>
-<span class="n">title</span><span class="p">(</span><span class="s">&quot;2D Reconstruction of s&quot;</span><span class="p">)</span>
-
+<span class="n">title</span><span class="p">(</span><span class="s">&quot;2D reconstruction of s&quot;</span><span class="p">)</span>
 <span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 
 
-<p><img alt="Broomhead-King example" src="https://i.imgur.com/xVWDjuh.png" /></p>
-<p>we have used the same system as in the <a href="../../definition/reconstruction">delay coordinates reconstruction</a> example, and picked the optimal delay time of <code>τ = 30</code> (for same <code>dt = 0.05</code>). Regardless, the vanilla delay coordinates fail spectacularly when compared with the Broomhead-King coordinates.</p>
+<p><img alt="" src="../broomhead_king.png" /></p>
+<p>we have used the same system as in the <a href="../../definition/reconstruction">delay coordinates reconstruction</a> example, and picked the optimal delay time of <code>τ = 30</code> (for same <code>dt = 0.05</code>). Regardless, the vanilla delay coordinates fail is much worse than the Broomhead-King coordinates.</p>
                 
                   
                 
@@ -1046,9 +1118,9 @@ x_{N-d+1} & x_{N-d+2} &\ldots & x_N
       
     </div>
     
-      <script src="../../assets/javascripts/application.a59e2a89.js"></script>
+      <script src="../../assets/javascripts/application.30f6b8b1.js"></script>
       
-      <script>app.initialize({version:"0.17.4",url:{base:"../.."}})</script>
+      <script>app.initialize({version:"0.17.5",url:{base:"../.."}})</script>
       
         <script src="../../assets\mathjaxhelper.js"></script>
       

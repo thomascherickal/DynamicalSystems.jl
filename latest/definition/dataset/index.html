@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.4, mkdocs-material-2.8.0">
+      <meta name="generator" content="mkdocs-0.17.5, mkdocs-material-2.9.4">
     
     
       
@@ -44,9 +44,14 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.e8ff00e1.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
       
-        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.6079476c.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#7e57c2">
       
     
     
@@ -204,11 +209,11 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <span class="md-nav__button md-logo">
+    <a href="../.." title="DynamicalSystems.jl" class="md-nav__button md-logo">
       
         <i class="md-icon"></i>
       
-    </span>
+    </a>
     DynamicalSystems.jl
   </label>
   
@@ -672,12 +677,7 @@
 <li><code>data[v1, v2]</code> returns a <code>Dataset</code> with the appropriate entries (first indices being "time"/point index, while second being dynamic variables)</li>
 <li><code>data[i, j]</code> value of the <code>j</code>th variable, at the <code>i</code>th timepoint</li>
 </ul>
-<div class="codehilite"><pre><span></span>Use `Matrix(dataset)` or `reinterpret(Matrix, dataset)` and `Dataset(matrix)` or `reinterpret(Dataset, matrix)` to convert. The `reinterpret` methods are cheaper but assume that each variable/timeseries is a *row* and not column of the `matrix`.
-
-If you have various timeseries vectors `x, y, z, ...` pass them like `Dataset(x, y, z, ...)`. You can use `columns(dataset)` to obtain the reverse, i.e. all columns of the dataset in a tuple.
-
-
-<span class="nt">&lt;a</span> <span class="na">target=</span><span class="s">&#39;_blank&#39;</span> <span class="na">href=</span><span class="s">&#39;https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/afb83cd7ac335b8fbca4a070c0f01b66fa7d6412/src/dataset.jl#L95-L127&#39;</span> <span class="na">class=</span><span class="s">&#39;documenter-source&#39;</span><span class="nt">&gt;</span>source<span class="nt">&lt;/a&gt;&lt;br&gt;</span>
+<div class="codehilite"><pre><span></span>Use `Matrix(dataset)` or `Dataset(matrix)` to convert. It is assumed that each *column* of the `matrix` is one dynamic variable. If you have various timeseries vectors `x, y, z, ...` pass them like `Dataset(x, y, z, ...)`. You can use `columns(dataset)` to obtain the reverse, i.e. all columns of the dataset in a tuple.
 
 
 ---
@@ -708,7 +708,6 @@ end
 
 
 <p>Return an <code>SVector</code> that contains the minimum elements of each timeseries of the dataset.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/afb83cd7ac335b8fbca4a070c0f01b66fa7d6412/src/dataset.jl#L243-L247' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.maxima' href='#DynamicalSystemsBase.maxima'>#</a>
 <strong><code>DynamicalSystemsBase.maxima</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>maxima(dataset)
@@ -716,7 +715,6 @@ end
 
 
 <p>Return an <code>SVector</code> that contains the maximum elements of each timeseries of the dataset.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/afb83cd7ac335b8fbca4a070c0f01b66fa7d6412/src/dataset.jl#L260-L264' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.minmaxima' href='#DynamicalSystemsBase.minmaxima'>#</a>
 <strong><code>DynamicalSystemsBase.minmaxima</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>minmaxima(dataset)
@@ -724,7 +722,6 @@ end
 
 
 <p>Return <code>minima(dataset), maxima(dataset)</code> without doing the computation twice.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/afb83cd7ac335b8fbca4a070c0f01b66fa7d6412/src/dataset.jl#L277-L280' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.columns' href='#DynamicalSystemsBase.columns'>#</a>
 <strong><code>DynamicalSystemsBase.columns</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>columns(dataset) -&gt; x, y, z, ...
@@ -732,14 +729,15 @@ end
 
 
 <p>Return the individual columns of the dataset.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/afb83cd7ac335b8fbca4a070c0f01b66fa7d6412/src/dataset.jl#L72-L75' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Dataset-I/O-1'></a></p>
 <h2 id="dataset-io">Dataset I/O</h2>
 <p>Input/output functionality for an <code>AbstractDataset</code> is already achieved using base Julia, specifically <code>writedlm</code> and <code>readdlm</code>.</p>
 <p>The thing to note is that all data of an <code>AbstractDataset</code> is contained within its field <code>data</code>.</p>
 <p>To write and read a dataset, simply do:</p>
-<div class="codehilite"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DelimitedFiles</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 
 <span class="c"># I will write and read using delimiter &#39;,&#39;</span>
 <span class="n">writedlm</span><span class="p">(</span><span class="s">&quot;data.txt&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="sc">&#39;,&#39;</span><span class="p">)</span>
@@ -764,7 +762,6 @@ neighborhood(point, tree, ntype, n::Int, w::Int = 1)
 <p>Use the second method when the <code>point</code> belongs in the data, i.e. <code>point = data[n]</code>. Then <code>w</code> stands for the Theiler window (positive integer). Only points that have index <code>abs(i - n) ≥ w</code> are returned as a neighborhood, to exclude close temporal neighbors. The default <code>w=1</code> is the case of excluding the <code>point</code> itself.</p>
 <p><strong>References</strong></p>
 <p><code>neighborhood</code> simply interfaces the functions <code>knn</code> and <code>inrange</code> from <a href="https://github.com/KristofferC/NearestNeighbors.jl">NearestNeighbors.jl</a> by using the argument <code>ntype</code>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/afb83cd7ac335b8fbca4a070c0f01b66fa7d6412/src/neighborhoods.jl#L38-L59' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.AbstractNeighborhood' href='#DynamicalSystemsBase.AbstractNeighborhood'>#</a>
 <strong><code>DynamicalSystemsBase.AbstractNeighborhood</code></strong> &mdash; <em>Type</em>.</p>
 <div class="codehilite"><pre><span></span>AbstractNeighborhood
@@ -778,7 +775,6 @@ neighborhood(point, tree, ntype, n::Int, w::Int = 1)
 <li><code>FixedSizeNeighborhood(ε::Real)</code> : The neighborhood of a point consists of all neighbors that have distance &lt; <code>ε</code> from the point.</li>
 </ul>
 <p>See <a href="./#DynamicalSystemsBase.neighborhood"><code>neighborhood</code></a> for more.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/afb83cd7ac335b8fbca4a070c0f01b66fa7d6412/src/neighborhoods.jl#L12-L25' class='documenter-source'>source</a><br></p>
 <hr />
                 
                   
@@ -858,9 +854,9 @@ neighborhood(point, tree, ntype, n::Int, w::Int = 1)
       
     </div>
     
-      <script src="../../assets/javascripts/application.a59e2a89.js"></script>
+      <script src="../../assets/javascripts/application.30f6b8b1.js"></script>
       
-      <script>app.initialize({version:"0.17.4",url:{base:"../.."}})</script>
+      <script>app.initialize({version:"0.17.5",url:{base:"../.."}})</script>
       
         <script src="../../assets\mathjaxhelper.js"></script>
       

@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.4, mkdocs-material-2.8.0">
+      <meta name="generator" content="mkdocs-0.17.5, mkdocs-material-2.9.4">
     
     
       
@@ -44,9 +44,14 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application.e8ff00e1.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application.451f80e5.css">
       
-        <link rel="stylesheet" href="../assets/stylesheets/application-palette.6079476c.css">
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#7e57c2">
       
     
     
@@ -204,11 +209,11 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <span class="md-nav__button md-logo">
+    <a href=".." title="DynamicalSystems.jl" class="md-nav__button md-logo">
       
         <i class="md-icon"></i>
       
-    </span>
+    </a>
     DynamicalSystems.jl
   </label>
   
@@ -557,6 +562,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#dynamicalsystems-v013-julia-07-release" title="DynamicalSystems v0.13 - Julia 0.7 release" class="md-nav__link">
+    DynamicalSystems v0.13 - Julia 0.7 release
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#timeseries-prediction" title="Timeseries Prediction" class="md-nav__link">
     Timeseries Prediction
   </a>
@@ -650,6 +662,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#dynamicalsystems-v013-julia-07-release" title="DynamicalSystems v0.13 - Julia 0.7 release" class="md-nav__link">
+    DynamicalSystems v0.13 - Julia 0.7 release
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#timeseries-prediction" title="Timeseries Prediction" class="md-nav__link">
     Timeseries Prediction
   </a>
@@ -732,16 +751,28 @@
                 
                 <p><a id='News-1'></a></p>
 <h1 id="news">News</h1>
+<p><a id='DynamicalSystems-v0.13-Julia-0.7-release-1'></a></p>
+<h2 id="dynamicalsystems-v013-julia-07-release">DynamicalSystems v0.13 - Julia 0.7 release</h2>
+<p><strong>IMPORTANT: We consider this the beta version of v1.0.0 for DynamicalSystems.jl</strong>! Also, all support for any Julia version before 0.7 is dropped.</p>
+<p>Please be sure to check out the <code>CHANGELOG.md</code> files of the individual repositories. There all changes are listed in detail. Here we note only the most important ones.</p>
+<ul>
+<li><code>DynamicalSystem</code> has been totally reworked for better clarity: it does not store a "problem" anymore, only the absolutely necessary ingredients to create one. The API did not change though!</li>
+<li><code>Reconstruction</code> has been renamed to <code>reconstruct</code>, and now always returns a <code>Dataset</code>. In addition, now the parameter <code>D</code> stands for the number of temporal neighbors. <strong>This is a breaking change!</strong>. The change allows more intuition across the different versions of <code>reconstruct</code>.</li>
+<li>The various offered integrators became more robust, and now allow passing callbacks etc. for the DifferentialEquations.jl event handling.</li>
+<li>Brand new algorithm for computing Poincare surfaces of section. It is not also more clear and understandable from the old one, but also much faster as well!!!</li>
+<li>Mutual information computation method. Also new method for optimal delay time using the Mutual information!</li>
+</ul>
+<p>As always: be sure to read the documentation string before using a function: the docstrings are always updated and will show latest changes even if we (mistakenly) missed them when writing the documentation pages!</p>
 <p><a id='Timeseries-Prediction-1'></a></p>
 <h2 id="timeseries-prediction">Timeseries Prediction</h2>
 <p>A new module has been added to <strong>DynamicalSystems.jl</strong>: <code>TimeseriesPrediction</code> (version <code>v0.2.0</code>), which tries to predict timeseries using methods from nonlinear dynamics and chaos!</p>
 <p>The first available method is <code>localmodel_tsp</code> that uses local averages! See the new documentation page for more!</p>
 <p><a id='Cao's-Method-1'></a></p>
 <h2 id="caos-method">Cao's Method</h2>
-<p>With <code>ChaosTools v0.8.0</code>, the well-known method for estimating dimension for a <a href="../definition/reconstruction/#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a> is now implemented and exported! See <a href="../chaos/nlts/#ChaosTools.estimate_dimension"><code>estimate_dimension</code></a>.</p>
+<p>With <code>ChaosTools v0.8.0</code>, the well-known method for estimating dimension for a <a href="../@ref"><code>Reconstruction</code></a> is now implemented and exported! See <a href="../chaos/nlts/#ChaosTools.estimate_dimension"><code>estimate_dimension</code></a>.</p>
 <p><a id='Multi-time,-Multi-Diensional-Reconstructions-1'></a></p>
 <h2 id="multi-time-multi-diensional-reconstructions">Multi-time, Multi-Diensional Reconstructions</h2>
-<p>With the latest version of <code>DynamicalSystemsBase v0.8.0</code> we now have the possibility for both multi-time and multi-dimensional delay reconstructions! The new documentation string for <a href="../definition/reconstruction/#DynamicalSystemsBase.Reconstruction"><code>Reconstruction</code></a> has all the relevant information.</p>
+<p>With the latest version of <code>DynamicalSystemsBase v0.8.0</code> we now have the possibility for both multi-time and multi-dimensional delay reconstructions! The new documentation string for <a href="../@ref"><code>Reconstruction</code></a> has all the relevant information.</p>
 <p><a id='Release-v0.11.0-1'></a></p>
 <h2 id="release-v0110">Release v0.11.0</h2>
 <p>With new version v0.11.0 for <strong>DynamicalSytems.jl</strong> (<code>DynamicalSystemsBase</code> and <code>ChaosTools</code> at version 0.6) we have some major improvements of the library all around. Here I list the syntactic changes, the internal changes, the prospect for other developers and the gains we have from making all these changes!</p>
@@ -898,9 +929,9 @@ using BenchmarkTools
       
     </div>
     
-      <script src="../assets/javascripts/application.a59e2a89.js"></script>
+      <script src="../assets/javascripts/application.30f6b8b1.js"></script>
       
-      <script>app.initialize({version:"0.17.4",url:{base:".."}})</script>
+      <script>app.initialize({version:"0.17.5",url:{base:".."}})</script>
       
         <script src="../assets\mathjaxhelper.js"></script>
       

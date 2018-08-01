@@ -36,7 +36,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.4, mkdocs-material-2.8.0">
+      <meta name="generator" content="mkdocs-0.17.5, mkdocs-material-2.9.4">
     
     
       
@@ -44,9 +44,14 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.e8ff00e1.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
       
-        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.6079476c.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#7e57c2">
       
     
     
@@ -204,11 +209,11 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <span class="md-nav__button md-logo">
+    <a href="../.." title="DynamicalSystems.jl" class="md-nav__button md-logo">
       
         <i class="md-icon"></i>
       
-    </span>
+    </a>
     DynamicalSystems.jl
   </label>
   
@@ -738,7 +743,7 @@
 \vec{u}_{n+1} = \vec{f}(\vec{u}_n, p, n)
 </script>
 </div>
-<p>where <span><span class="MathJax_Preview">p</span><script type="math/tex">p</script></span> contains the parameters of the system. In addition to the above equation of motion, information about the Jacobian of the system is also part of a "dynamical system".</p>
+<p>where <span><span class="MathJax_Preview">p</span><script type="math/tex">p</script></span> contains the parameters of the system. In addition to the above equations of motion, information about the Jacobian of the system is also part of a "dynamical system".</p>
 <p>Keep in mind that almost all functions of <strong>DynamicalSystems.jl</strong> assume that <span><span class="MathJax_Preview">\vec{f}</span><script type="math/tex">\vec{f}</script></span> is differentiable!</p>
 <p><a id='Creating-a-Dynamical-System-1'></a></p>
 <h2 id="creating-a-dynamical-system">Creating a Dynamical System</h2>
@@ -748,17 +753,15 @@
 </pre></div>
 
 
-<p>The central structure of <strong>DynamicalSystems.jl</strong>. All functions of the suite that handle systems "analytically" (in the sense that they can use known equations of motion) expect an instance of this type.</p>
-<p>Contains a problem defining the system (field <code>prob</code>), the jacobian function (field <code>jacobian</code>) and the initialized Jacobian matrix (field <code>J</code>).</p>
+<p>The central structure of <strong>DynamicalSystems.jl</strong>. All functions of the suite that can use known equations of motion expect an instance of this type.</p>
 <p><strong>Constructing a <code>DynamicalSystem</code></strong></p>
 <div class="codehilite"><pre><span></span><span class="n">DiscreteDynamicalSystem</span><span class="p">(</span><span class="n">eom</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">p</span> <span class="p">[,</span> <span class="n">jacobian</span> <span class="p">[,</span> <span class="n">J0</span><span class="p">]];</span> <span class="n">t0</span><span class="o">::</span><span class="kt">Int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
 <span class="n">ContinuousDynamicalSystem</span><span class="p">(</span><span class="n">eom</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">p</span> <span class="p">[,</span> <span class="n">jacobian</span> <span class="p">[,</span> <span class="n">J0</span><span class="p">]];</span> <span class="n">t0</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span>
 </pre></div>
 
 
-<p>with <code>eom</code> the equations of motion function. <code>p</code> is a parameter container, which we highly suggest to use a mutable object like <code>Array</code>, <a href="https://github.com/JuliaDiffEq/LabelledArrays.jl"><code>LMArray</code></a> or a dictionary. Pass <code>nothing</code> in the place of <code>p</code> if your system does not have parameters. With these constructors you also do not need to provide some final time, since it is not used by <strong>DynamicalSystems.jl</strong> in any manner.</p>
-<p><code>t0</code>, <code>J0</code> allow you to choose the initial time and provide an initialized Jacobian matrix.</p>
-<p>Continuous system solvers use <a href="http://docs.juliadiffeq.org/latest/"><strong>DifferentialEquations.jl</strong></a> and by default are integrated with a 9th order Verner solver <code>Vern9()</code> with tolerances <code>abstol = reltol = 1e-9</code>.</p>
+<p>with <code>eom</code> the equations of motion function (see below). <code>p</code> is a parameter container, which we highly suggest to use a mutable object like <code>Array</code>, <a href="https://github.com/JuliaDiffEq/LabelledArrays.jl"><code>LMArray</code></a> or a dictionary. Pass <code>nothing</code> in the place of <code>p</code> if your system does not have parameters.</p>
+<p><code>t0</code>, <code>J0</code> allow you to choose the initial time and provide an initialized Jacobian matrix. See <code>CDS_KWARGS</code> for the default options used to evolve continuous systems (through <code>OrdinaryDiffEq</code>).</p>
 <p><strong>Equations of motion</strong></p>
 <p>The are two "versions" for <code>DynamicalSystem</code>, depending on whether the equations of motion (<code>eom</code>) are in-place (iip) or out-of-place (oop). Here is how to define them:</p>
 <ul>
@@ -770,21 +773,17 @@
 <p><strong>Jacobian</strong></p>
 <p>The optional argument <code>jacobian</code> for the constructors is a <em>function</em> and (if given) must also be of the same form as the <code>eom</code>, <code>jacobian(x, p, n) -&gt; SMatrix</code> for the out-of-place version and <code>jacobian!(xnew, x, p, n)</code> for the in-place version.</p>
 <p>If <code>jacobian</code> is not given, it is constructed automatically using the module <a href="http://www.juliadiff.org/ForwardDiff.jl/stable/"><code>ForwardDiff</code></a>.</p>
-<p><strong>Getting a <code>Solution</code> struct</strong></p>
-<p>The continuous constructor creates a standard <a href="http://docs.juliadiffeq.org/latest/types/ode_types.html">ODEProblem</a> from <a href="http://docs.juliadiffeq.org/latest/"><strong>DifferentialEquations.jl</strong></a>.</p>
-<p>You can <em>always</em> take advantage of the full capabilities of the <code>Solution</code> struct. Simply define</p>
-<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DifferentialEquations</span>
-<span class="n">prob</span> <span class="o">=</span> <span class="n">continuousds</span><span class="o">.</span><span class="n">prob</span>
-<span class="n">prob2</span> <span class="o">=</span> <span class="n">remake</span><span class="p">(</span><span class="n">prob1</span><span class="p">;</span> <span class="n">tspan</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">2.0</span><span class="p">))</span>
-<span class="n">sol</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">prob2</span><span class="p">,</span> <span class="n">Tsit5</span><span class="p">())</span>
-<span class="c"># do stuff with sol...</span>
+<p><strong>Interface to </strong>DifferentialEquations.jl****</p>
+<p>Continuous systems are solved using <a href="http://docs.juliadiffeq.org/latest/"><strong>DifferentialEquations.jl</strong></a>. The following two interfaces are provided:</p>
+<div class="codehilite"><pre><span></span>ContinuousDynamicalSystem(prob::ODEProblem [, jacobian [, J0]])
+ODEProblem(continuous_dynamical_system, tspan, args...)
 </pre></div>
 
 
-<p>The line <code>remake...</code> is necessary because by default the <code>tspan</code> of all problems ends at infinity. See the <a href="http://docs.juliadiffeq.org/latest/basics/problem.html">remake documentation</a> for more info.</p>
+<p>where in the second case <code>args</code> stands for the <a href="http://docs.juliadiffeq.org/latest/types/ode_types.html#Constructors-1">standard extra arguments</a> of <code>ODEProblem</code>: <code>callback, mass_matrix</code>.</p>
+<p>If you want to use callbacks with <a href="../../advanced/#DynamicalSystemsBase.tangent_integrator"><code>tangent_integrator</code></a> or <a href="../../advanced/#DynamicalSystemsBase.parallel_integrator"><code>parallel_integrator</code></a>, then invoke them with extra arguments as shown in the <a href="https://juliadynamics.github.io/DynamicalSystems.jl/latest/advanced/">Advanced Documentation</a>.</p>
 <p><strong>Relevant Functions</strong></p>
-<p><a href="../evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a>, <a href="./#DynamicalSystemsBase.jacobian"><code>jacobian</code></a>, <a href="./#DynamicalSystemsBase.dimension"><code>dimension</code></a>, <a href="./#DynamicalSystemsBase.set_parameter!"><code>set_parameter!</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/afb83cd7ac335b8fbca4a070c0f01b66fa7d6412/src/dynamicalsystem/dynamicalsystem.jl#L14-L98' class='documenter-source'>source</a><br></p>
+<p><a href="../evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a>, <a href="./#DynamicalSystemsBase.set_parameter!"><code>set_parameter!</code></a>.</p>
 <hr />
 <p><a id='Definition-Table-1'></a></p>
 <h2 id="definition-table">Definition Table</h2>
@@ -825,15 +824,13 @@
 
 
 <p>Return the dimension of the <code>thing</code>, in the sense of state-space dimensionality.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/afb83cd7ac335b8fbca4a070c0f01b66fa7d6412/src/dynamicalsystem/dynamicalsystem.jl#L126-L129' class='documenter-source'>source</a><br></p>
 <p><a id='DynamicalSystemsBase.jacobian' href='#DynamicalSystemsBase.jacobian'>#</a>
 <strong><code>DynamicalSystemsBase.jacobian</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>jacobian(ds::DynamicalSystem, u = ds.prob.u0)
+<div class="codehilite"><pre><span></span>jacobian(ds::DynamicalSystem, u = ds.u0, t = ds.t0)
 </pre></div>
 
 
-<p>Return the jacobian of the system at <code>u</code> (at initial time).</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/afb83cd7ac335b8fbca4a070c0f01b66fa7d6412/src/dynamicalsystem/dynamicalsystem.jl#L215-L218' class='documenter-source'>source</a><br></p>
+<p>Return the jacobian of the system at <code>u</code>, at <code>t</code>.</p>
 <p><a id='DynamicalSystemsBase.set_parameter!' href='#DynamicalSystemsBase.set_parameter!'>#</a>
 <strong><code>DynamicalSystemsBase.set_parameter!</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>set_parameter!(ds::DynamicalSystem, index, value)
@@ -842,13 +839,13 @@ set_parameter!(ds::DynamicalSystem, values)
 
 
 <p>Change one or many parameters of the system by setting <code>p[index] = value</code> in the first case and <code>p .= values</code> in the second.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/DynamicalSystemsBase.jl/blob/afb83cd7ac335b8fbca4a070c0f01b66fa7d6412/src/dynamicalsystem/dynamicalsystem.jl#L135-L141' class='documenter-source'>source</a><br></p>
+<p>The same function also works for any integrator.</p>
 <p><a id='Examples-1'></a></p>
 <h2 id="examples">Examples</h2>
 <p><a id='Continuous,-out-of-place-1'></a></p>
 <h3 id="continuous-out-of-place">Continuous, out-of-place</h3>
 <p>Let's see an example for a small system, which is a case where out-of-place equations of motion are preferred.</p>
-<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span><span class="p">,</span> <span class="n">StaticArrays</span>
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span> <span class="c"># also exports relevant StaticArrays names</span>
 <span class="c"># Lorenz system</span>
 <span class="c"># Equations of motion:</span>
 <span class="nd">@inline</span> <span class="nd">@inbounds</span> <span class="k">function</span> <span class="n">loop</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
@@ -1028,13 +1025,10 @@ p_{i}' = p_i + k_i\sin(\theta_i) - \Gamma \left[\sin(\theta_{i+1} - \theta_{i}) 
 
 <div class="codehilite"><pre><span></span>10-dimensional discrete dynamical system
  state:     [5.88772e-6, 0.000539993, 0.000178981, 0.000607429, 0.000927426, 0.000246537, 0.00094118, 0.000703942, 0.000130421, 0.000332372]
- e.o.m.:    CoupledStandardMaps{5}([1, 2, 3, 4, 5], [5, 1, 2, 3, 4], [2, 3, 4, 5, 1])
+ e.o.m.:    CoupledStandardMaps
  in-place?  true
- jacobian:  CoupledStandardMaps{5}([1, 2, 3, 4, 5], [5, 1, 2, 3, 4], [2, 3, 4, 5, 1])
+ jacobian:  CoupledStandardMaps
 </pre></div>
-
-
-<p>which unfortunately is kind of a mess to read, but what can you do!</p>
                 
                   
                 
@@ -1113,9 +1107,9 @@ p_{i}' = p_i + k_i\sin(\theta_i) - \Gamma \left[\sin(\theta_{i+1} - \theta_{i}) 
       
     </div>
     
-      <script src="../../assets/javascripts/application.a59e2a89.js"></script>
+      <script src="../../assets/javascripts/application.30f6b8b1.js"></script>
       
-      <script>app.initialize({version:"0.17.4",url:{base:"../.."}})</script>
+      <script>app.initialize({version:"0.17.5",url:{base:"../.."}})</script>
       
         <script src="../../assets\mathjaxhelper.js"></script>
       
