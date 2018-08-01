@@ -503,18 +503,6 @@
   </li>
 
         
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../visualization/" title="Visualization" class="md-nav__link">
-      Visualization
-    </a>
-  </li>
-
-        
       </ul>
     </nav>
   </li>
@@ -713,16 +701,10 @@
 
 <span class="n">figure</span><span class="p">()</span>
 <span class="k">for</span> <span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="kp">in</span> <span class="n">enumerate</span><span class="p">(</span><span class="n">pvalues</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">p</span> <span class="o">.*</span> <span class="n">ones</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="n">j</span><span class="p">]),</span> <span class="n">output</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="n">marker</span> <span class="o">=</span> <span class="s">&quot;o&quot;</span><span class="p">,</span> <span class="n">ms</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">)</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">p</span> <span class="o">.*</span> <span class="n">ones</span><span class="p">(</span><span class="n">length</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="n">j</span><span class="p">])),</span> <span class="n">output</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">marker</span> <span class="o">=</span> <span class="s">&quot;o&quot;</span><span class="p">,</span> <span class="n">ms</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">)</span>
 <span class="k">end</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\$</span><span class="s">r</span><span class="se">\$</span><span class="s">&quot;</span><span class="p">);</span> <span class="n">ylabel</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\$</span><span class="s">x</span><span class="se">\$</span><span class="s">&quot;</span><span class="p">)</span>
-</pre></div>
-
-
-<div class="codehilite"><pre><span></span>┌ Warning: `ones(a::AbstractArray)` is deprecated, consider `fill(1, size(a))`, `fill!(copy(a), 1)`, or `fill!(similar(a), 1)`. Where necessary, use `fill!(similar(a), one(eltype(a)))`.
-│   caller = top-level scope at none:2
-└ @ Core ./none:2
 </pre></div>
 
 
@@ -812,6 +794,7 @@ a_1u_1 + \dots + a_Du_D = \mathbf{a}\cdot\mathbf{u}=b
 <p>A "cut" through the phase-space can be produced at every period <span><span class="MathJax_Preview">T = 2\pi/\omega</span><script type="math/tex">T = 2\pi/\omega</script></span>. There is no reason to use <code>poincaresos</code> for this though, because you can simply use <a href="../../definition/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> and get the solution with a certain time sampling rate:</p>
 <div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">duffing</span><span class="p">(</span><span class="n">β</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">ω</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">f</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">)</span> <span class="c"># non-autonomous chaotic system</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mf">100000.0</span><span class="p">,</span> <span class="n">dt</span> <span class="o">=</span> <span class="mi">2</span><span class="nb">π</span><span class="p">)</span> <span class="c"># every period T = 2π/ω</span>
+<span class="n">figure</span><span class="p">()</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">marker</span> <span class="o">=</span><span class="s">&quot;o&quot;</span><span class="p">,</span> <span class="n">ms</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\$</span><span class="s">x</span><span class="se">\$</span><span class="s">&quot;</span><span class="p">);</span> <span class="n">ylabel</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\$\\</span><span class="s">dot{x}</span><span class="se">\$</span><span class="s">&quot;</span><span class="p">)</span>
 </pre></div>
@@ -847,231 +830,27 @@ a_1u_1 + \dots + a_Du_D = \mathbf{a}\cdot\mathbf{u}=b
 <p>For example, we will calculate the orbit diagram of the Shinriki oscillator, a continuous system that undergoes a period doubling route to chaos, much like the logistic map!</p>
 <div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">shinriki</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
 
-<span class="n">pvalues</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">19</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">201</span><span class="p">)</span>
+<span class="n">pvalues</span> <span class="o">=</span> <span class="n">range</span><span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="n">stop</span> <span class="o">=</span> <span class="mi">22</span><span class="p">,</span> <span class="n">length</span> <span class="o">=</span> <span class="mi">201</span><span class="p">)</span>
 <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">plane</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
 <span class="n">tf</span> <span class="o">=</span> <span class="mf">200.0</span>
 <span class="n">p_index</span> <span class="o">=</span> <span class="mi">1</span>
 
 <span class="n">output</span> <span class="o">=</span> <span class="n">produce_orbitdiagram</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">plane</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">p_index</span><span class="p">,</span> <span class="n">pvalues</span><span class="p">;</span> <span class="n">tfinal</span> <span class="o">=</span> <span class="n">tf</span><span class="p">,</span>
-<span class="n">Ttr</span> <span class="o">=</span> <span class="mf">200.0</span><span class="p">,</span> <span class="n">direction</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">printparams</span> <span class="o">=</span> <span class="kc">true</span><span class="p">)</span>
+<span class="n">Ttr</span> <span class="o">=</span> <span class="mf">200.0</span><span class="p">,</span> <span class="n">direction</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">printparams</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span>
 
 <span class="n">figure</span><span class="p">()</span>
 <span class="k">for</span> <span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="kp">in</span> <span class="n">enumerate</span><span class="p">(</span><span class="n">pvalues</span><span class="p">)</span>
     <span class="n">plot</span><span class="p">(</span><span class="n">p</span> <span class="o">.*</span> <span class="n">ones</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="n">j</span><span class="p">]),</span> <span class="n">output</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="n">marker</span> <span class="o">=</span> <span class="s">&quot;o&quot;</span><span class="p">,</span> <span class="n">ms</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">)</span>
+    <span class="n">marker</span> <span class="o">=</span> <span class="s">&quot;o&quot;</span><span class="p">,</span> <span class="n">ms</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="p">)</span>
 <span class="k">end</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\$</span><span class="s">R_1</span><span class="se">\$</span><span class="s">&quot;</span><span class="p">);</span> <span class="n">ylabel</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\$</span><span class="s">V_1</span><span class="se">\$</span><span class="s">&quot;</span><span class="p">)</span>
 <span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>┌ Warning: `linspace(start, stop, length::Integer)` is deprecated, use `range(start, stop=stop, length=length)` instead.
-│   caller = top-level scope at none:0
-└ @ Core none:0
-parameter = 19.0
-parameter = 19.015
-parameter = 19.03
-parameter = 19.045
-parameter = 19.06
-parameter = 19.075
-parameter = 19.09
-parameter = 19.105
-parameter = 19.12
-parameter = 19.135
-parameter = 19.15
-parameter = 19.165
-parameter = 19.18
-parameter = 19.195
-parameter = 19.21
-parameter = 19.225
-parameter = 19.24
-parameter = 19.255
-parameter = 19.27
-parameter = 19.285
-parameter = 19.3
-parameter = 19.315
-parameter = 19.33
-parameter = 19.345
-parameter = 19.36
-parameter = 19.375
-parameter = 19.39
-parameter = 19.405
-parameter = 19.42
-parameter = 19.435
-parameter = 19.45
-parameter = 19.465
-parameter = 19.48
-parameter = 19.495
-parameter = 19.51
-parameter = 19.525
-parameter = 19.54
-parameter = 19.555
-parameter = 19.57
-parameter = 19.585
-parameter = 19.6
-parameter = 19.615
-parameter = 19.63
-parameter = 19.645
-parameter = 19.66
-parameter = 19.675
-parameter = 19.69
-parameter = 19.705
-parameter = 19.72
-parameter = 19.735
-parameter = 19.75
-parameter = 19.765
-parameter = 19.78
-parameter = 19.795
-parameter = 19.81
-parameter = 19.825
-parameter = 19.84
-parameter = 19.855
-parameter = 19.87
-parameter = 19.885
-parameter = 19.9
-parameter = 19.915
-parameter = 19.93
-parameter = 19.945
-parameter = 19.96
-parameter = 19.975
-parameter = 19.99
-parameter = 20.005
-parameter = 20.02
-parameter = 20.035
-parameter = 20.05
-parameter = 20.065
-parameter = 20.08
-parameter = 20.095
-parameter = 20.11
-parameter = 20.125
-parameter = 20.14
-parameter = 20.155
-parameter = 20.17
-parameter = 20.185
-parameter = 20.2
-parameter = 20.215
-parameter = 20.23
-parameter = 20.245
-parameter = 20.26
-parameter = 20.275
-parameter = 20.29
-parameter = 20.305
-parameter = 20.32
-parameter = 20.335
-parameter = 20.35
-parameter = 20.365
-parameter = 20.38
-parameter = 20.395
-parameter = 20.41
-parameter = 20.425
-parameter = 20.44
-parameter = 20.455
-parameter = 20.47
-parameter = 20.485
-parameter = 20.5
-parameter = 20.515
-parameter = 20.53
-parameter = 20.545
-parameter = 20.56
-parameter = 20.575
-parameter = 20.59
-parameter = 20.605
-parameter = 20.62
-parameter = 20.635
-parameter = 20.65
-parameter = 20.665
-parameter = 20.68
-parameter = 20.695
-parameter = 20.71
-parameter = 20.725
-parameter = 20.74
-parameter = 20.755
-parameter = 20.77
-parameter = 20.785
-parameter = 20.8
-parameter = 20.815
-parameter = 20.83
-parameter = 20.845
-parameter = 20.86
-parameter = 20.875
-parameter = 20.89
-parameter = 20.905
-parameter = 20.92
-parameter = 20.935
-parameter = 20.95
-parameter = 20.965
-parameter = 20.98
-parameter = 20.995
-parameter = 21.01
-parameter = 21.025
-parameter = 21.04
-parameter = 21.055
-parameter = 21.07
-parameter = 21.085
-parameter = 21.1
-parameter = 21.115
-parameter = 21.13
-parameter = 21.145
-parameter = 21.16
-parameter = 21.175
-parameter = 21.19
-parameter = 21.205
-parameter = 21.22
-parameter = 21.235
-parameter = 21.25
-parameter = 21.265
-parameter = 21.28
-parameter = 21.295
-parameter = 21.31
-parameter = 21.325
-parameter = 21.34
-parameter = 21.355
-parameter = 21.37
-parameter = 21.385
-parameter = 21.4
-parameter = 21.415
-parameter = 21.43
-parameter = 21.445
-parameter = 21.46
-parameter = 21.475
-parameter = 21.49
-parameter = 21.505
-parameter = 21.52
-parameter = 21.535
-parameter = 21.55
-parameter = 21.565
-parameter = 21.58
-parameter = 21.595
-parameter = 21.61
-parameter = 21.625
-parameter = 21.64
-parameter = 21.655
-parameter = 21.67
-parameter = 21.685
-parameter = 21.7
-parameter = 21.715
-parameter = 21.73
-parameter = 21.745
-parameter = 21.76
-parameter = 21.775
-parameter = 21.79
-parameter = 21.805
-parameter = 21.82
-parameter = 21.835
-parameter = 21.85
-parameter = 21.865
-parameter = 21.88
-parameter = 21.895
-parameter = 21.91
-parameter = 21.925
-parameter = 21.94
-parameter = 21.955
-parameter = 21.97
-parameter = 21.985
-parameter = 22.0
-┌ Warning: `ones(a::AbstractArray)` is deprecated, consider `fill(1, size(a))`, `fill!(copy(a), 1)`, or `fill!(similar(a), 1)`. Where necessary, use `fill!(similar(a), one(eltype(a)))`.
-│   caller = top-level scope at none:2
+<div class="codehilite"><pre><span></span>┌ Warning: `ones(a::AbstractArray)` is deprecated, consider `fill(1, size(a))`, `fill!(copy(a), 1)`, or `fill!(similar(a), 1)`. Where necessary, use `fill!(similar(a), one(eltype(a)))`.
+│   caller = top-level scope at none:2 [inlined]
 └ @ Core ./none:2
 </pre></div>
 

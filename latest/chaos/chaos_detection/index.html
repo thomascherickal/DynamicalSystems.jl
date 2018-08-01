@@ -482,6 +482,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#using-gali" title="Using GALI" class="md-nav__link">
+    Using GALI
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#regular-orbits-in-the-henon-heiles-system" title="Regular orbits in the Henon-Heiles system" class="md-nav__link">
+    Regular orbits in the Henon-Heiles system
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -490,18 +510,6 @@
   
 </nav>
     
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../visualization/" title="Visualization" class="md-nav__link">
-      Visualization
-    </a>
   </li>
 
         
@@ -634,6 +642,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#using-gali" title="Using GALI" class="md-nav__link">
+    Using GALI
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#regular-orbits-in-the-henon-heiles-system" title="Regular orbits in the Henon-Heiles system" class="md-nav__link">
+    Regular orbits in the Henon-Heiles system
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -743,68 +771,72 @@
 
 
 <p>First, let's see the behavior of GALI for a stable orbit</p>
-<p>```@example
-figure(figsize = (8,4))
-tr = trajectory(ds, 100000)</p>
-<p>subplot(1,2,1)
-plot(tr[:,1], tr[:,1+M], alpha = 0.5,
-label="stable",marker="o", ms=1, linewidth=0)
-legend()</p>
-<h1 id="_1"></h1>
-<p>subplot(1,2,2)
-for k in [4, 5, 6]
-    g, t = gali(ds, 1e5, k; threshold=1e-12)
-    lt = log10.(t); lg = log10.(g)
-    plot(lt, lg, label="GALI_$(k)")
-end
-lt = 2:0.5:5.5
-plot(lt, -2(lt .- 3), label="slope -2")
-plot(lt, -4(lt .- 3), label="slope -4")
-plot(lt, -6(lt .- 3), label="slope -6")</p>
-<p>xlim(2, 5.5)
-ylim(-12, 1)
-legend()
-tight_layout()
-savefig("gali_discrete_stable.png"); nothing # hide</p>
-<div class="codehilite"><pre><span></span>![gali_discrete_stable](gali_discrete_stable.png)
+<div class="codehilite"><pre><span></span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">tr</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span>
+
+<span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">tr</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">tr</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="mi">1</span><span class="o">+</span><span class="n">M</span><span class="p">],</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+<span class="n">label</span><span class="o">=</span><span class="s">&quot;stable&quot;</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s">&quot;o&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">legend</span><span class="p">()</span>
+
+<span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">k</span> <span class="kp">in</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+    <span class="n">g</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">gali</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mf">1e5</span><span class="p">,</span> <span class="n">k</span><span class="p">;</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">)</span>
+    <span class="n">lt</span> <span class="o">=</span> <span class="n">log10</span><span class="o">.</span><span class="p">(</span><span class="n">t</span><span class="p">);</span> <span class="n">lg</span> <span class="o">=</span> <span class="n">log10</span><span class="o">.</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">lt</span><span class="p">,</span> <span class="n">lg</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&quot;GALI_</span><span class="si">$</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="n">lt</span> <span class="o">=</span> <span class="mi">2</span><span class="o">:</span><span class="mf">0.5</span><span class="o">:</span><span class="mf">5.5</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">lt</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">(</span><span class="n">lt</span> <span class="o">.-</span> <span class="mi">3</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s">&quot;slope -2&quot;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">lt</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">(</span><span class="n">lt</span> <span class="o">.-</span> <span class="mi">3</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s">&quot;slope -4&quot;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">lt</span><span class="p">,</span> <span class="o">-</span><span class="mi">6</span><span class="p">(</span><span class="n">lt</span> <span class="o">.-</span> <span class="mi">3</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s">&quot;slope -6&quot;</span><span class="p">)</span>
+
+<span class="n">xlim</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">)</span>
+<span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">12</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">legend</span><span class="p">()</span>
+<span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
 
 
-Now do the same for a chaotic orbit
-
-
-```@docs gali
+<p><img alt="gali_discrete_stable" src="../gali_discrete_stable.png" /></p>
+<p>Now do the same for a chaotic orbit</p>
+<p>```@docs gali
 figure(figsize = (8,4))
 tr = trajectory(ds, 100000, chaotic)
 subplot(1,2,1)
 plot(tr[:,1], tr[:,1+M], alpha = 0.5,
-label=&quot;chaotic&quot;,marker=&quot;o&quot;, ms=1, linewidth=0)
-legend()
-
-subplot(1,2,2)
+label="chaotic",marker="o", ms=1, linewidth=0)
+legend()</p>
+<p>subplot(1,2,2)
 ls = lyapunovs(ds, 100000; u0 = chaotic)
 for k in [2,3,6]
     ex = sum(ls[1] - ls[j] for j in 2:k)
     g, t = gali(ds, 1000, k; u0 = chaotic)
-    semilogy(t, exp.(-ex.*t), label=&quot;exp. k=$k&quot;)
-    semilogy(t, g, label=&quot;GALI_$(k)&quot;)
+    semilogy(t, exp.(-ex.*t), label="exp. k=<span><span class="MathJax_Preview">k")
+    semilogy(t, g, label="GALI_</span><script type="math/tex">k")
+    semilogy(t, g, label="GALI_</script></span>(k)")
 end
 legend()
 xlim(0,100)
 ylim(1e-12, 1)
-savefig(&quot;gali_discrete_chaos.png&quot;); nothing # hide
-</pre></div>
+savefig("gali_discrete_chaos.png"); nothing # hide</p>
+<div class="codehilite"><pre><span></span>![gali_discrete_chaos](gali_discrete_chaos.png)
 
 
-<p><img alt="gali_discrete_chaos" src="../gali_discrete_chaos.png" /></p>
-<p><a id='Continuous-Example-1'></a></p>
-<h3 id="continuous-example">Continuous Example</h3>
-<p>As an example of a continuous system, let's see the <a href="../system_definition/#DynamicalSystems.Systems.henonheiles"><code>henonheiles</code></a>:</p>
-<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
-<span class="k">using</span> <span class="n">PyPlot</span><span class="p">,</span> <span class="n">OrdinaryDiffEq</span>
-<span class="n">sp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">295456</span><span class="p">,</span> <span class="o">.</span><span class="mi">407308431</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="c"># stable periodic orbit: 1D torus</span>
-<span class="n">qp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">483000</span><span class="p">,</span> <span class="o">.</span><span class="mi">278980390</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="c"># quasiperiodic orbit: 2D torus</span>
-<span class="n">ch</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.42081</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>      <span class="c"># chaotic orbit</span>
-<span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henonheiles</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span>
+<span class="nt">&lt;a</span> <span class="na">id=</span><span class="s">&#39;Continuous-Example-1&#39;</span><span class="nt">&gt;&lt;/a&gt;</span>
+
+### Continuous Example
+
+
+As an example of a continuous system, let&#39;s see the [`henonheiles`](system_definition/#DynamicalSystems.Systems.henonheiles):
+
+
+```julia
+using DynamicalSystems
+using PyPlot, OrdinaryDiffEq
+sp = [0, .295456, .407308431, 0] # stable periodic orbit: 1D torus
+qp = [0, .483000, .278980390, 0] # quasiperiodic orbit: 2D torus
+ch = [0, -0.25, 0.42081, 0]      # chaotic orbit
+ds = Systems.henonheiles(sp)
 </pre></div>
 
 
@@ -937,11 +969,12 @@ savefig(&quot;gali_discrete_chaos.png&quot;); nothing # hide
 </pre></div>
 
 
-<p>![](insert standard map here)</p>
+<p><img alt="" src="https://github.com/JuliaDynamics/Tutorials-and-Resources/blob/master/dynamicalsystems_documentation/gali_standardmap.png?raw=true" /></p>
 <p><a id='Regular-orbits-in-the-Henon-Heiles-system-1'></a></p>
 <h3 id="regular-orbits-in-the-henon-heiles-system">Regular orbits in the Henon-Heiles system</h3>
 <p>In this example we use the <a href="../orbitdiagram/#ChaosTools.poincaresos"><code>poincaresos</code></a> function to produce surfaces of section of the <a href="../system_definition/#DynamicalSystems.Systems.henonheiles"><code>henonheiles</code></a> system at different energies. At each energy <a href="./#ChaosTools.gali"><code>gali</code></a> is used to color-code each initial condition according to how chaotic/regular it is, i.e. how much time does it need to exceed the <code>threshold</code> of <a href="./#ChaosTools.gali"><code>gali</code></a>.</p>
-<p><img alt="crazy_gali" src="https://i.imgur.com/JgFOsoS.gif" /></p>
+<video width="100%" height="auto" controls> <source src="https://github.com/JuliaDynamics/Tutorials-and-Resources/blob/master/dynamicalsystems*documentation/gali*psos_henonhelies.mp4?raw=true" type="video/mp4"> </video>
+
 <p>You can find the script that produced this animation in <code>DynamicalSystems/docs/coolanimations/gali_psos_henonhelies.jl</code>.</p>
                 
                   
@@ -978,13 +1011,13 @@ savefig(&quot;gali_discrete_chaos.png&quot;); nothing # hide
           </a>
         
         
-          <a href="../visualization/" title="Visualization" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../../tsprediction/localmodels/" title="Local Modeling" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Visualization
+                Local Modeling
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

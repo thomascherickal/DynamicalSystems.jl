@@ -445,18 +445,6 @@
   </li>
 
         
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../chaos/visualization/" title="Visualization" class="md-nav__link">
-      Visualization
-    </a>
-  </li>
-
-        
       </ul>
     </nav>
   </li>
@@ -640,19 +628,13 @@
         <span class="n">ax</span> <span class="o">=</span> <span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">k</span><span class="p">)</span>
         <span class="n">plot</span><span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">R</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&quot;C</span><span class="si">$</span><span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">)</span>
         <span class="n">title</span><span class="p">(</span><span class="s">&quot;var = </span><span class="si">$i</span><span class="s">, τ = </span><span class="si">$τ</span><span class="s">&quot;</span><span class="p">)</span>
-        <span class="n">k</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="kd">global</span> <span class="n">k</span><span class="o">+=</span><span class="mi">1</span>
     <span class="k">end</span>
 <span class="k">end</span>
 
 <span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">suptitle</span><span class="p">(</span><span class="s">&quot;2D reconstructed space&quot;</span><span class="p">)</span>
 <span class="n">subplots_adjust</span><span class="p">(</span><span class="n">top</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
-</pre></div>
-
-
-<div class="codehilite"><pre><span></span>┌ Warning: Deprecated syntax `implicit assignment to global variable `k``.
-│ Use `global k` instead.
-└ @ none:0
 </pre></div>
 
 

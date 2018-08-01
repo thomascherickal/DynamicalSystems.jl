@@ -521,18 +521,6 @@
   </li>
 
         
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../visualization/" title="Visualization" class="md-nav__link">
-      Visualization
-    </a>
-  </li>
-
-        
       </ul>
     </nav>
   </li>
@@ -823,20 +811,11 @@ E(k) \approx \lambda\Delta t k + E(0)
         <span class="n">Δt</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="n">λ</span> <span class="o">=</span> <span class="n">linear_region</span><span class="p">(</span><span class="n">ks</span><span class="o">.*</span><span class="n">Δt</span><span class="p">,</span> <span class="n">E</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
         <span class="c"># gives the linear slope, i.e. the Lyapunov exponent</span>
-        <span class="n">plot</span><span class="p">(</span><span class="n">ks</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">E</span><span class="o">-</span><span class="n">E</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="s">&quot;D=</span><span class="si">$D</span><span class="s">, λ=</span><span class="si">$</span><span class="p">(</span><span class="n">round</span><span class="p">(</span><span class="n">λ</span><span class="p">,</span> <span class="n">digits</span> <span class="o">=</span> <span class="mi">3</span><span class="p">))</span><span class="s">&quot;</span><span class="p">)</span>
+        <span class="n">plot</span><span class="p">(</span><span class="n">ks</span> <span class="o">.-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">E</span> <span class="o">.-</span> <span class="n">E</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="s">&quot;D=</span><span class="si">$D</span><span class="s">, λ=</span><span class="si">$</span><span class="p">(</span><span class="n">round</span><span class="p">(</span><span class="n">λ</span><span class="p">,</span> <span class="n">digits</span> <span class="o">=</span> <span class="mi">3</span><span class="p">))</span><span class="s">&quot;</span><span class="p">)</span>
         <span class="n">legend</span><span class="p">()</span>
         <span class="n">tight_layout</span><span class="p">()</span>
     <span class="k">end</span>
 <span class="k">end</span>
-</pre></div>
-
-
-<div class="codehilite"><pre><span></span>┌ Warning: `a::AbstractArray - b::Number` is deprecated, use `a .- b` instead.
-│   caller = top-level scope at none:13 [inlined]
-└ @ Core ./none:13
-┌ Warning: `a::AbstractArray - b::Number` is deprecated, use `a .- b` instead.
-│   caller = top-level scope at none:13 [inlined]
-└ @ Core ./none:13
 </pre></div>
 
 
@@ -864,17 +843,8 @@ E(k) \approx \lambda\Delta t k + E(0)
 <span class="n">R</span> <span class="o">=</span> <span class="n">reconstruct</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">E</span> <span class="o">=</span> <span class="n">numericallyapunov</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">ks</span><span class="p">,</span> <span class="n">ntype</span> <span class="o">=</span> <span class="n">FixedMassNeighborhood</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
 <span class="n">figure</span><span class="p">()</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">ks</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">E</span><span class="o">-</span><span class="n">E</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">ks</span> <span class="o">.-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">E</span> <span class="o">.-</span> <span class="n">E</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">title</span><span class="p">(</span><span class="s">&quot;Lyappunov: </span><span class="si">$</span><span class="p">(</span><span class="n">linear_region</span><span class="p">(</span><span class="n">ks</span><span class="p">,</span> <span class="n">E</span><span class="p">)[</span><span class="mi">2</span><span class="p">])</span><span class="s">&quot;</span><span class="p">)</span>
-</pre></div>
-
-
-<div class="codehilite"><pre><span></span>┌ Warning: `a::AbstractArray - b::Number` is deprecated, use `a .- b` instead.
-│   caller = top-level scope at none:0
-└ @ Core none:0
-┌ Warning: `a::AbstractArray - b::Number` is deprecated, use `a .- b` instead.
-│   caller = top-level scope at none:0
-└ @ Core none:0
 </pre></div>
 
 
@@ -895,26 +865,26 @@ E(k) \approx \lambda\Delta t k + E(0)
 
 
 <div class="codehilite"><pre><span></span>20001-element Array{Float64,1}:
-   0.0
-   4.2851781460746485
-   8.924780658227977
-  15.012201310538227
-  20.055334268425767
-  18.062349973396024
-   9.898347024647947
-   2.199117951343057
-  -2.6729672045414565
-  -5.338119599140166
-   ⋮
-  -0.8905147174586189
-  -1.373574144205633
-  -2.158130921849464
-  -3.438812939927904
-  -5.506736057626345
-  -8.692055339138237
- -12.948237211268406
- -16.702715747104076
- -16.62936107940933
+  0.0
+  4.2851781460745455
+  8.9247806582301
+ 15.012201310538227
+ 20.055334268425792
+ 18.062349973396003
+  9.898347024647947
+  2.1991179513430605
+ -2.6729672045417354
+ -5.3381195991401595
+  ⋮
+  6.8930784959477
+  8.363855695776378
+ 10.015287975904528
+ 11.394119858487318
+ 11.877939203648781
+ 11.113653906577763
+  9.411003447073245
+  7.493809022238821
+  5.9452292192002645
 </pre></div>
 
 
@@ -939,11 +909,11 @@ E(k) \approx \lambda\Delta t k + E(0)
 <p>Now we plot some example computations</p>
 <div class="codehilite"><pre><span></span><span class="n">figure</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">D</span> <span class="kp">in</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="n">τ</span> <span class="kp">in</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span>
-    <span class="n">R</span> <span class="o">=</span> <span class="n">reconstruct</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">τ</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">reconstruct</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">τ</span><span class="p">)</span>
 
-    <span class="c"># E1 = numericallyapunov(R, ks1; ntype = ntype)</span>
+    <span class="c"># E1 = numericallyapunov(r, ks1; ntype = ntype)</span>
     <span class="c"># λ1 = linear_region(ks1 .* dt, E1)[2]</span>
-    <span class="n">E2</span> <span class="o">=</span> <span class="n">numericallyapunov</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">ks2</span><span class="p">;</span> <span class="n">ntype</span> <span class="o">=</span> <span class="n">ntype</span><span class="p">)</span>
+    <span class="n">E2</span> <span class="o">=</span> <span class="n">numericallyapunov</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">ks2</span><span class="p">;</span> <span class="n">ntype</span> <span class="o">=</span> <span class="n">ntype</span><span class="p">)</span>
     <span class="n">λ2</span> <span class="o">=</span> <span class="n">linear_region</span><span class="p">(</span><span class="n">ks2</span> <span class="o">.*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">E2</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
 
     <span class="c"># plot(ks1,E1.-E1[1], label = &quot;dense, D=$(D), τ=$(τ), λ=$(round(λ1, 3))&quot;)</span>
@@ -955,12 +925,6 @@ E(k) \approx \lambda\Delta t k + E(0)
 <span class="n">ylabel</span><span class="p">(</span><span class="s">&quot;E - E(0)&quot;</span><span class="p">)</span>
 <span class="n">title</span><span class="p">(</span><span class="s">&quot;Continuous Reconstruction Lyapunov&quot;</span><span class="p">)</span>
 <span class="n">tight_layout</span><span class="p">()</span>
-</pre></div>
-
-
-<div class="codehilite"><pre><span></span>┌ Warning: Deprecated syntax `implicit assignment to global variable `R``.
-│ Use `global R` instead.
-└ @ none:0
 </pre></div>
 
 
@@ -1017,10 +981,11 @@ x_{N-d+1} & x_{N-d+2} &\ldots & x_N
 <span class="n">s</span> <span class="o">=</span> <span class="n">x</span> <span class="o">.+</span> <span class="mf">0.5</span><span class="n">rand</span><span class="p">(</span><span class="n">L</span><span class="p">)</span> <span class="c">#add noise</span>
 
 <span class="n">U</span><span class="p">,</span> <span class="n">S</span> <span class="o">=</span> <span class="n">broomhead_king</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+<span class="n">summary</span><span class="p">(</span><span class="n">U</span><span class="p">)</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>([0.00263528 0.0453646 … -0.00341434 0.00264748; 0.00328774 0.0431474 … 0.00777118 0.0116734; … ; -0.00669796 2.84783e-5 … 0.00734828 -0.00123086; -0.00667898 -0.000389555 … 0.00365413 -0.00162374], [6.53823, 1.28809, 0.541682, 0.206271, 0.157085, 0.148332, 0.147852, 0.146338, 0.146279, 0.145509  …  0.141857, 0.141833, 0.141825, 0.141435, 0.141341, 0.141037, 0.140853, 0.140592, 0.140526, 0.140174], [-0.153197 -0.153875 … -0.153969 -0.153314; 0.232327 0.228675 … -0.224633 -0.227789; … ; -0.105917 -0.203298 … -0.232124 -0.120538; 0.270208 -0.340427 … 0.363067 -0.283603])
+<div class="codehilite"><pre><span></span>&quot;19962×40 Array{Float64,2}&quot;
 </pre></div>
 
 
@@ -1039,7 +1004,7 @@ x_{N-d+1} & x_{N-d+2} &\ldots & x_N
 
 
 <p><img alt="" src="../broomhead_king.png" /></p>
-<p>we have used the same system as in the <a href="../../definition/reconstruction">delay coordinates reconstruction</a> example, and picked the optimal delay time of <code>τ = 30</code> (for same <code>dt = 0.05</code>). Regardless, the vanilla delay coordinates fail is much worse than the Broomhead-King coordinates.</p>
+<p>we have used the same system as in the <a href="../../definition/reconstruction">delay coordinates reconstruction</a> example, and picked the optimal delay time of <code>τ = 30</code> (for same <code>dt = 0.05</code>). Regardless, the vanilla delay coordinates is much worse than the Broomhead-King coordinates.</p>
                 
                   
                 
