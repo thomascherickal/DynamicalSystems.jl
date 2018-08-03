@@ -761,7 +761,7 @@
 <p><strong>Jacobian</strong></p>
 <p>The optional argument <code>jacobian</code> for the constructors is a <em>function</em> and (if given) must also be of the same form as the <code>eom</code>, <code>jacobian(x, p, n) -&gt; SMatrix</code> for the out-of-place version and <code>jacobian!(xnew, x, p, n)</code> for the in-place version.</p>
 <p>If <code>jacobian</code> is not given, it is constructed automatically using the module <a href="http://www.juliadiff.org/ForwardDiff.jl/stable/"><code>ForwardDiff</code></a>.</p>
-<p><strong>Interface to </strong>DifferentialEquations.jl****</p>
+<p><strong>Interface to DifferentialEquations.jl</strong></p>
 <p>Continuous systems are solved using <a href="http://docs.juliadiffeq.org/latest/"><strong>DifferentialEquations.jl</strong></a>. The following two interfaces are provided:</p>
 <div class="codehilite"><pre><span></span>ContinuousDynamicalSystem(prob::ODEProblem [, jacobian [, J0]])
 ODEProblem(continuous_dynamical_system, tspan, args...)

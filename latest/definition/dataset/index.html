@@ -665,23 +665,16 @@
 <li><code>data[v1, v2]</code> returns a <code>Dataset</code> with the appropriate entries (first indices being "time"/point index, while second being dynamic variables)</li>
 <li><code>data[i, j]</code> value of the <code>j</code>th variable, at the <code>i</code>th timepoint</li>
 </ul>
-<div class="codehilite"><pre><span></span>Use `Matrix(dataset)` or `Dataset(matrix)` to convert. It is assumed that each *column* of the `matrix` is one dynamic variable. If you have various timeseries vectors `x, y, z, ...` pass them like `Dataset(x, y, z, ...)`. You can use `columns(dataset)` to obtain the reverse, i.e. all columns of the dataset in a tuple.
-
-
----
-
-
-In essence a `Dataset` is simply a container for a `Vector` of `SVector`s. However, it is visually represented as a matrix, similarly to how numerical data would be printed on a spreadsheet (with time being the *column* direction). It also offers a lot more functionality than just pretty-printing. Besides the examples in the documentation string, you can also do:
-
-
-```julia
-using DynamicalSystems
-hen = Systems.henon()
-data = trajectory(hen, 10000) # this returns a dataset
-for point in data
-# do stuff with each datapoint
-# (vector with as many elements as system dimension)
-end
+<p>Use <code>Matrix(dataset)</code> or <code>Dataset(matrix)</code> to convert. It is assumed that each <em>column</em> of the <code>matrix</code> is one dynamic variable. If you have various timeseries vectors <code>x, y, z, ...</code> pass them like <code>Dataset(x, y, z, ...)</code>. You can use <code>columns(dataset)</code> to obtain the reverse, i.e. all columns of the dataset in a tuple.</p>
+<hr />
+<p>In essence a <code>Dataset</code> is simply a container for a <code>Vector</code> of <code>SVector</code>s. However, it is visually represented as a matrix, similarly to how numerical data would be printed on a spreadsheet (with time being the <em>column</em> direction). It also offers a lot more functionality than just pretty-printing. Besides the examples in the documentation string, you can also do:</p>
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
+<span class="n">hen</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">hen</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span> <span class="c"># this returns a dataset</span>
+<span class="k">for</span> <span class="n">point</span> <span class="kp">in</span> <span class="n">data</span>
+<span class="c"># do stuff with each datapoint</span>
+<span class="c"># (vector with as many elements as system dimension)</span>
+<span class="k">end</span>
 </pre></div>
 
 

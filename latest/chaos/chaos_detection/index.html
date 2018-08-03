@@ -747,7 +747,6 @@
 <p><strong>References</strong></p>
 <p>[1] : Skokos, C. H. <em>et al.</em>, Physica D <strong>231</strong>, pp 30–54 (2007)</p>
 <p>[2] : Skokos, C. H. <em>et al.</em>, <em>Chaos Detection and Predictability</em> - Chapter 5 (section 5.3.1 and ref. [85] therein), Lecture Notes in Physics <strong>915</strong>, Springer (2016)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/1d36e58b8646fe6cfa4e58d3a7a150f718225dda/src/chaos_detection.jl#L6-L77' class='documenter-source'>source</a><br></p>
 <hr />
 <p><a id='Discrete-Example-1'></a></p>
 <h3 id="discrete-example">Discrete Example</h3>
@@ -763,10 +762,11 @@
 
 
 <div class="codehilite"><pre><span></span>6-dimensional discrete dynamical system
- state:     [3.24159, 3.24159, 3.24159, 0.11, 0.1, 0.1]
- e.o.m.:    CoupledStandardMaps
- in-place?  true
- jacobian:  CoupledStandardMaps
+ state:       [3.24159, 3.24159, 3.24159, 0.11, 0.1, 0.1]
+ e.o.m.:      CoupledStandardMaps
+ in-place?    true
+ jacobian:    CoupledStandardMaps
+ parameters:  Tuple
 </pre></div>
 
 
@@ -841,10 +841,11 @@ ds = Systems.henonheiles(sp)
 
 
 <div class="codehilite"><pre><span></span>4-dimensional continuous dynamical system
- state:     [0.0, 0.295456, 0.407308, 0.0]
- e.o.m.:    hheom!
- in-place?  true
- jacobian:  hhjacob!
+ state:       [0.0, 0.295456, 0.407308, 0.0]
+ e.o.m.:      hheom!
+ in-place?    true
+ jacobian:    hhjacob!
+ parameters:  nothing
 </pre></div>
 
 

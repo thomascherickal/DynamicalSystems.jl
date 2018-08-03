@@ -684,7 +684,6 @@
 <li><code>u0 = get_state(ds)</code> : Initial condition. Besides a vector you can also give a vector of vectors such that <code>length(u0) == length(pvalues)</code>. Then each parameter has a different initial condition.</li>
 </ul>
 <p>See also <a href="./#ChaosTools.poincaresos"><code>poincaresos</code></a> and <a href="./#ChaosTools.produce_orbitdiagram"><code>produce_orbitdiagram</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/1d36e58b8646fe6cfa4e58d3a7a150f718225dda/src/orbitdiagrams/discrete_diagram.jl#L3-L25' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example, let's compute the famous orbit diagram of the logistic map:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
@@ -750,7 +749,6 @@ a_1u_1 + \dots + a_Du_D = \mathbf{a}\cdot\mathbf{u}=b
 <p>[2] : M. Tabor, <em>Chaos and Integrability in Nonlinear Dynamics: An Introduction</em>, §4.1, in pp. 118-126, New York: Wiley (1989)</p>
 <p>[3] : This function is simply manipulating <a href="http://docs.juliadiffeq.org/latest/features/callback_functions.html"><code>ContinuousCallback</code></a> from DifferentialEquations.jl.</p>
 <p>See also <a href="./#ChaosTools.orbitdiagram"><code>orbitdiagram</code></a>, <a href="./#ChaosTools.produce_orbitdiagram"><code>produce_orbitdiagram</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/1d36e58b8646fe6cfa4e58d3a7a150f718225dda/src/orbitdiagrams/poincare.jl#L9-L54' class='documenter-source'>source</a><br></p>
 <hr />
 <p>An example of the <a href="../../definition/predefined/#DynamicalSystemsBase.Systems.henonheiles">Henon-Heiles</a> system using a quasi-periodic solution</p>
 <div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henonheiles</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.</span><span class="p">])</span>
@@ -825,7 +823,6 @@ a_1u_1 + \dots + a_Du_D = \mathbf{a}\cdot\mathbf{u}=b
 <p>For each parameter, a PSOS reduces the system from a flow to a map. This then allows the formal computation of an "orbit diagram" for the <code>i</code> variable of the system, just like it is done in <a href="./#ChaosTools.orbitdiagram"><code>orbitdiagram</code></a>.</p>
 <p>The parameter change is done as <code>p[p_index] = value</code> taking values from <code>pvalues</code> and thus you must use a parameter container that supports this (either <code>Array</code>, <code>LMArray</code>, dictionary or other).</p>
 <p>See also <a href="./#ChaosTools.poincaresos"><code>poincaresos</code></a>, <a href="./#ChaosTools.orbitdiagram"><code>orbitdiagram</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/ChaosTools.jl/blob/1d36e58b8646fe6cfa4e58d3a7a150f718225dda/src/orbitdiagrams/poincare.jl#L163-L194' class='documenter-source'>source</a><br></p>
 <hr />
 <p>For example, we will calculate the orbit diagram of the Shinriki oscillator, a continuous system that undergoes a period doubling route to chaos, much like the logistic map!</p>
 <div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">shinriki</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
@@ -850,7 +847,7 @@ a_1u_1 + \dots + a_Du_D = \mathbf{a}\cdot\mathbf{u}=b
 
 
 <div class="codehilite"><pre><span></span>┌ Warning: `ones(a::AbstractArray)` is deprecated, consider `fill(1, size(a))`, `fill!(copy(a), 1)`, or `fill!(similar(a), 1)`. Where necessary, use `fill!(similar(a), one(eltype(a)))`.
-│   caller = top-level scope at none:2 [inlined]
+│   caller = top-level scope at none:2
 └ @ Core ./none:2
 </pre></div>
 
