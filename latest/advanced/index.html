@@ -548,15 +548,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#discrete" title="Discrete" class="md-nav__link">
-    Discrete
+  <a href="#re-init-of-continuous-tangent-integrator" title="Re-init of continuous tangent integrator" class="md-nav__link">
+    Re-init of continuous tangent integrator
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#continuous" title="Continuous" class="md-nav__link">
-    Continuous
+  <a href="#re-init-of-discrete-parallel-integrator" title="Re-init of discrete parallel integrator" class="md-nav__link">
+    Re-init of discrete parallel integrator
   </a>
   
 </li>
@@ -567,8 +567,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#implementation-of-dynamicalsystem" title="Implementation of DynamicalSystem" class="md-nav__link">
-    Implementation of DynamicalSystem
+  <a href="#dynamicalsystem-implementation" title="DynamicalSystem implementation" class="md-nav__link">
+    DynamicalSystem implementation
   </a>
   
 </li>
@@ -651,15 +651,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#discrete" title="Discrete" class="md-nav__link">
-    Discrete
+  <a href="#re-init-of-continuous-tangent-integrator" title="Re-init of continuous tangent integrator" class="md-nav__link">
+    Re-init of continuous tangent integrator
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#continuous" title="Continuous" class="md-nav__link">
-    Continuous
+  <a href="#re-init-of-discrete-parallel-integrator" title="Re-init of discrete parallel integrator" class="md-nav__link">
+    Re-init of discrete parallel integrator
   </a>
   
 </li>
@@ -670,8 +670,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#implementation-of-dynamicalsystem" title="Implementation of DynamicalSystem" class="md-nav__link">
-    Implementation of DynamicalSystem
+  <a href="#dynamicalsystem-implementation" title="DynamicalSystem implementation" class="md-nav__link">
+    DynamicalSystem implementation
   </a>
   
 </li>
@@ -798,46 +798,51 @@
 
 <p>Set the deviation vectors of the <a href="./#DynamicalSystemsBase.tangent_integrator"><code>tangent_integrator</code></a> to <code>Q</code>, which must be a matrix with each column being a deviation vector.</p>
 <p>Automatically does <code>u_modified!(tang_integ, true)</code>.</p>
-<p>These functions work with <em>any</em> possible integrator and it is best to use the to change states robustly</p>
+<p>These functions work with <em>any</em> possible integrator and it is best to use the to change states robustly!</p>
 <p><a id='Re-initializing-an-integrator-1'></a></p>
 <h2 id="re-initializing-an-integrator">Re-initializing an integrator</h2>
 <p>It is more efficient to re-initialize an integrator using <code>reinit!</code> than to create a new one. This can be very helpful when looping over initial conditions and/or parameter values.</p>
 <p>All high-level functions from <code>ChaosTools</code> have a set-up part that creates an integrator, and a low-level part that does the computation.</p>
 <p>The low level part is your friend! Use it! See the <a href="../chaos/chaos_detection/#using-gali">Using <code>gali</code></a> page for an example.</p>
-<p><a id='Discrete-1'></a></p>
-<h3 id="discrete">Discrete</h3>
-<p>For discrete systems, the function signature is simply</p>
-<div class="codehilite"><pre><span></span><span class="n">reinit!</span><span class="p">(</span><span class="n">integ</span><span class="p">,</span> <span class="n">u</span><span class="p">;</span> <span class="n">t0</span> <span class="o">=</span> <span class="n">integ</span><span class="o">.</span><span class="n">t0</span><span class="p">,</span> <span class="n">Q0</span> <span class="o">=</span> <span class="nb">nothing</span><span class="p">)</span>
-</pre></div>
-
-
-<p>which gives you the possibility to optionally re-initialize deviation vectors with <code>Q0</code> (you <em>should</em> do that!).</p>
-<p>To change parameters simply change the field <code>p</code> of an integrator.</p>
-<div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">()</span>
-<span class="n">pinteg</span> <span class="o">=</span> <span class="n">parallel_integrator</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="p">[</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">)])</span>
-<span class="n">pinteg</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.45</span>
-</pre></div>
-
-
-<p>For discrete systems there is no general reason to <code>reinit!</code> after a parameter change.</p>
-<p><a id='Continuous-1'></a></p>
-<h3 id="continuous">Continuous</h3>
-<p>For continuous systems one needs to properly re-initialize the integrator instance so that derivatives are re-computed. Because it is not possible to bundle re-initialization of deviation vectors to <code>reinit!</code> of continuous integrators, we advise to use <code>set_state!</code> and <code>set_deviations!</code>. This way you also do not have to deal with the fact that different integrators have different types of <code>u</code>.</p>
-<p>You should do something like</p>
+<p>The <code>reinit!</code> call signature is the same for continuous and discrete systems. In the following, <code>state</code> is supposed to be a <code>D</code> dimensional vector (state of the dynamical system).</p>
+<ol>
+<li><code>reinit!(integ, state)</code> : to be used with standard <a href="./#DynamicalSystemsBase.integrator"><code>integrator</code></a>.</li>
+<li><code>reinit!(integ, Vector_of_states)</code> : to be used with the <a href="./#DynamicalSystemsBase.parallel_integrator"><code>parallel_integrator</code></a>.</li>
+<li><code>reinit!(integ, state, Q0::AbstractMatrix)</code> : to be used with the <a href="./#DynamicalSystemsBase.tangent_integrator"><code>tangent_integrator</code></a>. This three argument version of <code>reinit!</code> is exported from <code>DynamicalSystemsBase</code>.</li>
+</ol>
+<p>See below for a couple of examples.</p>
+<p><a id='Re-init-of-continuous-tangent-integrator-1'></a></p>
+<h3 id="re-init-of-continuous-tangent-integrator">Re-init of continuous tangent integrator</h3>
+<p>Here we compute the <a href="../chaos/lyapunovs/#ChaosTools.lyapunovs"><code>lyapunovs</code></a> for many different initial conditions.</p>
 <div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">lorenz</span><span class="p">()</span>
-<span class="n">integ</span> <span class="o">=</span> <span class="n">tangent_integrator</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">set_state!</span><span class="p">(</span><span class="n">integ</span><span class="p">,</span> <span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
-<span class="n">set_deviations!</span><span class="p">(</span><span class="n">integ</span><span class="p">,</span> <span class="n">orthonormal</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
-<span class="n">reinit!</span><span class="p">(</span><span class="n">integ</span><span class="p">,</span> <span class="n">integ</span><span class="o">.</span><span class="n">u</span><span class="p">)</span>
+<span class="n">tinteg</span> <span class="o">=</span> <span class="n">tangent_integrator</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">ics</span> <span class="o">=</span> <span class="p">[</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="mi">100</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">ic</span> <span class="kp">in</span> <span class="n">ics</span>
+  <span class="n">reinit!</span><span class="p">(</span><span class="n">tinteg</span><span class="p">,</span> <span class="n">ic</span><span class="p">,</span> <span class="n">orthonormal</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+  <span class="n">λ</span> <span class="o">=</span> <span class="n">ChaosTools</span><span class="o">.</span><span class="n">_lyapunovs</span><span class="p">(</span><span class="n">tinteg</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">)</span>
+  <span class="c"># reminder: _lyapunovs(integ, N, dt::Real, Ttr::Real = 0.0)</span>
+<span class="k">end</span>
 </pre></div>
 
 
-<p><em>(it is important to use <code>integ.u</code> as the second argument to <code>reinit!</code>)</em></p>
-<p>The above code would work if the integrator was <code>integrator</code>, <code>parallel_integrator</code> or <code>tangent_integrator</code>! (<code>set_deviations!</code> only works for tangent integrators!)</p>
-<p>The full documentation for <code>reinit!(::ODEIntegrator)</code> is <a href="http://docs.juliadiffeq.org/latest/basics/integrator.html#Reinit-1">here</a>. Although, for usage within <strong>DynamicalSystems.jl</strong> the other arguments do not matter, because steps are never saved.</p>
-<p>In the continuous case you <strong>must</strong> <code>reinit!</code> even after changing a parameter value, because the derivatives need to be re-computed.</p>
-<p><a id='Implementation-of-DynamicalSystem-1'></a></p>
-<h2 id="implementation-of-dynamicalsystem">Implementation of <code>DynamicalSystem</code></h2>
+<p><a id='Re-init-of-discrete-parallel-integrator-1'></a></p>
+<h3 id="re-init-of-discrete-parallel-integrator">Re-init of discrete parallel integrator</h3>
+<p>Here we compute the <a href="../chaos/lyapunovs/#ChaosTools.lyapunov"><code>lyapunov</code></a> for many different parameters.</p>
+<div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henon</span><span class="p">()</span>
+<span class="n">u0</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="n">SVector</span><span class="p">{</span><span class="mi">2</span><span class="p">})</span>
+<span class="n">ps</span> <span class="o">=</span> <span class="mf">1.2</span><span class="o">:</span><span class="mf">0.01</span><span class="o">:</span><span class="mf">1.4</span>
+<span class="n">pinteg</span> <span class="o">=</span> <span class="n">parallel_integrator</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="p">[</span><span class="n">u0</span><span class="p">,</span> <span class="n">u0</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="n">rand</span><span class="p">(</span><span class="n">SVector</span><span class="p">{</span><span class="mi">2</span><span class="p">})])</span>
+<span class="k">for</span> <span class="n">p</span> <span class="kp">in</span> <span class="n">ps</span>
+  <span class="n">set_parameter!</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+  <span class="n">reinit!</span><span class="p">(</span><span class="n">pinteg</span><span class="p">,</span> <span class="p">[</span><span class="n">u0</span><span class="p">,</span> <span class="n">u0</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="n">rand</span><span class="p">(</span><span class="n">SVector</span><span class="p">{</span><span class="mi">2</span><span class="p">})])</span>
+  <span class="n">λ</span> <span class="o">=</span> <span class="n">ChaosTools</span><span class="o">.</span><span class="n">_lyapunov</span><span class="p">(</span><span class="n">pinteg</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1e-9</span><span class="p">,</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="mf">1e-12</span><span class="p">)</span>
+  <span class="c"># reminder: _lyapunov(pinteg, T, Ttr, dt, d0, ut, lt)</span>
+<span class="k">end</span>
+</pre></div>
+
+
+<p><a id='DynamicalSystem-implementation-1'></a></p>
+<h2 id="dynamicalsystem-implementation"><code>DynamicalSystem</code> implementation</h2>
 <div class="codehilite"><pre><span></span><span class="k">abstract</span> <span class="k">type</span> <span class="n">DynamicalSystem</span><span class="p">{</span>
         <span class="n">IIP</span><span class="p">,</span>     <span class="c"># is in place , for dispatch purposes and clarity</span>
         <span class="n">S</span><span class="p">,</span>       <span class="c"># state type</span>
@@ -849,14 +854,17 @@
         <span class="n">IAD</span><span class="p">}</span>     <span class="c"># is auto-differentiated</span>
     <span class="c"># one-liner: {IIP, S, D, F, P, JAC, JM, IAD}</span>
     <span class="c"># Subtypes of DynamicalSystem have fields:</span>
-    <span class="c"># 1. prob</span>
-    <span class="c"># 2. jacobian (function)</span>
-    <span class="c"># 3. J (matrix)  &lt;- will allow Sparse implementation in the future</span>
+    <span class="c"># 1. f</span>
+    <span class="c"># 2. u0</span>
+    <span class="c"># 3. p</span>
+    <span class="c"># 4. t0</span>
+    <span class="c"># 5. jacobian (function)</span>
+    <span class="c"># 6. J (matrix)</span>
 <span class="k">end</span>
 </pre></div>
 
 
-<p>This allows easily using multiple dispatch on the first three type parameters, which are the most important for dispatching purposes.</p>
+<p>The <code>DynamicalSystem</code> stores only the absolutely necessary information. Every other functionality of <strong>DynamicalSystems.jl</strong> initializes an integrator.</p>
 <p>The final type-parameter <code>IAD</code> is useful when creating the <code>tangent_integrator</code>, so that the vector field is not computed twice!</p>
                 
                   
