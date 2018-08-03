@@ -477,6 +477,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#continuous-example" title="Continuous Example" class="md-nav__link">
+    Continuous Example
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -633,6 +640,13 @@
           <li class="md-nav__item">
   <a href="#discrete-example" title="Discrete Example" class="md-nav__link">
     Discrete Example
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#continuous-example" title="Continuous Example" class="md-nav__link">
+    Continuous Example
   </a>
   
 </li>
@@ -799,44 +813,37 @@
 
 <p><img alt="gali_discrete_stable" src="../gali_discrete_stable.png" /></p>
 <p>Now do the same for a chaotic orbit</p>
-<p>```@docs gali
-figure(figsize = (8,4))
-tr = trajectory(ds, 100000, chaotic)
-subplot(1,2,1)
-plot(tr[:,1], tr[:,1+M], alpha = 0.5,
-label="chaotic",marker="o", ms=1, linewidth=0)
-legend()</p>
-<p>subplot(1,2,2)
-ls = lyapunovs(ds, 100000; u0 = chaotic)
-for k in [2,3,6]
-    ex = sum(ls[1] - ls[j] for j in 2:k)
-    g, t = gali(ds, 1000, k; u0 = chaotic)
-    semilogy(t, exp.(-ex.*t), label="exp. k=<span><span class="MathJax_Preview">k")
-    semilogy(t, g, label="GALI_</span><script type="math/tex">k")
-    semilogy(t, g, label="GALI_</script></span>(k)")
-end
-legend()
-xlim(0,100)
-ylim(1e-12, 1)
-savefig("gali_discrete_chaos.png"); nothing # hide</p>
-<div class="codehilite"><pre><span></span>![gali_discrete_chaos](gali_discrete_chaos.png)
+<div class="codehilite"><pre><span></span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">tr</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">100000</span><span class="p">,</span> <span class="n">chaotic</span><span class="p">)</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">tr</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">tr</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="mi">1</span><span class="o">+</span><span class="n">M</span><span class="p">],</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+<span class="n">label</span><span class="o">=</span><span class="s">&quot;chaotic&quot;</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s">&quot;o&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">legend</span><span class="p">()</span>
+
+<span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ls</span> <span class="o">=</span> <span class="n">lyapunovs</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">100000</span><span class="p">;</span> <span class="n">u0</span> <span class="o">=</span> <span class="n">chaotic</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">k</span> <span class="kp">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+    <span class="n">ex</span> <span class="o">=</span> <span class="n">sum</span><span class="p">(</span><span class="n">ls</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">ls</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="kp">in</span> <span class="mi">2</span><span class="o">:</span><span class="n">k</span><span class="p">)</span>
+    <span class="n">g</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">gali</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">k</span><span class="p">;</span> <span class="n">u0</span> <span class="o">=</span> <span class="n">chaotic</span><span class="p">)</span>
+    <span class="n">semilogy</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">exp</span><span class="o">.</span><span class="p">(</span><span class="o">-</span><span class="n">ex</span><span class="o">.*</span><span class="n">t</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s">&quot;exp. k=</span><span class="si">$k</span><span class="s">&quot;</span><span class="p">)</span>
+    <span class="n">semilogy</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&quot;GALI_</span><span class="si">$</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="n">legend</span><span class="p">()</span>
+<span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">ylim</span><span class="p">(</span><span class="mf">1e-12</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
 
 
-<span class="nt">&lt;a</span> <span class="na">id=</span><span class="s">&#39;Continuous-Example-1&#39;</span><span class="nt">&gt;&lt;/a&gt;</span>
-
-### Continuous Example
-
-
-As an example of a continuous system, let&#39;s see the [`henonheiles`](system_definition/#DynamicalSystems.Systems.henonheiles):
-
-
-```julia
-using DynamicalSystems
-using PyPlot, OrdinaryDiffEq
-sp = [0, .295456, .407308431, 0] # stable periodic orbit: 1D torus
-qp = [0, .483000, .278980390, 0] # quasiperiodic orbit: 2D torus
-ch = [0, -0.25, 0.42081, 0]      # chaotic orbit
-ds = Systems.henonheiles(sp)
+<p><img alt="gali_discrete_chaos" src="../gali_discrete_chaos.png" /></p>
+<p><a id='Continuous-Example-1'></a></p>
+<h3 id="continuous-example">Continuous Example</h3>
+<p>As an example of a continuous system, let's see the <a href="../system_definition/#DynamicalSystems.Systems.henonheiles"><code>henonheiles</code></a>:</p>
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span>
+<span class="k">using</span> <span class="n">PyPlot</span><span class="p">,</span> <span class="n">OrdinaryDiffEq</span>
+<span class="n">sp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">295456</span><span class="p">,</span> <span class="o">.</span><span class="mi">407308431</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="c"># stable periodic orbit: 1D torus</span>
+<span class="n">qp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">483000</span><span class="p">,</span> <span class="o">.</span><span class="mi">278980390</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="c"># quasiperiodic orbit: 2D torus</span>
+<span class="n">ch</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.42081</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>      <span class="c"># chaotic orbit</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">henonheiles</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span>
 </pre></div>
 
 
@@ -870,7 +877,7 @@ ds = Systems.henonheiles(sp)
         <span class="n">loglog</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">10000</span> <span class="o">./</span> <span class="n">t</span><span class="o">.^</span><span class="p">(</span><span class="mi">2</span><span class="n">k</span><span class="o">-</span><span class="mi">4</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s">&quot;slope -</span><span class="si">$</span><span class="p">(</span><span class="mi">2</span><span class="n">k</span><span class="o">-</span><span class="mi">4</span><span class="p">)</span><span class="s">&quot;</span><span class="p">)</span>
     <span class="k">end</span>
 <span class="k">end</span>
-<span class="n">ylim</span><span class="p">(</span><span class="mf">1e-12</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ylim</span><span class="p">(</span><span class="mf">1e-12</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="n">legend</span><span class="p">();</span>
 </pre></div>
 
