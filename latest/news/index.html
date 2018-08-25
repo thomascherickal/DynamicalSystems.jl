@@ -550,8 +550,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#dynamicalsystems-v013-julia-07-release" title="DynamicalSystems v0.13 - Julia 0.7 release" class="md-nav__link">
-    DynamicalSystems v0.13 - Julia 0.7 release
+  <a href="#dynamicalsystems-v10-julia-07-release" title="DynamicalSystems v1.0 - Julia 0.7 release" class="md-nav__link">
+    DynamicalSystems v1.0 - Julia 0.7 release
   </a>
   
 </li>
@@ -650,8 +650,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#dynamicalsystems-v013-julia-07-release" title="DynamicalSystems v0.13 - Julia 0.7 release" class="md-nav__link">
-    DynamicalSystems v0.13 - Julia 0.7 release
+  <a href="#dynamicalsystems-v10-julia-07-release" title="DynamicalSystems v1.0 - Julia 0.7 release" class="md-nav__link">
+    DynamicalSystems v1.0 - Julia 0.7 release
   </a>
   
 </li>
@@ -739,11 +739,12 @@
                 
                 <p><a id='News-1'></a></p>
 <h1 id="news">News</h1>
-<p><a id='DynamicalSystems-v0.13-Julia-0.7-release-1'></a></p>
-<h2 id="dynamicalsystems-v013-julia-07-release">DynamicalSystems v0.13 - Julia 0.7 release</h2>
-<p><strong>IMPORTANT: We consider this the beta version of v1.0.0 for DynamicalSystems.jl</strong>! Also, all support for any Julia version before 0.7 is dropped.</p>
+<p><a id='DynamicalSystems-v1.0-Julia-0.7-release-1'></a></p>
+<h2 id="dynamicalsystems-v10-julia-07-release">DynamicalSystems v1.0 - Julia 0.7 release</h2>
+<p>All support for any Julia version before 0.7 is dropped.</p>
 <p>Please be sure to check out the <code>CHANGELOG.md</code> files of the individual repositories. There all changes are listed in detail. Here we note only the most important ones.</p>
 <ul>
+<li><code>TimeseriesPrediction</code> is <em>not</em> installed with <code>DynamicalSystems</code> for version 1.0, because it is undergoing major changes. It is not even ready for Julia 1.0 actually.</li>
 <li><code>DynamicalSystem</code> has been totally reworked for better clarity: it does not store a "problem" anymore, only the absolutely necessary ingredients to create one. The API did not change though!</li>
 <li><code>Reconstruction</code> has been renamed to <code>reconstruct</code>, and now always returns a <code>Dataset</code>. In addition, now the parameter <code>D</code> stands for the number of temporal neighbors. <strong>This is a breaking change!</strong>. The change allows more intuition across the different versions of <code>reconstruct</code>.</li>
 <li>The various offered integrators became more robust, and now allow passing callbacks etc. for the DifferentialEquations.jl event handling.</li>
