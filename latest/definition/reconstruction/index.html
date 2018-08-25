@@ -553,64 +553,10 @@
                 
                 <p>A timeseries recorded in some manner from a dynamical system can be used to gain information about the dynamics of the entire phase-space of the system. This can be done by reconstructing a new phase-space from the timeseries. One method that can do this is what is known as <a href="https://en.wikipedia.org/wiki/Takens%27_theorem">delay coordinates embedding</a> or delay coordinates <em>reconstruction</em>.</p>
 <p>This is done through the <code>reconstruct</code> interface:</p>
-<p><a id='DynamicalSystemsBase.reconstruct' href='#DynamicalSystemsBase.reconstruct'>#</a>
-<strong><code>DynamicalSystemsBase.reconstruct</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>reconstruct(s, D, τ)
+<div class="codehilite"><pre><span></span>reconstruct
 </pre></div>
 
 
-<p>Reconstruct <code>s</code> using the delay coordinates embedding with <code>D</code> temporal neighbors and delay <code>τ</code> and return the result as a <a href="../dataset/#DynamicalSystemsBase.Dataset"><code>Dataset</code></a>.</p>
-<p><strong>Description</strong></p>
-<p><strong>Single Timeseries</strong></p>
-<p>If <code>τ</code> is an integer, then the <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>-th entry of the embedded space is</p>
-<div>
-<div class="MathJax_Preview">
-(s(n), s(n+\tau), s(n+2\tau), \dots, s(n+D\tau))
-</div>
-<script type="math/tex; mode=display">
-(s(n), s(n+\tau), s(n+2\tau), \dots, s(n+D\tau))
-</script>
-</div>
-<p>If instead <code>τ</code> is a vector of integers, so that <code>length(τ) == D</code>, then the <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>-th entry is</p>
-<div>
-<div class="MathJax_Preview">
-(s(n), s(n+\tau[1]), s(n+\tau[2]), \dots, s(n+\tau[D]))
-</div>
-<script type="math/tex; mode=display">
-(s(n), s(n+\tau[1]), s(n+\tau[2]), \dots, s(n+\tau[D]))
-</script>
-</div>
-<p>The reconstructed dataset can have same invariant quantities (like e.g. lyapunov exponents) with the original system that the timeseries were recorded from, for proper <code>D</code> and <code>τ</code> [1, 2]. The case of different delay times allows reconstructing systems with many time scales, see [3].</p>
-<p><em>Notice</em> - The dimension of the returned dataset is <code>D+1</code>!</p>
-<p><strong>Multiple Timeseries</strong></p>
-<p>To make a reconstruction out of a multiple timeseries (i.e. trajectory) the number of timeseries must be known by type, so <code>s</code> can be either:</p>
-<ul>
-<li><code>s::AbstractDataset{B}</code></li>
-<li><code>s::SizedAray{A, B}</code></li>
-</ul>
-<p>If the trajectory is for example <span><span class="MathJax_Preview">(x, y)</span><script type="math/tex">(x, y)</script></span> and <code>τ</code> is integer, then the <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>-th entry of the embedded space is</p>
-<div>
-<div class="MathJax_Preview">
-(x(n), y(n), x(n+\tau), y(n+\tau), \dots, x(n+D\tau), y(n+D\tau))
-</div>
-<script type="math/tex; mode=display">
-(x(n), y(n), x(n+\tau), y(n+\tau), \dots, x(n+D\tau), y(n+D\tau))
-</script>
-</div>
-<p>If <code>τ</code> is an <code>AbstractMatrix{Int}</code>, so that <code>size(τ) == (D, B)</code>, then we have</p>
-<div>
-<div class="MathJax_Preview">
-(x(n), y(n), x(n+\tau[1, 1]), y(n+\tau[1, 2]), \dots, x(n+\tau[D, 1]), y(n+\tau[D, 2]))
-</div>
-<script type="math/tex; mode=display">
-(x(n), y(n), x(n+\tau[1, 1]), y(n+\tau[1, 2]), \dots, x(n+\tau[D, 1]), y(n+\tau[D, 2]))
-</script>
-</div>
-<p><em>Notice</em> - The dimension of the returned dataset is <code>(D+1)*B</code>!</p>
-<p><strong>References</strong></p>
-<p>[1] : F. Takens, <em>Detecting Strange Attractors in Turbulence — Dynamical Systems and Turbulence</em>, Lecture Notes in Mathematics <strong>366</strong>, Springer (1981)</p>
-<p>[2] : T. Sauer <em>et al.</em>, J. Stat. Phys. <strong>65</strong>, pp 579 (1991)</p>
-<p>[3] : K. Judd &amp; A. Mees, <a href="https://www.sciencedirect.com/science/article/pii/S0167278997001188">Physica D <strong>120</strong>, pp 273 (1998)</a></p>
 <hr />
 <p>Here are some examples of <code>reconstruct</code>ing a 3D continuous chaotic system:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span><span class="p">,</span> <span class="n">PyPlot</span>
@@ -643,14 +589,40 @@
 <p class="admonition-title"><code>τ</code> and <code>dt</code></p>
 <p>Keep in mind that whether a value of <code>τ</code> is "reasonable" for continuous systems depends on <code>dt</code>. In the above example the value <code>τ=30</code> is good, <em>only</em> for the case of using <code>dt = 0.05</code>. For shorter/longer <code>dt</code> one has to adjust properly <code>τ</code> so that their product <code>τ*dt</code> is the same.</p>
 </div>
-<p><code>reconstruct</code> can also be made given a trajectory (i.e. multidimensional timeseries). For this to be possible, the number of timeseries must be known by Type:</p>
+<p>You can also <code>reconstruct</code> multidimensional timeseries. For this to be possible, the number of timeseries must be known by Type:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">StaticArrays</span><span class="o">:</span> <span class="n">Size</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c"># my trajectory</span>
 
 <span class="n">A</span> <span class="o">=</span> <span class="n">Size</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">3</span><span class="p">)(</span><span class="n">a</span><span class="p">)</span> <span class="c"># create array with the size as Type information</span>
 <span class="n">R</span> <span class="o">=</span> <span class="n">reconstruct</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c">#aaaall good</span>
+</pre></div>
 
-<span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">towel</span><span class="p">();</span> <span class="n">tr</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+
+<div class="codehilite"><pre><span></span>9-dimensional Dataset{Float64} with 996 points
+ 0.0584736  0.127606    0.201436   …  0.194815   0.272692    0.224837
+ 0.461804   0.340043    0.897473      0.17483    0.802175    0.437144
+ 0.287577   0.348744    0.635687      0.532981   0.878176    0.580042
+ 0.277305   0.807538    0.160388      0.302834   0.00836339  0.520684
+ 0.194815   0.272692    0.224837      0.875844   0.729536    0.651019
+ 0.17483    0.802175    0.437144   …  0.840818   0.434052    0.386321
+ 0.532981   0.878176    0.580042      0.0586325  0.452586    0.120649
+ 0.302834   0.00836339  0.520684      0.696803   0.0576541   0.198892
+ 0.875844   0.729536    0.651019      0.765987   0.36561     0.273251
+ 0.840818   0.434052    0.386321      0.967114   0.131947    0.338422
+ ⋮                                 ⋱
+ 0.736842   0.661048    0.486206      0.636275   0.758956    0.800839
+ 0.841722   0.610467    0.0350664     0.574568   0.0354777   0.499828
+ 0.197812   0.641603    0.218594      0.47479    0.672472    0.505853
+ 0.563301   0.7677      0.0103249     0.100759   0.394609    0.300144
+ 0.636275   0.758956    0.800839   …  0.189444   0.235386    0.190714
+ 0.574568   0.0354777   0.499828      0.758171   0.944991    0.0231962
+ 0.47479    0.672472    0.505853      0.631963   0.514197    0.777001
+ 0.100759   0.394609    0.300144      0.918166   0.795357    0.610412
+ 0.189444   0.235386    0.190714      0.674538   0.125706    0.589062
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">towel</span><span class="p">();</span> <span class="n">tr</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
 <span class="n">R</span> <span class="o">=</span> <span class="n">reconstruct</span><span class="p">(</span><span class="n">tr</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c"># Dataset size is also known by Type!</span>
 </pre></div>
 

@@ -754,7 +754,7 @@
 <p>Our implementation is not based on the original paper, but rather in the method described in [2], which uses the product of the singular values of <span><span class="MathJax_Preview">A</span><script type="math/tex">A</script></span>, a matrix that has as <em>columns</em> the deviation vectors.</p>
 <p><strong>Performance Notes</strong></p>
 <p>This function uses a <a href="../../advanced/#DynamicalSystemsBase.tangent_integrator"><code>tangent_integrator</code></a>. For loops over initial conditions and/or parameter values one should use the low level method that accepts an integrator, and <code>reinit!</code> it to new initial conditions. See the "advanced documentation" for info on the integrator object. The low level method is</p>
-<div class="codehilite"><pre><span></span>ChaosTools._gali(tinteg, tmax, dt, threshold)
+<div class="codehilite"><pre><span></span>ChaosTools.gali(tinteg, tmax, dt, threshold)
 </pre></div>
 
 

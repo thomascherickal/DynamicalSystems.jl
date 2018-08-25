@@ -685,108 +685,11 @@
 </div>
 <p><a id='Local-Model-Prediction-1'></a></p>
 <h2 id="local-model-prediction">Local Model Prediction</h2>
-<p><a id='TimeseriesPrediction.localmodel_tsp' href='#TimeseriesPrediction.localmodel_tsp'>#</a>
-<strong><code>TimeseriesPrediction.localmodel_tsp</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="nt">localmodel_tsp</span><span class="o">(</span><span class="nt">s</span><span class="o">,</span> <span class="nt">D</span><span class="p">::</span><span class="nd">Int</span><span class="o">,</span> <span class="err">τ</span><span class="o">,</span> <span class="nt">p</span><span class="p">::</span><span class="nd">Int</span><span class="o">;</span> <span class="nt">method</span><span class="o">,</span> <span class="nt">ntype</span><span class="o">,</span> <span class="nt">stepsize</span><span class="o">)</span>
-<span class="nt">localmodel_tsp</span><span class="o">(</span><span class="nt">s</span><span class="o">,</span> <span class="nt">p</span><span class="p">::</span><span class="nd">Int</span><span class="o">;</span> <span class="nt">method</span><span class="o">,</span> <span class="nt">ntype</span><span class="o">,</span> <span class="nt">stepsize</span><span class="o">)</span>
+<div class="codehilite"><pre><span></span>localmodel_tsp
+AbstractLocalModel
 </pre></div>
 
 
-<p>Perform a timeseries prediction for <code>p</code> points, using local weighted modeling [1]. The function always returns an object of the same type as <code>s</code>, which can be either a timeseries (vector) or an <code>AbstractDataset</code> (trajectory), and the returned data always contains the final point of <code>s</code> as starting point. This means that the returned data has length of <code>p + 1</code>.</p>
-<p>If given <code>(s, D, τ)</code>, then a <a href="../@ref"><code>Reconstruction</code></a> is performed on <code>s</code> with dimension <code>D</code> and delay <code>τ</code>. If given only <code>s</code> then no <a href="../@ref"><code>Reconstruction</code></a> is done. Keep in mind that the intented behavior of the algorithm is to work with a reconstruction, and not "raw" data.</p>
-<p><strong>Keyword Arguments</strong></p>
-<ul>
-<li><code>method = AverageLocalModel(ω_unsafe)</code> : Subtype of <a href="./#TimeseriesPrediction.AbstractLocalModel"><code>AbstractLocalModel</code></a>.</li>
-<li><code>ntype = FixedMassNeighborhood(2)</code> : Subtype of <a href="../../definition/dataset/#DynamicalSystemsBase.AbstractNeighborhood"><code>AbstractNeighborhood</code></a>.</li>
-<li><code>stepsize = 1</code> : Prediction step size.</li>
-</ul>
-<p><strong>Description</strong></p>
-<p>Given a query point, the function finds its neighbors using neighborhood <code>ntype</code>. Then, the neighbors <code>xnn</code> and their images <code>ynn</code> are used to make a prediction for the future of the query point, using the provided <code>method</code>. The images <code>ynn</code> are the points <code>xnn</code> shifted by <code>stepsize</code> into the future.</p>
-<p>The algorithm is applied iteratively until a prediction of length <code>p</code> has been created, starting with the query point to be the last point of the timeseries.</p>
-<p><strong>References</strong></p>
-<p>[1] : D. Engster &amp; U. Parlitz, <em>Handbook of Time Series Analysis</em> Ch. 1, VCH-Wiley (2006)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/40901292921781d1af368e550d334f4ae9822163/src/localmodeling.jl#L289-L322' class='documenter-source'>source</a><br></p>
-<p><a id='TimeseriesPrediction.AbstractLocalModel' href='#TimeseriesPrediction.AbstractLocalModel'>#</a>
-<strong><code>TimeseriesPrediction.AbstractLocalModel</code></strong> &mdash; <em>Type</em>.</p>
-<div class="codehilite"><pre><span></span>AbstractLocalModel
-</pre></div>
-
-
-<p>Supertype of methods for making a prediction of a query point <code>q</code> using local models, following the methods of [1]. Concrete subtypes are <code>AverageLocalModel</code> and <code>LinearLocalModel</code>.</p>
-<p>All models weight neighbors with a chosen function, so that distant neighbors have smaller impact on the prediction and so that the interpolation is smooth. The default weighting function we use is</p>
-<div>
-<div class="MathJax_Preview">
-\begin{aligned}
-ω_i(d_i,d_{max}) = \left[ 1- \left(\frac{d_i}{d_{max}}\right)^2\right]^4
-\end{aligned}
-</div>
-<script type="math/tex; mode=display">
-\begin{aligned}
-ω_i(d_i,d_{max}) = \left[ 1- \left(\frac{d_i}{d_{max}}\right)^2\right]^4
-\end{aligned}
-</script>
-</div>
-<p>with <span><span class="MathJax_Preview">d_i = ||x_{nn,i} -q||_2</span><script type="math/tex">d_i = ||x_{nn,i} -q||_2</script></span> being the distance of each neighbor from the query point.</p>
-<p>You can also provide your own function or give <code>ω_safe(d, dmax) = dmax &gt; 0 ? (1.1 - (d/dmax)^2)^4 : 1.0</code> for a safe version of <span><span class="MathJax_Preview">ω</span><script type="math/tex">ω</script></span> that takes into acount edge cases. Finally you can also give <code>nothing</code> in place of <code>ω</code>. In that case no weighting is done and direct average of neighbors is returned.</p>
-<p><strong>Average Local Model</strong></p>
-<div class="codehilite"><pre><span></span>AverageLocalModel(ω)
-</pre></div>
-
-
-<p>The prediction is simply the weighted average of the images <span><span class="MathJax_Preview">y_{nn, i}</span><script type="math/tex">y_{nn, i}</script></span> of the neighbors <span><span class="MathJax_Preview">x_{nn, i}</span><script type="math/tex">x_{nn, i}</script></span> of the query point <code>q</code>, weighting using given function <code>ω</code></p>
-<div>
-<div class="MathJax_Preview">
-\begin{aligned}
-y_{pred} = \frac{\sum{\omega_i y_{nn,i}}}{\sum{\omega_i}}
-\end{aligned}
-</div>
-<script type="math/tex; mode=display">
-\begin{aligned}
-y_{pred} = \frac{\sum{\omega_i y_{nn,i}}}{\sum{\omega_i}}
-\end{aligned}
-</script>
-</div>
-<p><strong>Linear Local Model</strong></p>
-<div class="codehilite"><pre><span></span>LinearLocalModel([ω ], μ::Real=2.])
-LinearLocalModel([ω ], s_min::Real, s_max::Real)
-</pre></div>
-
-
-<p>The prediction is a weighted linear regression over the neighbors <span><span class="MathJax_Preview">x_{nn, i}</span><script type="math/tex">x_{nn, i}</script></span> of the query and their images <span><span class="MathJax_Preview">y_{nn,i}</span><script type="math/tex">y_{nn,i}</script></span> as shown in [1].</p>
-<p>Giving either <code>μ</code> or <code>s_min</code> and <code>s_max</code> determines which type of regularization is applied.</p>
-<ul>
-<li>
-<p><code>μ</code> : Ridge Regression</p>
-<p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-f(\sigma) = \frac{\sigma^2}{\mu^2 + \sigma^2}
-\end{aligned}
-</script>
-  * <code>s_min</code>, <code>s_max</code> : Soft Threshold</p>
-<div>
-<div class="MathJax_Preview">
-\begin{aligned}
-f(\sigma) = \begin{cases} 0, &amp; \sigma &lt; s_{min}\\
-\left(1 - \left( \frac{s_{max}-\sigma}{s_{max}-s_{min}}\right)^2 \right)^2,
-&amp;s_{min} \leq \sigma \leq s_{max} \\
-1, &amp; \sigma &gt; s_{max}\end{cases}
-\end{aligned}
-</div>
-<script type="math/tex; mode=display">
-\begin{aligned}
-f(\sigma) = \begin{cases} 0, & \sigma < s_{min}\\
-\left(1 - \left( \frac{s_{max}-\sigma}{s_{max}-s_{min}}\right)^2 \right)^2,
-&s_{min} \leq \sigma \leq s_{max} \\
-1, & \sigma > s_{max}\end{cases}
-\end{aligned}
-</script>
-</div>
-</li>
-</ul>
-<p><strong>References</strong></p>
-<p>[1] : D. Engster &amp; U. Parlitz, <em>Handbook of Time Series Analysis</em> Ch. 1, VCH-Wiley (2006)</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/40901292921781d1af368e550d334f4ae9822163/src/localmodeling.jl#L9-L74' class='documenter-source'>source</a><br></p>
 <p><a id='D-Example-1'></a></p>
 <h2 id="1d-example">1D Example</h2>
 <p>We will predict the future of a (relatively simple) timeseries:</p>
@@ -876,33 +779,10 @@ f(\sigma) = \begin{cases} 0, & \sigma < s_{min}\\
 <p><a id='Error-Measures-1'></a></p>
 <h2 id="error-measures">Error Measures</h2>
 <p>Being able to evaluate model performance without looking at plots can be very helpful when trying to quantify its error as well as finding good parameters in the first place.</p>
-<p><a id='TimeseriesPrediction.MSEp' href='#TimeseriesPrediction.MSEp'>#</a>
-<strong><code>TimeseriesPrediction.MSEp</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="nt">MSEp</span><span class="o">(</span><span class="nt">R</span><span class="p">::</span><span class="nd">AbstractDataset</span><span class="p">{</span><span class="err">D,T</span><span class="p">}</span><span class="o">,</span> <span class="nt">R_test</span><span class="o">,</span> <span class="nt">p</span><span class="o">;</span> <span class="nt">method</span><span class="o">,</span> <span class="nt">ntype</span><span class="o">,</span> <span class="nt">stepsize</span><span class="o">)</span> <span class="nt">-</span><span class="o">&gt;</span> <span class="nt">error</span>
+<div class="codehilite"><pre><span></span>MSEp
 </pre></div>
 
 
-<p>Compute mean squared error of iterated predictions of length <code>p</code> using test set <code>R_test</code>.</p>
-<p><strong>Description</strong></p>
-<p>This error measure takes in a prediction model consisting of <code>R</code>, <code>method</code>, <code>ntype</code> and <code>stepsize</code> and evaluates its performance. The test set <code>R_test</code> is a delay reconstruction with the same delay <code>τ</code> and dimension <code>D</code> as <code>R</code>. For each subset of <code>R_test</code> with length <code>p</code> it calls <code>localmodel_tsp</code>. The model error is then defined as</p>
-<div>
-<div class="MathJax_Preview">
-\begin{aligned}
-MSE_p = \frac{1}{p|T_{ref}|}\sum_{t\in T_{ref}}\sum_{i=1}^{p} \left(y_{t+i}
-- y_{pred,t+i} \right)^2
-\end{aligned}
-</div>
-<script type="math/tex; mode=display">
-\begin{aligned}
-MSE_p = \frac{1}{p|T_{ref}|}\sum_{t\in T_{ref}}\sum_{i=1}^{p} \left(y_{t+i}
-- y_{pred,t+i} \right)^2
-\end{aligned}
-</script>
-</div>
-<p>where <span><span class="MathJax_Preview">|T_{ref}|</span><script type="math/tex">|T_{ref}|</script></span> is the number of subsets of <code>R_test</code> used.</p>
-<p><strong>References</strong></p>
-<p>See <a href="./#TimeseriesPrediction.localmodel_tsp"><code>localmodel_tsp</code></a>.</p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/40901292921781d1af368e550d334f4ae9822163/src/localmodeling.jl#L372-L394' class='documenter-source'>source</a><br></p>
 <p>Here is an example function that employs <code>MSEp</code> to find good parameters. It takes in a timeseries <code>s</code> and ranges for the dimensions, delays and number of nearest neighbors to  try. Keyword arguments are <code>valid_len</code>, which is the number of prediction steps, and <code>num_tries</code> the number of different starting points to choose.</p>
 <p>It then calculates <code>MSEp</code> for all parameter combinations and returns the best parameter set.</p>
 <div class="codehilite"><pre><span></span><span class="k">function</span> <span class="n">estimate_param</span><span class="p">(</span><span class="n">s</span><span class="o">::</span><span class="kt">AbstractVector</span><span class="p">,</span>

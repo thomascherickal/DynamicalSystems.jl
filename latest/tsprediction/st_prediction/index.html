@@ -664,88 +664,12 @@
 <p class="admonition-title">Examples</p>
 <p>Several example scripts can be found in <code>TimeseriesPrediction/examples</code>.</p>
 </div>
-<p><a id='TimeseriesPrediction.localmodel_stts' href='#TimeseriesPrediction.localmodel_stts'>#</a>
-<strong><code>TimeseriesPrediction.localmodel_stts</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="nt">localmodel_stts</span><span class="o">(</span><span class="nt">U</span><span class="p">::</span><span class="nd">AbstractVector</span><span class="p">{</span><span class="err">&lt;:AbstractArray{T,</span> <span class="err">Φ</span><span class="p">}</span><span class="err">}</span><span class="o">,</span> <span class="nt">D</span><span class="o">,</span> <span class="err">τ</span><span class="o">,</span> <span class="nt">p</span><span class="o">,</span> <span class="nt">B</span><span class="o">,</span> <span class="nt">k</span><span class="o">;</span> <span class="nt">kwargs</span><span class="o">...)</span>
+<div class="codehilite"><pre><span></span>localmodel_stts
+crosspred_stts
+STReconstruction
 </pre></div>
 
 
-<p>Perform a spatio-temporal timeseries prediction for <code>p</code> iterations, using local weighted modeling [1]. The function always returns an object of the same type as <code>U</code>, with each entry being a predicted state. The returned data always contains the final state of <code>U</code> as starting point (total returned length is <code>p+1</code>).</p>
-<p><code>(D, τ, B, k)</code> are used to make a <a href="./#TimeseriesPrediction.STReconstruction"><code>STReconstruction</code></a> on <code>U</code>. In most cases <code>k=1</code> and <code>τ=1,2,3</code> give best results.</p>
-<p><strong>Keyword Arguments</strong></p>
-<ul>
-<li><code>boundary, weighting</code> : Passed directly to <a href="./#TimeseriesPrediction.STReconstruction"><code>STReconstruction</code></a>.</li>
-<li><code>method = AverageLocalModel(ω_safe)</code> : Subtype of <a href="../localmodels/#TimeseriesPrediction.AbstractLocalModel"><code>AbstractLocalModel</code></a>.</li>
-<li><code>ntype = FixedMassNeighborhood(3)</code> : Subtype of <a href="../../definition/dataset/#DynamicalSystemsBase.AbstractNeighborhood"><code>AbstractNeighborhood</code></a>.</li>
-<li><code>printprogress = true</code> : To print progress done.</li>
-</ul>
-<p><strong>Description</strong></p>
-<p>This method works similarly to <a href="../localmodels/#TimeseriesPrediction.localmodel_tsp"><code>localmodel_tsp</code></a>, by expanding the concept of delay embedding to spatially extended systems. Instead of reconstructing complete states of the system, local states are used. This implicitely assumes a finite speed <code>c</code> at which information travels within the system as well as a sufficiently fine spatial and temporal sampling such that <span><span class="MathJax_Preview">\frac{\Delta x}{\Delta t}\sim c</span><script type="math/tex">\frac{\Delta x}{\Delta t}\sim c</script></span>. See <a href="./#TimeseriesPrediction.STReconstruction"><code>STReconstruction</code></a> for details on the embedding.</p>
-<p>Predictions are then performed frame by frame and point py point. Once all values for a new frame are found, the frame is added to the end of the timeseries and used to generate new prediction queries for the next time step.</p>
-<p><strong>Performance Notes</strong></p>
-<p>Be careful when choosing <code>B</code> as memory usage and computation time depend strongly on it.</p>
-<p><strong>References</strong></p>
-<p>[1] : U. Parlitz &amp; C. Merkwirth, <a href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.84.1890">Phys. Rev. Lett. <strong>84</strong>, pp 1890 (2000)</a></p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/40901292921781d1af368e550d334f4ae9822163/src/st_prediction.jl#L9-L46' class='documenter-source'>source</a><br></p>
-<p><a id='TimeseriesPrediction.crosspred_stts' href='#TimeseriesPrediction.crosspred_stts'>#</a>
-<strong><code>TimeseriesPrediction.crosspred_stts</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>crosspred_stts(source_train, target_train, source_pred,
-               D, τ, B, k; kwargs...)
-</pre></div>
-
-
-<p>Perform a spatio-temporal timeseries cross-prediction for <code>target</code> from <code>source</code>, using local weighted modeling [1]. This can be used for example when there are coupled spatial fields and one is used to predict the other.</p>
-<p>It is assumed that <code>source_train</code>, <code>target_train</code>, <code>source_pred</code> are all of the same type, <code>AbstractVector{&lt;:AbstractArray{T, Φ}}</code>.</p>
-<p><code>(D, τ, B, k)</code> are used to make a <a href="./#TimeseriesPrediction.STReconstruction"><code>STReconstruction</code></a> on <code>source_train</code>. In most cases <code>k=1</code> and <code>τ=1,2,3</code> give best results.</p>
-<p><strong>Keyword Arguments</strong></p>
-<ul>
-<li><code>boundary, weighting</code> : Passed directly to <a href="./#TimeseriesPrediction.STReconstruction"><code>STReconstruction</code></a>.</li>
-<li><code>method = AverageLocalModel(ω_safe)</code> : Subtype of <a href="../localmodels/#TimeseriesPrediction.AbstractLocalModel"><code>AbstractLocalModel</code></a>.</li>
-<li><code>ntype = FixedMassNeighborhood(3)</code> : Subtype of <a href="../../definition/dataset/#DynamicalSystemsBase.AbstractNeighborhood"><code>AbstractNeighborhood</code></a>.</li>
-<li><code>printprogress = true</code> : To print progress done.</li>
-</ul>
-<p><strong>Description</strong></p>
-<p>The reconstructed state of <code>source_train[t][i,j,...]</code> is associated with the output value <code>target_train[t][i,j,...]</code>. This establishes a "connection" between <code>target</code> and <code>source</code>.</p>
-<p>Taking a reconstructed state of <code>source_pred</code> as query point, the function finds its neighbors in the reconstructed space of <code>source_train</code> using neighborhood <code>ntype</code>. Then, the neighbor <em>indices</em> are used to make a prediction for the corresponding value of the <code>target</code>, using the established "connection" between fields (from the training data).</p>
-<p>The algorithm is applied for all points in space and time of <code>pred_in</code> minus the first <code>(D-1)τ</code> states that are needed for reconstruction.</p>
-<p><strong>Performance Notes</strong></p>
-<p>Be careful when choosing <code>B</code> as memory usage and computation time depend strongly on it.</p>
-<p><strong>References</strong></p>
-<p>[1] : U. Parlitz &amp; C. Merkwirth, <a href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.84.1890">Phys. Rev. Lett. <strong>84</strong>, pp 1890 (2000)</a></p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/40901292921781d1af368e550d334f4ae9822163/src/st_prediction.jl#L102-L142' class='documenter-source'>source</a><br></p>
-<p><a id='TimeseriesPrediction.STReconstruction' href='#TimeseriesPrediction.STReconstruction'>#</a>
-<strong><code>TimeseriesPrediction.STReconstruction</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>STReconstruction(U::AbstractVector{&lt;:AbstractArray}, D, τ, B, k, boundary, weighting)
- &lt;: AbstractDataset
-</pre></div>
-
-
-<p>Perform spatio-temporal(ST) delay-coordinates reconstruction from a ST-timeseries <code>s</code>.</p>
-<p><strong>Description</strong></p>
-<p>An extension of <a href="../@ref"><code>Reconstruction</code></a> to support inclusion of spatial neighbors into reconstructed vectors. <code>B</code> is the number of spatial neighbors along each direction to be included. The parameter <code>k</code> indicates the spatial sampling density as described in [1].</p>
-<p>To better understand <code>B</code>, consider a system of 2 spatial dimensions, where the state is a <code>Matrix</code>, and choose a point of the matrix to reconstruct. Giving <code>B = 1</code> will choose the current point and 8 points around it, <em>not</em> 4! For <code>Φ</code> dimensions, the number of spatial points is then given by <code>(2B + 1)^Φ</code>. Temporal embedding via <code>D</code> and <code>τ</code> is treated analogous to <a href="../@ref"><code>Reconstruction</code></a>. Therefore the total embedding dimension is <code>D*(2B + 1)^Φ</code>.</p>
-<p><strong>Other Parameters</strong></p>
-<ul>
-<li><code>boundary = 20</code> : Constant boundary value used for reconstruction of states close to the border. Pass <code>false</code> for periodic boundary conditions.</li>
-<li>
-<p><code>weighting = (a,b)</code> or <code>nothing</code> : If given numbers <code>(a, b)</code>, adds <code>Φ</code> additional entries to reconstructed states. These are a spatial weighting that may be useful for considering spatially inhomogenous dynamics. Each entry is a normalized spatial coordinate <span><span class="MathJax_Preview">-1\leq\tilde{x}\leq 1</span><script type="math/tex">-1\leq\tilde{x}\leq 1</script></span>:</p>
-<div>
-<div class="MathJax_Preview">
-\begin{aligned}
-\omega(\tilde{x}) = a \tilde{x} ^ b.
-\end{aligned}
-</div>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\omega(\tilde{x}) = a \tilde{x} ^ b.
-\end{aligned}
-</script>
-</div>
-</li>
-</ul>
-<p><strong>References</strong></p>
-<p>[1] : U. Parlitz &amp; C. Merkwirth, <a href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.84.1890">Phys. Rev. Lett. <strong>84</strong>, pp 1890 (2000)</a></p>
-<p><a target='_blank' href='https://github.com/JuliaDynamics/TimeseriesPrediction.jl/blob/40901292921781d1af368e550d334f4ae9822163/src/streconstruction.jl#L106-L142' class='documenter-source'>source</a><br></p>
 <p><a id='Showcasing-Results-1'></a></p>
 <h2 id="showcasing-results">Showcasing Results</h2>
 <p><a id='Chaotic-Barkley-Model-cross-prediction-1'></a></p>

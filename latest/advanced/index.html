@@ -507,79 +507,9 @@
       
     
     
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Advanced Documentation
-      </label>
-    
     <a href="./" title="Advanced Documentation" class="md-nav__link md-nav__link--active">
       Advanced Documentation
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#integrators" title="Integrators" class="md-nav__link">
-    Integrators
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#integrator-state-functions" title="Integrator state functions" class="md-nav__link">
-    Integrator state functions
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#re-initializing-an-integrator" title="Re-initializing an integrator" class="md-nav__link">
-    Re-initializing an integrator
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#re-init-of-continuous-tangent-integrator" title="Re-init of continuous tangent integrator" class="md-nav__link">
-    Re-init of continuous tangent integrator
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#re-init-of-discrete-parallel-integrator" title="Re-init of discrete parallel integrator" class="md-nav__link">
-    Re-init of discrete parallel integrator
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dynamicalsystem-implementation" title="DynamicalSystem implementation" class="md-nav__link">
-    DynamicalSystem implementation
-  </a>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
-</nav>
     
   </li>
 
@@ -625,63 +555,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#integrators" title="Integrators" class="md-nav__link">
-    Integrators
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#integrator-state-functions" title="Integrator state functions" class="md-nav__link">
-    Integrator state functions
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#re-initializing-an-integrator" title="Re-initializing an integrator" class="md-nav__link">
-    Re-initializing an integrator
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#re-init-of-continuous-tangent-integrator" title="Re-init of continuous tangent integrator" class="md-nav__link">
-    Re-init of continuous tangent integrator
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#re-init-of-discrete-parallel-integrator" title="Re-init of discrete parallel integrator" class="md-nav__link">
-    Re-init of discrete parallel integrator
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dynamicalsystem-implementation" title="DynamicalSystem implementation" class="md-nav__link">
-    DynamicalSystem implementation
-  </a>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -698,6 +571,10 @@
                 <p><a id='Advanced-documentation-1'></a></p>
 <h1 id="advanced-documentation">Advanced documentation</h1>
 <p>This section overviews the various integrators available from <code>DynamicalSystemsBase</code>, as well as gives some insight into the internals, so that other developers that want to use this library can build upon it.</p>
+<p><a id='ADD-CALLBACK-EXAMPLE-1'></a></p>
+<h1 id="add-callback-example">ADD CALLBACK EXAMPLE</h1>
+<p><a id='ADD-SPARSE-JACOBIAN-IN-CSM-1'></a></p>
+<h1 id="add-sparse-jacobian-in-csm">ADD SPARSE JACOBIAN IN CSM</h1>
 <p><a id='Integrators-1'></a></p>
 <h2 id="integrators">Integrators</h2>
 <p><a id='DynamicalSystemsBase.integrator' href='#DynamicalSystemsBase.integrator'>#</a>
@@ -713,7 +590,7 @@
 </ul>
 <p><a id='DynamicalSystemsBase.parallel_integrator' href='#DynamicalSystemsBase.parallel_integrator'>#</a>
 <strong><code>DynamicalSystemsBase.parallel_integrator</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="nt">parallel_integrator</span><span class="o">(</span><span class="nt">ds</span><span class="p">::</span><span class="nd">DynamicalSystem</span><span class="o">,</span> <span class="nt">states</span><span class="o">;</span> <span class="nt">diff_eq_kwargs</span><span class="o">)</span>
+<div class="codehilite"><pre><span></span><span class="nt">parallel_integrator</span><span class="o">(</span><span class="nt">ds</span><span class="p">::</span><span class="nd">DynamicalSystem</span><span class="o">,</span> <span class="nt">states</span><span class="o">;</span> <span class="nt">kwargs</span><span class="o">...)</span>
 </pre></div>
 
 
@@ -721,7 +598,6 @@
 <p><code>states</code> are expected as vectors of vectors.</p>
 <p><strong>Keyword Arguments</strong></p>
 <ul>
-<li><code>u0, t0</code> : Optional different initial state and time.</li>
 <li><code>diffeq...</code> : Keyword arguments propagated into <code>init</code> of DifferentialEquations.jl. See <a href="../definition/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> for examples. Only valid for continuous systems. These keywords can also include <code>callback</code> for <a href="http://docs.juliadiffeq.org/latest/features/callback_functions.html">event handling</a>.</li>
 </ul>
 <p>It is <em>heavily</em> advised to use the functions <a href="./#DynamicalSystemsBase.get_state"><code>get_state</code></a> and <a href="./#DynamicalSystemsBase.set_state!"><code>set_state!</code></a> to manipulate the integrator. Provide <code>i</code> as a second argument to change the <code>i</code>-th state.</p>
@@ -798,19 +674,20 @@
 
 <p>Set the deviation vectors of the <a href="./#DynamicalSystemsBase.tangent_integrator"><code>tangent_integrator</code></a> to <code>Q</code>, which must be a matrix with each column being a deviation vector.</p>
 <p>Automatically does <code>u_modified!(tang_integ, true)</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>These functions work with <em>any</em> possible integrator and it is best to use the to change states robustly!</p>
+</div>
 <p><a id='Re-initializing-an-integrator-1'></a></p>
 <h2 id="re-initializing-an-integrator">Re-initializing an integrator</h2>
 <p>It is more efficient to re-initialize an integrator using <code>reinit!</code> than to create a new one. This can be very helpful when looping over initial conditions and/or parameter values.</p>
-<p>All high-level functions from <code>ChaosTools</code> have a set-up part that creates an integrator, and a low-level part that does the computation.</p>
-<p>The low level part is your friend! Use it! See the <a href="../chaos/chaos_detection/#using-gali">Using <code>gali</code></a> page for an example.</p>
+<p>All high-level functions from <code>ChaosTools</code> have a set-up part that creates an integrator, and a low-level part that does the computation. The low level part is your friend! Use it! See the <a href="../chaos/chaos_detection/#using-gali">Using <code>gali</code></a> page for an example as well as the section below.</p>
 <p>The <code>reinit!</code> call signature is the same for continuous and discrete systems. In the following, <code>state</code> is supposed to be a <code>D</code> dimensional vector (state of the dynamical system).</p>
 <ol>
 <li><code>reinit!(integ, state)</code> : to be used with standard <a href="./#DynamicalSystemsBase.integrator"><code>integrator</code></a>.</li>
 <li><code>reinit!(integ, Vector_of_states)</code> : to be used with the <a href="./#DynamicalSystemsBase.parallel_integrator"><code>parallel_integrator</code></a>.</li>
 <li><code>reinit!(integ, state, Q0::AbstractMatrix)</code> : to be used with the <a href="./#DynamicalSystemsBase.tangent_integrator"><code>tangent_integrator</code></a>. This three argument version of <code>reinit!</code> is exported from <code>DynamicalSystemsBase</code>.</li>
 </ol>
-<p>See below for a couple of examples.</p>
 <p><a id='Re-init-of-continuous-tangent-integrator-1'></a></p>
 <h3 id="re-init-of-continuous-tangent-integrator">Re-init of continuous tangent integrator</h3>
 <p>Here we compute the <a href="../chaos/lyapunovs/#ChaosTools.lyapunovs"><code>lyapunovs</code></a> for many different initial conditions.</p>
@@ -819,8 +696,8 @@
 <span class="n">ics</span> <span class="o">=</span> <span class="p">[</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="mi">100</span><span class="p">]</span>
 <span class="k">for</span> <span class="n">ic</span> <span class="kp">in</span> <span class="n">ics</span>
   <span class="n">reinit!</span><span class="p">(</span><span class="n">tinteg</span><span class="p">,</span> <span class="n">ic</span><span class="p">,</span> <span class="n">orthonormal</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-  <span class="n">λ</span> <span class="o">=</span> <span class="n">ChaosTools</span><span class="o">.</span><span class="n">_lyapunovs</span><span class="p">(</span><span class="n">tinteg</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">)</span>
-  <span class="c"># reminder: _lyapunovs(integ, N, dt::Real, Ttr::Real = 0.0)</span>
+  <span class="n">λ</span> <span class="o">=</span> <span class="n">lyapunovs</span><span class="p">(</span><span class="n">tinteg</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">)</span>
+  <span class="c"># reminder: lyapunovs(tinteg, N, dt::Real, Ttr::Real = 0.0)</span>
 <span class="k">end</span>
 </pre></div>
 
@@ -835,8 +712,8 @@
 <span class="k">for</span> <span class="n">p</span> <span class="kp">in</span> <span class="n">ps</span>
   <span class="n">set_parameter!</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
   <span class="n">reinit!</span><span class="p">(</span><span class="n">pinteg</span><span class="p">,</span> <span class="p">[</span><span class="n">u0</span><span class="p">,</span> <span class="n">u0</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="n">rand</span><span class="p">(</span><span class="n">SVector</span><span class="p">{</span><span class="mi">2</span><span class="p">})])</span>
-  <span class="n">λ</span> <span class="o">=</span> <span class="n">ChaosTools</span><span class="o">.</span><span class="n">_lyapunov</span><span class="p">(</span><span class="n">pinteg</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1e-9</span><span class="p">,</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="mf">1e-12</span><span class="p">)</span>
-  <span class="c"># reminder: _lyapunov(pinteg, T, Ttr, dt, d0, ut, lt)</span>
+  <span class="n">λ</span> <span class="o">=</span> <span class="n">lyapunov</span><span class="p">(</span><span class="n">pinteg</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1e-9</span><span class="p">,</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="mf">1e-12</span><span class="p">)</span>
+  <span class="c"># reminder: lyapunov(pinteg, T, Ttr, dt, d0, ut, lt)</span>
 <span class="k">end</span>
 </pre></div>
 

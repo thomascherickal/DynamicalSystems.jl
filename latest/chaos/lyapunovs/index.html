@@ -655,10 +655,16 @@
 <p>The method we employ is "H2" of [2], originally stated in [3]. The deviation vectors defining a <code>D</code>-dimensional parallepiped in tangent space are evolved using the tangent dynamics of the system. A QR-decomposition at each step yields the local growth rate for each dimension of the parallepiped. The growth rates are then averaged over <code>N</code> successive steps, yielding the lyapunov exponent spectrum (at each step the parallepiped is re-normalized).</p>
 <p><strong>Performance Notes</strong></p>
 <p>This function uses a <a href="../../advanced/#DynamicalSystemsBase.tangent_integrator"><code>tangent_integrator</code></a>. For loops over initial conditions and/or parameter values one should use the low level method that accepts an integrator, and <code>reinit!</code> it to new initial conditions. See the "advanced documentation" for info on the integrator object. The low level method is</p>
-<div class="codehilite"><pre><span></span>ChaosTools._lyapunovs(tinteg, N, dt::Real, Ttr::Real)
+<div class="codehilite"><pre><span></span>lyapunovs(tinteg, N, dt::Real, Ttr::Real)
 </pre></div>
 
 
+<p>If you want to obtain the convergence timeseries of the Lyapunov spectrum, use the method</p>
+<div class="codehilite"><pre><span></span>ChaosTools.lyapunovs_convergence(tinteg, N, dt, Ttr)
+</pre></div>
+
+
+<p>(not exported).</p>
 <p><strong>References</strong></p>
 <p>[1] : A. M. Lyapunov, <em>The General Problem of the Stability of Motion</em>, Taylor &amp; Francis (1992)</p>
 <p>[2] : K. Geist <em>et al.</em>, Progr. Theor. Phys. <strong>83</strong>, pp 875 (1990)</p>
@@ -673,9 +679,9 @@
 
 
 <div class="codehilite"><pre><span></span>3-element Array{Float64,1}:
-  0.4324076735666662
-  0.3721281445804245
- -3.2969081124384028
+  0.43245221776343734
+  0.37208449635837554
+ -3.296909008413125
 </pre></div>
 
 
@@ -686,9 +692,9 @@
 
 
 <div class="codehilite"><pre><span></span>3-element Array{Float64,1}:
-   0.9898605553942086
-  -0.0018576118959201238
- -14.654669609837272
+   0.9894340182765696
+  -0.0006307466775980561
+ -14.655469937936761
 </pre></div>
 
 
@@ -738,7 +744,7 @@
 </div>
 <p><strong>Performance Notes</strong></p>
 <p>This function uses a <a href="../../advanced/#DynamicalSystemsBase.parallel_integrator"><code>parallel_integrator</code></a>. For loops over initial conditions and/or parameter values one should use the low level method that accepts an integrator, and <code>reinit!</code> it to new initial conditions. See the "advanced documentation" for info on the integrator object. The low level method is</p>
-<div class="codehilite"><pre><span></span>ChaosTools._lyapunov(pinteg, T, Ttr, dt, d0, ut, lt)
+<div class="codehilite"><pre><span></span>lyapunov(pinteg, T, Ttr, dt, d0, ut, lt)
 </pre></div>
 
 
