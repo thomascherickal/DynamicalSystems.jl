@@ -701,14 +701,14 @@
 <h1 id="nonlinear-timeseries-analysis">Nonlinear Timeseries Analysis</h1>
 <p><a id='Estimating-Reconstruction-Parameters-1'></a></p>
 <h2 id="estimating-reconstruction-parameters">Estimating Reconstruction Parameters</h2>
-<p>The following functions can estimate good values that can be used in <a href="../@ref"><code>reconstruct</code></a> for either the delay time or the dimension.</p>
+<p>The following functions can estimate good values that can be used in <a href="../../definition/reconstruction/#DynamicalSystemsBase.reconstruct"><code>reconstruct</code></a> for either the delay time or the dimension.</p>
 <p><a id='ChaosTools.estimate_delay' href='#ChaosTools.estimate_delay'>#</a>
 <strong><code>ChaosTools.estimate_delay</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>estimate_delay(s, method::String) -&gt; τ
 </pre></div>
 
 
-<p>Estimate an optimal delay to be used in <a href="../@ref"><code>reconstruct</code></a>. Return the exponential decay time <code>τ</code> rounded to an integer.</p>
+<p>Estimate an optimal delay to be used in <a href="../../definition/reconstruction/#DynamicalSystemsBase.reconstruct"><code>reconstruct</code></a>. Return the exponential decay time <code>τ</code> rounded to an integer.</p>
 <p>The <code>method</code> can be one of the following:</p>
 <ul>
 <li><code>"first_zero"</code> : find first delay at which the auto-correlation function becomes 0.</li>
@@ -729,7 +729,7 @@
 </pre></div>
 
 
-<p>Compute a quantity that can estimate an optimal amount of temporal neighbors <code>D</code> to be used in <a href="../@ref"><code>reconstruct</code></a>.</p>
+<p>Compute a quantity that can estimate an optimal amount of temporal neighbors <code>D</code> to be used in <a href="../../definition/reconstruction/#DynamicalSystemsBase.reconstruct"><code>reconstruct</code></a>.</p>
 <p><strong>Description</strong></p>
 <p>Given the scalar timeseries <code>s</code> and the embedding delay <code>τ</code> compute the values of <code>E₁</code> for each <code>D ∈ Ds</code>, according to Cao's Method (eq. 3 of [1]). Please be aware that in <strong>DynamicalSystems.jl</strong> <code>D</code> stands for the amount of temporal neighbors, <em>not</em> the dimension as in [1]. The dimension is <code>D+1</code>.</p>
 <p>Return the vector of all computed <code>E₁</code>s. To estimate a good value for <code>D</code> from this, find <code>D</code> for which the value <code>E₁</code> saturates at some value around 1.</p>
@@ -751,7 +751,7 @@
 <hr />
 <p><a id='Numerical-Lyapunov-Exponent-1'></a></p>
 <h2 id="numerical-lyapunov-exponent">Numerical Lyapunov Exponent</h2>
-<p>Given any timeseries, one can first <a href="../@ref"><code>reconstruct</code></a> it using delay coordinates, and then calculate a maximum Lyapunov exponent for it. This is done with</p>
+<p>Given any timeseries, one can first <a href="../../definition/reconstruction/#DynamicalSystemsBase.reconstruct"><code>reconstruct</code></a> it using delay coordinates, and then calculate a maximum Lyapunov exponent for it. This is done with</p>
 <p><a id='ChaosTools.numericallyapunov' href='#ChaosTools.numericallyapunov'>#</a>
 <strong><code>ChaosTools.numericallyapunov</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span><span class="nt">numericallyapunov</span><span class="o">(</span><span class="nt">R</span><span class="p">::</span><span class="nd">Dataset</span><span class="o">,</span> <span class="nt">ks</span><span class="o">;</span>  <span class="nt">refstates</span><span class="o">,</span> <span class="nt">w</span><span class="o">,</span> <span class="nt">distance</span><span class="o">,</span> <span class="nt">ntype</span><span class="o">)</span>
@@ -984,7 +984,7 @@ x_{N-d+1} & x_{N-d+2} &\ldots & x_N
 </pre></div>
 
 
-<p>Now let's simply compare the above result with the one you get from doing a "standard" call to <a href="../@ref"><code>reconstruct</code></a>:</p>
+<p>Now let's simply compare the above result with the one you get from doing a "standard" call to <a href="../../definition/reconstruction/#DynamicalSystemsBase.reconstruct"><code>reconstruct</code></a>:</p>
 <div class="codehilite"><pre><span></span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 <span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">U</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">U</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>

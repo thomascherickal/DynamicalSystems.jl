@@ -550,8 +550,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#dynamicalsystems-v10-julia-07-release" title="DynamicalSystems v1.0 - Julia 0.7 release" class="md-nav__link">
-    DynamicalSystems v1.0 - Julia 0.7 release
+  <a href="#dynamicalsystems-v10-julia-10-release" title="DynamicalSystems v1.0 - Julia 1.0 release" class="md-nav__link">
+    DynamicalSystems v1.0 - Julia 1.0 release
   </a>
   
 </li>
@@ -602,13 +602,6 @@
           <li class="md-nav__item">
   <a href="#gains" title="Gains" class="md-nav__link">
     Gains
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#still-need-to-be-done" title="Still need to be done" class="md-nav__link">
-    Still need to be done
   </a>
   
 </li>
@@ -650,8 +643,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#dynamicalsystems-v10-julia-07-release" title="DynamicalSystems v1.0 - Julia 0.7 release" class="md-nav__link">
-    DynamicalSystems v1.0 - Julia 0.7 release
+  <a href="#dynamicalsystems-v10-julia-10-release" title="DynamicalSystems v1.0 - Julia 1.0 release" class="md-nav__link">
+    DynamicalSystems v1.0 - Julia 1.0 release
   </a>
   
 </li>
@@ -706,13 +699,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#still-need-to-be-done" title="Still need to be done" class="md-nav__link">
-    Still need to be done
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -739,8 +725,8 @@
                 
                 <p><a id='News-1'></a></p>
 <h1 id="news">News</h1>
-<p><a id='DynamicalSystems-v1.0-Julia-0.7-release-1'></a></p>
-<h2 id="dynamicalsystems-v10-julia-07-release">DynamicalSystems v1.0 - Julia 0.7 release</h2>
+<p><a id='DynamicalSystems-v1.0-Julia-1.0-release-1'></a></p>
+<h2 id="dynamicalsystems-v10-julia-10-release">DynamicalSystems v1.0 - Julia 1.0 release</h2>
 <p>All support for any Julia version before 0.7 is dropped.</p>
 <p>Please be sure to check out the <code>CHANGELOG.md</code> files of the individual repositories. There all changes are listed in detail. Here we note only the most important ones.</p>
 <ul>
@@ -758,10 +744,10 @@
 <p>The first available method is <code>localmodel_tsp</code> that uses local averages! See the new documentation page for more!</p>
 <p><a id='Cao's-Method-1'></a></p>
 <h2 id="caos-method">Cao's Method</h2>
-<p>With <code>ChaosTools v0.8.0</code>, the well-known method for estimating dimension for a <a href="../@ref"><code>Reconstruction</code></a> is now implemented and exported! See <a href="../chaos/nlts/#ChaosTools.estimate_dimension"><code>estimate_dimension</code></a>.</p>
+<p>With <code>ChaosTools v0.8.0</code>, the well-known method for estimating dimension for a <code>Reconstruction</code> is now implemented and exported! See <code>estimate_dimension</code>.</p>
 <p><a id='Multi-time,-Multi-Diensional-Reconstructions-1'></a></p>
 <h2 id="multi-time-multi-diensional-reconstructions">Multi-time, Multi-Diensional Reconstructions</h2>
-<p>With the latest version of <code>DynamicalSystemsBase v0.8.0</code> we now have the possibility for both multi-time and multi-dimensional delay reconstructions! The new documentation string for <a href="../@ref"><code>Reconstruction</code></a> has all the relevant information.</p>
+<p>With the latest version of <code>DynamicalSystemsBase v0.8.0</code> we now have the possibility for both multi-time and multi-dimensional delay reconstructions! The new documentation string for <code>Reconstruction</code> has all the relevant information.</p>
 <p><a id='Release-v0.11.0-1'></a></p>
 <h2 id="release-v0110">Release v0.11.0</h2>
 <p>With new version v0.11.0 for <strong>DynamicalSytems.jl</strong> (<code>DynamicalSystemsBase</code> and <code>ChaosTools</code> at version 0.6) we have some major improvements of the library all around. Here I list the syntactic changes, the internal changes, the prospect for other developers and the gains we have from making all these changes!</p>
@@ -797,7 +783,7 @@
 <h3 id="internal-changes-prospects">Internal changes &amp; Prospects</h3>
 <p>The internals of <code>DynamicalSystemsBase</code> have been completely re-worked from the ground up. Here are the highlights:</p>
 <ul>
-<li>All <a href="../definition/general/#DynamicalSystemsBase.DynamicalSystem"><code>DynamicalSystem</code></a> objects are immutable, and contain a problem <code>prob</code> the jacobian function and an initialized Jacobian matrix.</li>
+<li>All <code>DynamicalSystem</code> objects are immutable, and contain a problem <code>prob</code> the jacobian function and an initialized Jacobian matrix.</li>
 <li>All functions that use a <code>DynamicalSystem</code> have changed behavior. The way the functions work now is that when given a <code>DynamicalSystem</code> the create an appropriate <em>integrator</em> from it. Then we use <code>step!(integrator, dt)</code> and use the integrator state to perform calculations.</li>
 <li>
 <p>Eight possible system types are now available:</p>
@@ -812,9 +798,9 @@
 <li>
 <p>Three low-lever integrator constructing functions are available, that only need a <code>DynamicalSystem</code> and (optionally) an initial state:</p>
 <ol>
-<li><a href="../advanced/#DynamicalSystemsBase.integrator"><code>integrator</code></a> for "normal" integration of a system.</li>
-<li><a href="../advanced/#DynamicalSystemsBase.tangent_integrator"><code>tangent_integrator</code></a> for integration of a state and deviation vectors (that live on the tangent space).</li>
-<li><a href="../advanced/#DynamicalSystemsBase.parallel_integrator"><code>parallel_integrator</code></a> for integrating in "parallel" a number of states. Notice that the states are integrated at <em>exact</em> same times, even for continuous systems.</li>
+<li><code>integrator</code> for "normal" integration of a system.</li>
+<li><code>tangent_integrator</code> for integration of a state and deviation vectors (that live on the tangent space).</li>
+<li><code>parallel_integrator</code> for integrating in "parallel" a number of states. Notice that the states are integrated at <em>exact</em> same times, even for continuous systems.</li>
 </ol>
 </li>
 <li>
@@ -850,10 +836,6 @@ using BenchmarkTools
 228.265 μs (176 allocations: 11.28 KiB)</code></p>
 </li>
 </ul>
-<p><a id='Still-need-to-be-done-1'></a></p>
-<h3 id="still-need-to-be-done">Still need to be done</h3>
-<p>We still need to create higher level functions like <code>set_state!</code> or <code>set_deviations!</code> that set the state or deviation vectors on the integrator. These functions will use multiple dispatch and thus work for all 24 combinations.</p>
-<p>At the moment a "sloppy" implementation for everything is present in the source code of <code>ChaosTools</code>, but this can be massively reduced into well-thought functions and multiple dispatch usage.</p>
                 
                   
                 

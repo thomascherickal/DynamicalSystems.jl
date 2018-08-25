@@ -553,10 +553,64 @@
                 
                 <p>A timeseries recorded in some manner from a dynamical system can be used to gain information about the dynamics of the entire phase-space of the system. This can be done by reconstructing a new phase-space from the timeseries. One method that can do this is what is known as <a href="https://en.wikipedia.org/wiki/Takens%27_theorem">delay coordinates embedding</a> or delay coordinates <em>reconstruction</em>.</p>
 <p>This is done through the <code>reconstruct</code> interface:</p>
-<div class="codehilite"><pre><span></span>reconstruct
+<p><a id='DynamicalSystemsBase.reconstruct' href='#DynamicalSystemsBase.reconstruct'>#</a>
+<strong><code>DynamicalSystemsBase.reconstruct</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>reconstruct(s, D, τ)
 </pre></div>
 
 
+<p>Reconstruct <code>s</code> using the delay coordinates embedding with <code>D</code> temporal neighbors and delay <code>τ</code> and return the result as a <a href="../dataset/#DynamicalSystemsBase.Dataset"><code>Dataset</code></a>.</p>
+<p><strong>Description</strong></p>
+<p><strong>Single Timeseries</strong></p>
+<p>If <code>τ</code> is an integer, then the <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>-th entry of the embedded space is</p>
+<div>
+<div class="MathJax_Preview">
+(s(n), s(n+\tau), s(n+2\tau), \dots, s(n+D\tau))
+</div>
+<script type="math/tex; mode=display">
+(s(n), s(n+\tau), s(n+2\tau), \dots, s(n+D\tau))
+</script>
+</div>
+<p>If instead <code>τ</code> is a vector of integers, so that <code>length(τ) == D</code>, then the <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>-th entry is</p>
+<div>
+<div class="MathJax_Preview">
+(s(n), s(n+\tau[1]), s(n+\tau[2]), \dots, s(n+\tau[D]))
+</div>
+<script type="math/tex; mode=display">
+(s(n), s(n+\tau[1]), s(n+\tau[2]), \dots, s(n+\tau[D]))
+</script>
+</div>
+<p>The reconstructed dataset can have same invariant quantities (like e.g. lyapunov exponents) with the original system that the timeseries were recorded from, for proper <code>D</code> and <code>τ</code> [1, 2]. The case of different delay times allows reconstructing systems with many time scales, see [3].</p>
+<p><em>Notice</em> - The dimension of the returned dataset is <code>D+1</code>!</p>
+<p><strong>Multiple Timeseries</strong></p>
+<p>To make a reconstruction out of a multiple timeseries (i.e. trajectory) the number of timeseries must be known by type, so <code>s</code> can be either:</p>
+<ul>
+<li><code>s::AbstractDataset{B}</code></li>
+<li><code>s::SizedAray{A, B}</code></li>
+</ul>
+<p>If the trajectory is for example <span><span class="MathJax_Preview">(x, y)</span><script type="math/tex">(x, y)</script></span> and <code>τ</code> is integer, then the <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>-th entry of the embedded space is</p>
+<div>
+<div class="MathJax_Preview">
+(x(n), y(n), x(n+\tau), y(n+\tau), \dots, x(n+D\tau), y(n+D\tau))
+</div>
+<script type="math/tex; mode=display">
+(x(n), y(n), x(n+\tau), y(n+\tau), \dots, x(n+D\tau), y(n+D\tau))
+</script>
+</div>
+<p>If <code>τ</code> is an <code>AbstractMatrix{Int}</code>, so that <code>size(τ) == (D, B)</code>, then we have</p>
+<div>
+<div class="MathJax_Preview">
+(x(n), y(n), x(n+\tau[1, 1]), y(n+\tau[1, 2]), \dots, x(n+\tau[D, 1]), y(n+\tau[D, 2]))
+</div>
+<script type="math/tex; mode=display">
+(x(n), y(n), x(n+\tau[1, 1]), y(n+\tau[1, 2]), \dots, x(n+\tau[D, 1]), y(n+\tau[D, 2]))
+</script>
+</div>
+<p><em>Notice</em> - The dimension of the returned dataset is <code>(D+1)*B</code>!</p>
+<p><strong>References</strong></p>
+<p>[1] : F. Takens, <em>Detecting Strange Attractors in Turbulence — Dynamical Systems and Turbulence</em>, Lecture Notes in Mathematics <strong>366</strong>, Springer (1981)</p>
+<p>[2] : T. Sauer <em>et al.</em>, J. Stat. Phys. <strong>65</strong>, pp 579 (1991)</p>
+<p>[3] : K. Judd &amp; A. Mees, <a href="https://www.sciencedirect.com/science/article/pii/S0167278997001188">Physica D <strong>120</strong>, pp 273 (1998)</a></p>
 <hr />
 <p>Here are some examples of <code>reconstruct</code>ing a 3D continuous chaotic system:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span><span class="p">,</span> <span class="n">PyPlot</span>
@@ -599,26 +653,26 @@
 
 
 <div class="codehilite"><pre><span></span>9-dimensional Dataset{Float64} with 996 points
- 0.615021   0.686143   0.0912158  0.894083  …  0.374757  0.86011    0.334998
- 0.0291731  0.210298   0.71801    0.875312     0.333367  0.863953   0.871769
- 0.894083   0.503674   0.612526   0.374757     0.492444  0.678202   0.407475
- 0.875312   0.479965   0.971988   0.333367     0.282617  0.0409796  0.476259
- 0.374757   0.86011    0.334998   0.492444     0.843712  0.33855    0.952008
- 0.333367   0.863953   0.871769   0.282617  …  0.371288  0.264353   0.697463
- 0.492444   0.678202   0.407475   0.843712     0.710815  0.995956   0.571543
- 0.282617   0.0409796  0.476259   0.371288     0.454837  0.875136   0.253167
- 0.843712   0.33855    0.952008   0.710815     0.459463  0.372467   0.369611
- 0.371288   0.264353   0.697463   0.454837     0.232158  0.531111   0.74219
- ⋮                                          ⋱
- 0.367055   0.950706   0.754887   0.763403     0.860683  0.739077   0.259169
- 0.0165831  0.49599    0.682624   0.903215     0.615137  0.76335    0.977951
- 0.763403   0.517663   0.44282    0.860683     0.350867  0.232189   0.590018
- 0.903215   0.634424   0.649072   0.615137     0.079696  0.765209   0.963572
- 0.860683   0.739077   0.259169   0.350867  …  0.955986  0.69418    0.932029
- 0.615137   0.76335    0.977951   0.079696     0.129825  0.0384578  0.751767
- 0.350867   0.232189   0.590018   0.955986     0.919758  0.459974   0.550066
- 0.079696   0.765209   0.963572   0.129825     0.802343  0.206173   0.179733
- 0.955986   0.69418    0.932029   0.919758     0.892711  0.103798   0.290669
+ 0.105101    0.911459   0.114351   …  0.495493   0.854847   0.0425605
+ 0.587036    0.559314   0.874185      0.632425   0.846556   0.548421
+ 0.936302    0.274351   0.56526       0.406511   0.861713   0.0605405
+ 0.640925    0.495416   0.926175      0.580868   0.206203   0.962293
+ 0.495493    0.854847   0.0425605     0.0856236  0.659353   0.881396
+ 0.632425    0.846556   0.548421   …  0.0556795  0.590137   0.948338
+ 0.406511    0.861713   0.0605405     0.191332   0.0201631  0.762504
+ 0.580868    0.206203   0.962293      0.0432954  0.413723   0.591684
+ 0.0856236   0.659353   0.881396      0.538427   0.138499   0.426354
+ 0.0556795   0.590137   0.948338      0.242189   0.833491   0.0856057
+ ⋮                                 ⋱
+ 0.738565    0.602884   0.176401      0.90384    0.264284   0.511504
+ 0.841272    0.606236   0.978527      0.471365   0.589534   0.249931
+ 0.462939    0.983617   0.909472      0.914893   0.0176881  0.615098
+ 0.00960589  0.374268   0.114872      0.494639   0.700387   0.627791
+ 0.90384     0.264284   0.511504   …  0.133194   0.352641   0.59797
+ 0.471365    0.589534   0.249931      0.992905   0.53398    0.367074
+ 0.914893    0.0176881  0.615098      0.92164    0.468377   0.284927
+ 0.494639    0.700387   0.627791      0.830491   0.998521   0.0323201
+ 0.133194    0.352641   0.59797       0.972657   0.100542   0.394203
 </pre></div>
 
 
