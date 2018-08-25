@@ -573,8 +573,6 @@
 <p>This section overviews the various integrators available from <code>DynamicalSystemsBase</code>, as well as gives some insight into the internals, so that other developers that want to use this library can build upon it.</p>
 <p><a id='ADD-CALLBACK-EXAMPLE-1'></a></p>
 <h1 id="add-callback-example">ADD CALLBACK EXAMPLE</h1>
-<p><a id='ADD-SPARSE-JACOBIAN-IN-CSM-1'></a></p>
-<h1 id="add-sparse-jacobian-in-csm">ADD SPARSE JACOBIAN IN CSM</h1>
 <p><a id='Integrators-1'></a></p>
 <h2 id="integrators">Integrators</h2>
 <p><a id='DynamicalSystemsBase.integrator' href='#DynamicalSystemsBase.integrator'>#</a>
@@ -718,6 +716,56 @@
 </pre></div>
 
 
+<p><a id='Using-callbacks-with-integrators-1'></a></p>
+<h2 id="using-callbacks-with-integrators">Using callbacks with integrators</h2>
+<p>For the case of continuous systems you can add callbacks from the event handling of <strong>DifferentialEquations.jl</strong>. This is done simply as a keyword argument to the initializers.</p>
+<p>In this example we use a simple <code>SavingCallback</code> to save the distance between the two states of a <a href="./#DynamicalSystemsBase.parallel_integrator"><code>parallel_integrator</code></a>.</p>
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span><span class="p">,</span> <span class="n">DiffEqCallbacks</span>
+<span class="k">using</span> <span class="n">LinearAlgebra</span><span class="o">:</span> <span class="n">norm</span>
+
+<span class="n">kwargs</span> <span class="o">=</span> <span class="p">(</span><span class="n">abstol</span><span class="o">=</span><span class="mf">1e-14</span><span class="p">,</span> <span class="n">reltol</span><span class="o">=</span><span class="mf">1e-14</span><span class="p">,</span> <span class="n">maxiters</span><span class="o">=</span><span class="mf">1e9</span><span class="p">)</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">lorenz</span><span class="p">()</span>
+<span class="n">d0</span> <span class="o">=</span> <span class="mf">1e-9</span>
+<span class="n">T</span> <span class="o">=</span> <span class="mf">100.0</span>
+
+<span class="n">save_func</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">integrator</span><span class="p">)</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">saved_values</span> <span class="o">=</span> <span class="n">SavedValues</span><span class="p">(</span><span class="n">eltype</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">t0</span><span class="p">),</span> <span class="n">eltype</span><span class="p">(</span><span class="n">get_state</span><span class="p">(</span><span class="n">ds</span><span class="p">)))</span>
+<span class="n">cb</span> <span class="o">=</span> <span class="n">SavingCallback</span><span class="p">(</span><span class="n">save_func</span><span class="p">,</span> <span class="n">saved_values</span><span class="p">)</span>
+
+<span class="n">u0</span> <span class="o">=</span> <span class="n">get_state</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+<span class="n">pinteg</span> <span class="o">=</span> <span class="n">parallel_integrator</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="p">[</span><span class="n">u0</span><span class="p">,</span> <span class="n">u0</span> <span class="o">+</span> <span class="n">rand</span><span class="p">(</span><span class="n">SVector</span><span class="p">{</span><span class="mi">3</span><span class="p">})</span><span class="o">*</span><span class="n">d0</span><span class="o">*√</span><span class="mi">3</span><span class="p">];</span>
+<span class="n">kwargs</span><span class="o">...</span><span class="p">,</span> <span class="n">callback</span> <span class="o">=</span> <span class="n">cb</span><span class="p">)</span>
+<span class="n">step!</span><span class="p">(</span><span class="n">pinteg</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">saved_values</span><span class="o">.</span><span class="n">t</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">saved_values</span><span class="o">.</span><span class="n">saveval</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>14284-element Array{Float64,1}:
+  1.656182748130423e-9
+  1.6837945682358588e-9
+  1.7036027572008304e-9
+  1.7275573020622412e-9
+  1.7532742786746084e-9
+  1.781307895770873e-9
+  1.8116872331476413e-9
+  1.8440741026500328e-9
+  1.880274483760242e-9
+  1.9186252068209207e-9
+  ⋮
+ 18.623626516376536
+ 18.42401358216148
+ 18.207846995755414
+ 17.971517441745657
+ 17.7131354449671
+ 17.43824129170822
+ 17.14328524486346
+ 16.833057096962047
+ 16.499927757025358
+</pre></div>
+
+
+<p>As expected you can see that the recorded distance between two states is increasing.</p>
 <p><a id='DynamicalSystem-implementation-1'></a></p>
 <h2 id="dynamicalsystem-implementation"><code>DynamicalSystem</code> implementation</h2>
 <div class="codehilite"><pre><span></span><span class="k">abstract</span> <span class="k">type</span> <span class="n">DynamicalSystem</span><span class="p">{</span>

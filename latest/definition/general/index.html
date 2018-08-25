@@ -909,7 +909,7 @@ set_parameter!(ds::DynamicalSystem, values)
 
 <p><a id='Complex-Example-1'></a></p>
 <h3 id="complex-example">Complex Example</h3>
-<p>In this example we will go through the implementation of the coupled standard maps from our <a href="../predefined/#DynamicalSystemsBase.Systems.coupledstandardmaps">Predefined Systems</a>. It is the most complex implementation and takes full advantage of the flexibility of the constructors.</p>
+<p>In this example we will go through the implementation of the coupled standard maps from our <a href="../predefined/#DynamicalSystemsBase.Systems.coupledstandardmaps">Predefined Systems</a>. It is the most complex implementation and takes full advantage of the flexibility of the constructors. The example will use a Functor as equations of motion, as well as a sparse matrix for the Jacobian.</p>
 <p>Coupled standard maps is a big mapping that can have arbitrary number of equations of motion, since you can couple <code>N</code> <a href="../predefined/#DynamicalSystemsBase.Systems.standardmap">standard maps</a> which are 2D maps, like:</p>
 <div>
 <div class="MathJax_Preview">
@@ -993,8 +993,7 @@ p_{i}' = p_i + k_i\sin(\theta_i) - \Gamma \left[\sin(\theta_{i+1} - \theta_{i}) 
 
 
 <p>The only reason that this is possible, is because the <code>eom</code> always takes a <code>AbstractVector</code> as first argument, while the Jacobian always takes an <code>AbstractMatrix</code>. Therefore we can take advantage of multiple dispatch!</p>
-<p>Notice in addition, that the Jacobian function accesses <em>only half the elements of the matrix</em>. This is intentional, and takes advantage of the fact that the other half is constant.</p>
-<p>Because the <code>DynamicalSystem</code> constructors allow us to give in a pre-initialized Jacobian matrix, we take advantage of that and create:</p>
+<p>Notice in addition, that the Jacobian function accesses <em>only half the elements of the matrix</em>. This is intentional, and takes advantage of the fact that the other half is constant. We can leverage this further, by making the Jacobian a sparse matrix. Because the <code>DynamicalSystem</code> constructors allow us to give in a pre-initialized Jacobian matrix, we take advantage of that and create:</p>
 <div class="codehilite"><pre><span></span><span class="n">J</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">eltype</span><span class="p">(</span><span class="n">u0</span><span class="p">),</span> <span class="mi">2</span><span class="n">M</span><span class="p">,</span> <span class="mi">2</span><span class="n">M</span><span class="p">)</span>
 <span class="c"># Set ∂/∂p entries (they are eye(M,M))</span>
 <span class="c"># And they dont change they are constants</span>
@@ -1002,20 +1001,23 @@ p_{i}' = p_i + k_i\sin(\theta_i) - \Gamma \left[\sin(\theta_{i+1} - \theta_{i}) 
     <span class="n">J</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="n">M</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">J</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">M</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="n">M</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="k">end</span>
-<span class="n">csm</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">u0</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c"># apply Jacobian to initial state</span>
+<span class="n">sparseJ</span> <span class="o">=</span> <span class="n">sparse</span><span class="p">(</span><span class="n">J</span><span class="p">)</span>
+
+<span class="n">csm</span><span class="p">(</span><span class="n">sparseJ</span><span class="p">,</span> <span class="n">u0</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c"># apply Jacobian to initial state</span>
 </pre></div>
 
 
 <p>And finally, we are ready to create our dynamical system:</p>
-<div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">DiscreteDynamicalSystem</span><span class="p">(</span><span class="n">csm</span><span class="p">,</span> <span class="n">u0</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">csm</span><span class="p">,</span> <span class="n">J</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">DiscreteDynamicalSystem</span><span class="p">(</span><span class="n">csm</span><span class="p">,</span> <span class="n">u0</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">csm</span><span class="p">,</span> <span class="n">sparseJ</span><span class="p">)</span>
 </pre></div>
 
 
 <div class="codehilite"><pre><span></span>10-dimensional discrete dynamical system
- state:     [5.88772e-6, 0.000539993, 0.000178981, 0.000607429, 0.000927426, 0.000246537, 0.00094118, 0.000703942, 0.000130421, 0.000332372]
- e.o.m.:    CoupledStandardMaps
- in-place?  true
- jacobian:  CoupledStandardMaps
+ state:       [0.000803001, 0.00092095, 0.000313022, …, 3.07769e-5, 0.000670152]
+ e.o.m.:      CoupledStandardMaps
+ in-place?    true
+ jacobian:    CoupledStandardMaps
+ parameters:  Tuple
 </pre></div>
                 
                   
