@@ -446,6 +446,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#mutual-information" title="Mutual Information" class="md-nav__link">
+    Mutual Information
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#numerical-lyapunov-exponent" title="Numerical Lyapunov Exponent" class="md-nav__link">
     Numerical Lyapunov Exponent
   </a>
@@ -638,6 +645,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#mutual-information" title="Mutual Information" class="md-nav__link">
+    Mutual Information
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#numerical-lyapunov-exponent" title="Numerical Lyapunov Exponent" class="md-nav__link">
     Numerical Lyapunov Exponent
   </a>
@@ -715,7 +729,7 @@
 <li><code>"first_min"</code> : return delay of first minimum of the auto-correlation function.</li>
 <li><code>"exp_decay"</code> : perform an exponential fit to the <code>abs.(c)</code> with <code>c</code> the auto-correlation function of <code>s</code>. Return the exponential decay time rounded to an integer.</li>
 <li>
-<p><code>"mutual_inf"</code> : return the first minimum of the mutual information function (see <a href="../@ref"><code>mutinfo_delaycurve</code></a>). This option also has the following keyword arguments:</p>
+<p><code>"mutual_inf"</code> : return the first minimum of the mutual information function (see <a href="./#ChaosTools.mutinfo_delaycurve"><code>mutinfo_delaycurve</code></a>). This option also has the following keyword arguments:</p>
 <ul>
 <li><code>maxtau::Integer=100</code> : stops the delay calculations after the given <code>maxtau</code>.</li>
 <li><code>k::Integer=1</code> : the number of nearest-neighbors to include.</li>
@@ -749,6 +763,33 @@
 <p><strong>References</strong></p>
 <p>[1] : Liangyue Cao, <a href="https://www.sciencedirect.com/science/article/pii/S0167278997001188?via%3Dihub">Physica D, pp. 43-50 (1997)</a></p>
 <hr />
+<p><a id='Mutual-Information-1'></a></p>
+<h2 id="mutual-information">Mutual Information</h2>
+<p>For one of the methods available to estimate the optimal delay time for <a href="../../definition/reconstruction/#DynamicalSystemsBase.reconstruct"><code>reconstruct</code></a>, a method to compute the <a href="http://www.scholarpedia.org/article/Mutual_information">Mutual Information</a> is necessary.</p>
+<p><a id='ChaosTools.mutinfo' href='#ChaosTools.mutinfo'>#</a>
+<strong><code>ChaosTools.mutinfo</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>mutinfo(k, X1, X2[, ..., Xm]) -&gt; MI
+</pre></div>
+
+
+<p>Calculate the mutual information <code>MI</code> of the given vectors <code>X1, X2, ...</code>, using <code>k</code> nearest-neighbors.</p>
+<p>The method follows the second algorithm <span><span class="MathJax_Preview">I^{(2)}</span><script type="math/tex">I^{(2)}</script></span> outlined by Kraskov in [1].</p>
+<p><strong>References</strong></p>
+<p>[1] : A. Kraskov <em>et al.</em>, <a href="https://journals.aps.org/pre/abstract/10.1103/PhysRevE.69.066138">Phys. Rev. E <strong>69</strong>, pp 066138 (2004)</a></p>
+<p><strong>Performance Notes</strong></p>
+<p>This functin gets very slow for large <code>k</code>.</p>
+<p>See also <a href="./#ChaosTools.estimate_delay"><code>estimate_delay</code></a> and <a href="./#ChaosTools.mutinfo_delaycurve"><code>mutinfo_delaycurve</code></a>.</p>
+<p><a id='ChaosTools.mutinfo_delaycurve' href='#ChaosTools.mutinfo_delaycurve'>#</a>
+<strong><code>ChaosTools.mutinfo_delaycurve</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>mutinfo_delaycurve(x; maxtau=100, k=1)
+</pre></div>
+
+
+<p>Return the <a href="./#ChaosTools.mutinfo"><code>mutinfo</code></a> between <code>x</code> and itself for delays of <code>1:maxtau</code>.</p>
+<div class="admonition warn">
+<p class="admonition-title">Mutual Information is very slow!</p>
+<p>Please be advised that the current implementation of <a href="./#ChaosTools.mutinfo"><code>mutinfo</code></a> is very slow for "normally" sized datasets.</p>
+</div>
 <p><a id='Numerical-Lyapunov-Exponent-1'></a></p>
 <h2 id="numerical-lyapunov-exponent">Numerical Lyapunov Exponent</h2>
 <p>Given any timeseries, one can first <a href="../../definition/reconstruction/#DynamicalSystemsBase.reconstruct"><code>reconstruct</code></a> it using delay coordinates, and then calculate a maximum Lyapunov exponent for it. This is done with</p>
