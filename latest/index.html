@@ -274,6 +274,68 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#video-tutorial" title="Video tutorial" class="md-nav__link">
+    Video tutorial
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contents" title="Contents" class="md-nav__link">
+    Contents
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fundamentals" title="Fundamentals" class="md-nav__link">
+    Fundamentals
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chaostools" title="ChaosTools" class="md-nav__link">
+    ChaosTools
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timeseriesprediction" title="TimeseriesPrediction" class="md-nav__link">
+    TimeseriesPrediction
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#our-goals" title="Our Goals" class="md-nav__link">
+    Our Goals
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" title="Installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#citing" title="Citing" class="md-nav__link">
+    Citing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#contacting" title="Contacting" class="md-nav__link">
     Contacting
   </a>
@@ -588,6 +650,68 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#video-tutorial" title="Video tutorial" class="md-nav__link">
+    Video tutorial
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contents" title="Contents" class="md-nav__link">
+    Contents
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fundamentals" title="Fundamentals" class="md-nav__link">
+    Fundamentals
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chaostools" title="ChaosTools" class="md-nav__link">
+    ChaosTools
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timeseriesprediction" title="TimeseriesPrediction" class="md-nav__link">
+    TimeseriesPrediction
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#our-goals" title="Our Goals" class="md-nav__link">
+    Our Goals
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" title="Installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#citing" title="Citing" class="md-nav__link">
+    Citing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#contacting" title="Contacting" class="md-nav__link">
     Contacting
   </a>
@@ -618,132 +742,98 @@
 <h1 id="introduction">Introduction</h1>
 <p><strong>DynamicalSystems.jl</strong> is a Julia software library for the exploration of chaos and nonlinear dynamics.</p>
 <p>The current documentation was built with the following versions</p>
-<p>```@example versions
-f() # hide</p>
-<div class="codehilite"><pre><span></span><span class="n">See</span> <span class="n">the</span> <span class="p">[</span><span class="n">News</span><span class="p">](</span><span class="n">news</span><span class="p">)</span> <span class="n">page</span> <span class="k">for</span> <span class="n">recent</span> <span class="n">updates</span><span class="p">.</span> <span class="n">The</span> <span class="n">latest</span> <span class="n">one</span> <span class="n">is</span> <span class="n">the</span> <span class="n">Julia</span> <span class="mf">0.7</span> <span class="n">version</span> <span class="n">support</span><span class="o">!</span>
-
-
-<span class="o">!!!</span> <span class="n">info</span> <span class="s">&quot;Introductory textbooks&quot;</span>
-    <span class="n">Our</span> <span class="n">library</span> <span class="n">assumes</span> <span class="n">basic</span> <span class="n">some</span> <span class="n">basic</span> <span class="n">knowledge</span> <span class="n">of</span> <span class="n">nonlinear</span> <span class="n">dynamics</span> <span class="n">and</span> <span class="n">complex</span> <span class="n">systems</span><span class="p">.</span>
-
-    <span class="n">If</span> <span class="n">you</span> <span class="n">are</span> <span class="n">new</span> <span class="n">to</span> <span class="n">the</span> <span class="n">field</span> <span class="n">but</span> <span class="n">want</span> <span class="n">to</span> <span class="n">learn</span> <span class="n">more</span><span class="p">,</span> <span class="n">we</span> <span class="n">can</span> <span class="n">suggest</span> <span class="n">the</span> <span class="n">following</span> <span class="n">textbooks</span> <span class="n">as</span> <span class="nl">introductions</span><span class="p">:</span>
-
-      <span class="o">*</span> <span class="n">Nonlinear</span> <span class="n">Dynamics</span> <span class="n">And</span> <span class="n">Chaos</span> <span class="o">-</span> <span class="n">S</span><span class="p">.</span> <span class="n">Strogatz</span>
-      <span class="o">*</span> <span class="n">An</span> <span class="n">Exploration</span> <span class="n">of</span> <span class="n">Dynamical</span> <span class="n">Systems</span> <span class="n">and</span> <span class="n">Chaos</span> <span class="o">-</span> <span class="n">J</span><span class="p">.</span> <span class="n">Argyris</span> <span class="o">*</span><span class="n">et</span> <span class="n">al</span><span class="p">.</span><span class="o">*</span>
-      <span class="o">*</span> <span class="n">Chaos</span> <span class="k">in</span> <span class="n">Dynamical</span> <span class="n">Systems</span> <span class="o">-</span> <span class="n">E</span><span class="p">.</span> <span class="n">Ott</span>
-
-
-
-<span class="o">!!!</span> <span class="n">example</span> <span class="s">&quot;Jupyter Notebooks / Tutorials&quot;</span>
-    <span class="p">[</span><span class="n">In</span> <span class="n">this</span> <span class="n">repository</span><span class="p">](</span><span class="nl">https</span><span class="p">:</span><span class="c1">//github.com/JuliaDynamics/Tutorials-and-Resources/tree/master/Youtube_JuliaLang_tutorial) you can find various Jupyter notebooks that have been used as introductory tutorials for **DynamicalSystems.jl**!</span>
-
-
-
-<span class="o">&lt;</span><span class="n">a</span> <span class="kt">id</span><span class="o">=</span><span class="err">&#39;</span><span class="n">Video</span><span class="o">-</span><span class="n">tutorial</span><span class="o">-</span><span class="mi">1</span><span class="err">&#39;</span><span class="o">&gt;&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
-
-<span class="cp">## Video tutorial</span>
-
-
-<span class="n">The</span> <span class="n">below</span> <span class="n">tutorial</span> <span class="n">is</span> <span class="n">hosted</span> <span class="n">on</span> <span class="n">the</span> <span class="n">Julia</span> <span class="n">channel</span><span class="p">.</span> <span class="o">*</span><span class="n">Be</span> <span class="n">careful</span> <span class="n">though</span><span class="o">!*</span> <span class="n">It</span> <span class="n">is</span> <span class="n">using</span> <span class="n">an</span> <span class="n">older</span> <span class="n">version</span> <span class="n">of</span> <span class="n">both</span> <span class="o">**</span><span class="n">DynamicalSystems</span><span class="p">.</span><span class="n">jl</span><span class="o">**</span> <span class="n">as</span> <span class="n">well</span> <span class="n">as</span> <span class="n">Julia</span><span class="o">!</span> <span class="n">Fortunately</span><span class="p">,</span> <span class="n">from</span> <span class="n">the</span> <span class="n">side</span> <span class="n">of</span> <span class="o">**</span><span class="n">DynamicalSystems</span><span class="p">.</span><span class="n">jl</span><span class="o">**</span> <span class="n">there</span> <span class="n">have</span> <span class="n">been</span> <span class="n">very</span> <span class="n">few</span> <span class="n">breaking</span> <span class="n">changes</span><span class="p">.</span> <span class="n">See</span> <span class="n">the</span> <span class="p">[</span><span class="n">News</span><span class="p">](</span><span class="n">news</span><span class="p">)</span> <span class="k">for</span> <span class="n">more</span><span class="p">.</span>
-
-
-<span class="p">[</span><span class="o">!</span><span class="p">[</span><span class="n">Youtube</span> <span class="n">tutorial</span><span class="p">](</span><span class="nl">http</span><span class="p">:</span><span class="c1">//img.youtube.com/vi/13hqE_1a158/0.jpg)](http://www.youtube.com/watch?v=13hqE_1a158)</span>
-
-
-<span class="o">&lt;</span><span class="n">a</span> <span class="kt">id</span><span class="o">=</span><span class="err">&#39;</span><span class="n">Contents</span><span class="o">-</span><span class="mi">1</span><span class="err">&#39;</span><span class="o">&gt;&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
-
-<span class="cp">## Contents</span>
-
-
-<span class="o">&lt;</span><span class="n">a</span> <span class="kt">id</span><span class="o">=</span><span class="err">&#39;</span><span class="p">[</span><span class="n">Fundamentals</span><span class="p">](</span><span class="n">definition</span><span class="o">/</span><span class="n">general</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="err">&#39;</span><span class="o">&gt;&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
-
-<span class="cp">### [Fundamentals](definition/general)</span>
-
-
-<span class="mf">1.</span> <span class="n">Intuitive</span><span class="p">,</span> <span class="n">consistent</span> <span class="n">APIs</span> <span class="k">for</span> <span class="n">the</span> <span class="n">definition</span> <span class="n">of</span> <span class="n">general</span> <span class="p">[</span><span class="n">dynamical</span> <span class="n">systems</span><span class="p">](</span><span class="n">definition</span><span class="o">/</span><span class="n">general</span><span class="p">),</span> <span class="n">both</span> <span class="n">maps</span> <span class="n">and</span> <span class="n">flows</span><span class="p">.</span> <span class="n">The</span> <span class="n">following</span> <span class="n">combinations</span> <span class="n">are</span> <span class="nl">possible</span><span class="p">:</span>
-
-      <span class="o">*</span> <span class="n">Continuous</span> <span class="n">or</span> <span class="n">Discrete</span> <span class="n">systems</span><span class="p">.</span> <span class="n">Continuous</span> <span class="n">systems</span> <span class="n">use</span> <span class="p">[</span><span class="err">`</span><span class="n">DifferentialEquations</span><span class="p">.</span><span class="n">jl</span><span class="err">`</span><span class="p">](</span><span class="nl">http</span><span class="p">:</span><span class="c1">//docs.juliadiffeq.org/latest/) for solving the ODE problem.</span>
-      <span class="o">*</span> <span class="n">In</span><span class="o">-</span><span class="n">place</span> <span class="n">or</span> <span class="k">out</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">place</span> <span class="p">(</span><span class="n">large</span> <span class="n">versus</span> <span class="n">small</span> <span class="n">systems</span><span class="p">).</span>
-      <span class="o">*</span> <span class="n">Auto</span><span class="o">-</span><span class="n">differentiated</span> <span class="n">or</span> <span class="n">not</span> <span class="p">(</span><span class="k">for</span> <span class="n">the</span> <span class="n">Jacobian</span> <span class="n">function</span><span class="p">).</span>
-
-
-<span class="mf">2.</span> <span class="n">Automatic</span> <span class="s">&quot;completion&quot;</span> <span class="n">of</span> <span class="n">the</span> <span class="n">dynamics</span> <span class="n">of</span> <span class="n">the</span> <span class="n">system</span> <span class="n">with</span> <span class="n">numerically</span> <span class="n">computed</span> <span class="n">Jacobians</span><span class="p">,</span> <span class="k">in</span> <span class="k">case</span> <span class="n">they</span> <span class="n">are</span> <span class="n">not</span> <span class="n">provided</span> <span class="n">by</span> <span class="n">the</span> <span class="n">user</span><span class="p">.</span>
-<span class="mf">3.</span> <span class="n">Robust</span> <span class="n">implementations</span> <span class="n">of</span> <span class="n">all</span> <span class="n">kinds</span> <span class="n">of</span> <span class="n">integrators</span><span class="p">,</span> <span class="n">that</span> <span class="n">evolve</span> <span class="n">the</span> <span class="n">system</span><span class="p">,</span> <span class="n">many</span> <span class="n">states</span> <span class="n">of</span> <span class="n">the</span> <span class="n">system</span><span class="p">,</span> <span class="n">or</span> <span class="n">even</span> <span class="n">deviation</span> <span class="n">vectors</span><span class="p">.</span> <span class="n">See</span> <span class="n">the</span> <span class="p">[</span><span class="n">advanced</span> <span class="n">documentation</span><span class="p">](</span><span class="n">advanced</span><span class="p">)</span> <span class="k">for</span> <span class="n">this</span><span class="p">.</span>
-<span class="mf">4.</span> <span class="n">Dedicated</span> <span class="n">interface</span> <span class="k">for</span> <span class="p">[</span><span class="n">numerical</span> <span class="n">data</span><span class="p">](</span><span class="n">definition</span><span class="o">/</span><span class="n">dataset</span><span class="p">).</span>
-<span class="mf">5.</span> <span class="n">Efficient</span> <span class="p">[</span><span class="err">`</span><span class="n">neighborhood</span><span class="err">`</span><span class="p">](</span><span class="n">definition</span><span class="o">/</span><span class="n">dataset</span><span class="p">.</span><span class="n">md</span><span class="err">#</span><span class="n">DynamicalSystemsBase</span><span class="p">.</span><span class="n">neighborhood</span><span class="p">)</span> <span class="n">estimation</span> <span class="n">by</span> <span class="n">interfacing</span> <span class="p">[</span><span class="err">`</span><span class="n">NearestNeighbors</span><span class="err">`</span><span class="p">](</span><span class="nl">https</span><span class="p">:</span><span class="c1">//github.com/KristofferC/NearestNeighbors.jl).</span>
-<span class="mf">6.</span> <span class="n">Delay</span> <span class="n">Coordinates</span> <span class="nl">Embedding</span><span class="p">:</span> <span class="n">flexible</span> <span class="n">and</span> <span class="n">abstracted</span> <span class="p">[</span><span class="err">`</span><span class="n">reconstruct</span><span class="err">`</span><span class="p">](</span><span class="n">definition</span><span class="o">/</span><span class="n">reconstruction</span><span class="p">.</span><span class="n">md</span><span class="err">#</span><span class="n">DynamicalSystemsBase</span><span class="p">.</span><span class="n">reconstruct</span><span class="p">)</span> <span class="n">interface</span><span class="p">,</span> <span class="n">that</span> <span class="n">creates</span> <span class="n">the</span> <span class="n">delay</span><span class="o">-</span><span class="n">coordinates</span> <span class="n">reconstruction</span> <span class="n">of</span> <span class="n">a</span> <span class="n">timeseries</span> <span class="n">efficiently</span><span class="p">.</span>
-
-      <span class="o">*</span> <span class="n">Supports</span> <span class="n">multiple</span> <span class="n">dimensions</span> <span class="n">and</span> <span class="n">multiple</span> <span class="n">timescales</span><span class="p">.</span>
-
-
-<span class="mf">6.</span> <span class="n">Library</span> <span class="n">of</span> <span class="p">[</span><span class="n">predefined</span> <span class="n">well</span><span class="o">-</span><span class="n">known</span> <span class="n">dynamical</span> <span class="n">systems</span><span class="p">](</span><span class="n">definition</span><span class="o">/</span><span class="n">predefined</span><span class="p">)</span> <span class="n">that</span> <span class="n">have</span> <span class="n">been</span> <span class="n">used</span> <span class="n">extensively</span> <span class="k">in</span> <span class="n">scientific</span> <span class="n">research</span><span class="p">.</span>
-
-
-<span class="o">&lt;</span><span class="n">a</span> <span class="kt">id</span><span class="o">=</span><span class="err">&#39;</span><span class="p">[</span><span class="n">ChaosTools</span><span class="p">](</span><span class="n">chaos</span><span class="o">/</span><span class="n">overview</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="err">&#39;</span><span class="o">&gt;&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
-
-<span class="cp">### [ChaosTools](chaos/overview)</span>
-
-
-<span class="n">Please</span> <span class="n">see</span> <span class="n">the</span> <span class="p">[</span><span class="n">overview</span> <span class="n">section</span><span class="p">](</span><span class="n">chaos</span><span class="o">/</span><span class="n">overview</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="n">full</span> <span class="n">list</span> <span class="n">of</span> <span class="n">features</span><span class="p">.</span> <span class="n">Here</span> <span class="n">is</span> <span class="n">a</span> <span class="n">quick</span> <span class="nl">summary</span><span class="p">:</span>
-
-
-  <span class="o">*</span> <span class="n">Poincare</span> <span class="n">S</span><span class="p">.</span><span class="n">O</span><span class="p">.</span><span class="n">S</span><span class="p">.</span> <span class="n">and</span> <span class="n">orbit</span> <span class="n">diagrams</span>
-  <span class="o">*</span> <span class="n">Lyapunov</span> <span class="n">Exponents</span>
-  <span class="o">*</span> <span class="n">Entropies</span> <span class="n">and</span> <span class="n">Dimensions</span>
-  <span class="o">*</span> <span class="n">Estimation</span> <span class="n">of</span> <span class="n">Reconstruction</span> <span class="n">parameters</span>
-  <span class="o">*</span> <span class="n">Lyapunov</span> <span class="n">exponent</span> <span class="n">of</span> <span class="n">a</span> <span class="n">timeseries</span>
-  <span class="o">*</span> <span class="n">Finding</span> <span class="n">Fixed</span> <span class="n">Points</span> <span class="n">of</span> <span class="n">Maps</span>
-  <span class="o">*</span> <span class="n">Detecting</span> <span class="n">Chaos</span>
-
-
-<span class="o">&lt;</span><span class="n">a</span> <span class="kt">id</span><span class="o">=</span><span class="err">&#39;</span><span class="p">[</span><span class="n">TimeseriesPrediction</span><span class="p">](</span><span class="n">tsprediction</span><span class="o">/</span><span class="n">localmodels</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="err">&#39;</span><span class="o">&gt;&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
-
-<span class="cp">### [TimeseriesPrediction](tsprediction/localmodels)</span>
-
-
-<span class="o">!!!</span> <span class="n">warn</span> <span class="s">&quot;Not yet on Julia 0.7&quot;</span>
-    <span class="err">`</span><span class="n">TimeseriesPrediction</span><span class="err">`</span> <span class="n">has</span> <span class="n">not</span> <span class="n">yet</span> <span class="n">been</span> <span class="n">updated</span> <span class="n">to</span> <span class="n">Julia</span> <span class="mf">0.7</span><span class="o">!</span>
-
-
-
-  <span class="o">*</span> <span class="n">Predicting</span> <span class="n">the</span> <span class="n">future</span> <span class="n">of</span> <span class="n">one</span> <span class="n">or</span> <span class="n">multiple</span> <span class="n">timeseries</span> <span class="n">using</span> <span class="n">average</span> <span class="n">local</span> <span class="n">models</span><span class="p">.</span>
-  <span class="o">*</span> <span class="n">Spatio</span><span class="o">-</span><span class="n">temporal</span> <span class="n">timeseries</span> <span class="n">prediction</span> <span class="n">and</span> <span class="n">cross</span><span class="o">-</span><span class="n">prediction</span><span class="p">.</span>
-
-
-<span class="o">&lt;</span><span class="n">a</span> <span class="kt">id</span><span class="o">=</span><span class="err">&#39;</span><span class="n">Our</span><span class="o">-</span><span class="n">Goals</span><span class="o">-</span><span class="mi">1</span><span class="err">&#39;</span><span class="o">&gt;&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
-
-<span class="cp">## Our Goals</span>
-
-
-<span class="n">The</span> <span class="n">ultimate</span> <span class="n">goal</span> <span class="k">for</span> <span class="o">**</span><span class="n">DynamicalSystems</span><span class="p">.</span><span class="n">jl</span><span class="o">**</span> <span class="n">is</span> <span class="n">to</span> <span class="n">be</span> <span class="n">a</span> <span class="n">useful</span> <span class="o">*</span><span class="n">library</span><span class="o">*</span> <span class="k">for</span> <span class="n">students</span> <span class="n">and</span> <span class="n">scientists</span> <span class="n">working</span> <span class="n">on</span> <span class="n">chaos</span><span class="p">,</span> <span class="n">nonlinear</span> <span class="n">dynamics</span> <span class="n">and</span> <span class="k">in</span> <span class="n">general</span> <span class="n">dynamical</span> <span class="n">systems</span><span class="p">.</span> <span class="n">We</span> <span class="n">don</span><span class="err">&#39;</span><span class="n">t</span> <span class="n">want</span> <span class="n">to</span> <span class="n">have</span> <span class="s">&quot;just code&quot;</span><span class="p">,</span> <span class="n">but</span> <span class="n">also</span> <span class="n">detailed</span> <span class="n">descriptions</span> <span class="n">and</span> <span class="n">references</span> <span class="k">for</span> <span class="n">as</span> <span class="n">many</span> <span class="n">methods</span> <span class="n">as</span> <span class="n">possible</span><span class="p">.</span>
-
-
-<span class="n">With</span> <span class="o">**</span><span class="n">DynamicalSystems</span><span class="p">.</span><span class="n">jl</span><span class="o">**</span> <span class="n">we</span> <span class="n">try</span> <span class="n">to</span>
-
-
-<span class="mf">1.</span> <span class="n">Be</span> <span class="n">concise</span><span class="p">,</span> <span class="n">intuitive</span><span class="p">,</span> <span class="n">and</span> <span class="n">general</span><span class="p">.</span> <span class="n">All</span> <span class="n">functions</span> <span class="n">we</span> <span class="n">offer</span> <span class="n">work</span> <span class="n">just</span> <span class="n">as</span> <span class="n">well</span> <span class="n">with</span> <span class="n">any</span> <span class="n">system</span><span class="p">,</span> <span class="n">whether</span> <span class="n">it</span> <span class="n">is</span> <span class="n">a</span> <span class="n">simple</span> <span class="n">continuous</span> <span class="n">chaotic</span> <span class="n">system</span><span class="p">,</span> <span class="n">like</span> <span class="n">the</span> <span class="p">[</span><span class="n">Lorenz</span> <span class="n">attractor</span><span class="p">](</span><span class="n">definition</span><span class="o">/</span><span class="n">predefined</span><span class="o">/</span><span class="err">#</span><span class="n">DynamicalSystemsBase</span><span class="p">.</span><span class="n">Systems</span><span class="p">.</span><span class="n">lorenz</span><span class="p">),</span> <span class="n">or</span> <span class="n">a</span> <span class="n">high</span> <span class="n">dimensional</span> <span class="n">discrete</span> <span class="n">map</span> <span class="n">like</span> <span class="p">[</span><span class="n">coupled</span> <span class="n">standard</span> <span class="n">maps</span><span class="p">](</span><span class="n">definition</span><span class="o">/</span><span class="n">predefined</span><span class="o">/</span><span class="err">#</span><span class="n">DynamicalSystemsBase</span><span class="p">.</span><span class="n">Systems</span><span class="p">.</span><span class="n">coupledstandardmaps</span><span class="p">).</span>
-<span class="mf">2.</span> <span class="n">Be</span> <span class="n">accurate</span><span class="p">,</span> <span class="n">reliable</span> <span class="n">and</span> <span class="n">performant</span><span class="p">.</span>
-<span class="mf">3.</span> <span class="n">Be</span> <span class="n">transparent</span> <span class="n">with</span> <span class="n">respect</span> <span class="n">to</span> <span class="n">what</span> <span class="n">is</span> <span class="n">happening</span> <span class="s">&quot;under the hood&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">.</span><span class="n">e</span><span class="p">.</span> <span class="n">be</span> <span class="n">clear</span> <span class="n">about</span> <span class="n">exactly</span> <span class="n">what</span> <span class="n">each</span> <span class="n">function</span> <span class="n">call</span> <span class="n">does</span><span class="p">.</span> <span class="n">We</span> <span class="n">take</span> <span class="n">care</span> <span class="n">of</span> <span class="n">this</span> <span class="n">aspect</span> <span class="k">in</span> <span class="n">many</span> <span class="n">ways</span><span class="p">;</span> <span class="n">by</span> <span class="n">being</span> <span class="n">well</span><span class="o">-</span><span class="n">documented</span><span class="p">,</span> <span class="n">giving</span> <span class="n">references</span> <span class="n">to</span> <span class="n">scientific</span> <span class="n">papers</span> <span class="n">and</span> <span class="n">having</span> <span class="n">clear</span> <span class="n">source</span> <span class="n">code</span><span class="p">.</span>
-
-
-<span class="o">&lt;</span><span class="n">a</span> <span class="kt">id</span><span class="o">=</span><span class="err">&#39;</span><span class="n">Installation</span><span class="o">-</span><span class="mi">1</span><span class="err">&#39;</span><span class="o">&gt;&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
-
-<span class="cp">## Installation</span>
-
-
-<span class="n">Simply</span> <span class="n">use</span> <span class="err">`</span><span class="n">Pkg</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;DynamicalSystems&quot;</span><span class="p">)</span><span class="err">`</span> <span class="n">to</span> <span class="n">install</span> <span class="o">*</span><span class="n">everything</span><span class="o">*</span><span class="p">.</span>
-
-
-<span class="o">&lt;</span><span class="n">a</span> <span class="kt">id</span><span class="o">=</span><span class="err">&#39;</span><span class="n">Citing</span><span class="o">-</span><span class="mi">1</span><span class="err">&#39;</span><span class="o">&gt;&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
-
-<span class="cp">## Citing</span>
-
-
-<span class="n">There</span> <span class="n">is</span> <span class="n">a</span> <span class="p">(</span><span class="n">very</span> <span class="n">small</span><span class="p">)</span> <span class="n">paper</span> <span class="n">associated</span> <span class="n">with</span> <span class="o">**</span><span class="n">DynamicalSystems</span><span class="p">.</span><span class="n">jl</span><span class="o">**</span><span class="p">.</span> <span class="n">If</span> <span class="n">we</span> <span class="n">have</span> <span class="n">helped</span> <span class="n">you</span> <span class="k">in</span> <span class="n">research</span> <span class="n">that</span> <span class="n">led</span> <span class="n">to</span> <span class="n">a</span> <span class="n">publication</span><span class="p">,</span> <span class="n">please</span> <span class="n">be</span> <span class="n">kind</span> <span class="n">enough</span> <span class="n">to</span> <span class="n">cite</span> <span class="n">it</span><span class="p">,</span> <span class="n">using</span> <span class="n">the</span> <span class="n">DOI</span> <span class="err">`</span><span class="mf">10.21105</span><span class="o">/</span><span class="n">joss</span><span class="mf">.00598</span><span class="err">`</span> <span class="n">or</span> <span class="n">the</span> <span class="n">following</span> <span class="n">BiBTeX</span> <span class="nl">entry</span><span class="p">:</span>
+<div class="codehilite"><pre><span></span> * DynamicalSystemsBase ...... 0.12.1
+ * ChaosTools ................ 0.13.0
+ * TimeseriesPrediction ...... 0.4.0+
 </pre></div>
 
 
-<p>@article{Datseris2018,
+<p>See the <a href="./news">News</a> page for recent updates. The latest one is the Julia 0.7 version support!</p>
+<div class="admonition info">
+<p class="admonition-title">Introductory textbooks</p>
+<p>Our library assumes basic some basic knowledge of nonlinear dynamics and complex systems.</p>
+<p>If you are new to the field but want to learn more, we can suggest the following textbooks as introductions:</p>
+<ul>
+<li>Nonlinear Dynamics And Chaos - S. Strogatz</li>
+<li>An Exploration of Dynamical Systems and Chaos - J. Argyris <em>et al.</em></li>
+<li>Chaos in Dynamical Systems - E. Ott</li>
+</ul>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Jupyter Notebooks / Tutorials</p>
+<p><a href="https://github.com/JuliaDynamics/Tutorials-and-Resources/tree/master/Youtube_JuliaLang_tutorial">In this repository</a> you can find various Jupyter notebooks that have been used as introductory tutorials for <strong>DynamicalSystems.jl</strong>!</p>
+</div>
+<p><a id='Video-tutorial-1'></a></p>
+<h2 id="video-tutorial">Video tutorial</h2>
+<p>The below tutorial is hosted on the Julia channel. <em>Be careful though!</em> It is using an older version of both <strong>DynamicalSystems.jl</strong> as well as Julia! Fortunately, from the side of <strong>DynamicalSystems.jl</strong> there have been very few breaking changes. See the <a href="./news">News</a> for more.</p>
+<p><a href="http://www.youtube.com/watch?v=13hqE_1a158"><img alt="Youtube tutorial" src="http://img.youtube.com/vi/13hqE_1a158/0.jpg" /></a></p>
+<p><a id='Contents-1'></a></p>
+<h2 id="contents">Contents</h2>
+<p><a id='<a href="definition/general">Fundamentals</a>-1'></a></p>
+<h3 id="fundamentals"><a href="./definition/general">Fundamentals</a></h3>
+<ol>
+<li>
+<p>Intuitive, consistent APIs for the definition of general <a href="./definition/general">dynamical systems</a>, both maps and flows. The following combinations are possible:</p>
+<ul>
+<li>Continuous or Discrete systems. Continuous systems use <a href="http://docs.juliadiffeq.org/latest/"><code>DifferentialEquations.jl</code></a> for solving the ODE problem.</li>
+<li>In-place or out-of-place (large versus small systems).</li>
+<li>Auto-differentiated or not (for the Jacobian function).</li>
+</ul>
+</li>
+<li>
+<p>Automatic "completion" of the dynamics of the system with numerically computed Jacobians, in case they are not provided by the user.</p>
+</li>
+<li>Robust implementations of all kinds of integrators, that evolve the system, many states of the system, or even deviation vectors. See the <a href="./advanced">advanced documentation</a> for this.</li>
+<li>Dedicated interface for <a href="./definition/dataset">numerical data</a>.</li>
+<li>Efficient <a href="definition/dataset/#DynamicalSystemsBase.neighborhood"><code>neighborhood</code></a> estimation by interfacing <a href="https://github.com/KristofferC/NearestNeighbors.jl"><code>NearestNeighbors</code></a>.</li>
+<li>
+<p>Delay Coordinates Embedding: flexible and abstracted <a href="definition/reconstruction/#DynamicalSystemsBase.reconstruct"><code>reconstruct</code></a> interface, that creates the delay-coordinates reconstruction of a timeseries efficiently.</p>
+<ul>
+<li>Supports multiple dimensions and multiple timescales.</li>
+</ul>
+</li>
+<li>
+<p>Library of <a href="./definition/predefined">predefined well-known dynamical systems</a> that have been used extensively in scientific research.</p>
+</li>
+</ol>
+<p><a id='<a href="chaos/overview">ChaosTools</a>-1'></a></p>
+<h3 id="chaostools"><a href="./chaos/overview">ChaosTools</a></h3>
+<p>Please see the <a href="./chaos/overview">overview section</a> for a full list of features. Here is a quick summary:</p>
+<ul>
+<li>Poincare S.O.S. and orbit diagrams</li>
+<li>Lyapunov Exponents</li>
+<li>Entropies and Dimensions</li>
+<li>Estimation of Reconstruction parameters</li>
+<li>Lyapunov exponent of a timeseries</li>
+<li>Finding Fixed Points of Maps</li>
+<li>Detecting Chaos</li>
+</ul>
+<p><a id='<a href="tsprediction/localmodels">TimeseriesPrediction</a>-1'></a></p>
+<h3 id="timeseriesprediction"><a href="./tsprediction/localmodels">TimeseriesPrediction</a></h3>
+<div class="admonition warn">
+<p class="admonition-title">Not yet on Julia 0.7</p>
+<p><code>TimeseriesPrediction</code> has not yet been updated to Julia 0.7!</p>
+</div>
+<ul>
+<li>Predicting the future of one or multiple timeseries using average local models.</li>
+<li>Spatio-temporal timeseries prediction and cross-prediction.</li>
+</ul>
+<p><a id='Our-Goals-1'></a></p>
+<h2 id="our-goals">Our Goals</h2>
+<p>The ultimate goal for <strong>DynamicalSystems.jl</strong> is to be a useful <em>library</em> for students and scientists working on chaos, nonlinear dynamics and in general dynamical systems. We don't want to have "just code", but also detailed descriptions and references for as many methods as possible.</p>
+<p>With <strong>DynamicalSystems.jl</strong> we try to</p>
+<ol>
+<li>Be concise, intuitive, and general. All functions we offer work just as well with any system, whether it is a simple continuous chaotic system, like the <a href="./definition/predefined/#DynamicalSystemsBase.Systems.lorenz">Lorenz attractor</a>, or a high dimensional discrete map like <a href="./definition/predefined/#DynamicalSystemsBase.Systems.coupledstandardmaps">coupled standard maps</a>.</li>
+<li>Be accurate, reliable and performant.</li>
+<li>Be transparent with respect to what is happening "under the hood", i.e. be clear about exactly what each function call does. We take care of this aspect in many ways; by being well-documented, giving references to scientific papers and having clear source code.</li>
+</ol>
+<p><a id='Installation-1'></a></p>
+<h2 id="installation">Installation</h2>
+<p>Simply use <code>Pkg.add("DynamicalSystems")</code> to install <em>everything</em>.</p>
+<p><a id='Citing-1'></a></p>
+<h2 id="citing">Citing</h2>
+<p>There is a (very small) paper associated with <strong>DynamicalSystems.jl</strong>. If we have helped you in research that led to a publication, please be kind enough to cite it, using the DOI <code>10.21105/joss.00598</code> or the following BiBTeX entry:</p>
+<div class="codehilite"><pre><span></span>@article{Datseris2018,
   doi = {10.21105/joss.00598},
   url = {https://doi.org/10.21105/joss.00598},
   year  = {2018},
@@ -755,7 +845,9 @@ f() # hide</p>
   title = {{DynamicalSystems}.jl: A Julia software library for chaos and nonlinear dynamics},
   journal = {Journal of Open Source Software}
 }
-```</p>
+</pre></div>
+
+
 <p><a id='Contacting-1'></a></p>
 <h2 id="contacting">Contacting</h2>
 <p>You can <a href="https://gitter.im/JuliaDynamics/Lobby">join our chatroom</a> for discussions and/or questions about the packages of the JuliaDynamics organization!</p>
