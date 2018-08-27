@@ -760,7 +760,7 @@
 <p>The constructor deduces automatically whether <code>eom</code> is iip or oop. It is not possible however to deduce whether the system is continuous or discrete just from the equations of motion, hence the 2 constructors.</p>
 <p><strong>Jacobian</strong></p>
 <p>The optional argument <code>jacobian</code> for the constructors is a <em>function</em> and (if given) must also be of the same form as the <code>eom</code>, <code>jacobian(x, p, n) -&gt; SMatrix</code> for the out-of-place version and <code>jacobian!(xnew, x, p, n)</code> for the in-place version.</p>
-<p>If <code>jacobian</code> is not given, it is constructed automatically using the module <a href="http://www.juliadiff.org/ForwardDiff.jl/stable/"><code>ForwardDiff</code></a>.</p>
+<p>If <code>jacobian</code> is not given, it is constructed automatically using the module <a href="http://www.juliadiff.org/ForwardDiff.jl/stable/"><code>ForwardDiff</code></a>. It is <strong>heavily</strong> advised to provide a Jacobian function, as it gives <em>multiple</em> orders of magnitude speedup.</p>
 <p><strong>Interface to DifferentialEquations.jl</strong></p>
 <p>Continuous systems are solved using <a href="http://docs.juliadiffeq.org/latest/"><strong>DifferentialEquations.jl</strong></a>. The following two interfaces are provided:</p>
 <div class="codehilite"><pre><span></span>ContinuousDynamicalSystem(prob::ODEProblem [, jacobian [, J0]])
