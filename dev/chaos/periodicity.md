@@ -111,7 +111,7 @@ For example, let's find the fixed points of the [Standard Map](system_definition
 First, initialize everything
 
 
-```julia
+```@example sm
 using DynamicalSystems, PyPlot, StaticArrays
 
 ds = Systems.standardmap()
@@ -134,7 +134,7 @@ ALLFP = Dataset{2, Float64}[];
 Then, do the necessary computations for all orders
 
 
-```julia
+```@example sm
 ttt = time()
 for o in orders
     FP = periodicorbits(ds, o, ics, λs, indss, singss)
@@ -143,15 +143,11 @@ end
 println("Total time, including compilation: $((time() - ttt)/60) mins.")
 ```
 
-```
-Total time, including compilation: 0.5686473846435547 mins.
-```
-
 
 Plot the phase space of the standard map
 
 
-```julia
+```@example sm
 iters = 1000
 dataset = trajectory(ds, iters)
 for x in xs
@@ -170,7 +166,7 @@ PyPlot.ylim(ys[1], ys[end]);
 and finally, plot the fixed points
 
 
-```julia
+```@example sm
 markers = ["D", "^", "s", "p", "h", "8"]
 colors = ["b", "g", "r", "c", "m", "grey"]
 
@@ -184,6 +180,7 @@ end
 legend(loc="upper right", framealpha=0.9)
 xlabel("\$\\theta\$")
 ylabel("\$p\$")
+savefig("fixedpoints.png"); nothing # hide
 ```
 
 

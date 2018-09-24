@@ -37,7 +37,7 @@ See the [News](news) page for recent updates. The latest one is the Julia 0.7 ve
 
 
 !!! example "Jupyter Notebooks / Tutorials"
-    [In this repository](https://github.com/JuliaDynamics/Tutorials-and-Resources/tree/master/Youtube_JuliaLang_tutorial) you can find various Jupyter notebooks that have been used as introductory tutorials for **DynamicalSystems.jl**!
+    [In this repository](https://github.com/JuliaDynamics/JuliaDynamicsDocumentation.jl/tree/master/tutorials) you can find various Jupyter notebooks that have been used as introductory tutorials for **DynamicalSystems.jl**!
 
 
 
@@ -152,7 +152,7 @@ There is a (very small) paper associated with **DynamicalSystems.jl**. If we hav
   number = {23},
   pages = {598},
   author = {George Datseris},
-  title = {{DynamicalSystems}.jl: A Julia software library for chaos and nonlinear dynamics},
+  title = {DynamicalSystems.jl: A Julia software library for chaos and nonlinear dynamics},
   journal = {Journal of Open Source Software}
 }
 ```
