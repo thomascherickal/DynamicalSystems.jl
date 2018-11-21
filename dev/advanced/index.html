@@ -263,11 +263,11 @@
       <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
     
     <label class="md-nav__link" for="nav-2">
-      Fundamentals
+      Dynamical Systems
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
       <label class="md-nav__title" for="nav-2">
-        Fundamentals
+        Dynamical Systems
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -278,8 +278,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../definition/general/" title="Dynamical Systems" class="md-nav__link">
-      Dynamical Systems
+    <a href="../ds/general/" title="Dynamical System Definition" class="md-nav__link">
+      Dynamical System Definition
     </a>
   </li>
 
@@ -290,7 +290,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../definition/evolve/" title="Time Evolution" class="md-nav__link">
+    <a href="../ds/evolve/" title="Time Evolution" class="md-nav__link">
       Time Evolution
     </a>
   </li>
@@ -302,31 +302,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../definition/dataset/" title="Numerical Data" class="md-nav__link">
-      Numerical Data
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../definition/reconstruction/" title="Delay Coordinates" class="md-nav__link">
-      Delay Coordinates
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../definition/predefined/" title="Predefined Systems" class="md-nav__link">
+    <a href="../ds/predefined/" title="Predefined Systems" class="md-nav__link">
       Predefined Systems
     </a>
   </li>
@@ -347,10 +323,70 @@
       <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
     
     <label class="md-nav__link" for="nav-3">
-      ChaosTools
+      Delay Coordinates Embedding
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
       <label class="md-nav__title" for="nav-3">
+        Delay Coordinates Embedding
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../embedding/dataset/" title="Numerical Data" class="md-nav__link">
+      Numerical Data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../embedding/reconstruction/" title="Delay Coordinates" class="md-nav__link">
+      Delay Coordinates
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../embedding/estimate/" title="Estimating Delay Embedding Parameters" class="md-nav__link">
+      Estimating Delay Embedding Parameters
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      ChaosTools
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
         ChaosTools
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -434,80 +470,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../chaos/chaos_detection/" title="Chaos Detection" class="md-nav__link">
-      Chaos Detection
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
-    
-    <label class="md-nav__link" for="nav-4">
-      TimeseriesPrediction
-    </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-4">
-        TimeseriesPrediction
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../tsprediction/tsintro/" title="Introduction" class="md-nav__link">
-      Introduction
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../tsprediction/localmodels/" title="Local Modeling & Timeseries Prediction" class="md-nav__link">
-      Local Modeling & Timeseries Prediction
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../tsprediction/spatiotemporal/" title="Spatio-Temporal Prediction" class="md-nav__link">
-      Spatio-Temporal Prediction
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../tsprediction/stexamples/" title="Spatio-Temporal Examples" class="md-nav__link">
-      Spatio-Temporal Examples
+    <a href="../chaos/chaos_detection/" title="Chaos Distinction" class="md-nav__link">
+      Chaos Distinction
     </a>
   </li>
 
@@ -747,7 +711,7 @@
 <p>Return an integrator object that can be used to evolve a system interactively using <code>step!(integ [, Δt])</code>. Optionally specify an initial state <code>u0</code>.</p>
 <p>The state of this integrator is a vector.</p>
 <ul>
-<li><code>diffeq...</code> are keyword arguments propagated into <code>init</code> of DifferentialEquations.jl. See <a href="../definition/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> for examples. Only valid for continuous systems.</li>
+<li><code>diffeq...</code> are keyword arguments propagated into <code>init</code> of DifferentialEquations.jl. See <a href="../ds/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> for examples. Only valid for continuous systems.</li>
 </ul>
 <p><a id='DynamicalSystemsBase.parallel_integrator' href='#DynamicalSystemsBase.parallel_integrator'>#</a>
 <strong><code>DynamicalSystemsBase.parallel_integrator</code></strong> &mdash; <em>Function</em>.</p>
@@ -759,7 +723,7 @@
 <p><code>states</code> are expected as vectors of vectors.</p>
 <p><strong>Keyword Arguments</strong></p>
 <ul>
-<li><code>diffeq...</code> : Keyword arguments propagated into <code>init</code> of DifferentialEquations.jl. See <a href="../definition/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> for examples. Only valid for continuous systems. These keywords can also include <code>callback</code> for <a href="http://docs.juliadiffeq.org/latest/features/callback_functions.html">event handling</a>.</li>
+<li><code>diffeq...</code> : Keyword arguments propagated into <code>init</code> of DifferentialEquations.jl. See <a href="../ds/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> for examples. Only valid for continuous systems. These keywords can also include <code>callback</code> for <a href="http://docs.juliadiffeq.org/latest/features/callback_functions.html">event handling</a>.</li>
 </ul>
 <p>It is <em>heavily</em> advised to use the functions <a href="./#DynamicalSystemsBase.get_state"><code>get_state</code></a> and <a href="./#DynamicalSystemsBase.set_state!"><code>set_state!</code></a> to manipulate the integrator. Provide <code>i</code> as a second argument to change the <code>i</code>-th state.</p>
 <p><a id='DynamicalSystemsBase.tangent_integrator' href='#DynamicalSystemsBase.tangent_integrator'>#</a>
@@ -773,7 +737,7 @@
 <p><strong>Keyword Arguments</strong></p>
 <ul>
 <li><code>u0</code> : Optional different initial state.</li>
-<li><code>diffeq...</code> : Keyword arguments propagated into <code>init</code> of DifferentialEquations.jl. See <a href="../definition/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> for examples. Only valid for continuous systems. These keywords can also include <code>callback</code> for <a href="http://docs.juliadiffeq.org/latest/features/callback_functions.html">event handling</a>.</li>
+<li><code>diffeq...</code> : Keyword arguments propagated into <code>init</code> of DifferentialEquations.jl. See <a href="../ds/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> for examples. Only valid for continuous systems. These keywords can also include <code>callback</code> for <a href="http://docs.juliadiffeq.org/latest/features/callback_functions.html">event handling</a>.</li>
 </ul>
 <p>It is <em>heavily</em> advised to use the functions <a href="./#DynamicalSystemsBase.get_state"><code>get_state</code></a>, <a href="./#DynamicalSystemsBase.get_deviations"><code>get_deviations</code></a>, <a href="./#DynamicalSystemsBase.set_state!"><code>set_state!</code></a>, <a href="./#DynamicalSystemsBase.set_deviations!"><code>set_deviations!</code></a> to manipulate the integrator.</p>
 <p><strong>Description</strong></p>
@@ -794,7 +758,7 @@
 </div>
 <p>with <span><span class="MathJax_Preview">f</span><script type="math/tex">f</script></span> being the equations of motion and <span><span class="MathJax_Preview">u</span><script type="math/tex">u</script></span> the system state. Similar equations hold for the discrete case.</p>
 <hr />
-<p>Notice that the state type <code>integrator.u</code> of each integrator is quite different and <em>does change</em> between the possible versions of a <a href="../definition/general/#DynamicalSystemsBase.DynamicalSystem"><code>DynamicalSystem</code></a>!</p>
+<p>Notice that the state type <code>integrator.u</code> of each integrator is quite different and <em>does change</em> between the possible versions of a <a href="../ds/general/#DynamicalSystemsBase.DynamicalSystem"><code>DynamicalSystem</code></a>!</p>
 <p><a id='Integrator-state-functions-1'></a></p>
 <h2 id="integrator-state-functions">Integrator state functions</h2>
 <p>There are four functions associated with the integrators that we export:</p>
@@ -904,27 +868,27 @@
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>14155-element Array{Float64,1}:
-  1.225918525794331e-9
-  1.2266182705742776e-9
-  1.2571076308042652e-9
-  1.31078769549531e-9
-  1.3798055033944225e-9
-  1.4606533088670285e-9
-  1.551129782919183e-9
-  1.6527411122412256e-9
-  1.7587271363437031e-9
-  1.8699873867538346e-9
+<div class="codehilite"><pre><span></span>14199-element Array{Float64,1}:
+  8.222841774054874e-10
+  8.716246790984193e-10
+  9.064931525210034e-10
+  9.476158821428655e-10
+  9.90079263148451e-10
+  1.0346649474225157e-9
+  1.0813164623842365e-9
+  1.1295976293736467e-9
+  1.1794450129724396e-9
+  1.232886589998316e-9
   ⋮
- 20.129229542752533
- 20.552164712344325
- 20.947440106475778
- 21.31891332657921
- 21.65777309621777
- 21.963318160025068
- 22.23158318335586
- 22.464700766561016
- 22.65822601490359
+ 21.59453572641172
+ 21.917391546726233
+ 22.27923744230066
+ 22.685794250572922
+ 23.12918499460809
+ 23.615017289051025
+ 24.1189959689045
+ 24.66517057742145
+ 25.23112104932968
 </pre></div>
 
 
@@ -974,7 +938,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../tsprediction/stexamples/" title="Spatio-Temporal Examples" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../chaos/chaos_detection/" title="Chaos Distinction" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -983,7 +947,7 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Spatio-Temporal Examples
+                Chaos Distinction
               </span>
             </div>
           </a>

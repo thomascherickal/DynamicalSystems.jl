@@ -263,11 +263,11 @@
       <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
     
     <label class="md-nav__link" for="nav-2">
-      Fundamentals
+      Dynamical Systems
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
       <label class="md-nav__title" for="nav-2">
-        Fundamentals
+        Dynamical Systems
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -278,8 +278,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../definition/general/" title="Dynamical Systems" class="md-nav__link">
-      Dynamical Systems
+    <a href="../../ds/general/" title="Dynamical System Definition" class="md-nav__link">
+      Dynamical System Definition
     </a>
   </li>
 
@@ -290,7 +290,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../definition/evolve/" title="Time Evolution" class="md-nav__link">
+    <a href="../../ds/evolve/" title="Time Evolution" class="md-nav__link">
       Time Evolution
     </a>
   </li>
@@ -302,7 +302,43 @@
 
 
   <li class="md-nav__item">
-    <a href="../../definition/dataset/" title="Numerical Data" class="md-nav__link">
+    <a href="../../ds/predefined/" title="Predefined Systems" class="md-nav__link">
+      Predefined Systems
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Delay Coordinates Embedding
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Delay Coordinates Embedding
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../embedding/dataset/" title="Numerical Data" class="md-nav__link">
       Numerical Data
     </a>
   </li>
@@ -314,7 +350,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../definition/reconstruction/" title="Delay Coordinates" class="md-nav__link">
+    <a href="../../embedding/reconstruction/" title="Delay Coordinates" class="md-nav__link">
       Delay Coordinates
     </a>
   </li>
@@ -326,8 +362,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../definition/predefined/" title="Predefined Systems" class="md-nav__link">
-      Predefined Systems
+    <a href="../../embedding/estimate/" title="Estimating Delay Embedding Parameters" class="md-nav__link">
+      Estimating Delay Embedding Parameters
     </a>
   </li>
 
@@ -346,13 +382,13 @@
 
   <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
     
-    <label class="md-nav__link" for="nav-3">
+    <label class="md-nav__link" for="nav-4">
       ChaosTools
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-3">
+      <label class="md-nav__title" for="nav-4">
         ChaosTools
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -497,80 +533,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../chaos_detection/" title="Chaos Detection" class="md-nav__link">
-      Chaos Detection
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
-    
-    <label class="md-nav__link" for="nav-4">
-      TimeseriesPrediction
-    </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-4">
-        TimeseriesPrediction
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../tsprediction/tsintro/" title="Introduction" class="md-nav__link">
-      Introduction
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../tsprediction/localmodels/" title="Local Modeling & Timeseries Prediction" class="md-nav__link">
-      Local Modeling & Timeseries Prediction
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../tsprediction/spatiotemporal/" title="Spatio-Temporal Prediction" class="md-nav__link">
-      Spatio-Temporal Prediction
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../tsprediction/stexamples/" title="Spatio-Temporal Examples" class="md-nav__link">
-      Spatio-Temporal Examples
+    <a href="../chaos_detection/" title="Chaos Distinction" class="md-nav__link">
+      Chaos Distinction
     </a>
   </li>
 
@@ -765,18 +729,18 @@ a_1u_1 + \dots + a_Du_D = \mathbf{a}\cdot\mathbf{u}=b
 <p>In code, <code>plane</code> can be either:</p>
 <ul>
 <li>A <code>Tuple{Int, &lt;: Number}</code>, like <code>(j, r)</code> : the planecrossing is defined as when the <code>j</code> variable of the system crosses the value <code>r</code>.</li>
-<li>An <code>AbstractVector</code> of length <code>D+1</code>. The first <code>D</code> elements of the vector correspond to <span><span class="MathJax_Preview">\mathbf{a}</span><script type="math/tex">\mathbf{a}</script></span> while the last element is <span><span class="MathJax_Preview">b</span><script type="math/tex">b</script></span>.</li>
+<li>A vector of length <code>D+1</code>. The first <code>D</code> elements of the vector correspond to <span><span class="MathJax_Preview">\mathbf{a}</span><script type="math/tex">\mathbf{a}</script></span> while the last element is <span><span class="MathJax_Preview">b</span><script type="math/tex">b</script></span>.</li>
 </ul>
-<p>Returns a <a href="../../definition/dataset/#DynamicalSystemsBase.Dataset"><code>Dataset</code></a> of the points that are on the surface of section.</p>
+<p>Returns a <a href="../../embedding/dataset/#DelayEmbeddings.Dataset"><code>Dataset</code></a> of the points that are on the surface of section.</p>
 <p><strong>Keyword Arguments</strong></p>
 <ul>
-<li><code>direction = 1</code> : Only crossings with <code>sign(direction)</code> are considered to belong to the surface of section. Positive direction means going from less than <span><span class="MathJax_Preview">b</span><script type="math/tex">b</script></span> to greater than <span><span class="MathJax_Preview">b</span><script type="math/tex">b</script></span>.</li>
+<li><code>direction = -1</code> : Only crossings with <code>sign(direction)</code> are considered to belong to the surface of section. Positive direction means going from less than <span><span class="MathJax_Preview">b</span><script type="math/tex">b</script></span> to greater than <span><span class="MathJax_Preview">b</span><script type="math/tex">b</script></span>.</li>
 <li><code>idxs = 1:dimension(ds)</code> : Optionally you can choose which variables to save. Defaults to the entire state.</li>
 <li><code>Ttr = 0.0</code> : Transient time to evolve the system before starting to compute the PSOS.</li>
 <li><code>u0 = get_state(ds)</code> : Specify an initial state.</li>
 <li><code>warning = true</code> : Throw a warning if the Poincaré section was empty.</li>
 <li><code>rootkw = (xrtol = 1e-6, atol = 1e-6)</code> : A <code>NamedTuple</code> of keyword arguments passed to <code>find_zero</code> from <a href="https://github.com/JuliaMath/Roots.jl">Roots.jl</a>.</li>
-<li><code>diffeq...</code> : All other extra keyword arguments are propagated into <code>init</code> of DifferentialEquations.jl. See <a href="../../definition/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> for examples.</li>
+<li><code>diffeq...</code> : All other extra keyword arguments are propagated into <code>init</code> of DifferentialEquations.jl. See <a href="../../ds/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> for examples.</li>
 </ul>
 <p><strong>References</strong></p>
 <p>[1] : H. Poincaré, <em>Les Methods Nouvelles de la Mécanique Celeste</em>, Paris: Gauthier-Villars (1892)</p>
@@ -790,6 +754,11 @@ a_1u_1 + \dots + a_Du_D = \mathbf{a}\cdot\mathbf{u}=b
 <span class="n">figure</span><span class="p">()</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">output</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">lw</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">&quot;.&quot;</span><span class="p">)</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\$</span><span class="s">q_2</span><span class="se">\$</span><span class="s">&quot;</span><span class="p">);</span> <span class="n">ylabel</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\$</span><span class="s">p_2</span><span class="se">\$</span><span class="s">&quot;</span><span class="p">);</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>┌ Warning: Default value of `direction` argument had to change to +1 from -1 because it did not correspond with the &#39;default&#39; direction the returned dataset is facing.
+└ @ ChaosTools ~/.julia/packages/ChaosTools/lOIYL/src/orbitdiagrams/poincare.jl:61
 </pre></div>
 
 
@@ -818,11 +787,16 @@ a_1u_1 + \dots + a_Du_D = \mathbf{a}\cdot\mathbf{u}=b
 </pre></div>
 
 
+<div class="codehilite"><pre><span></span>┌ Warning: Default value of `direction` argument had to change to +1 from -1 because it did not correspond with the &#39;default&#39; direction the returned dataset is facing.
+└ @ ChaosTools ~/.julia/packages/ChaosTools/lOIYL/src/orbitdiagrams/poincare.jl:61
+</pre></div>
+
+
 <p><img alt="" src="../gispsos.png" /></p>
 <p><a id='Stroboscopic-Map-1'></a></p>
 <h3 id="stroboscopic-map">Stroboscopic Map</h3>
 <p>A special case of a PSOS is a stroboscopic map, which is defined for non-autonomous systems with periodic time dependence, like e.g. the <a href="../../definition/predefined/#DynamicalSystemsBase.Systems.duffing">Duffing oscillator</a>.</p>
-<p>A "cut" through the phase-space can be produced at every period <span><span class="MathJax_Preview">T = 2\pi/\omega</span><script type="math/tex">T = 2\pi/\omega</script></span>. There is no reason to use <code>poincaresos</code> for this though, because you can simply use <a href="../../definition/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> and get the solution with a certain time sampling rate:</p>
+<p>A "cut" through the phase-space can be produced at every period <span><span class="MathJax_Preview">T = 2\pi/\omega</span><script type="math/tex">T = 2\pi/\omega</script></span>. There is no reason to use <code>poincaresos</code> for this though, because you can simply use <a href="../../ds/evolve/#DynamicalSystemsBase.trajectory"><code>trajectory</code></a> and get the solution with a certain time sampling rate:</p>
 <div class="codehilite"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">duffing</span><span class="p">(</span><span class="n">β</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">ω</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">f</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">)</span> <span class="c"># non-autonomous chaotic system</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="mf">100000.0</span><span class="p">,</span> <span class="n">dt</span> <span class="o">=</span> <span class="mi">2</span><span class="nb">π</span><span class="p">)</span> <span class="c"># every period T = 2π/ω</span>
 <span class="n">figure</span><span class="p">()</span>
