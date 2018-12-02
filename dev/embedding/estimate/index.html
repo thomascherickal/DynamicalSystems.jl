@@ -398,8 +398,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#number-of-temporal-neighbors" title="Number of Temporal neighbors" class="md-nav__link">
-    Number of Temporal neighbors
+  <a href="#embedding-dimension" title="Embedding Dimension" class="md-nav__link">
+    Embedding Dimension
   </a>
   
 </li>
@@ -599,8 +599,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#number-of-temporal-neighbors" title="Number of Temporal neighbors" class="md-nav__link">
-    Number of Temporal neighbors
+  <a href="#embedding-dimension" title="Embedding Dimension" class="md-nav__link">
+    Embedding Dimension
   </a>
   
 </li>
@@ -642,38 +642,37 @@
 </pre></div>
 
 
-<p>Estimate an optimal delay to be used in <a href="../reconstruction/#DelayEmbeddings.reconstruct"><code>reconstruct</code></a>. Return the exponential decay time <code>τ</code> rounded to an integer.</p>
+<p>Estimate an optimal delay to be used in <a href="../reconstruction/#DelayEmbeddings.reconstruct"><code>reconstruct</code></a> or <a href="../reconstruction/#DelayEmbeddings.embed"><code>embed</code></a>. Return the exponential decay time <code>τ</code> rounded to an integer.</p>
 <p>The <code>method</code> can be one of the following:</p>
 <ul>
 <li><code>"first_zero"</code> : find first delay at which the auto-correlation function becomes 0.</li>
 <li><code>"first_min"</code> : return delay of first minimum of the auto-correlation function.</li>
 </ul>
-<p><a id='Number-of-Temporal-neighbors-1'></a></p>
-<h2 id="number-of-temporal-neighbors">Number of Temporal neighbors</h2>
-<p>This also corresponds to the "embedding dimension" but only for univariate timeseries.</p>
+<p><a id='Embedding-Dimension-1'></a></p>
+<h2 id="embedding-dimension">Embedding Dimension</h2>
 <p><a id='DelayEmbeddings.estimate_dimension' href='#DelayEmbeddings.estimate_dimension'>#</a>
 <strong><code>DelayEmbeddings.estimate_dimension</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>estimate_dimension(s::AbstractVector, τ:Int, Ds = 1:5) -&gt; E₁s
+<div class="codehilite"><pre><span></span>estimate_dimension(s::AbstractVector, τ:Int, γs = 1:5) -&gt; E₁s
 </pre></div>
 
 
-<p>Compute a quantity that can estimate an optimal amount of temporal neighbors <code>D</code> to be used in <a href="../reconstruction/#DelayEmbeddings.reconstruct"><code>reconstruct</code></a>.</p>
+<p>Compute a quantity that can estimate an optimal amount of temporal neighbors <code>γ</code> to be used in <a href="../reconstruction/#DelayEmbeddings.reconstruct"><code>reconstruct</code></a> or <a href="../reconstruction/#DelayEmbeddings.embed"><code>embed</code></a>.</p>
 <p><strong>Description</strong></p>
-<p>Given the scalar timeseries <code>s</code> and the embedding delay <code>τ</code> compute the values of <code>E₁</code> for each <code>D ∈ Ds</code>, according to Cao's Method (eq. 3 of [1]). Please be aware that in <strong>DynamicalSystems.jl</strong> <code>D</code> stands for the amount of temporal neighbors, <em>not</em> the dimension as in [1]. The dimension is <code>D+1</code>.</p>
-<p>Return the vector of all computed <code>E₁</code>s. To estimate a good value for <code>D</code> from this, find <code>D</code> for which the value <code>E₁</code> saturates at some value around 1.</p>
+<p>Given the scalar timeseries <code>s</code> and the embedding delay <code>τ</code> compute the values of <code>E₁</code> for each <code>γ ∈ γs</code>, according to Cao's Method (eq. 3 of [1]). Please be aware that in <strong>DynamicalSystems.jl</strong> <code>γ</code> stands for the amount of temporal neighbors and not the embedding dimension (<code>D = γ + 1</code>, see also <a href="../reconstruction/#DelayEmbeddings.embed"><code>embed</code></a>).</p>
+<p>Return the vector of all computed <code>E₁</code>s. To estimate a good value for <code>γ</code> from this, find <code>γ</code> for which the value <code>E₁</code> saturates at some value around 1.</p>
 <p><em>Note: This method does not work for datasets with perfectly periodic signals.</em></p>
 <p><strong>References</strong></p>
 <p>[1] : Liangyue Cao, <a href="https://www.sciencedirect.com/science/article/pii/S0167278997001188?via%3Dihub">Physica D, pp. 43-50 (1997)</a></p>
 <p><a id='DelayEmbeddings.stochastic_indicator' href='#DelayEmbeddings.stochastic_indicator'>#</a>
 <strong><code>DelayEmbeddings.stochastic_indicator</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>stochastic_indicator(s::AbstractVector, τ:Int, Ds = 1:4) -&gt; E₂s
+<div class="codehilite"><pre><span></span>stochastic_indicator(s::AbstractVector, τ:Int, γs = 1:4) -&gt; E₂s
 </pre></div>
 
 
-<p>Compute an estimator for apparent randomness in a reconstruction with <code>Ds</code> temporal neighbors.</p>
+<p>Compute an estimator for apparent randomness in a reconstruction with <code>γs</code> temporal neighbors.</p>
 <p><strong>Description</strong></p>
-<p>Given the scalar timeseries <code>s</code> and the embedding delay <code>τ</code> compute the values of <code>E₂</code> for each <code>D ∈ Ds</code>, according to Cao's Method (eq. 5 of [1]).</p>
-<p>Use this function to confirm that the input signal is not random and validate the results of <a href="./#DelayEmbeddings.estimate_dimension"><code>estimate_dimension</code></a>. In the case of random signals, it should be <code>E₂ ≈ 1 ∀ D</code>.</p>
+<p>Given the scalar timeseries <code>s</code> and the embedding delay <code>τ</code> compute the values of <code>E₂</code> for each <code>γ ∈ γs</code>, according to Cao's Method (eq. 5 of [1]).</p>
+<p>Use this function to confirm that the input signal is not random and validate the results of <a href="./#DelayEmbeddings.estimate_dimension"><code>estimate_dimension</code></a>. In the case of random signals, it should be <code>E₂ ≈ 1 ∀ γ</code>.</p>
 <p><strong>References</strong></p>
 <p>[1] : Liangyue Cao, <a href="https://www.sciencedirect.com/science/article/pii/S0167278997001188?via%3Dihub">Physica D, pp. 43-50 (1997)</a></p>
 <hr />

@@ -540,36 +540,37 @@
                   <h1>Delay Coordinates</h1>
                 
                 <p>A timeseries recorded in some manner from a dynamical system can be used to gain information about the dynamics of the entire phase-space of the system. This can be done by reconstructing a new phase-space from the timeseries. One method that can do this is what is known as <a href="https://en.wikipedia.org/wiki/Takens%27_theorem">delay coordinates embedding</a> or delay coordinates <em>reconstruction</em>.</p>
-<p>This is done through the <code>reconstruct</code> interface:</p>
+<p>This is done through <code>reconstruct</code> or <code>embed</code>:</p>
 <p><a id='DelayEmbeddings.reconstruct' href='#DelayEmbeddings.reconstruct'>#</a>
 <strong><code>DelayEmbeddings.reconstruct</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>reconstruct(s, D, τ)
+<div class="codehilite"><pre><span></span>reconstruct(s, γ, τ)
 </pre></div>
 
 
-<p>Reconstruct <code>s</code> using the delay coordinates embedding with <code>D</code> temporal neighbors and delay <code>τ</code> and return the result as a <a href="../dataset/#DelayEmbeddings.Dataset"><code>Dataset</code></a>.</p>
+<p>Reconstruct <code>s</code> using the delay coordinates embedding with <code>γ</code> temporal neighbors and delay <code>τ</code> and return the result as a <a href="../dataset/#DelayEmbeddings.Dataset"><code>Dataset</code></a>.</p>
+<p>See <a href="./#DelayEmbeddings.embed"><code>embed</code></a> for the version that accepts the embedding dimension <code>D = γ+1</code> directly.</p>
 <p><strong>Description</strong></p>
 <p><strong>Single Timeseries</strong></p>
 <p>If <code>τ</code> is an integer, then the <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>-th entry of the embedded space is</p>
 <div>
 <div class="MathJax_Preview">
-(s(n), s(n+\tau), s(n+2\tau), \dots, s(n+D\tau))
+(s(n), s(n+\tau), s(n+2\tau), \dots, s(n+γ\tau))
 </div>
 <script type="math/tex; mode=display">
-(s(n), s(n+\tau), s(n+2\tau), \dots, s(n+D\tau))
+(s(n), s(n+\tau), s(n+2\tau), \dots, s(n+γ\tau))
 </script>
 </div>
-<p>If instead <code>τ</code> is a vector of integers, so that <code>length(τ) == D</code>, then the <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>-th entry is</p>
+<p>If instead <code>τ</code> is a vector of integers, so that <code>length(τ) == γ</code>, then the <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>-th entry is</p>
 <div>
 <div class="MathJax_Preview">
-(s(n), s(n+\tau[1]), s(n+\tau[2]), \dots, s(n+\tau[D]))
+(s(n), s(n+\tau[1]), s(n+\tau[2]), \dots, s(n+\tau[γ]))
 </div>
 <script type="math/tex; mode=display">
-(s(n), s(n+\tau[1]), s(n+\tau[2]), \dots, s(n+\tau[D]))
+(s(n), s(n+\tau[1]), s(n+\tau[2]), \dots, s(n+\tau[γ]))
 </script>
 </div>
-<p>The reconstructed dataset can have same invariant quantities (like e.g. lyapunov exponents) with the original system that the timeseries were recorded from, for proper <code>D</code> and <code>τ</code> [1, 2]. The case of different delay times allows reconstructing systems with many time scales, see [3].</p>
-<p><em>Notice</em> - The dimension of the returned dataset is <code>D+1</code>!</p>
+<p>The reconstructed dataset can have same invariant quantities (like e.g. lyapunov exponents) with the original system that the timeseries were recorded from, for proper <code>γ</code> and <code>τ</code>. This is known as the Takens embedding theorem [1, 2]. The case of different delay times allows reconstructing systems with many time scales, see [3].</p>
+<p><em>Notice</em> - The dimension of the returned dataset (i.e. embedding dimension) is <code>γ+1</code>!</p>
 <p><strong>Multiple Timeseries</strong></p>
 <p>To make a reconstruction out of a multiple timeseries (i.e. trajectory) the number of timeseries must be known by type, so <code>s</code> can be either:</p>
 <ul>
@@ -579,26 +580,34 @@
 <p>If the trajectory is for example <span><span class="MathJax_Preview">(x, y)</span><script type="math/tex">(x, y)</script></span> and <code>τ</code> is integer, then the <span><span class="MathJax_Preview">n</span><script type="math/tex">n</script></span>-th entry of the embedded space is</p>
 <div>
 <div class="MathJax_Preview">
-(x(n), y(n), x(n+\tau), y(n+\tau), \dots, x(n+D\tau), y(n+D\tau))
+(x(n), y(n), x(n+\tau), y(n+\tau), \dots, x(n+γ\tau), y(n+γ\tau))
 </div>
 <script type="math/tex; mode=display">
-(x(n), y(n), x(n+\tau), y(n+\tau), \dots, x(n+D\tau), y(n+D\tau))
+(x(n), y(n), x(n+\tau), y(n+\tau), \dots, x(n+γ\tau), y(n+γ\tau))
 </script>
 </div>
-<p>If <code>τ</code> is an <code>AbstractMatrix{Int}</code>, so that <code>size(τ) == (D, B)</code>, then we have</p>
+<p>If <code>τ</code> is an <code>AbstractMatrix{Int}</code>, so that <code>size(τ) == (γ, B)</code>, then we have</p>
 <div>
 <div class="MathJax_Preview">
-(x(n), y(n), x(n+\tau[1, 1]), y(n+\tau[1, 2]), \dots, x(n+\tau[D, 1]), y(n+\tau[D, 2]))
+(x(n), y(n), x(n+\tau[1, 1]), y(n+\tau[1, 2]), \dots, x(n+\tau[γ, 1]), y(n+\tau[γ, 2]))
 </div>
 <script type="math/tex; mode=display">
-(x(n), y(n), x(n+\tau[1, 1]), y(n+\tau[1, 2]), \dots, x(n+\tau[D, 1]), y(n+\tau[D, 2]))
+(x(n), y(n), x(n+\tau[1, 1]), y(n+\tau[1, 2]), \dots, x(n+\tau[γ, 1]), y(n+\tau[γ, 2]))
 </script>
 </div>
-<p><em>Notice</em> - The dimension of the returned dataset is <code>(D+1)*B</code>!</p>
+<p><em>Notice</em> - The dimension of the returned dataset is <code>(γ+1)*B</code>!</p>
 <p><strong>References</strong></p>
 <p>[1] : F. Takens, <em>Detecting Strange Attractors in Turbulence — Dynamical Systems and Turbulence</em>, Lecture Notes in Mathematics <strong>366</strong>, Springer (1981)</p>
 <p>[2] : T. Sauer <em>et al.</em>, J. Stat. Phys. <strong>65</strong>, pp 579 (1991)</p>
 <p>[3] : K. Judd &amp; A. Mees, <a href="https://www.sciencedirect.com/science/article/pii/S0167278997001188">Physica D <strong>120</strong>, pp 273 (1998)</a></p>
+<p><a id='DelayEmbeddings.embed' href='#DelayEmbeddings.embed'>#</a>
+<strong><code>DelayEmbeddings.embed</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>embed(s, D, τ)
+</pre></div>
+
+
+<p>Perform a delay coordinates embedding on signal <code>s</code> with embedding dimension <code>D</code> and delay time <code>τ</code>. The result is returned as a <a href="../dataset/#DelayEmbeddings.Dataset"><code>Dataset</code></a>, which is a vector of static vectors.</p>
+<p>See <a href="./#DelayEmbeddings.reconstruct"><code>reconstruct</code></a> for an advanced version that supports multiple delay times and can reconstruct multiple timeseries efficiently.</p>
 <hr />
 <p>Here are some examples of <code>reconstruct</code>ing a 3D continuous chaotic system:</p>
 <div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">DynamicalSystems</span><span class="p">,</span> <span class="n">PyPlot</span>
@@ -641,26 +650,26 @@
 
 
 <div class="codehilite"><pre><span></span>9-dimensional Dataset{Float64} with 996 points
- 0.745667  0.0435719  0.890338    0.157497  …  0.711019  0.214052   0.314479
- 0.594759  0.945384   0.866707    0.511541     0.83282   0.380153   0.754458
- 0.157497  0.0189407  0.793988    0.711019     0.972236  0.22743    0.163211
- 0.511541  0.940033   0.00872263  0.83282      0.786371  0.32852    0.058607
- 0.711019  0.214052   0.314479    0.972236     0.767224  0.722706   0.149247
- 0.83282   0.380153   0.754458    0.786371  …  0.739681  0.0685687  0.502927
- 0.972236  0.22743    0.163211    0.767224     0.876281  0.079287   0.735791
- 0.786371  0.32852    0.058607    0.739681     0.606395  0.717941   0.690385
- 0.767224  0.722706   0.149247    0.876281     0.607293  0.854671   0.298421
- 0.739681  0.0685687  0.502927    0.606395     0.895487  0.0281828  0.687055
- ⋮                                          ⋱
- 0.218698  0.987811   0.42298     0.660524     0.632614  0.230983   0.651362
- 0.930821  0.756176   0.0639801   0.844555     0.574546  0.10618    0.878057
- 0.660524  0.490072   0.523987    0.632614     0.824329  0.992665   0.814298
- 0.844555  0.423646   0.34591     0.574546     0.244064  0.232577   0.745421
- 0.632614  0.230983   0.651362    0.824329  …  0.836616  0.716936   0.0923172
- 0.574546  0.10618    0.878057    0.244064     0.254464  0.174518   0.358852
- 0.824329  0.992665   0.814298    0.836616     0.485585  0.45082    0.61328
- 0.244064  0.232577   0.745421    0.254464     0.368824  0.994254   0.234301
- 0.836616  0.716936   0.0923172   0.485585     0.779545  0.876001   0.420806
+ 0.453591    0.269982  0.671819  …  0.96895     0.303171  0.897061
+ 0.687247    0.386008  0.24742      0.330257    0.487621  0.643531
+ 0.804218    0.143555  0.24769      0.00690501  0.19615   0.58454
+ 0.0824645   0.587728  0.482743     0.878142    0.958098  0.737605
+ 0.96895     0.303171  0.897061     0.832304    0.493443  0.723887
+ 0.330257    0.487621  0.643531  …  0.861223    0.686945  0.982702
+ 0.00690501  0.19615   0.58454      0.847       0.834403  0.457541
+ 0.878142    0.958098  0.737605     0.71074     0.271625  0.457599
+ 0.832304    0.493443  0.723887     0.939664    0.421249  0.227843
+ 0.861223    0.686945  0.982702     0.0592723   0.567878  0.823369
+ ⋮                               ⋱
+ 0.0581625   0.918     0.980216     0.420095    0.70439   0.278469
+ 0.123925    0.602361  0.278765     0.212964    0.303533  0.836159
+ 0.165968    0.853705  0.379734     0.014124    0.575129  0.808987
+ 0.0968769   0.229955  0.681255     0.409945    0.250198  0.912694
+ 0.420095    0.70439   0.278469  …  0.815924    0.27896   0.284367
+ 0.212964    0.303533  0.836159     0.998323    0.398785  0.835313
+ 0.014124    0.575129  0.808987     0.307187    0.280697  0.196756
+ 0.409945    0.250198  0.912694     0.899011    0.609194  0.638631
+ 0.815924    0.27896   0.284367     0.218048    0.909731  0.746986
 </pre></div>
 
 
