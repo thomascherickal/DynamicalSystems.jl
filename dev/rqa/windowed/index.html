@@ -40,7 +40,7 @@
     
     
       
-        <title>Time Evolution - DynamicalSystems.jl</title>
+        <title>Windowed RQA - DynamicalSystems.jl</title>
       
     
     
@@ -104,7 +104,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#time-evolution-of-systems" tabindex="1" class="md-skip">
+      <a href="#windowed-rqa" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -130,7 +130,7 @@
                 DynamicalSystems.jl
               </span>
               <span class="md-header-nav__topic">
-                Time Evolution
+                Windowed RQA
               </span>
             
           
@@ -257,12 +257,10 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
     
     <label class="md-nav__link" for="nav-2">
       Dynamical Systems
@@ -280,7 +278,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../general/" title="Dynamical System Definition" class="md-nav__link">
+    <a href="../../ds/general/" title="Dynamical System Definition" class="md-nav__link">
       Dynamical System Definition
     </a>
   </li>
@@ -290,49 +288,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Time Evolution
-      </label>
-    
-    <a href="./" title="Time Evolution" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../../ds/evolve/" title="Time Evolution" class="md-nav__link">
       Time Evolution
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#solution-precision-for-continuous-systems" title="Solution precision for continuous systems" class="md-nav__link">
-    Solution precision for continuous systems
-  </a>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -342,7 +302,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../predefined/" title="Predefined Systems" class="md-nav__link">
+    <a href="../../ds/predefined/" title="Predefined Systems" class="md-nav__link">
       Predefined Systems
     </a>
   </li>
@@ -525,10 +485,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
     
     <label class="md-nav__link" for="nav-5">
       Recurrence Quantification Analysis
@@ -546,7 +508,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../rqa/rplots/" title="Recurrence Plots" class="md-nav__link">
+    <a href="../rplots/" title="Recurrence Plots" class="md-nav__link">
       Recurrence Plots
     </a>
   </li>
@@ -558,7 +520,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../rqa/quantification/" title="Quantification & Analysis functions" class="md-nav__link">
+    <a href="../quantification/" title="Quantification & Analysis functions" class="md-nav__link">
       Quantification & Analysis functions
     </a>
   </li>
@@ -568,11 +530,56 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../../rqa/windowed/" title="Windowed RQA" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Windowed RQA
+      </label>
+    
+    <a href="./" title="Windowed RQA" class="md-nav__link md-nav__link--active">
       Windowed RQA
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#docstring" title="Docstring" class="md-nav__link">
+    Docstring
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternative-syntax-for-windowed" title="Alternative syntax for @windowed" class="md-nav__link">
+    Alternative syntax for @windowed
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -638,8 +645,15 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#solution-precision-for-continuous-systems" title="Solution precision for continuous systems" class="md-nav__link">
-    Solution precision for continuous systems
+  <a href="#docstring" title="Docstring" class="md-nav__link">
+    Docstring
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternative-syntax-for-windowed" title="Alternative syntax for @windowed" class="md-nav__link">
+    Alternative syntax for @windowed
   </a>
   
 </li>
@@ -660,43 +674,73 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/edit/master/docs/ds/evolve.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl/edit/master/docs/rqa/windowed.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <p><a id='Time-Evolution-of-Systems-1'></a></p>
-<h1 id="time-evolution-of-systems">Time Evolution of Systems</h1>
-<div class="admonition info">
-<p class="admonition-title">Trajectory and Timeseries</p>
-<p>The word "timeseries" can be confusing, because it can mean a univariate (also called scalar or one-dimensional) timeseries or a multivariate (also called multi-dimensional) timeseries. To resolve this confusion, in <strong>DynamicalSystems.jl</strong> we have the following convention: <strong>"timeseries"</strong> always refers to a one-dimensional vector of numbers, which exists with respect to some other one-dimensional vector of numbers that corresponds to a time-vector. On the other hand, the word <strong>"trajectory"</strong> is used to refer to a <em>multi-dimensional</em> timeseries, which is of course simply a group/set of one-dimensional timeseries.</p>
-<p>Note that the data representation of a "trajectory" in Julia may vary: from a 2D Matrix to independent Vectors. In our package, a trajectory is always represented using a <a href="../../embedding/dataset/#DelayEmbeddings.Dataset"><code>Dataset</code></a>, which is a <code>Vector</code> of <code>SVector</code>s, and each <code>SVector</code> represents a data-point (the values of the variables at a given time-point).</p>
-</div>
-<p><strong>DynamicalSystems.jl</strong> provides a convenient function for getting a trajectory of a system at equally spaced time points:</p>
-<p><a id='DynamicalSystemsBase.trajectory' href='#DynamicalSystemsBase.trajectory'>#</a>
-<strong><code>DynamicalSystemsBase.trajectory</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span><span class="nt">trajectory</span><span class="o">(</span><span class="nt">ds</span><span class="p">::</span><span class="nd">DynamicalSystem</span><span class="o">,</span> <span class="nt">T</span> <span class="cp">[</span><span class="p">,</span> <span class="nx">u</span><span class="cp">]</span><span class="o">;</span> <span class="nt">kwargs</span><span class="o">...)</span> <span class="nt">-</span><span class="o">&gt;</span> <span class="nt">dataset</span>
+                <p><a id='Windowed-RQA-1'></a></p>
+<h1 id="windowed-rqa">Windowed RQA</h1>
+<p>In some cases, specially with very long time series, it may be suitable to perform the analysis at different points, considering only a limited <em>window</em> of data around each observation. The macro <a href="./#RecurrenceAnalysis.@windowed"><code>@windowed</code></a> modifies the behaviour of the basic functions to calculate RQA parameters in that fashion. For instance, if <code>rmat</code> is a 10<sup>4</sup>&times;10<sup>4</sup> recurrence matrix, then</p>
+<div class="codehilite"><pre><span></span><span class="nd">@windowed</span> <span class="n">determinism</span><span class="p">(</span><span class="n">rmat</span><span class="p">,</span> <span class="n">theiler</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">lmin</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span> <span class="n">width</span><span class="o">=</span><span class="mi">1000</span> <span class="n">step</span><span class="o">=</span><span class="mi">100</span>
 </pre></div>
 
 
-<p>Return a dataset that will contain the trajectory of the system, after evolving it for total time <code>T</code>, optionally starting from state <code>u</code>. See <a href="../../embedding/dataset/#DelayEmbeddings.Dataset"><code>Dataset</code></a> for info on how to use this object.</p>
-<p>A <code>W×D</code> dataset is returned, with <code>W = length(t0:dt:T)</code> with <code>t0:dt:T</code> representing the time vector (<em>not</em> returned) and <code>D</code> the system dimension. For discrete systems both <code>T</code> and <code>dt</code> must be integers.</p>
-<p><strong>Keyword Arguments</strong></p>
+<p>will return a 91-element vector, such that each value is the determinism associated to a 1000-point fragment, starting at every 100 points (i.e. at <code>1</code>, <code>101</code>, &hellip; <code>9001</code>).</p>
+<p>The general syntax of that macro is:</p>
+<div class="codehilite"><pre><span></span><span class="nd">@windowed</span> <span class="n">expr</span> <span class="n">w</span>                 <span class="c">#1</span>
+<span class="nd">@windowed</span> <span class="n">expr</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span> <span class="n">step</span><span class="o">=</span><span class="n">s</span>    <span class="c">#2</span>
+</pre></div>
+
+
+<p>where:</p>
 <ul>
-<li><code>dt</code> :  Time step of value output during the solving of the continuous system. For discrete systems it must be an integer. Defaults to <code>0.01</code> for continuous and <code>1</code> for discrete.</li>
-<li><code>Ttr</code> : Transient time to evolve the initial state before starting saving states.</li>
-<li><code>diffeq...</code> : Keyword arguments propagated into <code>init</code> of DifferentialEquations.jl. For example <code>abstol = 1e-9</code>.  Only valid for continuous systems. If you want to specify a solver, do so by using the name <code>alg</code>, e.g.: <code>alg = Tsit5(), maxiters = 1000</code>. This requires you to have been first <code>using OrdinaryDiffEq</code> to access the solvers. See <code>DynamicalSystemsBase.CDS_KWARGS</code> for default values. These keywords can also include <code>callback</code> for <a href="http://docs.juliadiffeq.org/latest/features/callback_functions.html">event handling</a>. Using a <code>SavingCallback</code> with <code>trajectory</code> will lead to unexpected behavior!</li>
+<li><code>expr</code> is an expression used to calculate RQA parameters</li>
+<li><code>w</code> is the width of the window for relevant data around each point.</li>
+<li><code>s</code> is the step or distance between points where the calculations are done (starting in the first point).</li>
 </ul>
-<hr />
-<p>Notice that if you want to do repeated evolutions of different states of a continuous system, you should use the <a href="../../advanced/#DynamicalSystemsBase.integrator"><code>integrator</code></a> interface instead.</p>
-<p><a id='Solution-precision-for-continuous-systems-1'></a></p>
-<h2 id="solution-precision-for-continuous-systems">Solution precision for continuous systems</h2>
-<p>A numerical solution of an ODE is not the "true" solution, uniquely defined by a (well-defined) ODE and an initial condition. Especially for chaotic systems, where deviations are amplified exponentially, one is left worried if the numerical solutions truly are part of the system and can truly give insight in understanding the system.</p>
-<p>DifferentialEquations.jl offers a tool, called <a href="http://docs.juliadiffeq.org/latest/analysis/uncertainty_quantification.html">Uncertainty Quantification</a>, which allows users to asses up to what time-scales the numerical solution is close to the "true" solution. For example, using the default solving parameters of <strong>DynamicalSystems.jl</strong>, the Lorenz system is accurate up to time <code>t = 50.0</code>.</p>
-<p>However, fortunately for us, there is not too much worry about the numerical solution diverging from the true solution. That is because of the <a href="http://mathworld.wolfram.com/ShadowingTheorem.html">shadowing theorem</a> (or <a href="http://www.scholarpedia.org/article/Shadowing_lemma_for_flows">shadowing lemma</a>):</p>
-<div class="admonition quote">
-<p class="admonition-title">Shadowing Theorem</p>
-<p>Although a numerically computed chaotic trajectory diverges exponentially from the true trajectory with the same initial coordinates, there exists an errorless trajectory with a slightly different initial condition that stays near ("shadows") the numerically computed one.</p>
-</div>
-<p>This simply means that one can always numerically study chaos not only qualitatively but also quantitatively. For more information, see the book <em>Chaos in Dynamical Systems</em> by E. Ott, or the <a href="http://www.scholarpedia.org/article/Shadowing_lemma_for_flows">scholarpedia</a> entry.</p>
+<p>To prevent syntax failures in the expansion of the macro, identify the RQA function (<code>rqa</code>, <code>recurrencerate</code>, <code>determinism</code>,...) directly by its name (avoid aliases), and use simple variable names (not complex expressions) for the arguments. On the other hand, the windowing options <code>width</code> and <code>step</code> can be given in any order. If <code>step</code> is ommitted, the calculations are done at every point, and the keyword <code>width</code> may be ommitted. (However, using <code>step=1</code> may be computationally very expensive, and that will provide just overly redundant results around each point, so it is advisable to set <code>step</code> a relatively big fraction of the window <code>width</code>.)</p>
+<p>The value returned by the macro will normally be a vector with the same type of numbers as expected by <code>expr</code>. In the case of <code>@windowed rqa(...) ...</code>, it will return a dictionary with a similar structure as in the default <code>rqa</code> function, but replacing scalar values by vectors.</p>
+<p>The macro <code>@windowed</code> can also be applied to the functions that calculate recurrence matrices (<code>recurrencematrix</code>, <code>crossrecurrencematrix</code>, <code>jointrecurrencematrix</code>). That creates a sparse matrix with the same size as if the macro was not used, but only containing valid values for pairs of points that belong to the <code>w</code> first main diagonals (i.e. the separation in time from one point to the other is <code>w</code> or smaller). The &lsquo;step&rsquo; parameter <code>s</code> has no effect on those functions. Such &lsquo;windowed&rsquo; matrices can be used as the input arguments to calculate windowed RQA parameters, obtaining the same results as if the complete matrix was used (under certain conditions, see below). For instance, the following calculations are equivalent:</p>
+<div class="codehilite"><pre><span></span><span class="c"># Using complete matrix</span>
+<span class="n">rmat</span> <span class="o">=</span> <span class="n">recurrencematrix</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="nd">@windowed</span> <span class="n">determinism</span><span class="p">(</span><span class="n">rmat</span><span class="p">)</span> <span class="n">width</span><span class="o">=</span><span class="mi">1000</span> <span class="n">step</span><span class="o">=</span><span class="mi">250</span>
+
+<span class="c"># Using windowed matrix</span>
+<span class="n">rmatw</span> <span class="o">=</span> <span class="nd">@windowed</span> <span class="n">recurrencematrix</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span> <span class="mi">1000</span>
+<span class="n">d</span> <span class="o">=</span> <span class="nd">@windowed</span> <span class="n">determinism</span><span class="p">(</span><span class="n">rmatw</span><span class="p">)</span> <span class="n">width</span><span class="o">=</span><span class="mi">1000</span> <span class="n">step</span><span class="o">=</span><span class="mi">250</span>
+</pre></div>
+
+
+<p>The main difference between the two alternatives is that the second one will be faster and consume less memory. To ensure the equivalence between both approaches, the window width used to create the matrix must be greater than the one used to calculate the RQA parameters. Otherwise, the computation of RQA parameters might involve data points whose value is not well defined. Besides, the threshold to identify recurrences should be referred to a fixed scale. For instance:</p>
+<div class="codehilite"><pre><span></span><span class="n">rmat</span>  <span class="o">=</span>           <span class="n">recurrencematrix</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">maximum</span><span class="p">)</span>
+<span class="n">rmatw</span> <span class="o">=</span> <span class="nd">@windowed</span> <span class="n">recurrencematrix</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">maximum</span><span class="p">)</span> <span class="mi">1000</span>
+<span class="n">rmat</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1</span><span class="o">:</span><span class="mi">1000</span><span class="p">]</span> <span class="o">==</span> <span class="n">rmatw</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1</span><span class="o">:</span><span class="mi">1000</span><span class="p">]</span> <span class="c"># FALSE!!!</span>
+</pre></div>
+
+
+<p>In this example, the <code>1000×1000</code> blocks of both matrices differ, because the threshold <code>0.1</code> is scaled with respect to the maximum distance between all points of <code>x</code> in <code>rmat</code>, but in the case of <code>rmatw</code> the scale changes between subsets of points. Something similar may happen if the recurrence matrix is calculated for a fixed recurrence rate (with the option <code>fixedrate=true</code>).</p>
+<p><a id='Docstring-1'></a></p>
+<h2 id="docstring">Docstring</h2>
+<p><a id='RecurrenceAnalysis.@windowed' href='#RecurrenceAnalysis.@windowed'>#</a>
+<strong><code>RecurrenceAnalysis.@windowed</code></strong> &mdash; <em>Macro</em>.</p>
+<div class="codehilite"><pre><span></span>@windowed(f(x,...), width)
+@windowed(f(x,...); width, step=1)
+</pre></div>
+
+
+<p>Calculate windowed RQA parameters with a given window width.</p>
+<p><code>f(x,...)</code> may be any call to RQA functions (e.g. <a href="../quantification/#RecurrenceAnalysis.recurrencerate"><code>recurrencerate</code></a>, <a href="../quantification/#RecurrenceAnalysis.determinism"><code>determinism</code></a>, etc.), with <code>x</code> being a named variable that designates the recurrence matrix (do not use in-place calculations of the recurrence matrix). The results are returned in a vector with one value for each position of the window. By default the window moves at one-point intervals, but a longer <code>step</code> length may be specified, together with the window <code>width</code>, by declaring those options as keyword arguments.</p>
+<p>This macro may be also used with recurrence matrix constructors (<code>recurrencematrix</code>, <code>crossrecurrencematrix</code>, <code>jointrecurrencematrix</code>), to create 'incomplete' matrices that are suitable for such windowed RQA. The values of the resulting matrix in the diagonals within the window width will be equal to those obtained without the <code>@windowed</code> macro, if the distances are not scaled (using the option <code>scale=1</code>, see <a href="../rplots/#RecurrenceAnalysis.recurrencematrix"><code>recurrencematrix</code></a>). Outside the window width, the values of the recurrence matrix will be undefined (mostly zero).</p>
+<p><a id='Alternative-syntax-for-@windowed-1'></a></p>
+<h2 id="alternative-syntax-for-windowed">Alternative syntax for <code>@windowed</code></h2>
+<p>The following ways of using the macro <code>@windowed</code> are equivalent:</p>
+<div class="codehilite"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="nd">@windowed</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="o">...</span><span class="p">)</span> <span class="n">w</span>
+<span class="nd">@windowed</span> <span class="n">y</span><span class="o">=</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="o">...</span><span class="p">)</span> <span class="n">w</span>
+<span class="n">y</span> <span class="o">=</span> <span class="nd">@windowed</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="o">...</span><span class="p">),</span> <span class="n">w</span><span class="p">)</span>
+<span class="nd">@windowed</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="o">...</span><span class="p">),</span> <span class="n">w</span><span class="p">)</span>
+</pre></div>
+
+
+<p>In all four cases, the width parameter <code>w</code> might have been qualified with a keyword as <code>width=w</code>. If the step parameter is added, the keyword qualification is mandatory.</p>
                 
                   
                 
@@ -717,7 +761,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../general/" title="Dynamical System Definition" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../quantification/" title="Quantification & Analysis functions" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -726,19 +770,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Dynamical System Definition
+                Quantification & Analysis functions
               </span>
             </div>
           </a>
         
         
-          <a href="../predefined/" title="Predefined Systems" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../../advanced/" title="Advanced Documentation" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Predefined Systems
+                Advanced Documentation
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
