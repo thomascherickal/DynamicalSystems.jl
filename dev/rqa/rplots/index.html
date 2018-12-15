@@ -555,6 +555,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#distances" title="Distances" class="md-nav__link">
+    Distances
+  </a>
+  
+</li>
+      
       
       
       
@@ -668,6 +675,13 @@
         <li class="md-nav__item">
   <a href="#example" title="Example" class="md-nav__link">
     Example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distances" title="Distances" class="md-nav__link">
+    Distances
   </a>
   
 </li>
@@ -800,29 +814,26 @@ R(i, j) = \begin{cases}
 </pre></div>
 
 
-<p>```@example recurrence
-using PyPlot; figure(figsize = (6, 8))
-ax1 = subplot2grid((3,1), (0,0))
-plot(0:dt:N<em>dt, tr[:, 2], "k"); xlim(0, N</em>dt); ylabel("$y(t)$")
-yticklabels([])
-ax2 = subplot2grid((3,1), (1, 0), rowspan = 2)
-imshow(Rp, cmap = "Greys_r", extent = (0, N<em>dt, 0, N</em>dt))
-xlabel("$t$"); ylabel("$t$"); tight_layout()
-subplots_adjust(hspace = 0.2)</p>
-<div class="codehilite"><pre><span></span><span class="nt">&lt;a</span> <span class="na">id=</span><span class="s">&#39;Distances-1&#39;</span><span class="nt">&gt;&lt;/a&gt;</span>
-
-## Distances
-
-
-The distance function used in [`recurrencematrix`](rplots.md#RecurrenceAnalysis.recurrencematrix) and co. can be specified either as a string or as a `Metric` instance from [`Distances`](https://github.com/JuliaStats/Distances.jl). In addition, the following function returns a matrix with the cross-distances across all points in one or two trajectories:
-
-<span class="nt">&lt;a</span> <span class="na">id=</span><span class="s">&#39;RecurrenceAnalysis.distancematrix&#39;</span> <span class="na">href=</span><span class="s">&#39;#RecurrenceAnalysis.distancematrix&#39;</span><span class="nt">&gt;</span>#<span class="nt">&lt;/a&gt;</span>
-**`RecurrenceAnalysis.distancematrix`** <span class="ni">&amp;mdash;</span> *Function*.
+<div class="codehilite"><pre><span></span><span class="k">using</span> <span class="n">PyPlot</span><span class="p">;</span> <span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">subplot2grid</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="o">:</span><span class="n">dt</span><span class="o">:</span><span class="n">N</span><span class="o">*</span><span class="n">dt</span><span class="p">,</span> <span class="n">tr</span><span class="p">[</span><span class="o">:</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s">&quot;k&quot;</span><span class="p">);</span> <span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="o">*</span><span class="n">dt</span><span class="p">);</span> <span class="n">ylabel</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\$</span><span class="s">y(t)</span><span class="se">\$</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">subplot2grid</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">rowspan</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">imshow</span><span class="p">(</span><span class="n">Rp</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s">&quot;Greys_r&quot;</span><span class="p">,</span> <span class="n">extent</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="o">*</span><span class="n">dt</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="o">*</span><span class="n">dt</span><span class="p">))</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\$</span><span class="s">t</span><span class="se">\$</span><span class="s">&quot;</span><span class="p">);</span> <span class="n">ylabel</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\$</span><span class="s">t</span><span class="se">\$</span><span class="s">&quot;</span><span class="p">);</span> <span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">)</span>
 </pre></div>
 
 
-<p>distancematrix(x [, y = x], metric = Chebyshev())
-```</p>
+<p><img alt="" src="../rmatrix.png" /></p>
+<p><a id='Distances-1'></a></p>
+<h2 id="distances">Distances</h2>
+<p>The distance function used in <a href="./#RecurrenceAnalysis.recurrencematrix"><code>recurrencematrix</code></a> and co. can be specified either as a string or as a <code>Metric</code> instance from <a href="https://github.com/JuliaStats/Distances.jl"><code>Distances</code></a>. In addition, the following function returns a matrix with the cross-distances across all points in one or two trajectories:</p>
+<p><a id='RecurrenceAnalysis.distancematrix' href='#RecurrenceAnalysis.distancematrix'>#</a>
+<strong><code>RecurrenceAnalysis.distancematrix</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>distancematrix(x [, y = x], metric = Chebyshev())
+</pre></div>
+
+
 <p>Create a matrix with the distances between each pair of points of the time series <code>x</code> and <code>y</code> using <code>metric</code>.</p>
 <p>The time series <code>x</code> and <code>y</code> can be <code>Dataset</code>s or matrices with data points in rows. The data point dimensions (or number of columns) must be the same for <code>x</code> and <code>y</code>. The returned value is a <code>n×m</code> matrix, with <code>n</code> being the length (or number of rows) of <code>x</code>, and <code>m</code> the length of <code>y</code>.</p>
 <p>The metric can be identified by a string, or any of the <code>Metric</code>s defined in the <a href="https://github.com/JuliaStats/Distances.jl"><code>Distances</code> package</a>. The list of strings available to define the metric are:</p>
