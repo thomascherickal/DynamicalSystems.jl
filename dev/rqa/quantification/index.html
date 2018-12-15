@@ -673,7 +673,7 @@
 <p>The following functions all accept a recurrence matrix, see the <a href="../rplots">previous page</a>.</p>
 <p><a id='RecurrenceAnalysis.recurrencerate' href='#RecurrenceAnalysis.recurrencerate'>#</a>
 <strong><code>RecurrenceAnalysis.recurrencerate</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>recurrencerate(x, theiler=0)
+<div class="codehilite"><pre><span></span>recurrencerate(x; theiler=0)
 </pre></div>
 
 
@@ -741,6 +741,7 @@
 
 
 <p>Calculate the entropy of diagonal lengths (ENT) of a recurrence matrix, ruling out the points within the Theiler window and diagonals shorter than a minimum value.</p>
+<p>This function is not exported and should be accessed like <code>RecurrenceAnalysis.entropy</code>.</p>
 <hr />
 <p>Since most of the above functions can be fined tuned with keyword arguments, here is a table summarizing them that could be of use:</p>
 <table>
