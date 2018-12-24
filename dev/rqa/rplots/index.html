@@ -736,7 +736,7 @@ R(i, j) = \begin{cases}
 <p>Create a recurrence matrix from an embedded time series.</p>
 <p><strong>Description</strong></p>
 <p>The recurrence matrix is a numeric representation of a "recurrence plot" [1, 2], in the form of a sparse square matrix of Boolean values.</p>
-<p><code>x</code> must be <code>Dataset</code> or a Vector or Matrix with data points in rows (possibly representing and embedded phase, space; see <a href="../../embedding/reconstruction/#DelayEmbeddings.embed"><code>embed</code></a>). If <code>d(x[i], x[j]) ≤ ε</code> (with <code>d</code> the distance function), then the cell <code>(i, j)</code> of the matrix will have a <code>true</code> value. The criteria to evaluate distances between data points are defined by the following keyword arguments:</p>
+<p><code>x</code> must be <code>Dataset</code> or a Vector or Matrix with data points in rows (possibly representing and embedded phase space; see <a href="../../embedding/reconstruction/#DelayEmbeddings.embed"><code>embed</code></a>). If <code>d(x[i], x[j]) ≤ ε</code> (with <code>d</code> the distance function), then the cell <code>(i, j)</code> of the matrix will have a <code>true</code> value. The criteria to evaluate distances between data points are defined by the following keyword arguments:</p>
 <ul>
 <li><code>scale</code> : a function of the distance matrix (see <a href="./#RecurrenceAnalysis.distancematrix"><code>distancematrix</code></a>), or a fixed number, used to scale the value of <code>ε</code>. Typical choices are <code>maximum</code> or <code>mean</code>, such that the threshold <code>ε</code> is defined as a ratio of the maximum or the mean distance between data points, respectively. Use <code>1</code> to keep the distances unscaled (default).</li>
 <li><code>fixedrate::Bool=false</code> : a flag that indicates if <code>ε</code> should be taken as a target fixed recurrence rate (see <a href="../quantification/#RecurrenceAnalysis.recurrencerate"><code>recurrencerate</code></a>). If <code>fixedrate</code> is set to <code>true</code>, <code>ε</code> must be a value between 0 and 1, and <code>scale</code> is ignored.</li>
@@ -753,7 +753,7 @@ R(i, j) = \begin{cases}
 
 
 <p>Create a cross recurrence matrix from the time series <code>x</code> and <code>y</code>.</p>
-<p>The cross recurrence matrix is a bivariate extension of the recurrence matrix. For the time series <code>x</code>, <code>y</code>, of length <code>n</code> and <code>m</code>, respectively, it is a sparse <code>n×m</code> matrix of Boolean values, such that if <code>∥x[i] – y[j]∥ ≤ ε</code>, then the cell <code>(i, j)</code> of the matrix will have a <code>true</code> value.</p>
+<p>The cross recurrence matrix is a bivariate extension of the recurrence matrix. For the time series <code>x</code>, <code>y</code>, of length <code>n</code> and <code>m</code>, respectively, it is a sparse <code>n×m</code> matrix of Boolean values, such that if <code>d(x[i], y[j]) ≤ ε</code>, then the cell <code>(i, j)</code> of the matrix will have a <code>true</code> value.</p>
 <p>See <a href="./#RecurrenceAnalysis.recurrencematrix"><code>recurrencematrix</code></a> for details, references and keywords. See also: <a href="./#RecurrenceAnalysis.jointrecurrencematrix"><code>jointrecurrencematrix</code></a>.</p>
 <p><a id='RecurrenceAnalysis.jointrecurrencematrix' href='#RecurrenceAnalysis.jointrecurrencematrix'>#</a>
 <strong><code>RecurrenceAnalysis.jointrecurrencematrix</code></strong> &mdash; <em>Function</em>.</p>
@@ -791,16 +791,16 @@ R(i, j) = \begin{cases}
 
 
 <div class="codehilite"><pre><span></span>2001×2001 Array{Float64,2}:
- 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  …  1.0  1.0  1.0  0.0  0.0  0.0  0.0
- 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0     1.0  0.0  0.0  0.0  0.0  0.0  0.0
+ 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  …  0.0  0.0  0.0  0.0  0.0  0.0  0.0
  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
- 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0     0.0  0.0  0.0  0.0  0.0  0.0  1.0
- 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  …  0.0  0.0  0.0  0.0  0.0  0.0  1.0
- 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0     0.0  0.0  0.0  0.0  0.0  1.0  1.0
- 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0     0.0  0.0  0.0  0.0  0.0  1.0  1.0
- 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0     0.0  0.0  0.0  0.0  1.0  1.0  1.0
- 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0     0.0  0.0  0.0  1.0  1.0  1.0  1.0
+ 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+ 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+ 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  …  0.0  0.0  0.0  0.0  0.0  0.0  0.0
+ 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+ 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+ 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+ 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
  ⋮                        ⋮              ⋱       ⋮                        ⋮
  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     1.0  1.0  1.0  1.0  1.0  1.0  1.0
  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     1.0  1.0  1.0  1.0  1.0  1.0  1.0
@@ -835,7 +835,7 @@ R(i, j) = \begin{cases}
 
 
 <p>Create a matrix with the distances between each pair of points of the time series <code>x</code> and <code>y</code> using <code>metric</code>.</p>
-<p>The time series <code>x</code> and <code>y</code> can be <code>Dataset</code>s or matrices with data points in rows. The data point dimensions (or number of columns) must be the same for <code>x</code> and <code>y</code>. The returned value is a <code>n×m</code> matrix, with <code>n</code> being the length (or number of rows) of <code>x</code>, and <code>m</code> the length of <code>y</code>.</p>
+<p>The time series <code>x</code> and <code>y</code> can be <code>Dataset</code>s or vectors or matrices with data points in rows. The data point dimensions (or number of columns) must be the same for <code>x</code> and <code>y</code>. The returned value is a <code>n×m</code> matrix, with <code>n</code> being the length (or number of rows) of <code>x</code>, and <code>m</code> the length of <code>y</code>.</p>
 <p>The metric can be identified by a string, or any of the <code>Metric</code>s defined in the <a href="https://github.com/JuliaStats/Distances.jl"><code>Distances</code> package</a>. The list of strings available to define the metric are:</p>
 <ul>
 <li><code>"max"</code> or <code>"inf"</code> for the maximum or L∞ norm (<code>Chebyshev()</code> in the <code>Distances</code> package, used by default).</li>

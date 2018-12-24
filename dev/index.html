@@ -282,8 +282,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#dynamical-systems" title="Dynamical Systems" class="md-nav__link">
-    Dynamical Systems
+  <a href="#dynamicalsystemsbase" title="DynamicalSystemsBase" class="md-nav__link">
+    DynamicalSystemsBase
   </a>
   
 </li>
@@ -296,8 +296,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#delay-coordinates-embedding" title="Delay Coordinates Embedding" class="md-nav__link">
-    Delay Coordinates Embedding
+  <a href="#delayembeddings" title="DelayEmbeddings" class="md-nav__link">
+    DelayEmbeddings
   </a>
   
 </li>
@@ -336,8 +336,22 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#issues-with-bounties" title="Issues with Bounties" class="md-nav__link">
+    Issues with Bounties
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#contacting" title="Contacting" class="md-nav__link">
     Contacting
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing-donating" title="Contributing &amp; Donating" class="md-nav__link">
+    Contributing &amp; Donating
   </a>
   
 </li>
@@ -706,8 +720,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#dynamical-systems" title="Dynamical Systems" class="md-nav__link">
-    Dynamical Systems
+  <a href="#dynamicalsystemsbase" title="DynamicalSystemsBase" class="md-nav__link">
+    DynamicalSystemsBase
   </a>
   
 </li>
@@ -720,8 +734,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#delay-coordinates-embedding" title="Delay Coordinates Embedding" class="md-nav__link">
-    Delay Coordinates Embedding
+  <a href="#delayembeddings" title="DelayEmbeddings" class="md-nav__link">
+    DelayEmbeddings
   </a>
   
 </li>
@@ -760,8 +774,22 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#issues-with-bounties" title="Issues with Bounties" class="md-nav__link">
+    Issues with Bounties
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#contacting" title="Contacting" class="md-nav__link">
     Contacting
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing-donating" title="Contributing &amp; Donating" class="md-nav__link">
+    Contributing &amp; Donating
   </a>
   
 </li>
@@ -791,7 +819,7 @@
 <p><strong>DynamicalSystems.jl</strong> is a Julia software library for the exploration of chaos and nonlinear dynamics.</p>
 <p>The current documentation was built with the following versions</p>
 <div class="codehilite"><pre><span></span> * DelayEmbeddings ........... 0.2.0
- * RecurrenceAnalysis ........ 0.5.1
+ * RecurrenceAnalysis ........ 0.6.0
  * DynamicalSystemsBase ...... 1.1.0
  * ChaosTools ................ 1.3.0
 </pre></div>
@@ -814,9 +842,8 @@
 </div>
 <p><a id='Contents-1'></a></p>
 <h2 id="contents">Contents</h2>
-<p><a id='<a href="ds/general">Dynamical-Systems</a>-1'></a></p>
-<h3 id="dynamical-systems"><a href="./ds/general">Dynamical Systems</a></h3>
-<p>Under the package <code>DynamicalSystemsBase</code>:</p>
+<p><a id='<a href="ds/general">DynamicalSystemsBase</a>-1'></a></p>
+<h3 id="dynamicalsystemsbase"><a href="./ds/general"><code>DynamicalSystemsBase</code></a></h3>
 <ul>
 <li>
 <p>Intuitive, consistent APIs for the definition of general <a href="./definition/general">dynamical systems</a>, under a unified struct <a href="ds/general/#DynamicalSystemsBase.DynamicalSystem"><code>DynamicalSystem</code></a>. The following combinations are possible:</p>
@@ -824,15 +851,17 @@
 <li>Continuous or Discrete systems. Continuous systems use <a href="http://docs.juliadiffeq.org/latest/"><code>DifferentialEquations.jl</code></a> for solving the ODE problem.</li>
 <li>In-place or out-of-place (large versus small systems).</li>
 <li>Auto-differentiated or not (for the Jacobian function).</li>
-<li>Automatic "completion" of the dynamics of the system with numerically computed Jacobians, in case they are not provided by the user.</li>
+</ul>
+</li>
+<li>
+<p>Automatic "completion" of the dynamics of the system with numerically computed Jacobians, in case they are not provided by the user.</p>
+</li>
 <li>Robust implementations of all kinds of integrators, that evolve the system, many states of the system, or even deviation vectors. See the <a href="./advanced">advanced documentation</a> for this.</li>
 <li>Library of <a href="./ds/predefined">predefined well-known dynamical systems</a> that have been used extensively in scientific research.</li>
 </ul>
-</li>
-</ul>
 <p><a id='<a href="chaos/overview">ChaosTools</a>-1'></a></p>
-<h3 id="chaostools"><a href="./chaos/overview">ChaosTools</a></h3>
-<p><code>ChaosTools</code> is a package that has many algorithms for chaotic dynamical systems. All algorithms are independent of each other but they are also not expansive enough to be a standalone package.</p>
+<h3 id="chaostools"><a href="./chaos/overview"><code>ChaosTools</code></a></h3>
+<p>Is a package that has many algorithms for chaotic dynamical systems. All algorithms are independent of each other but they are also not expansive enough to be a standalone package.</p>
 <p>Please see the <a href="./chaos/overview">overview section</a> for a full list of features. Here is a quick summary:</p>
 <ul>
 <li>Poincare S.O.S. and orbit diagrams</li>
@@ -843,9 +872,9 @@
 <li>GALI (Generalized Alignment Index) for distinguishing chaotic and regular behavior</li>
 <li>Nonlinear timeseries analysis</li>
 </ul>
-<p><a id='<a href="embedding/reconstruction">Delay-Coordinates-Embedding</a>-1'></a></p>
-<h3 id="delay-coordinates-embedding"><a href="./embedding/reconstruction">Delay Coordinates Embedding</a></h3>
-<p>Under the package <code>DelayEmbeddings</code>:</p>
+<p><a id='<a href="embedding/reconstruction">DelayEmbeddings</a>-1'></a></p>
+<h3 id="delayembeddings"><a href="./embedding/reconstruction"><code>DelayEmbeddings</code></a></h3>
+<p>Is a package for performing delay coordinate embeddings and finding optimal parameters for doing so.</p>
 <ul>
 <li>Unified &amp; dedicated interface for <a href="./embedding/dataset">numerical data</a>: <a href="embedding/dataset/#DelayEmbeddings.Dataset"><code>Dataset</code></a>.</li>
 <li>Simple and extendable <a href="embedding/dataset/#DelayEmbeddings.neighborhood"><code>neighborhood</code></a> estimation by interfacing <a href="https://github.com/KristofferC/NearestNeighbors.jl"><code>NearestNeighbors</code></a>.</li>
@@ -859,15 +888,16 @@
 </li>
 </ul>
 <p><a id='<a href="rqa/rplots">RecurrenceAnalysis</a>-1'></a></p>
-<h3 id="recurrenceanalysis"><a href="./rqa/rplots">RecurrenceAnalysis</a></h3>
+<h3 id="recurrenceanalysis"><a href="./rqa/rplots"><code>RecurrenceAnalysis</code></a></h3>
 <p><code>RecurrenceAnalysis</code> offers tools to compute and analyze <a href="https://en.wikipedia.org/wiki/Recurrence_plot">Recurrence Plots</a>, a field called <a href="https://en.wikipedia.org/wiki/Recurrence_quantification_analysis">Recurrence Quantification Analysis</a>.</p>
 <ul>
 <li><a href="./rqa/rplots">Recurrence, cross-recurrence and joint-recurrence "plots" (they are matrices)</a>.</li>
 <li>
-<p>Recurrence quantification analysis (RQA):</p>
+<p><a href="./rqa/quantification">Recurrence quantification analysis</a> (RQA):</p>
 <ul>
-<li>Recurrence rate, determinism, average/maximum diagonal length, divergence, laminarity, trend, trapping time, average/maximum vertical length.</li>
+<li>Recurrence rate, determinism, average/maximum diagonal length, divergence, laminarity, trend, entropy, trapping time, average/maximum vertical length.</li>
 <li>Fine-tuning of the algorithms that compute the above (e.g. Theiler window and many more)</li>
+<li><a href="./rqa/windowed">Windowed versions</a> of the above</li>
 </ul>
 </li>
 </ul>
@@ -905,14 +935,17 @@
 </pre></div>
 
 
+<p><a id='Issues-with-Bounties-1'></a></p>
+<h2 id="issues-with-bounties">Issues with Bounties</h2>
+<p>Money that <strong>DynamicalSystems.jl</strong> obtains from awards, sponsors or donators are converted into bounties for GitHub issues. The full list of issues that have a bounty is <a href="https://github.com/issues?utf8=%E2%9C%93&amp;q=is%3Aopen+is%3Aissue+org%3AJuliaDynamics+label%3Abounty">available here</a>.</p>
+<p>By solving these issues you not only contribute to open source, but you also get some pocket money to boot :)</p>
 <p><a id='Contacting-1'></a></p>
 <h2 id="contacting">Contacting</h2>
-<p>You can <a href="https://gitter.im/JuliaDynamics/Lobby">join our chatroom</a> for discussions and/or questions about the packages of the JuliaDynamics organization!</p>
+<p>You can <a href="https://gitter.im/JuliaDynamics/Lobby">join our chatroom</a> for discussions and/or questions about the packages of the JuliaDynamics organization! If you are using the Julia Slack workplace, please join the channel <code>#dynamics-bridged</code>.</p>
+<p><a id='Contributing-and-Donating-1'></a></p>
+<h2 id="contributing-donating">Contributing &amp; Donating</h2>
 <p>Be sure to visit the <a href="./contributors_guide">Contributor Guide</a> page, because you can help make this package better without having to write a single line of code! Also, if you find this package helpful please consider staring it on <a href="https://github.com/JuliaDynamics/DynamicalSystems.jl">GitHub</a>! This gives us an accurate lower bound of users that this package has already helped!</p>
-<div class="admonition tip">
-<p class="admonition-title">Use latest documentation</p>
-<p>We highly suggest our users to read the  <a href="https://JuliaDynamics.github.io/DynamicalSystems.jl/latest">latest</a> documentation   and not the <a href="https://JuliaDynamics.github.io/DynamicalSystems.jl/stable">stable</a> one.</p>
-</div>
+<p>Finally, you can donate for the development of <strong>DynamicalSystems.jl</strong>. You can do that by adding bounties to existing issues on the GitHub repositories (you can open new issues as well). Every issue has an automatic way to create a bounty using <a href="https://www.bountysource.com/">Bountysource</a>, see the first comment of each issue.</p>
                 
                   
                 

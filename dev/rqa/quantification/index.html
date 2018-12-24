@@ -671,77 +671,19 @@
 <li>N. Marwan &amp; C.L. Webber, "Mathematical and computational foundations of recurrence quantifications", in: Webber, C.L. &amp; N. Marwan (eds.), <em>Recurrence Quantification Analysis. Theory and Best Practices</em>, Springer, pp. 3-43 (2015).</li>
 </ol>
 <p>The following functions all accept a recurrence matrix, see the <a href="../rplots">previous page</a>.</p>
-<p><a id='RecurrenceAnalysis.recurrencerate' href='#RecurrenceAnalysis.recurrencerate'>#</a>
-<strong><code>RecurrenceAnalysis.recurrencerate</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>recurrencerate(x; theiler=0)
+<div class="codehilite"><pre><span></span>recurrencerate
+determinism
+avgdiag
+maxdiag
+divergence
+trend
+laminarity
+trappingtime
+maxvert
+RecurrenceAnalysis.entropy
 </pre></div>
 
 
-<p>Calculate the recurrence rate (RR) of a recurrence matrix, ruling out the points within the Theiler window.</p>
-<p><a id='RecurrenceAnalysis.determinism' href='#RecurrenceAnalysis.determinism'>#</a>
-<strong><code>RecurrenceAnalysis.determinism</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>determinism(x; lmin=2, theiler=0)
-</pre></div>
-
-
-<p>Calculate the determinism (DET) of a recurrence matrix, ruling out the points within the Theiler window and diagonals shorter than a minimum value.</p>
-<p><a id='RecurrenceAnalysis.avgdiag' href='#RecurrenceAnalysis.avgdiag'>#</a>
-<strong><code>RecurrenceAnalysis.avgdiag</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>avgdiag(x; lmin=2, theiler=0)
-</pre></div>
-
-
-<p>Calculate the average diagonal length (L) in a recurrence matrix, ruling out the points within the Theiler window and diagonals shorter than a minimum value.</p>
-<p><a id='RecurrenceAnalysis.maxdiag' href='#RecurrenceAnalysis.maxdiag'>#</a>
-<strong><code>RecurrenceAnalysis.maxdiag</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>maxdiag(x; theiler=0)
-</pre></div>
-
-
-<p>Calculate the longest diagonal (Lmax) in a recurrence matrix, ruling out the points within the Theiler window.</p>
-<p><a id='RecurrenceAnalysis.divergence' href='#RecurrenceAnalysis.divergence'>#</a>
-<strong><code>RecurrenceAnalysis.divergence</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>divergence(x; lmin=2, theiler=0)
-</pre></div>
-
-
-<p>Calculate the divergence of a recurrence matrix (actually the inverse of <code>maxdiag</code>.</p>
-<p><a id='RecurrenceAnalysis.trend' href='#RecurrenceAnalysis.trend'>#</a>
-<strong><code>RecurrenceAnalysis.trend</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>trend(x; theiler=0, border=10)
-</pre></div>
-
-
-<p>Calculate the trend of recurrences in recurrence matrix towards its edges, ruling out the points within the Theiler window and in the outermost diagonals.</p>
-<p><a id='RecurrenceAnalysis.laminarity' href='#RecurrenceAnalysis.laminarity'>#</a>
-<strong><code>RecurrenceAnalysis.laminarity</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>laminarity(x; lmin=2, theiler=0)
-</pre></div>
-
-
-<p>Calculate the laminarity (LAM) of a recurrence matrix, ruling out vertical lines shorter than a minimum value.</p>
-<p><a id='RecurrenceAnalysis.trappingtime' href='#RecurrenceAnalysis.trappingtime'>#</a>
-<strong><code>RecurrenceAnalysis.trappingtime</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>trappingtime(x; lmin=2, theiler=0)
-</pre></div>
-
-
-<p>Calculate the trapping time (TT) of a recurrence matrix, ruling out vertical lines shorter than a minimum value.</p>
-<p><a id='RecurrenceAnalysis.maxvert' href='#RecurrenceAnalysis.maxvert'>#</a>
-<strong><code>RecurrenceAnalysis.maxvert</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>maxvert(x; theiler=0)
-</pre></div>
-
-
-<p>Calculate the longest vertical line (Vmax) of a recurrence matrix.</p>
-<p><a id='RecurrenceAnalysis.entropy' href='#RecurrenceAnalysis.entropy'>#</a>
-<strong><code>RecurrenceAnalysis.entropy</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>entropy(x; lmin=2, theiler=0)
-</pre></div>
-
-
-<p>Calculate the entropy of diagonal lengths (ENT) of a recurrence matrix, ruling out the points within the Theiler window and diagonals shorter than a minimum value.</p>
-<p>This function is not exported and should be accessed like <code>RecurrenceAnalysis.entropy</code>.</p>
 <hr />
 <p>Since most of the above functions can be fined tuned with keyword arguments, here is a table summarizing them that could be of use:</p>
 <table>
@@ -789,7 +731,7 @@
 </pre></div>
 
 
-<p>Calculate RQA parameters of a recurrence matrix. See the functions <code>recurrencerate</code>, <code>determinism</code>, <code>avgdiag</code>, <code>maxdiag</code>, <code>divergence</code>, <code>entropy</code>, <code>trend</code>, <code>laminarity</code>, <code>trappingtime</code> and <code>maxvert</code> for the definition of the different parameters and the default values of the arguments.</p>
+<p>Calculate RQA parameters of a recurrence matrix. See the functions <code>recurrencerate</code>, <code>determinism</code>, <code>avgdiag</code>, <code>maxdiag</code>, <code>divergence</code>, <code>rqaentropy</code>, <code>trend</code>, <code>laminarity</code>, <code>trappingtime</code> and <code>maxvert</code> for the definition of the different parameters and the default values of the arguments.</p>
 <p>The keyword arguments <code>theilerdiag</code>, <code>lmindiag</code> may be used to declare specific values that override the values of <code>theiler</code> and <code>lmin</code> in the calculation of parameters related to diagonal structures. Likewise, <code>theilervert</code> and <code>lminvert</code> can be used for the calculation of parameters related to vertical structures.</p>
 <p>The returned value is a dictionary with the following keys:</p>
 <ul>
@@ -798,7 +740,7 @@
 <li>"L": average length of diagonal structures (see <code>avgdiag</code>)</li>
 <li>"Lmax": maximum length of diagonal structures (see <code>maxdiag</code>)</li>
 <li>"DIV": divergence (see <code>divergence</code>)</li>
-<li>"ENT": entropy of diagonal structures (see <code>entropy</code>)</li>
+<li>"ENT": entropy of diagonal structures (see <code>rqaentropy</code>)</li>
 <li>"TND": trend of recurrences (see <code>trend</code>)</li>
 <li>"LAM": laminarity (see <code>laminarity</code>)</li>
 <li>"TT": trapping time (see <code>trappingtime</code>)</li>
