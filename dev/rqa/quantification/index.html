@@ -665,7 +665,7 @@
                 
                 <p><a id='Quantification-and-Analysis-functions-1'></a></p>
 <h1 id="quantification-analysis-functions">Quantification &amp; Analysis functions</h1>
-<p>A <a href="../rplots/#RecurrenceAnalysis.recurrencematrix"><code>recurrencematrix</code></a> can be analyzed in several ways to yield information about the dynamics of the timeseries. All these various quantities and functions listed in this section are also listed in the wikipedia page for <a href="https://en.wikipedia.org/wiki/Recurrence_quantification_analysis">Recurrence quantification analysis</a>. We also suggest the review articles listed in our documentation strings, namely:</p>
+<p>A <a href="../rplots/#RecurrenceAnalysis.RecurrenceMatrix"><code>RecurrenceMatrix</code></a> can be analyzed in several ways to yield information about the dynamics of the timeseries. All these various quantities and functions listed in this section are also listed in the wikipedia page for <a href="https://en.wikipedia.org/wiki/Recurrence_quantification_analysis">Recurrence quantification analysis</a>. We also suggest the review articles listed in our documentation strings, namely:</p>
 <ol>
 <li>N. Marwan <em>et al.</em>, "Recurrence plots for the analysis of complex systems", <em>Phys. Reports 438</em>(5-6), 237-329 (2007).</li>
 <li>N. Marwan &amp; C.L. Webber, "Mathematical and computational foundations of recurrence quantifications", in: Webber, C.L. &amp; N. Marwan (eds.), <em>Recurrence Quantification Analysis. Theory and Best Practices</em>, Springer, pp. 3-43 (2015).</li>
@@ -699,7 +699,7 @@ RecurrenceAnalysis.entropy
 <tr>
 <td align="right"><code>scale</code></td>
 <td align="right">1</td>
-<td align="right"><code>recurrencematrix</code><br/><code>crossrecurrencematrix</code><br/><code>jointrecurrencematrix</code></td>
+<td align="right"><code>RecurrenceMatrix</code><br/><code>CrossRecurrenceMatrix</code><br/><code>JointRecurrenceMatrix</code></td>
 <td align="right">Function or fixed number to scale the threshold or radius that is used to identify recurrences. Use <code>maximum</code> if the threshold is to be taken as a fraction of the maximum distance, <code>mean</code> if it is a fraction of the mean distance, etc., and <code>1</code> (identity scale, applied by default) to keep the threshold without scaling.</td>
 </tr>
 <tr>
@@ -731,7 +731,7 @@ RecurrenceAnalysis.entropy
 </pre></div>
 
 
-<p>Calculate RQA parameters of a recurrence matrix. See the functions <code>recurrencerate</code>, <code>determinism</code>, <code>avgdiag</code>, <code>maxdiag</code>, <code>divergence</code>, <code>rqaentropy</code>, <code>trend</code>, <code>laminarity</code>, <code>trappingtime</code> and <code>maxvert</code> for the definition of the different parameters and the default values of the arguments.</p>
+<p>Calculate all RQA parameters of a recurrence matrix. See the functions <code>recurrencerate</code>, <code>determinism</code>, <code>avgdiag</code>, <code>maxdiag</code>, <code>divergence</code>, <code>rqaentropy</code>, <code>trend</code>, <code>laminarity</code>, <code>trappingtime</code> and <code>maxvert</code> for the definition of the different parameters and the default values of the arguments. Using this function is much more efficient than calling all individual functions one by one.</p>
 <p>The keyword arguments <code>theilerdiag</code>, <code>lmindiag</code> may be used to declare specific values that override the values of <code>theiler</code> and <code>lmin</code> in the calculation of parameters related to diagonal structures. Likewise, <code>theilervert</code> and <code>lminvert</code> can be used for the calculation of parameters related to vertical structures.</p>
 <p>The returned value is a dictionary with the following keys:</p>
 <ul>

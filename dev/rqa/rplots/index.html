@@ -727,9 +727,9 @@ R(i, j) = \begin{cases}
 </div>
 <p>where <span><span class="MathJax_Preview">d(x[i], y[j])</span><script type="math/tex">d(x[i], y[j])</script></span> stands for the <em>distance</em> between trajectory <span><span class="MathJax_Preview">x</span><script type="math/tex">x</script></span> at point <span><span class="MathJax_Preview">i</span><script type="math/tex">i</script></span> and trajectory <span><span class="MathJax_Preview">y</span><script type="math/tex">y</script></span> at point <span><span class="MathJax_Preview">j</span><script type="math/tex">j</script></span>. If <span><span class="MathJax_Preview">x\equiv y</span><script type="math/tex">x\equiv y</script></span> then <span><span class="MathJax_Preview">R</span><script type="math/tex">R</script></span> is called recurrence matrix, otherwise it is called cross-recurrence matrix. There is also the joint-recurrence variant, see below.</p>
 <p>With <code>RecurrenceAnalysis</code> you can use the following functions to access these matrices</p>
-<p><a id='RecurrenceAnalysis.recurrencematrix' href='#RecurrenceAnalysis.recurrencematrix'>#</a>
-<strong><code>RecurrenceAnalysis.recurrencematrix</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>recurrencematrix(x, ε; kwargs...)
+<p><a id='RecurrenceAnalysis.RecurrenceMatrix' href='#RecurrenceAnalysis.RecurrenceMatrix'>#</a>
+<strong><code>RecurrenceAnalysis.RecurrenceMatrix</code></strong> &mdash; <em>Type</em>.</p>
+<div class="codehilite"><pre><span></span>RecurrenceMatrix(x, ε; kwargs...)
 </pre></div>
 
 
@@ -742,28 +742,28 @@ R(i, j) = \begin{cases}
 <li><code>fixedrate::Bool=false</code> : a flag that indicates if <code>ε</code> should be taken as a target fixed recurrence rate (see <a href="../quantification/#RecurrenceAnalysis.recurrencerate"><code>recurrencerate</code></a>). If <code>fixedrate</code> is set to <code>true</code>, <code>ε</code> must be a value between 0 and 1, and <code>scale</code> is ignored.</li>
 <li><code>metric</code> : metric of the distances, as in <a href="./#RecurrenceAnalysis.distancematrix"><code>distancematrix</code></a>.</li>
 </ul>
-<p>See also: <a href="./#RecurrenceAnalysis.crossrecurrencematrix"><code>crossrecurrencematrix</code></a>, <a href="./#RecurrenceAnalysis.jointrecurrencematrix"><code>jointrecurrencematrix</code></a> and use <a href="./#RecurrenceAnalysis.recurrenceplot"><code>recurrenceplot</code></a> to turn the result of these functions into a plottable format.</p>
+<p>See also: <a href="./#RecurrenceAnalysis.CrossRecurrenceMatrix"><code>CrossRecurrenceMatrix</code></a>, <a href="./#RecurrenceAnalysis.JointRecurrenceMatrix"><code>JointRecurrenceMatrix</code></a> and use <a href="./#RecurrenceAnalysis.recurrenceplot"><code>recurrenceplot</code></a> to turn the result of these functions into a plottable format.</p>
 <p><strong>References</strong></p>
 <p>[1] : N. Marwan <em>et al.</em>, "Recurrence plots for the analysis of complex systems", <em>Phys. Reports 438</em>(5-6), 237-329 (2007).</p>
 <p>[2] : N. Marwan &amp; C.L. Webber, "Mathematical and computational foundations of recurrence quantifications", in: Webber, C.L. &amp; N. Marwan (eds.), <em>Recurrence Quantification Analysis. Theory and Best Practices</em>, Springer, pp. 3-43 (2015).</p>
-<p><a id='RecurrenceAnalysis.crossrecurrencematrix' href='#RecurrenceAnalysis.crossrecurrencematrix'>#</a>
-<strong><code>RecurrenceAnalysis.crossrecurrencematrix</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>crossrecurrencematrix(x, y, ε; kwargs...)
+<p><a id='RecurrenceAnalysis.CrossRecurrenceMatrix' href='#RecurrenceAnalysis.CrossRecurrenceMatrix'>#</a>
+<strong><code>RecurrenceAnalysis.CrossRecurrenceMatrix</code></strong> &mdash; <em>Type</em>.</p>
+<div class="codehilite"><pre><span></span>CrossRecurrenceMatrix(x, y, ε; kwargs...)
 </pre></div>
 
 
 <p>Create a cross recurrence matrix from the time series <code>x</code> and <code>y</code>.</p>
 <p>The cross recurrence matrix is a bivariate extension of the recurrence matrix. For the time series <code>x</code>, <code>y</code>, of length <code>n</code> and <code>m</code>, respectively, it is a sparse <code>n×m</code> matrix of Boolean values, such that if <code>d(x[i], y[j]) ≤ ε</code>, then the cell <code>(i, j)</code> of the matrix will have a <code>true</code> value.</p>
-<p>See <a href="./#RecurrenceAnalysis.recurrencematrix"><code>recurrencematrix</code></a> for details, references and keywords. See also: <a href="./#RecurrenceAnalysis.jointrecurrencematrix"><code>jointrecurrencematrix</code></a>.</p>
-<p><a id='RecurrenceAnalysis.jointrecurrencematrix' href='#RecurrenceAnalysis.jointrecurrencematrix'>#</a>
-<strong><code>RecurrenceAnalysis.jointrecurrencematrix</code></strong> &mdash; <em>Function</em>.</p>
-<div class="codehilite"><pre><span></span>jointrecurrencematrix(x, y, ε; kwargs...)
+<p>See <a href="./#RecurrenceAnalysis.RecurrenceMatrix"><code>RecurrenceMatrix</code></a> for details, references and keywords. See also: <a href="./#RecurrenceAnalysis.JointRecurrenceMatrix"><code>JointRecurrenceMatrix</code></a>.</p>
+<p><a id='RecurrenceAnalysis.JointRecurrenceMatrix' href='#RecurrenceAnalysis.JointRecurrenceMatrix'>#</a>
+<strong><code>RecurrenceAnalysis.JointRecurrenceMatrix</code></strong> &mdash; <em>Type</em>.</p>
+<div class="codehilite"><pre><span></span>JointRecurrenceMatrix(x, y, ε; kwargs...)
 </pre></div>
 
 
 <p>Create a joint recurrence matrix from the time series <code>x</code> and <code>y</code>.</p>
 <p>The joint recurrence matrix considers the recurrences of the trajectories of <code>x</code> and <code>y</code> separately, and looks for points where both recur simultaneously. It is calculated by the element-wise multiplication of the recurrence matrices of <code>x</code> and <code>y</code>. If <code>x</code> and <code>y</code> are of different length, the recurrences are only calculated until the length of the shortest one.</p>
-<p>See <a href="./#RecurrenceAnalysis.recurrencematrix"><code>recurrencematrix</code></a> for details, references and keywords. See also: <a href="./#RecurrenceAnalysis.crossrecurrencematrix"><code>crossrecurrencematrix</code></a>.</p>
+<p>See <a href="./#RecurrenceAnalysis.RecurrenceMatrix"><code>RecurrenceMatrix</code></a> for details, references and keywords. See also: <a href="./#RecurrenceAnalysis.CrossRecurrenceMatrix"><code>CrossRecurrenceMatrix</code></a>.</p>
 <p><a id='Plottable-Format-1'></a></p>
 <h2 id="plottable-format">Plottable Format</h2>
 <p>As you can tell from the above documentation strings, the recurrence matrices are stored as sparse matrices with boolean values. To create the recurrence plots, one needs to obtain a full form out of them.</p>
@@ -785,7 +785,7 @@ R(i, j) = \begin{cases}
 <span class="n">ro</span> <span class="o">=</span> <span class="n">Systems</span><span class="o">.</span><span class="n">roessler</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">0.20</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
 <span class="n">N</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">;</span> <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.05</span>
 <span class="n">tr</span> <span class="o">=</span> <span class="n">trajectory</span><span class="p">(</span><span class="n">ro</span><span class="p">,</span> <span class="n">N</span><span class="o">*</span><span class="n">dt</span><span class="p">;</span> <span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span><span class="p">,</span> <span class="n">Ttr</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">)</span>
-<span class="n">R</span> <span class="o">=</span> <span class="n">recurrencematrix</span><span class="p">(</span><span class="n">tr</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">;</span> <span class="n">metric</span> <span class="o">=</span> <span class="s">&quot;euclidean&quot;</span><span class="p">)</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">RecurrenceMatrix</span><span class="p">(</span><span class="n">tr</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">;</span> <span class="n">metric</span> <span class="o">=</span> <span class="s">&quot;euclidean&quot;</span><span class="p">)</span>
 <span class="n">Rp</span> <span class="o">=</span> <span class="n">recurrenceplot</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
 </pre></div>
 
@@ -799,8 +799,8 @@ R(i, j) = \begin{cases}
  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  …  0.0  0.0  0.0  0.0  0.0  0.0  0.0
  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
- 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0     0.0  0.0  0.0  0.0  0.0  0.0  1.0
- 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0     0.0  0.0  0.0  0.0  0.0  1.0  1.0
+ 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+ 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
  ⋮                        ⋮              ⋱       ⋮                        ⋮
  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     1.0  1.0  1.0  1.0  1.0  1.0  1.0
  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     1.0  1.0  1.0  1.0  1.0  1.0  1.0
@@ -827,7 +827,7 @@ R(i, j) = \begin{cases}
 <p><img alt="" src="../rmatrix.png" /></p>
 <p><a id='Distances-1'></a></p>
 <h2 id="distances">Distances</h2>
-<p>The distance function used in <a href="./#RecurrenceAnalysis.recurrencematrix"><code>recurrencematrix</code></a> and co. can be specified either as a string or as a <code>Metric</code> instance from <a href="https://github.com/JuliaStats/Distances.jl"><code>Distances</code></a>. In addition, the following function returns a matrix with the cross-distances across all points in one or two trajectories:</p>
+<p>The distance function used in <a href="./#RecurrenceAnalysis.RecurrenceMatrix"><code>RecurrenceMatrix</code></a> and co. can be specified either as a string or as a <code>Metric</code> instance from <a href="https://github.com/JuliaStats/Distances.jl"><code>Distances</code></a>. In addition, the following function returns a matrix with the cross-distances across all points in one or two trajectories:</p>
 <p><a id='RecurrenceAnalysis.distancematrix' href='#RecurrenceAnalysis.distancematrix'>#</a>
 <strong><code>RecurrenceAnalysis.distancematrix</code></strong> &mdash; <em>Function</em>.</p>
 <div class="codehilite"><pre><span></span>distancematrix(x [, y = x], metric = Chebyshev())
