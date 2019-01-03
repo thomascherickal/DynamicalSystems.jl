@@ -1,9 +1,10 @@
 using DynamicalSystems, Makie
 using DynamicalSystemsBase: CDS
 
-function interactivepsos(ds::CDS{IIP, S, D}, plane, tf, idxs, complete;
+function interactivepsos(ds::CDS{IIP, S, D}, plane, idxs, complete;
                          # PSOS kwargs:
                          u0 = get_state(ds), direction = -1, Ttr::Real = 0.0,
+                         tfinal = 10 .^ range(3, stop = 6, length = 100),
                          warning = true, rootkw = (xrtol = 1e-6, atol = 1e-6),
                          # Makie kwargs:
                          color = _randomcolor, resolution = (750, 750),
@@ -25,11 +26,15 @@ function interactivepsos(ds::CDS{IIP, S, D}, plane, tf, idxs, complete;
     i = SVector{2, Int}(idxs)
     data = ChaosTools._initialize_output(get_state(ds), i)
 
-    ChaosTools.poincare_cross!(data, integ, f, planecrossing, tf, Ttr, i, rootkw)
+    # Integration time slider:
+    ui_tf, tf = AbstractPlotting.textslider(tfinal, "tfinal", start=tfinal[1])
+
+
+    ChaosTools.poincare_cross!(data, integ, f, planecrossing, tf[], Ttr, i, rootkw)
     warning && length(data) == 0 && @warn ChaosTools.PSOS_ERROR
 
     # Create the first trajectory on the section:
-    ui, ms = AbstractPlotting.textslider(10 .^ range(-6, stop=1, length=1000),
+    ui_ms, ms = AbstractPlotting.textslider(10 .^ range(-6, stop=1, length=1000),
     "markersize", start=0.01)
     scene = Makie.Scene(resolution = (1500, 1000))
     positions_node = Node(data)
@@ -57,8 +62,8 @@ function interactivepsos(ds::CDS{IIP, S, D}, plane, tf, idxs, complete;
             reinit!(integ, newstate)
 
             data = ChaosTools._initialize_output(integ.u, i)
-            @time ChaosTools.poincare_cross!(
-                data, integ, f, planecrossing, tf, Ttr, i, rootkw
+            ChaosTools.poincare_cross!(
+                data, integ, f, planecrossing, tf[], Ttr, i, rootkw
             )
 
             positions = positions_node[]; colors = colors_node[]
@@ -73,7 +78,7 @@ function interactivepsos(ds::CDS{IIP, S, D}, plane, tf, idxs, complete;
         # display(scene)
         # return scene
     end
-    hbox(ui, scplot, parent=scene)
+    hbox(vbox(ui_ms, ui_tf), scplot, parent=scene)
     display(scene)
     return scene
 end
@@ -99,6 +104,9 @@ chaotic = get_state(ds)
 stable = [0., 0.1, 0.5, 0.]
 
 plane = (1, 0.0)
-tf = 20000.0
 
-psos = interactivepsos(ds, plane, tf, (2, 4), complete; makiekwargs = (markersize = 0.01,))
+psos = interactivepsos(ds, plane, (2, 4), complete;
+ makiekwargs = (markersize = 0.01,))
+
+# TODO :
+# Button that prints current initial condition
