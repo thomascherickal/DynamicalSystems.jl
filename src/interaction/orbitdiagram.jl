@@ -3,8 +3,11 @@ using DynamicalSystemsBase, Makie
 # add @inbounds when this is done.
 
 textslider = AbstractPlotting.textslider
-onlyleftclick(scplot) = (ispressed(scplot, Mouse.left) && !ispressed(scplot, Keyboard.space) &&
-                   AbstractPlotting.is_mouseinside(scplot))
+function onlyleftclick(scplot)
+    ispressed(scplot, Mouse.left) &&
+    !ispressed(scplot, Keyboard.space) &&
+    AbstractPlotting.is_mouseinside(scplot)
+end
 
 function interactive_orbitdiagram(ds::DiscreteDynamicalSystem,
     i::Int, p_index, p_min, p_max;
@@ -22,10 +25,9 @@ function interactive_orbitdiagram(ds::DiscreteDynamicalSystem,
         round.(Int, range(10, stop=10000, length=1000)),"Ttr", start=Ttr)
     ui_d, density = textslider(
         round.(Int, range(10, stop=10000, length=1000)),"density", start=density)
+    ui_i, i = textslider(1:dimension(ds), "variable", start=i)
 
-    ui_i, i = button(1:dimension(ds), "variable", start = i)
-
-    od = minimal_od(integ, i[], p_index, pmin, pmax, density, n, Ttr, u0)
+    od = minimal_od(integ, i[], p_index, pmin, pmax, density[], n[], Ttr[], u0)
     od_node = Node(od)
 
     scplot = scatter(od_node, markersize = 0.01)
@@ -44,7 +46,7 @@ function interactive_orbitdiagram(ds::DiscreteDynamicalSystem,
             # AbstractPlotting.update_limits!(scplot, limits)
         end
     end
-    hbox(vbox(ui_n, ui_T, ui_d), scplot, parent=scene)
+    hbox(vbox(ui_n, ui_T, ui_d, ui_i), scplot, parent=scene)
     display(scene)
     return od_node
 end
