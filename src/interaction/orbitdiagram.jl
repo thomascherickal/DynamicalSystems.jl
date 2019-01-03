@@ -2,7 +2,7 @@ using DynamicalSystemsBase, Makie
 
 # add @inbounds when this is done.
 
-tslider = AbstractPlotting.textslider
+textslider = AbstractPlotting.textslider
 onlyleftclick(scplot) = (ispressed(scplot, Mouse.left) && !ispressed(scplot, Keyboard.space) &&
                    AbstractPlotting.is_mouseinside(scplot))
 
@@ -15,15 +15,18 @@ function interactive_orbitdiagram(ds::DiscreteDynamicalSystem,
     integ = integrator(ds)
     scene = Scene(resolution = (1000, 600))
     pmin, pmax = p_min, p_max
-    od = minimal_od(integ, i, p_index, pmin, pmax, density, n, Ttr, u0)
-    od_node = Node(od)
 
-    ui_n, n = tslider(
+    ui_n, n = textslider(
         round.(Int, range(10, stop=10000, length=1000)),"n", start=n)
-    ui_T, Ttr = tslider(
+    ui_T, Ttr = textslider(
         round.(Int, range(10, stop=10000, length=1000)),"Ttr", start=Ttr)
-    ui_d, density = tslider(
+    ui_d, density = textslider(
         round.(Int, range(10, stop=10000, length=1000)),"density", start=density)
+
+    ui_i, i = button(1:dimension(ds), "variable", start = i)
+
+    od = minimal_od(integ, i[], p_index, pmin, pmax, density, n, Ttr, u0)
+    od_node = Node(od)
 
     scplot = scatter(od_node, markersize = 0.01)
 
@@ -33,7 +36,7 @@ function interactive_orbitdiagram(ds::DiscreteDynamicalSystem,
             # Get xmax, pmax with un-click
             pmax = pmin + 0.2; xmax = xmin + 0.4
             od_node[] = minimal_od(
-                integ, i,  p_index, pmin, pmax,
+                integ, i[],  p_index, pmin, pmax,
                 density[], n[], Ttr[], u0, xmin, xmax
             )
 
