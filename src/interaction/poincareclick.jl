@@ -106,7 +106,7 @@ stable = [0., 0.1, 0.5, 0.]
 plane = (1, 0.0)
 
 psos = interactivepsos(ds, plane, (2, 4), complete;
- makiekwargs = (markersize = 0.01,))
+makiekwargs = (markersize = 0.01,))
 
 # TODO :
 # Button that prints current initial condition

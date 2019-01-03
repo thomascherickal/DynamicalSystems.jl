@@ -73,3 +73,7 @@ p_min = 0.8
 p_max = 1.4
 
 od_node = interactive_orbitdiagram(ds, i, p_index, p_min, p_max)
+
+# TODO:
+# add reset button that goes to the initial x0,p0
+# add button to select which variable of the system is plotted
