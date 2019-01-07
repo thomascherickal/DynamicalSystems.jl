@@ -671,19 +671,76 @@
 <li>N. Marwan &amp; C.L. Webber, "Mathematical and computational foundations of recurrence quantifications", in: Webber, C.L. &amp; N. Marwan (eds.), <em>Recurrence Quantification Analysis. Theory and Best Practices</em>, Springer, pp. 3-43 (2015).</li>
 </ol>
 <p>The following functions all accept a recurrence matrix, see the <a href="../rplots">previous page</a>.</p>
-<div class="codehilite"><pre><span></span>recurrencerate
-determinism
-avgdiag
-maxdiag
-divergence
-trend
-laminarity
-trappingtime
-maxvert
-RecurrenceAnalysis.entropy
+<p><a id='RecurrenceAnalysis.recurrencerate' href='#RecurrenceAnalysis.recurrencerate'>#</a>
+<strong><code>RecurrenceAnalysis.recurrencerate</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>recurrencerate(x; theiler=0)
 </pre></div>
 
 
+<p>Calculate the recurrence rate (RR) of a recurrence matrix, ruling out the points within the Theiler window.</p>
+<p><a id='RecurrenceAnalysis.determinism' href='#RecurrenceAnalysis.determinism'>#</a>
+<strong><code>RecurrenceAnalysis.determinism</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>determinism(x; lmin=2, theiler=0)
+</pre></div>
+
+
+<p>Calculate the determinism (DET) of a recurrence matrix, ruling out the points within the Theiler window and diagonals shorter than a minimum value.</p>
+<p><a id='RecurrenceAnalysis.avgdiag' href='#RecurrenceAnalysis.avgdiag'>#</a>
+<strong><code>RecurrenceAnalysis.avgdiag</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>avgdiag(x; lmin=2, theiler=0)
+</pre></div>
+
+
+<p>Calculate the average diagonal length (L) in a recurrence matrix, ruling out the points within the Theiler window and diagonals shorter than a minimum value.</p>
+<p><a id='RecurrenceAnalysis.maxdiag' href='#RecurrenceAnalysis.maxdiag'>#</a>
+<strong><code>RecurrenceAnalysis.maxdiag</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>maxdiag(x; theiler=0)
+</pre></div>
+
+
+<p>Calculate the longest diagonal (Lmax) in a recurrence matrix, ruling out the points within the Theiler window.</p>
+<p><a id='RecurrenceAnalysis.divergence' href='#RecurrenceAnalysis.divergence'>#</a>
+<strong><code>RecurrenceAnalysis.divergence</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>divergence(x; lmin=2, theiler=0)
+</pre></div>
+
+
+<p>Calculate the divergence of a recurrence matrix (actually the inverse of <code>maxdiag</code>).</p>
+<p><a id='RecurrenceAnalysis.trend' href='#RecurrenceAnalysis.trend'>#</a>
+<strong><code>RecurrenceAnalysis.trend</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>trend(x; theiler=0, border=10)
+</pre></div>
+
+
+<p>Calculate the trend of recurrences in recurrence matrix towards its edges, ruling out the points within the Theiler window and in the outermost diagonals.</p>
+<p><a id='RecurrenceAnalysis.laminarity' href='#RecurrenceAnalysis.laminarity'>#</a>
+<strong><code>RecurrenceAnalysis.laminarity</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>laminarity(x; lmin=2, theiler=0)
+</pre></div>
+
+
+<p>Calculate the laminarity (LAM) of a recurrence matrix, ruling out vertical lines shorter than a minimum value.</p>
+<p><a id='RecurrenceAnalysis.trappingtime' href='#RecurrenceAnalysis.trappingtime'>#</a>
+<strong><code>RecurrenceAnalysis.trappingtime</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>trappingtime(x; lmin=2, theiler=0)
+</pre></div>
+
+
+<p>Calculate the trapping time (TT) of a recurrence matrix, ruling out vertical lines shorter than a minimum value.</p>
+<p><a id='RecurrenceAnalysis.maxvert' href='#RecurrenceAnalysis.maxvert'>#</a>
+<strong><code>RecurrenceAnalysis.maxvert</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>maxvert(x; theiler=0)
+</pre></div>
+
+
+<p>Calculate the longest vertical line (Vmax) of a recurrence matrix.</p>
+<p><a id='RecurrenceAnalysis.rqaentropy' href='#RecurrenceAnalysis.rqaentropy'>#</a>
+<strong><code>RecurrenceAnalysis.rqaentropy</code></strong> &mdash; <em>Function</em>.</p>
+<div class="codehilite"><pre><span></span>rqaentropy(x; lmin=2, theiler=0)
+</pre></div>
+
+
+<p>Calculate the Shannon entropy of diagonal lengths (ENT) of a recurrence matrix, ruling out the points within the Theiler window and diagonals shorter than a minimum value.</p>
 <hr />
 <p>Since most of the above functions can be fined tuned with keyword arguments, here is a table summarizing them that could be of use:</p>
 <table>
