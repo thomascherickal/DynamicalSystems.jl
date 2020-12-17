@@ -11,24 +11,26 @@ using Reexport
 
 @reexport using DelayEmbeddings
 @reexport using DynamicalSystemsBase
+@reexport using Entropies
 @reexport using ChaosTools
 @reexport using RecurrenceAnalysis
 
-display_update = true
-update_name = "update_v1.1.0"
+display_update = false
+update_name = "update_v1.4.0"
 
 if display_update
 if !isfile(joinpath(@__DIR__, update_name))
 printstyled(stdout,
 """
-\nUpdate message: DynamicalSystems v1.1
+\nUpdate message: DynamicalSystems v1.3
 
-A new package has joined DynamicalSystems: RecurrenceAnalysis !
+A method that estimates the predictability properties of a
+dynamical system has been implemented, following the work of:
 
-This new package offers tools to compute and analyze
-recurrences in your timeseries!
+Wernecke, H., Sándor, B. & Gros, C.
+*How to test for partially predictable chaos*.
 
-Check out the documentation for more!\n
+See the function `predictability`.\n
 """; color = :light_magenta)
 touch(joinpath(@__DIR__, update_name))
 end

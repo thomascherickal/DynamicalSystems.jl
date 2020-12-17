@@ -26,7 +26,7 @@ It is more efficient to re-initialize an integrator using `reinit!`
 than to create a new one.
 This can be very helpful when looping over initial conditions and/or parameter values.
 
-All high-level functions from `ChaosTools` have a set-up part that creates an integrator, and a low-level part that does the computation. The low level part is your friend! Use it! See the [Using `gali`](chaos/chaos_detection/#using-gali) page for an example as well as the section below.
+All high-level functions from `ChaosTools` have a set-up part that creates an integrator, and a low-level part that does the computation. The low level part is your friend! Use it! See the [Using GALI](@ref) page for an example as well as the section below.
 
 The `reinit!` call signature is the same for continuous and discrete systems.
 In the following, `state` is supposed to be a `D` dimensional vector (state of the dynamical system).
@@ -36,15 +36,15 @@ In the following, `state` is supposed to be a `D` dimensional vector (state of t
 2. `reinit!(integ, state, Q0::AbstractMatrix)` : to be used with the [`tangent_integrator`](@ref). This three argument version of `reinit!` is exported from `DynamicalSystemsBase`.
 
 ### Re-init of continuous tangent integrator
-Here we compute the [`lyapunovs`](@ref) for many different initial conditions.
+Here we compute the [`lyapunovspectrum`](@ref) for many different initial conditions.
 ```julia
 ds = Systems.lorenz()
 tinteg = tangent_integrator(ds, 2)
 ics = [rand(3) for i in 1:100]
 for ic in ics
   reinit!(tinteg, ic, orthonormal(3, 2))
-  λ = lyapunovs(tinteg, 1000, 0.1, 10.0)
-  # reminder: lyapunovs(tinteg, N, dt::Real, Ttr::Real = 0.0)
+  λ = lyapunovspectrum(tinteg, 1000, 0.1, 10.0)
+  # reminder: lyapunovspectrum(tinteg, N, dt::Real, Ttr::Real = 0.0)
 end
 ```
 
@@ -69,7 +69,7 @@ For the case of continuous systems you can add callbacks from the event handling
 
 In this example we use a simple `SavingCallback` to save the distance between the two states of a [`parallel_integrator`](@ref).
 
-```@example callback
+```@example MAIN
 using DynamicalSystems, DiffEqCallbacks
 using LinearAlgebra: norm
 
